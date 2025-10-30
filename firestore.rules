@@ -1,0 +1,257 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isSignedIn() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(ownerId) {
+      return isSignedIn() && request.auth.uid == ownerId;
+    }
+    
+    // Helper function to check user approval status
+    function isApproved() {
+      return isSignedIn() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.approved == true;
+    }
+    
+    // Helper function to check if user has specific permission
+    function hasPermission(permission) {
+      return isSignedIn() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.permissions[permission] == true;
+    }
+    
+    // Users collection - Private pattern with admin override
+    match /users/{userId} {
+      // Anyone can create their own user document during signup
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      
+      // Users can read their own profile, admins/approvers can read all
+      allow read: if isOwner(userId) || isAdmin() || hasPermission('approveUsers');
+      
+      // Users can update their own profile, admins/approvers can update all
+      allow update: if isOwner(userId) || isAdmin() || hasPermission('approveUsers');
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+    
+    // Properties collection - Public read, admin/moderator write
+    match /properties/{propertyId} {
+      // Anyone can read properties (public listing)
+      allow read: if true;
+      
+      // Admins and users with manageAds permission can create/update
+      allow create: if isAdmin() || hasPermission('manageAds');
+      allow update: if isAdmin() || hasPermission('manageAds');
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+      
+      // Geo history subcollection - admin/moderator can read/write for auditing
+      match /geoHistory/{historyId} {
+        allow read: if isAdmin() || hasPermission('manageAds');
+        allow create: if isAdmin() || hasPermission('manageAds');
+        allow update, delete: if isAdmin();
+      }
+    }
+    
+    // Property reviews - Signed-in users can create, public read
+    match /property_reviews/{reviewId} {
+      // Anyone can read reviews
+      allow read: if true;
+      
+      // Signed-in users can create reviews
+      allow create: if isSignedIn() && request.resource.data.authorId == request.auth.uid;
+      
+      // Users can update/delete their own reviews, admins can do all
+      allow update, delete: if isOwner(resource.data.authorId) || isAdmin();
+    }
+    
+    // Blog posts - Public read, admin write
+    match /blog_posts/{postId} {
+      // Anyone can read blog posts
+      allow read: if true;
+      
+      // Only admins can create/update/delete posts
+      allow create, update, delete: if isAdmin();
+      
+      // Blog feedback sub-collection
+      match /feedbacks/{feedbackId} {
+        // Anyone can read feedback
+        allow read: if true;
+        
+        // Signed-in users can create feedback
+        allow create: if isSignedIn();
+        
+        // Only admins can update/delete feedback
+        allow update, delete: if isAdmin();
+      }
+    }
+    
+    // Leads - Private to admin and users with permission
+    match /leads/{leadId} {
+      // Anyone can create leads (from contact forms)
+      allow create: if true;
+      
+      // Admins and users with manageAds permission can read/update
+      allow read: if isAdmin() || hasPermission('manageAds');
+      allow update: if isAdmin() || hasPermission('manageAds');
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Financing applications - Private to owner and admin
+    match /financing_applications/{appId} {
+      // Signed-in users can create applications
+      allow create: if isSignedIn();
+      
+      // User can read their own, admins and users with manageFinancing can read all
+      allow read: if isOwner(resource.data.userId) || isAdmin() || hasPermission('manageFinancing');
+      
+      // Admins and users with manageFinancing permission can update
+      allow update: if isAdmin() || hasPermission('manageFinancing');
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Schedule events - Private to agent, client, and admin
+    match /schedule_events/{eventId} {
+      // Signed-in users can create events
+      allow create: if isSignedIn();
+      
+      // Agent (by email), client (by email match), and admins can read
+      allow read: if isAdmin() || 
+                     (isSignedIn() && request.auth.email == resource.data.agentEmail) ||
+                     (isSignedIn() && request.auth.email == resource.data.clientEmail);
+      
+      // Agent (by email match) and admins can update
+      allow update: if isAdmin() || (isSignedIn() && request.auth.email == resource.data.agentEmail);
+      
+      // Agent and admins can delete
+      allow delete: if isAdmin() || (isSignedIn() && request.auth.email == resource.data.agentEmail);
+    }
+    
+    // Financial messages - Private to user and admin
+    match /financial_messages/{messageId} {
+      // Signed-in users can create
+      allow create: if isSignedIn();
+      
+      // Owner and admins/finance managers can read
+      allow read: if isAdmin() || 
+                     isOwner(resource.data.userId) || 
+                     hasPermission('manageFinancing');
+      
+      // Admins and finance managers can update
+      allow update: if isAdmin() || hasPermission('manageFinancing');
+      
+      // Only admins can delete
+      allow delete: if isAdmin();
+    }
+    
+    // Financial institution reports - Admin and finance managers only
+    match /financial_institution_reports/{reportId} {
+      allow read: if isAdmin() || hasPermission('manageFinancing');
+      allow create: if isAdmin() || hasPermission('manageFinancing');
+      allow update: if isAdmin() || hasPermission('manageFinancing');
+      allow delete: if isAdmin();
+    }
+    
+    // Settings - Admin only
+    match /settings/{settingId} {
+      // Public read for app settings
+      allow read: if true;
+      
+      // Only admins can write
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Property categories - Public read, admin write
+    match /property_categories/{categoryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Blog categories - Public read, admin write
+    match /blog_categories/{categoryId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Blog slugs - Used internally to ensure unique slugs, admin only
+    match /blog_slugs/{slug} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // WhatsApp automation templates - Admin only
+    match /wa_templates/{templateId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // WhatsApp automation jobs - Admin only
+    match /wa_jobs/{jobId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // WhatsApp campaigns - Admin only
+    match /whatsapp_campaigns/{campaignId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Newsletter subscriptions - Public create, admin manage
+    match /newsletter_subscribers/{subscriberId} {
+      allow read: if isAdmin();
+      allow create: if true; // Anyone can subscribe
+      allow update, delete: if isAdmin();
+    }
+    
+    // Analytics events - Public write, admin read
+    match /events/{eventId} {
+      allow read: if isAdmin();
+      allow create: if true; // Allow anonymous analytics
+    }
+    
+    // Payments - Private to owner and admin
+    match /payments/{paymentId} {
+      allow read: if isAdmin() || 
+                    (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn();
+      allow update, delete: if isAdmin();
+      
+      // Payment subscriptions subcollection
+      match /subscriptions/{subscriptionId} {
+        allow read: if isAdmin() || isOwner(paymentId);
+        allow write: if isAdmin();
+      }
+    }
+    
+    // User favorites subcollection
+    match /users/{userId}/favorites/{favoriteId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Financial institution reports - Admin and finance managers only
+    match /financialInstitutionReports/{reportId} {
+      allow read: if isAdmin() || hasPermission('manageFinancing');
+      allow create, update: if isAdmin() || hasPermission('manageFinancing');
+      allow delete: if isAdmin();
+    }
+    
+    // Default deny all for any other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
