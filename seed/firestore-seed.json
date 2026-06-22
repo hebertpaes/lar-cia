@@ -1,0 +1,237 @@
+{
+  "_meta": {
+    "project": "hebert-paes-platform",
+    "app": "LAR & CIA - Hebert Paes",
+    "description": "Seed de demonstração compatível com FIRESTORE_SCHEMA.md. Use com o Firebase Emulator ou um script de import (ver preview/README.md).",
+    "generatedAt": "2026-06-22"
+  },
+  "users": [
+    {
+      "id": "admin_user_001",
+      "name": "Hebert Paes",
+      "email": "ciencia@msn.com",
+      "avatarUrl": "https://i.pravatar.cc/150?u=ciencia@msn.com",
+      "isAdmin": true,
+      "approved": true,
+      "accessLevel": 3,
+      "permissions": {
+        "manageSites": true,
+        "managePanels": true,
+        "approveUsers": true,
+        "manageAds": true,
+        "manageFinancing": true
+      },
+      "preferredCategory": "luxo",
+      "phoneNumber": "+5565999887766",
+      "whatsappOptIn": true,
+      "creditAnalysisConsent": true,
+      "dataSharingConsent": true
+    }
+  ],
+  "categories": [
+    { "id": "casa", "name": "Casas", "icon": "home" },
+    { "id": "apartamento", "name": "Apartamentos", "icon": "apartment" },
+    { "id": "praia", "name": "Beira-mar", "icon": "beach" },
+    { "id": "piscina", "name": "Com piscina", "icon": "pool" },
+    { "id": "luxo", "name": "Alto padrão", "icon": "diamond" },
+    { "id": "condominio", "name": "Condomínio", "icon": "gate" },
+    { "id": "rural", "name": "Rural", "icon": "tree" },
+    { "id": "florais_da_mata", "name": "Florais da Mata", "icon": "leaf" },
+    { "id": "sitios_chacaras", "name": "Sítios e chácaras", "icon": "barn" },
+    { "id": "cuiaba", "name": "Cuiabá", "icon": "city" },
+    { "id": "fazenda", "name": "Fazendas", "icon": "cow" },
+    { "id": "exotico", "name": "Exóticos", "icon": "palm" }
+  ],
+  "properties": [
+    {
+      "id": "prop_001",
+      "title": "Casa térrea em condomínio fechado",
+      "location": "Florais da Mata, Várzea Grande - MT",
+      "price": 1290000,
+      "images": [
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 4, "bathrooms": 5, "garages": 4, "suites": 3,
+      "category": "florais_da_mata", "rentalType": "sale", "area": 380,
+      "description": "Casa de alto padrão em condomínio com segurança 24h, área gourmet, piscina aquecida e acabamento premium. Próximo a escolas e ao shopping.",
+      "yearBuilt": 2021, "condoFee": 980,
+      "proximities": ["Shopping", "Escolas", "Parque"],
+      "latitude": -15.6571, "longitude": -56.1325,
+      "isActive": true, "isVerified": true, "verificationScore": 0.96, "verifiedBy": "manual",
+      "createdAt": 1716163200000, "updatedAt": 1718841600000
+    },
+    {
+      "id": "prop_002",
+      "title": "Apartamento alto padrão com vista para o Rio Cuiabá",
+      "location": "Jardim Aclimação, Cuiabá - MT",
+      "price": 890000,
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 3, "bathrooms": 3, "garages": 2, "suites": 2,
+      "category": "apartamento", "rentalType": "sale", "area": 142,
+      "description": "Apartamento com 3 suítes, varanda gourmet integrada e lazer completo no condomínio. Andar alto, sol da manhã.",
+      "yearBuilt": 2020, "condoFee": 720,
+      "proximities": ["Orla", "Restaurantes", "Academia"],
+      "latitude": -15.5989, "longitude": -56.0949,
+      "isActive": true, "isVerified": true, "verificationScore": 0.9, "verifiedBy": "ai",
+      "createdAt": 1715731200000, "updatedAt": 1718668800000
+    },
+    {
+      "id": "prop_003",
+      "title": "Cobertura duplex de luxo com piscina privativa",
+      "location": "Bosque da Saúde, Cuiabá - MT",
+      "price": 2450000,
+      "images": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 4, "bathrooms": 6, "garages": 4, "suites": 4,
+      "category": "luxo", "rentalType": "sale", "area": 410,
+      "description": "Cobertura duplex com piscina privativa, espaço gourmet, home theater e acabamentos importados. Vista panorâmica da cidade.",
+      "yearBuilt": 2022, "condoFee": 1450,
+      "proximities": ["Centro", "Hospital", "Shopping"],
+      "latitude": -15.5783, "longitude": -56.0892,
+      "isActive": true, "isVerified": true, "verificationScore": 0.98, "verifiedBy": "manual",
+      "createdAt": 1714003200000, "updatedAt": 1718496000000
+    },
+    {
+      "id": "prop_004",
+      "title": "Apartamento 2 quartos para alugar mobiliado",
+      "location": "Goiabeiras, Cuiabá - MT",
+      "price": 2800,
+      "images": [
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 2, "bathrooms": 2, "garages": 1, "suites": 1,
+      "category": "apartamento", "rentalType": "monthly", "area": 68,
+      "description": "Totalmente mobiliado e decorado, pronto para morar. Condomínio com piscina, academia e portaria 24h.",
+      "yearBuilt": 2019, "condoFee": 540,
+      "proximities": ["UFMT", "Shopping Goiabeiras", "Av. Fernando Corrêa"],
+      "latitude": -15.6097, "longitude": -56.0674,
+      "isActive": true, "isVerified": true, "verificationScore": 0.85, "verifiedBy": "ai",
+      "createdAt": 1717113600000, "updatedAt": 1718841600000
+    },
+    {
+      "id": "prop_005",
+      "title": "Chácara com lago e pomar a 20 min de Cuiabá",
+      "location": "Zona Rural, Santo Antônio de Leverger - MT",
+      "price": 750000,
+      "images": [
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 3, "bathrooms": 2, "garages": 6, "suites": 1,
+      "category": "sitios_chacaras", "rentalType": "sale", "area": 5000,
+      "description": "Chácara com sede de 3 quartos, lago para pesca, pomar e área de churrasqueira. Ideal para descanso ou renda com eventos.",
+      "yearBuilt": 2015, "condoFee": 0,
+      "proximities": ["Rio Cuiabá", "Balneário", "Estrada asfaltada"],
+      "latitude": -15.8669, "longitude": -56.0764,
+      "isActive": true, "isVerified": false, "verificationScore": 0.6, "verifiedBy": "",
+      "createdAt": 1713398400000, "updatedAt": 1718323200000
+    },
+    {
+      "id": "prop_006",
+      "title": "Fazenda produtiva 1.200 hectares com pecuária",
+      "location": "Rosário Oeste - MT",
+      "price": 18500000,
+      "images": [
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1444858345149-8ff5f0fa7a3a?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 5, "bathrooms": 4, "garages": 10, "suites": 2,
+      "category": "fazenda", "rentalType": "sale", "area": 12000000,
+      "description": "Fazenda dupla aptidão com 1.200 ha, pastagens formadas, curral, sede e dois funcionários. Documentação regular e georreferenciada.",
+      "yearBuilt": 2010, "condoFee": 0,
+      "proximities": ["BR-364", "Cidade 35km", "Energia trifásica"],
+      "latitude": -14.8333, "longitude": -56.4167,
+      "isActive": true, "isVerified": true, "verificationScore": 0.93, "verifiedBy": "manual",
+      "createdAt": 1711843200000, "updatedAt": 1718150400000
+    },
+    {
+      "id": "prop_007",
+      "title": "Casa de campo com piscina em condomínio de chácaras",
+      "location": "Acorizal - MT",
+      "price": 3500,
+      "images": [
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 3, "bathrooms": 3, "garages": 4, "suites": 1,
+      "category": "piscina", "rentalType": "daily", "area": 800,
+      "description": "Casa de temporada com piscina, churrasqueira, Wi-Fi e capacidade para 12 pessoas. Diária com café incluso.",
+      "yearBuilt": 2018, "condoFee": 0,
+      "proximities": ["Cachoeira", "Trilhas", "Pesque-pague"],
+      "latitude": -15.2, "longitude": -56.3667,
+      "isActive": true, "isVerified": true, "verificationScore": 0.88, "verifiedBy": "ai",
+      "createdAt": 1716508800000, "updatedAt": 1718755200000
+    },
+    {
+      "id": "prop_008",
+      "title": "Sobrado moderno em condomínio com lazer completo",
+      "location": "Ribeirão do Lipa, Cuiabá - MT",
+      "price": 1150000,
+      "images": [
+        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "bedrooms": 4, "bathrooms": 4, "garages": 3, "suites": 2,
+      "category": "condominio", "rentalType": "sale", "area": 260,
+      "description": "Sobrado com arquitetura contemporânea, pé-direito duplo, automação residencial e energia solar. Condomínio com clube.",
+      "yearBuilt": 2023, "condoFee": 650,
+      "proximities": ["UFMT", "Shopping", "Saída para Chapada"],
+      "latitude": -15.5556, "longitude": -56.0722,
+      "isActive": true, "isVerified": true, "verificationScore": 0.94, "verifiedBy": "manual",
+      "createdAt": 1717459200000, "updatedAt": 1718841600000
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": "post_001",
+      "slug": "financiamento-imovel-cuiaba-2026",
+      "title": "Como financiar seu imóvel em Cuiabá em 2026: guia completo",
+      "subtitle": "Taxas, bancos e documentos sem complicação",
+      "excerpt": "Entenda as linhas de crédito, simule parcelas e descubra como aprovar seu financiamento mais rápido na região metropolitana de Cuiabá.",
+      "body": "O financiamento imobiliário continua sendo o principal caminho para a casa própria...",
+      "tags": ["financiamento", "investimento", "cuiaba"],
+      "heroImageUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+      "authorName": "Hebert Paes",
+      "isFeatured": true, "priority": 10,
+      "publishedAt": 1718323200000, "updatedAt": 1718323200000
+    },
+    {
+      "id": "post_002",
+      "slug": "florais-da-mata-vale-a-pena",
+      "title": "Morar no Florais da Mata vale a pena? Veja prós e contras",
+      "subtitle": "O bairro planejado de Várzea Grande sob análise",
+      "excerpt": "Segurança, valorização e infraestrutura: analisamos se o Florais da Mata é o melhor investimento para a sua família em 2026.",
+      "body": "O Florais da Mata se consolidou como um dos endereços mais desejados...",
+      "tags": ["bairros", "investimento", "florais_da_mata"],
+      "heroImageUrl": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+      "authorName": "Hebert Paes",
+      "isFeatured": true, "priority": 8,
+      "publishedAt": 1717718400000, "updatedAt": 1717718400000
+    },
+    {
+      "id": "post_003",
+      "slug": "investir-em-fazendas-mato-grosso",
+      "title": "Investir em fazendas em Mato Grosso: rentabilidade e cuidados",
+      "subtitle": "O agro como ativo de longo prazo",
+      "excerpt": "Mato Grosso lidera a produção agropecuária do país. Veja como avaliar uma fazenda e os documentos essenciais antes de comprar.",
+      "body": "A aquisição de terras produtivas exige análise de georreferenciamento...",
+      "tags": ["agro", "fazenda", "investimento"],
+      "heroImageUrl": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80",
+      "authorName": "Hebert Paes",
+      "isFeatured": false, "priority": 5,
+      "publishedAt": 1716508800000, "updatedAt": 1716508800000
+    }
+  ],
+  "property_reviews": [
+    { "id": "rev_001", "propertyId": "prop_003", "authorName": "Marina T.", "rating": 5, "comment": "Atendimento impecável do Hebert. Cobertura ainda melhor pessoalmente!", "createdAt": 1718150400000 },
+    { "id": "rev_002", "propertyId": "prop_001", "authorName": "Carlos E.", "rating": 5, "comment": "Processo de compra muito transparente e rápido.", "createdAt": 1717977600000 },
+    { "id": "rev_003", "propertyId": "prop_002", "authorName": "Júlia R.", "rating": 4, "comment": "Vista incrível, recomendo visitar no fim da tarde.", "createdAt": 1717804800000 }
+  ]
+}
