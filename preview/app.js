@@ -20,6 +20,13 @@ const CATEGORY_META = {
 };
 const PURPOSE_LABEL = { sale: "Venda", monthly: "Aluguel", daily: "Temporada", seasonal: "Temporada" };
 
+let initialFavorites = [];
+try {
+  initialFavorites = JSON.parse(localStorage.getItem("lc_favs") || "[]");
+} catch (e) {
+  console.warn("Falha ao analisar favoritos do localStorage, usando array vazio.", e);
+}
+
 const state = {
   properties: [],
   blog: [],
@@ -28,7 +35,7 @@ const state = {
   type: "",
   location: "",
   sort: "relevance",
-  favorites: new Set(JSON.parse(localStorage.getItem("lc_favs") || "[]")),
+  favorites: new Set(Array.isArray(initialFavorites) ? initialFavorites : []),
 };
 
 const $ = (s) => document.querySelector(s);
@@ -105,7 +112,7 @@ function getFiltered() {
   if (state.location) {
     const q = state.location.toLowerCase();
     list = list.filter(
-      (p) => p.location.toLowerCase().includes(q) || p.title.toLowerCase().includes(q)
+      (p) => (p.location || "").toLowerCase().includes(q) || (p.title || "").toLowerCase().includes(q)
     );
   }
   switch (state.sort) {
@@ -185,13 +192,16 @@ function openDetail(id) {
   const p = state.properties.find((x) => x.id === id);
   if (!p) return;
   const imgs = p.images || [];
-  const gallery = `<div class="modal-gallery">
-      <img class="g-main" src="${imgs[0] || ""}" alt="${p.title}" onerror="this.style.display='none'">
-      <div class="g-side">
-        <img src="${imgs[1] || imgs[0] || ""}" alt="" onerror="this.style.display='none'">
-        <img src="${imgs[0] || ""}" alt="" onerror="this.style.display='none'">
-      </div>
-    </div>`;
+  const showSide = imgs.length > 1;
+  const gallery = imgs.length
+    ? `<div class="modal-gallery"${showSide ? "" : ' style="grid-template-columns:1fr"'}>
+      <img class="g-main" src="${imgs[0]}" alt="${p.title}" onerror="this.style.display='none'">
+      ${showSide ? `<div class="g-side">
+        <img src="${imgs[1]}" alt="" onerror="this.style.display='none'">
+        <img src="${imgs[2] || imgs[1]}" alt="" onerror="this.style.display='none'">
+      </div>` : ""}
+    </div>`
+    : "";
   const msg = `Olá Hebert! Tenho interesse no imóvel "${p.title}" (${p.location}) — ${priceLabel(p).replace(/<[^>]+>/g, "")}. Pode me passar mais informações?`;
   $("#modalBody").innerHTML = `
     ${gallery}
@@ -211,11 +221,24 @@ function openDetail(id) {
       ${p.proximities?.length ? `<div class="modal-prox">${p.proximities.map((x) => `<span>📌 ${x}</span>`).join("")}</div>` : ""}
       <div class="modal-actions">
         <a class="btn-primary" href="${waLink(msg)}" target="_blank" rel="noopener">💬 Tenho interesse</a>
-        <button class="btn-outline" onclick="window.location.href='#financiamento';document.getElementById('detailModal').hidden=true;document.getElementById('finPrice').value=${p.price};document.getElementById('financingForm').dispatchEvent(new Event('input'));">Simular financiamento</button>
+        <button class="btn-outline btn-simulate-fin" type="button">Simular financiamento</button>
       </div>
     </div>`;
   $("#detailModal").hidden = false;
   document.body.style.overflow = "hidden";
+
+  const simulateBtn = $("#modalBody .btn-simulate-fin");
+  if (simulateBtn) {
+    simulateBtn.addEventListener("click", () => {
+      closeModal();
+      window.location.href = "#financiamento";
+      const finPriceInput = $("#finPrice");
+      if (finPriceInput) {
+        finPriceInput.value = p.price || 0;
+        $("#financingForm").dispatchEvent(new Event("input"));
+      }
+    });
+  }
 }
 function closeModal() {
   $("#detailModal").hidden = true;
@@ -279,22 +302,30 @@ function initSearch() {
   });
 }
 function initLeadForm() {
-  $("#leadForm").addEventListener("submit", (e) => {
+  const form = $("#leadForm");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const els = {
+      name: $("#leadName"), email: $("#leadEmail"), phone: $("#leadPhone"),
+      role: $("#leadRole"), intent: $("#leadIntent"), financing: $("#leadFinancing"),
+      note: $("#leadNote"),
+    };
+    if (Object.values(els).some((el) => !el)) return;
     // Em produção: firestore.collection('leads').add({...}) — ver FIRESTORE_SCHEMA.md §5
     const lead = {
-      name: $("#leadName").value,
-      email: $("#leadEmail").value,
-      phone: $("#leadPhone").value,
-      role: $("#leadRole").value,
-      intent: $("#leadIntent").value,
-      wantsFinancing: $("#leadFinancing").checked,
+      name: els.name.value,
+      email: els.email.value,
+      phone: els.phone.value,
+      role: els.role.value,
+      intent: els.intent.value,
+      wantsFinancing: els.financing.checked,
       source: "home",
       status: "novo",
       createdAt: Date.now(),
     };
     console.log("Novo lead (demo):", lead);
-    $("#leadNote").hidden = false;
+    els.note.hidden = false;
     e.target.reset();
   });
 }

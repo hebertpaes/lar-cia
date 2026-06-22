@@ -119,20 +119,20 @@
       </div>
       <form class="financing-card" id="financingForm">
         <div class="field">
-          <label>Valor do imóvel (R$)</label>
+          <label for="finPrice">Valor do imóvel (R$)</label>
           <input type="number" id="finPrice" value="500000" min="50000" step="1000" />
         </div>
         <div class="field">
-          <label>Entrada (R$)</label>
+          <label for="finDown">Entrada (R$)</label>
           <input type="number" id="finDown" value="100000" min="0" step="1000" />
         </div>
         <div class="field-row">
           <div class="field">
-            <label>Prazo (meses)</label>
+            <label for="finMonths">Prazo (meses)</label>
             <input type="number" id="finMonths" value="360" min="12" max="420" step="12" />
           </div>
           <div class="field">
-            <label>Juros (% a.a.)</label>
+            <label for="finRate">Juros (% a.a.)</label>
             <input type="number" id="finRate" value="10.5" min="1" max="20" step="0.1" />
           </div>
         </div>
@@ -170,14 +170,14 @@
         </ul>
       </div>
       <form class="contact-card" id="leadForm">
-        <div class="field"><label>Nome</label><input type="text" id="leadName" required /></div>
+        <div class="field"><label for="leadName">Nome</label><input type="text" id="leadName" required /></div>
         <div class="field-row">
-          <div class="field"><label>E-mail</label><input type="email" id="leadEmail" required /></div>
-          <div class="field"><label>Telefone</label><input type="tel" id="leadPhone" placeholder="(65) 9...." required /></div>
+          <div class="field"><label for="leadEmail">E-mail</label><input type="email" id="leadEmail" required /></div>
+          <div class="field"><label for="leadPhone">Telefone</label><input type="tel" id="leadPhone" placeholder="(65) 9...." required /></div>
         </div>
         <div class="field-row">
           <div class="field">
-            <label>Eu sou</label>
+            <label for="leadRole">Eu sou</label>
             <select id="leadRole">
               <option value="cliente">Cliente</option>
               <option value="anunciante">Anunciante</option>
@@ -188,7 +188,7 @@
             </select>
           </div>
           <div class="field">
-            <label>Quero</label>
+            <label for="leadIntent">Quero</label>
             <select id="leadIntent">
               <option value="comprar">Comprar</option>
               <option value="alugar">Alugar</option>
