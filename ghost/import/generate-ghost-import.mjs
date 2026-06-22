@@ -30,6 +30,10 @@ const mobiledoc = (html) => JSON.stringify({
   version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]],
 });
 
+// Datas fixas → geração determinística (o CI compara o arquivo gerado com o commitado).
+const BUILD_MS = Date.UTC(2026, 0, 1);
+const BUILD_ISO = iso(BUILD_MS);
+
 // ---- registro de tags ------------------------------------------------
 const tags = [];
 const tagId = new Map();
@@ -119,7 +123,7 @@ const financiamentoHtml = `
   <a class="btn-primary financing-cta" id="finWhats" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
 </form>
 <p class="bank-chips"><span>Caixa</span> <span>Banco do Brasil</span> <span>Itaú</span> <span>Bradesco</span> <span>Santander</span></p>`;
-addPost({ title: "Financiamento", slug: "financiamento", type: "page", html: financiamentoHtml, published_at: iso(Date.now()) });
+addPost({ title: "Financiamento", slug: "financiamento", type: "page", html: financiamentoHtml, published_at: BUILD_ISO });
 
 const contatoHtml = `
 <p>Quer comprar, vender, alugar ou anunciar? Fale com o Hebert Paes.</p>
@@ -130,12 +134,12 @@ const contatoHtml = `
   <li>📍 Cuiabá / Várzea Grande - MT</li>
 </ul>
 <p>Assine a newsletter no rodapé para receber novos imóveis e oportunidades. (Membros/assinaturas são nativos do Ghost — configure tiers com Stripe no Admin.)</p>`;
-addPost({ title: "Contato", slug: "contato", type: "page", html: contatoHtml, published_at: iso(Date.now()) });
+addPost({ title: "Contato", slug: "contato", type: "page", html: contatoHtml, published_at: BUILD_ISO });
 
 // ---- arquivo final ---------------------------------------------------
 const out = {
   db: [{
-    meta: { exported_on: Date.now(), version: "5.0.0" },
+    meta: { exported_on: BUILD_MS, version: "5.0.0" },
     data: { posts, tags, posts_tags },
   }],
 };

@@ -2,7 +2,7 @@
   "db": [
     {
       "meta": {
-        "exported_on": 1782143201099,
+        "exported_on": 1767225600000,
         "version": "5.0.0"
       },
       "data": {
@@ -171,9 +171,9 @@
             "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"\\n<p>Estimativa rápida pela Tabela Price. Depois, fale com o Hebert para uma análise personalizada com os melhores bancos.</p>\\n<form id=\\\"financingForm\\\" class=\\\"financing-card\\\" onsubmit=\\\"return false\\\">\\n  <div class=\\\"field\\\"><label for=\\\"finPrice\\\">Valor do imóvel (R$)</label><input type=\\\"number\\\" id=\\\"finPrice\\\" value=\\\"500000\\\" min=\\\"50000\\\" step=\\\"1000\\\"></div>\\n  <div class=\\\"field\\\"><label for=\\\"finDown\\\">Entrada (R$)</label><input type=\\\"number\\\" id=\\\"finDown\\\" value=\\\"100000\\\" min=\\\"0\\\" step=\\\"1000\\\"></div>\\n  <div class=\\\"field-row\\\">\\n    <div class=\\\"field\\\"><label for=\\\"finMonths\\\">Prazo (meses)</label><input type=\\\"number\\\" id=\\\"finMonths\\\" value=\\\"360\\\" min=\\\"12\\\" max=\\\"420\\\" step=\\\"12\\\"></div>\\n    <div class=\\\"field\\\"><label for=\\\"finRate\\\">Juros (% a.a.)</label><input type=\\\"number\\\" id=\\\"finRate\\\" value=\\\"10.5\\\" min=\\\"1\\\" max=\\\"20\\\" step=\\\"0.1\\\"></div>\\n  </div>\\n  <div class=\\\"financing-result\\\"><span>Parcela estimada</span><strong id=\\\"finResult\\\">—</strong></div>\\n  <a class=\\\"btn-primary financing-cta\\\" id=\\\"finWhats\\\" href=\\\"#\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">Falar no WhatsApp</a>\\n</form>\\n<p class=\\\"bank-chips\\\"><span>Caixa</span> <span>Banco do Brasil</span> <span>Itaú</span> <span>Bradesco</span> <span>Santander</span></p>\"}]]}",
             "feature_image": null,
             "custom_excerpt": null,
-            "created_at": "2026-06-22T15:46:41.000Z",
-            "updated_at": "2026-06-22T15:46:41.000Z",
-            "published_at": "2026-06-22T15:46:41.000Z"
+            "created_at": "2026-01-01T00:00:00.000Z",
+            "updated_at": "2026-01-01T00:00:00.000Z",
+            "published_at": "2026-01-01T00:00:00.000Z"
           },
           {
             "id": 13,
@@ -185,9 +185,9 @@
             "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"\\n<p>Quer comprar, vender, alugar ou anunciar? Fale com o Hebert Paes.</p>\\n<ul>\\n  <li>📞 <a href=\\\"tel:+5565999887766\\\">(65) 99988-7766</a></li>\\n  <li>💬 <a href=\\\"https://wa.me/5565999887766\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">WhatsApp direto</a></li>\\n  <li>✉️ <a href=\\\"mailto:ciencia@msn.com\\\">ciencia@msn.com</a></li>\\n  <li>📍 Cuiabá / Várzea Grande - MT</li>\\n</ul>\\n<p>Assine a newsletter no rodapé para receber novos imóveis e oportunidades. (Membros/assinaturas são nativos do Ghost — configure tiers com Stripe no Admin.)</p>\"}]]}",
             "feature_image": null,
             "custom_excerpt": null,
-            "created_at": "2026-06-22T15:46:41.000Z",
-            "updated_at": "2026-06-22T15:46:41.000Z",
-            "published_at": "2026-06-22T15:46:41.000Z"
+            "created_at": "2026-01-01T00:00:00.000Z",
+            "updated_at": "2026-01-01T00:00:00.000Z",
+            "published_at": "2026-01-01T00:00:00.000Z"
           }
         ],
         "tags": [
