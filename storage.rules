@@ -1,0 +1,57 @@
+rules_version = '2';
+
+// Regras de segurança do Cloud Storage para o projeto hebert-paes-platform.
+// Alinhadas ao modelo de permissões de firestore.rules (isAdmin / permissions.*).
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function userDoc() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data;
+    }
+    function isAdmin() {
+      return isSignedIn() && userDoc().isAdmin == true;
+    }
+    function hasPermission(perm) {
+      return isSignedIn() && userDoc().permissions[perm] == true;
+    }
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    function maxSizeMb(mb) {
+      return request.resource.size < mb * 1024 * 1024;
+    }
+
+    // Imagens de imóveis — leitura pública, escrita admin/manageAds
+    match /properties/{propertyId}/{fileName=**} {
+      allow read: if true;
+      allow write: if (isAdmin() || hasPermission('manageAds')) && isImage() && maxSizeMb(10);
+    }
+
+    // Imagens do blog — leitura pública, escrita admin/manageSites
+    match /blog/{postId}/{fileName=**} {
+      allow read: if true;
+      allow write: if (isAdmin() || hasPermission('manageSites')) && isImage() && maxSizeMb(10);
+    }
+
+    // Avatares — leitura pública, escrita do próprio dono
+    match /users/{userId}/avatar/{fileName=**} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == userId && isImage() && maxSizeMb(5);
+    }
+
+    // Documentos de financiamento — privados (dono + admin/manageFinancing)
+    match /financing/{userId}/{fileName=**} {
+      allow read: if isSignedIn() &&
+        (request.auth.uid == userId || isAdmin() || hasPermission('manageFinancing'));
+      allow write: if isSignedIn() && request.auth.uid == userId && maxSizeMb(20);
+    }
+
+    // Negação padrão para qualquer outro caminho
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

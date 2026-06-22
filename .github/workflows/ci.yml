@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Valida JSON/config e o preview HTML/JS — roda sempre.
+  validate:
+    name: Validar config e preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validar arquivos JSON
+        run: |
+          for f in firebase.json firestore.indexes.json seed/firestore-seed.json; do
+            echo "Validando $f"
+            python3 -c "import json,sys; json.load(open('$f'))"
+          done
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Checar sintaxe do preview
+        run: node --check preview/app.js
+
+  # Análise estática + testes + build web do app Flutter.
+  # Só roda quando o código-fonte (lib/) estiver presente no repositório.
+  flutter:
+    name: Flutter (analyze · test · build web)
+    runs-on: ubuntu-latest
+    if: ${{ hashFiles('lib/**/*.dart') != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test --no-pub
+      - run: flutter build web --release
+
+      - name: Publicar artefato do build web
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web
+          retention-days: 7
+
+  # Valida que a imagem Docker do front compila (sem publicar).
+  docker-build:
+    name: Build da imagem Docker (web)
+    runs-on: ubuntu-latest
+    if: ${{ hashFiles('lib/**/*.dart') != '' }}
+    needs: flutter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: build/web
+      - uses: docker/setup-buildx-action@v3
+      - name: Build (sem push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.web
+          push: false
+          tags: lar-cia-web:ci

@@ -1,0 +1,69 @@
+name: Deploy (Firebase)
+
+# Deploy manual e intencional (evita deploys externos acidentais).
+# Pré-requisitos (Settings → Secrets and variables → Actions):
+#   FIREBASE_SERVICE_ACCOUNT  -> JSON da conta de serviço com permissão de deploy
+#   (opcional) FIREBASE_TOKEN -> alternativa via CI token do firebase-tools
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: O que publicar
+        type: choice
+        required: true
+        default: rules
+        options:
+          - rules        # firestore:rules, firestore:indexes, storage
+          - hosting      # build web + firebase hosting
+          - all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.target }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar firebase-tools
+        run: npm i -g firebase-tools
+
+      - name: Autenticar (service account)
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo "::error::Secret FIREBASE_SERVICE_ACCOUNT ausente."; exit 1
+          fi
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "$RUNNER_TEMP/sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+
+      - name: Deploy de regras e índices
+        if: ${{ inputs.target == 'rules' || inputs.target == 'all' }}
+        run: firebase deploy --only firestore:rules,firestore:indexes,storage --project hebert-paes-platform --non-interactive
+
+      - name: Build Flutter Web
+        if: ${{ inputs.target == 'hosting' || inputs.target == 'all' }}
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Compilar web
+        if: ${{ inputs.target == 'hosting' || inputs.target == 'all' }}
+        run: |
+          flutter pub get
+          flutter build web --release
+
+      - name: Deploy do Hosting
+        if: ${{ inputs.target == 'hosting' || inputs.target == 'all' }}
+        run: firebase deploy --only hosting --project hebert-paes-platform --non-interactive

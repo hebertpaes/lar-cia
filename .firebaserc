@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "hebert-paes-platform",
+    "production": "hebert-paes-platform"
+  }
+}
