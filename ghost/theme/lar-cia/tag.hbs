@@ -1,0 +1,34 @@
+{{!< default}}
+
+{{#tag}}
+<section class="categories">
+    <div class="container">
+        <div class="category-scroll" role="tablist" aria-label="Categorias">
+            <a class="cat-chip" href="{{@site.url}}/"><span class="cat-emoji">✨</span>Todos</a>
+            {{#get "tags" filter="visibility:public" limit="20" order="name asc"}}
+                {{#foreach tags}}
+                    <a class="cat-chip {{#match ../../id id}}active{{/match}}" href="{{url}}"><span class="cat-emoji">🏠</span>{{name}}</a>
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </div>
+</section>
+
+<section class="tag-head container">
+    <h1>{{name}}</h1>
+    {{#if description}}<p class="section-sub">{{description}}</p>{{/if}}
+</section>
+{{/tag}}
+
+<div class="container toolbar">
+    <span class="result-count">{{pagination.total}} imóveis</span>
+</div>
+
+<main class="container">
+    <div class="property-grid">
+        {{#foreach posts}}
+            {{> property-card}}
+        {{/foreach}}
+    </div>
+    {{pagination}}
+</main>

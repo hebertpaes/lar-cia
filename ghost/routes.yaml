@@ -1,0 +1,23 @@
+# Roteamento dinâmico do Ghost para o portal LAR & CIA.
+# Copie para o conteúdo do Ghost: content/settings/routes.yaml
+# (ou Admin → Settings → Labs → Routes → upload).
+
+routes:
+  # Páginas (financiamento, contato) usam o slug nativo: /financiamento/, /contato/
+
+collections:
+  # Home = vitrine de imóveis (posts marcados com a tag interna #imovel)
+  /:
+    permalink: /imovel/{slug}/
+    filter: 'tag:hash-imovel'
+    template: index
+
+  # Blog separado
+  /blog/:
+    permalink: /blog/{slug}/
+    filter: 'tag:hash-post'
+    template: blog
+
+taxonomies:
+  tag: /categoria/{slug}/
+  author: /autor/{slug}/
