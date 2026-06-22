@@ -4,15 +4,14 @@
 
 ## Tipo
 
-- [ ] Feature
-- [ ] Correção
-- [ ] Configuração / infra
+- [ ] Tema (Handlebars / CSS / JS)
+- [ ] Conteúdo / import (seed → ghost-import.json)
+- [ ] Configuração / infra (routes, docker, CI)
 - [ ] Documentação
 
 ## Checklist
 
-- [ ] `flutter analyze` sem erros (quando houver `lib/`)
-- [ ] `flutter test` passando
-- [ ] Regras do Firestore/Storage revisadas, se aplicável
-- [ ] Índices adicionados ao `firestore.indexes.json` para novas queries compostas
-- [ ] Sem segredos commitados (chaves, service accounts, `.env`)
+- [ ] `npx gscan ghost/theme/lar-cia` sem erros
+- [ ] `ghost-import.json` regerado quando o `seed/seed.json` mudou
+- [ ] Rotas/coleções (`routes.yaml`) revisadas, se aplicável
+- [ ] Sem segredos commitados (chaves, `.env`, Stripe)

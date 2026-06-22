@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Gera ghost/import/ghost-import.json a partir de seed/firestore-seed.json.
+/* Gera ghost/import/ghost-import.json a partir de seed/seed.json.
    Importe em: Ghost Admin → Settings → Labs → Import content.
    Modela imóveis como POSTS (tag interna #imovel) e o blog como POSTS (#post),
    com categorias e finalidade como TAGS públicas. */
@@ -9,7 +9,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const db = JSON.parse(readFileSync(resolve(__dirname, "../../seed/firestore-seed.json"), "utf8"));
+const db = JSON.parse(readFileSync(resolve(__dirname, "../../seed/seed.json"), "utf8"));
 const outPath = resolve(__dirname, "ghost-import.json");
 
 const CAT = {

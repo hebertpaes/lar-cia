@@ -14,71 +14,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Valida JSON/config e o preview HTML/JS — roda sempre.
-  validate:
-    name: Validar config e preview
+  ghost:
+    name: Tema Ghost + conteúdo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Validar arquivos JSON
-        run: |
-          for f in firebase.json firestore.indexes.json seed/firestore-seed.json; do
-            echo "Validando $f"
-            python3 -c "import json,sys; json.load(open('$f'))"
-          done
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Checar sintaxe do preview
-        run: node --check preview/app.js
+      - name: Sintaxe JS
+        run: node --check ghost/import/generate-ghost-import.mjs && node --check ghost/theme/lar-cia/assets/js/main.js
 
-  # Análise estática + testes + build web do app Flutter.
-  # Só roda quando o código-fonte (lib/) estiver presente no repositório.
-  flutter:
-    name: Flutter (analyze · test · build web)
-    runs-on: ubuntu-latest
-    if: ${{ hashFiles('lib/**/*.dart') != '' }}
-    steps:
-      - uses: actions/checkout@v4
+      - name: Validar JSON (seed + import)
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('seed/seed.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('ghost/import/ghost-import.json','utf8'))"
 
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
+      - name: Import em dia com o seed (sem drift)
+        run: |
+          node ghost/import/generate-ghost-import.mjs
+          git diff --exit-code ghost/import/ghost-import.json
 
-      - run: flutter --version
-      - run: flutter pub get
-      - run: flutter analyze
-      - run: flutter test --no-pub
-      - run: flutter build web --release
-
-      - name: Publicar artefato do build web
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-build
-          path: build/web
-          retention-days: 7
-
-  # Valida que a imagem Docker do front compila (sem publicar).
-  docker-build:
-    name: Build da imagem Docker (web)
-    runs-on: ubuntu-latest
-    if: ${{ hashFiles('lib/**/*.dart') != '' }}
-    needs: flutter
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: web-build
-          path: build/web
-      - uses: docker/setup-buildx-action@v3
-      - name: Build (sem push)
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile.web
-          push: false
-          tags: lar-cia-web:ci
+      - name: Validar tema com gscan
+        run: |
+          npm install gscan --no-save --no-audit --no-fund
+          node -e '
+            const gscan = require("gscan");
+            gscan.check("ghost/theme/lar-cia").then((theme) => {
+              const r = gscan.format(theme, { onlyFatalErrors: false });
+              const errors = (r.results.error || []).length;
+              const warnings = (r.results.warning || []).length;
+              console.log("gscan -> erros:", errors, "| avisos:", warnings);
+              (r.results.error || []).forEach((e) => console.log("  ✗", (e.fatal ? "[fatal] " : "") + (e.rule || e.code)));
+              if (errors > 0) process.exit(1);
+            }).catch((e) => { console.error(e); process.exit(1); });
+          '

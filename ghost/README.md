@@ -64,7 +64,7 @@ podem ser públicos ou exclusivos para membros pagantes.
 
 ## Regenerar o import
 
-Fonte única: `seed/firestore-seed.json`. Após editá-lo:
+Fonte única: `seed/seed.json`. Após editá-lo:
 ```bash
 node import/generate-ghost-import.mjs   # reescreve import/ghost-import.json
 ```
