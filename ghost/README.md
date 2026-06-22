@@ -46,15 +46,30 @@ Depois, no Ghost Admin (`/ghost`):
    Financiamento `/financiamento/`, Blog `/blog/`, Contato `/contato/`.
 5. O `routes.yaml` já é montado pelo compose. (Hospedado: Labs → Routes → upload.)
 
-## ▶️ Sem Docker (Ghost CLI)
+## ▶️ Sem Docker (Ghost CLI, SQLite)
 
 ```bash
 npm install ghost-cli -g
-ghost install local                       # cria um Ghost com SQLite/MySQL
-cp -r theme/lar-cia <ghost>/content/themes/
-cp routes.yaml <ghost>/content/settings/
-# ative o tema e importe import/ghost-import.json pelo Admin
+mkdir ghost-site && cd ghost-site
+ghost install local                       # Ghost de desenvolvimento com SQLite
 ```
+
+## ⚙️ Setup automatizado + testes
+
+Com o Ghost no ar, configure tudo (admin, tema, conteúdo, rotas, marca) e
+valide com um comando cada — sem clicar no Admin:
+
+```bash
+# configura admin + tema + import + routes + cor/navegação via Admin API
+ADMIN_PASS='TroqueEstaSenha123' ghost/scripts/local-setup.sh
+
+# testes de fumaça (HTTP 200 + marcadores de conteúdo)
+ghost/scripts/smoke-test.sh
+```
+
+Validado em um Ghost **v6.46.0** local: upload do tema com gscan **0 erros /
+0 avisos**, import **sem problemas**, e os 8 imóveis + blog + páginas
+respondendo 200 (tags internas ocultas → 404).
 
 ## Assinaturas / Stripe (nativo)
 
