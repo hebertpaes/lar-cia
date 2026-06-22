@@ -7,14 +7,24 @@
   <meta name="description" content="Explore e encontre o lar dos seus sonhos ou o imóvel ideal para investir com Hebert Paes. Portal imobiliário moderno em Cuiabá e região - MT." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- ===== Firebase Web SDK (produção) — descomente e configure data.js =====
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import * as fs from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { firebaseConfig } from "./data.js";
+    window.__db = fs.getFirestore(initializeApp(firebaseConfig));
+    window.__fs = fs;
+  </script>
+  ============================================================================ -->
 </head>
 <body>
   <!-- ===== HEADER ===== -->
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
-      <a class="brand" href="#" aria-label="LAR e CIA — início">
+      <a class="brand" href="#topo" aria-label="LAR e CIA — início">
         <span class="brand-mark">L&amp;C</span>
         <span class="brand-text">
           <strong>LAR &amp; CIA</strong>
@@ -22,8 +32,9 @@
         </span>
       </a>
 
-      <nav class="main-nav" aria-label="Navegação principal">
+      <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
         <a href="#imoveis">Imóveis</a>
+        <a href="#diferenciais">Diferenciais</a>
         <a href="#financiamento">Financiamento</a>
         <a href="#blog">Blog</a>
         <a href="#contato">Contato</a>
@@ -34,15 +45,17 @@
           <span class="theme-icon">🌙</span>
         </button>
         <a class="btn-primary header-cta" href="#contato">Anunciar imóvel</a>
+        <button class="btn-ghost nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">☰</button>
       </div>
     </div>
   </header>
 
   <!-- ===== HERO + SEARCH ===== -->
-  <section class="hero">
+  <section class="hero" id="topo">
     <div class="container">
+      <span class="hero-eyebrow">🏆 Referência imobiliária em Cuiabá &amp; Várzea Grande — MT</span>
       <h1 class="hero-title">Encontre o lar dos seus sonhos<br />ou o imóvel ideal para investir</h1>
-      <p class="hero-sub">Casas, apartamentos, fazendas e chácaras em Cuiabá, Várzea Grande e toda a região — MT.</p>
+      <p class="hero-sub">Casas, apartamentos, fazendas e chácaras com curadoria, verificação e atendimento de quem entende da região.</p>
 
       <form class="search-card" id="searchForm" autocomplete="off">
         <div class="search-field">
@@ -63,14 +76,19 @@
         <div class="search-divider"></div>
         <div class="search-field">
           <label>Tipo</label>
-          <select id="searchType">
-            <option value="">Todos</option>
-          </select>
+          <select id="searchType"><option value="">Todos</option></select>
         </div>
         <button class="search-btn" type="submit" aria-label="Buscar">
           <span class="search-btn-icon">🔍</span><span class="search-btn-label">Buscar</span>
         </button>
       </form>
+
+      <div class="hero-stats">
+        <div><strong data-count="320">0</strong><span>imóveis ativos</span></div>
+        <div><strong data-count="12">0</strong><span>cidades atendidas</span></div>
+        <div><strong data-count="1500">0</strong><span>famílias atendidas</span></div>
+        <div><strong data-count="98">0</strong><span>% satisfação</span></div>
+      </div>
     </div>
   </section>
 
@@ -83,7 +101,7 @@
 
   <!-- ===== TOOLBAR ===== -->
   <div class="container toolbar">
-    <span class="result-count" id="resultCount">—</span>
+    <span class="result-count" id="resultCount">Carregando…</span>
     <div class="toolbar-right">
       <label class="sort-label" for="sortSelect">Ordenar:</label>
       <select id="sortSelect">
@@ -105,6 +123,22 @@
     </div>
   </main>
 
+  <!-- ===== DIFERENCIAIS ===== -->
+  <section class="features" id="diferenciais">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Por que escolher a LAR &amp; CIA</h2>
+        <p class="section-sub">Tecnologia e atendimento humano do primeiro clique às chaves na mão.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card"><span class="feature-ico">✅</span><h3>Imóveis verificados</h3><p>Selo de verificação com checagem de documentação e score de confiança em cada anúncio.</p></article>
+        <article class="feature-card"><span class="feature-ico">💳</span><h3>Financiamento facilitado</h3><p>Simulação na hora e parceria com os principais bancos para aprovar seu crédito.</p></article>
+        <article class="feature-card"><span class="feature-ico">📅</span><h3>Visitas quando quiser</h3><p>Agende visitas presenciais ou online em poucos cliques, direto pelo site.</p></article>
+        <article class="feature-card"><span class="feature-ico">📍</span><h3>Especialistas na região</h3><p>Cuiabá, Várzea Grande, Florais da Mata e todo o interior de Mato Grosso.</p></article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FINANCING SIMULATOR ===== -->
   <section class="financing" id="financiamento">
     <div class="container financing-inner">
@@ -116,6 +150,7 @@
           <li>✓ Análise de crédito e documentação</li>
           <li>✓ Acompanhamento do início ao fim</li>
         </ul>
+        <div class="bank-chips"><span>Caixa</span><span>Banco do Brasil</span><span>Itaú</span><span>Bradesco</span><span>Santander</span></div>
       </div>
       <form class="financing-card" id="financingForm">
         <div class="field">
@@ -145,6 +180,17 @@
     </div>
   </section>
 
+  <!-- ===== DEPOIMENTOS ===== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Quem comprou, recomenda</h2>
+        <p class="section-sub">Avaliações reais de clientes da plataforma.</p>
+      </div>
+      <div class="testimonial-grid" id="testimonialGrid"></div>
+    </div>
+  </section>
+
   <!-- ===== BLOG ===== -->
   <section class="blog" id="blog">
     <div class="container">
@@ -153,6 +199,17 @@
         <a href="#" class="link-more">Ver todos →</a>
       </div>
       <div class="blog-grid" id="blogGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ANUNCIE ===== -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div>
+        <h2>Tem um imóvel para vender ou alugar?</h2>
+        <p>Anuncie com a LAR &amp; CIA e alcance compradores qualificados em toda a região.</p>
+      </div>
+      <a class="btn-light" href="#contato">Quero anunciar</a>
     </div>
   </section>
 
@@ -235,9 +292,38 @@
     </div>
   </div>
 
+  <!-- ===== AGENDAR VISITA MODAL ===== -->
+  <div class="modal" id="scheduleModal" hidden>
+    <div class="modal-backdrop" data-close-schedule></div>
+    <div class="modal-card narrow" role="dialog" aria-modal="true" aria-labelledby="schedTitle">
+      <button class="modal-close" data-close-schedule aria-label="Fechar">✕</button>
+      <div class="modal-content">
+        <h2 id="schedTitle">Agendar visita</h2>
+        <p class="modal-loc" id="schedProperty">—</p>
+        <form id="scheduleForm">
+          <div class="field"><label for="schedName">Seu nome</label><input type="text" id="schedName" required /></div>
+          <div class="field-row">
+            <div class="field"><label for="schedEmail">E-mail</label><input type="email" id="schedEmail" required /></div>
+            <div class="field"><label for="schedPhone">Telefone</label><input type="tel" id="schedPhone" required /></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="schedDate">Data</label><input type="date" id="schedDate" required /></div>
+            <div class="field">
+              <label for="schedMode">Modo</label>
+              <select id="schedMode"><option value="presencial">Presencial</option><option value="online">Online</option></select>
+            </div>
+          </div>
+          <button class="btn-primary" type="submit" style="width:100%">Confirmar agendamento</button>
+          <p class="form-note" id="schedNote" hidden>✓ Visita solicitada! (demo — grava em <code>schedule_events</code>)</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating WhatsApp -->
   <a class="fab-whats" id="fabWhats" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

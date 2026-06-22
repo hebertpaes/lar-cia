@@ -1,7 +1,6 @@
-/* ===== LAR & CIA — preview app =====
-   Reconstrói o comportamento documentado em architecture.md usando os dados
-   do seed do Firestore (seed/firestore-seed.json). Em produção, as funções
-   load*() seriam substituídas por listeners do Cloud Firestore (snapshots()). */
+/* ===== LAR & CIA — preview app (web-first) =====
+   Lê os dados pela camada Repository (data.js): Firestore em produção ou
+   o seed local como fallback. Reconstrói o comportamento de architecture.md. */
 
 const WHATSAPP = "5565999887766";
 const CATEGORY_META = {
@@ -30,6 +29,7 @@ try {
 const state = {
   properties: [],
   blog: [],
+  reviews: [],
   category: "all",
   purpose: "",
   type: "",
@@ -41,16 +41,20 @@ const state = {
 const $ = (s) => document.querySelector(s);
 const fmtBRL = (n) =>
   new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(n);
+const areaLabel = (a) => (a >= 10000 ? (a / 10000).toLocaleString("pt-BR") + " ha" : a + " m²");
 const waLink = (msg) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 
 /* ---------- Theme ---------- */
 function initTheme() {
+  const urlTheme = new URLSearchParams(location.search).get("theme");
   const saved = localStorage.getItem("lc_theme");
-  const theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const theme = (urlTheme === "dark" || urlTheme === "light")
+    ? urlTheme
+    : saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   setTheme(theme);
-  $("#themeToggle").addEventListener("click", () => {
-    setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
-  });
+  $("#themeToggle").addEventListener("click", () =>
+    setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark")
+  );
 }
 function setTheme(t) {
   document.documentElement.dataset.theme = t;
@@ -58,18 +62,52 @@ function setTheme(t) {
   $("#themeToggle .theme-icon").textContent = t === "dark" ? "☀️" : "🌙";
 }
 
-/* ---------- Data loading (would be Firestore listeners in prod) ---------- */
+/* ---------- Mobile nav ---------- */
+function initNav() {
+  const burger = $("#navBurger");
+  const nav = $("#mainNav");
+  if (!burger || !nav) return;
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+  });
+  nav.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      nav.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    })
+  );
+}
+
+/* ---------- Data ---------- */
 async function loadData() {
   try {
-    const res = await fetch("../seed/firestore-seed.json");
-    const db = await res.json();
-    state.properties = (db.properties || []).filter((p) => p.isActive);
-    state.blog = db.blog_posts || [];
+    const [props, blog, reviews] = await Promise.all([
+      window.Repository.getProperties(),
+      window.Repository.getBlogPosts(),
+      window.Repository.getReviews(),
+    ]);
+    state.properties = props;
+    state.blog = blog;
+    state.reviews = reviews;
   } catch (e) {
-    console.warn("Falha ao carregar seed, usando fallback vazio.", e);
-    state.properties = [];
-    state.blog = [];
+    console.warn("Falha ao carregar dados.", e);
   }
+}
+
+/* ---------- Hero counters ---------- */
+function animateCounters() {
+  document.querySelectorAll(".hero-stats [data-count]").forEach((el) => {
+    const target = +el.dataset.count;
+    const step = Math.max(1, Math.round(target / 40));
+    let cur = 0;
+    const tick = () => {
+      cur = Math.min(target, cur + step);
+      el.textContent = cur.toLocaleString("pt-BR");
+      if (cur < target) requestAnimationFrame(tick);
+    };
+    tick();
+  });
 }
 
 /* ---------- Categories ---------- */
@@ -90,8 +128,6 @@ function renderCategories() {
       render();
     })
   );
-
-  // Populate type select in hero search
   const typeSel = $("#searchType");
   if (typeSel.options.length <= 1) {
     Object.keys(CATEGORY_META).forEach((c) => {
@@ -131,12 +167,9 @@ function priceLabel(p) {
   return fmtBRL(p.price) + suffix;
 }
 function specIcons(p) {
-  const parts = [
-    `<span>🛏️ ${p.bedrooms}</span>`,
-    `<span>🛁 ${p.bathrooms}</span>`,
-  ];
+  const parts = [`<span>🛏️ ${p.bedrooms}</span>`, `<span>🛁 ${p.bathrooms}</span>`];
   if (p.garages) parts.push(`<span>🚗 ${p.garages}</span>`);
-  parts.push(`<span>📐 ${p.area >= 10000 ? (p.area / 10000).toLocaleString("pt-BR") + " ha" : p.area + " m²"}</span>`);
+  parts.push(`<span>📐 ${areaLabel(p.area)}</span>`);
   return parts.join("");
 }
 function mediaHtml(p) {
@@ -145,6 +178,11 @@ function mediaHtml(p) {
   return img
     ? `<img src="${img}" alt="${p.title}" loading="lazy" onerror="this.outerHTML='${fallback.replace(/'/g, "&#39;")}'" />`
     : fallback;
+}
+function skeletonHtml() {
+  return Array.from({ length: 6 })
+    .map(() => `<div class="card skeleton"><div class="card-media sk"></div><div class="sk-line"></div><div class="sk-line short"></div></div>`)
+    .join("");
 }
 function render() {
   const grid = $("#propertyGrid");
@@ -214,13 +252,14 @@ function openDetail(id) {
         <div class="spec"><b>${p.suites || 0}</b><span>Suítes</span></div>
         <div class="spec"><b>${p.bathrooms}</b><span>Banheiros</span></div>
         <div class="spec"><b>${p.garages || 0}</b><span>Vagas</span></div>
-        <div class="spec"><b>${p.area >= 10000 ? (p.area/10000).toLocaleString("pt-BR")+" ha" : p.area+" m²"}</b><span>Área</span></div>
+        <div class="spec"><b>${areaLabel(p.area)}</b><span>Área</span></div>
         ${p.yearBuilt ? `<div class="spec"><b>${p.yearBuilt}</b><span>Ano</span></div>` : ""}
       </div>
       <p class="modal-desc">${p.description}</p>
       ${p.proximities?.length ? `<div class="modal-prox">${p.proximities.map((x) => `<span>📌 ${x}</span>`).join("")}</div>` : ""}
       <div class="modal-actions">
         <a class="btn-primary" href="${waLink(msg)}" target="_blank" rel="noopener">💬 Tenho interesse</a>
+        <button class="btn-outline btn-schedule" type="button">📅 Agendar visita</button>
         <button class="btn-outline btn-simulate-fin" type="button">Simular financiamento</button>
       </div>
     </div>`;
@@ -239,16 +278,73 @@ function openDetail(id) {
       }
     });
   }
+  const schedBtn = $("#modalBody .btn-schedule");
+  if (schedBtn) schedBtn.addEventListener("click", () => openSchedule(p));
 }
 function closeModal() {
   $("#detailModal").hidden = true;
-  document.body.style.overflow = "";
+  if ($("#scheduleModal").hidden) document.body.style.overflow = "";
+}
+
+/* ---------- Schedule modal ---------- */
+let scheduleProp = null;
+function openSchedule(p) {
+  scheduleProp = p;
+  $("#schedProperty").textContent = p ? `${p.title} · ${p.location}` : "";
+  $("#scheduleModal").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeSchedule() {
+  $("#scheduleModal").hidden = true;
+  if ($("#detailModal").hidden) document.body.style.overflow = "";
+}
+function initScheduleForm() {
+  const form = $("#scheduleForm");
+  if (!form) return;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const event = {
+      title: scheduleProp ? `Visita: ${scheduleProp.title}` : "Visita",
+      propertyId: scheduleProp?.id || null,
+      propertyTitle: scheduleProp?.title || null,
+      clientName: $("#schedName").value,
+      clientEmail: $("#schedEmail").value,
+      clientPhone: $("#schedPhone").value,
+      start: new Date($("#schedDate").value).getTime() || Date.now(),
+      mode: $("#schedMode").value,
+      status: "pending",
+      agentEmail: "ciencia@msn.com",
+    };
+    await window.Repository.createScheduleEvent(event);
+    $("#schedNote").hidden = false;
+    form.reset();
+  });
+}
+
+/* ---------- Testimonials ---------- */
+function renderTestimonials() {
+  const grid = $("#testimonialGrid");
+  if (!grid) return;
+  const items = (state.reviews || []).slice(0, 3);
+  grid.innerHTML = items
+    .map((r) => {
+      const prop = state.properties.find((p) => p.id === r.propertyId);
+      const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      const initials = (r.authorName || "?").split(" ").map((w) => w[0]).slice(0, 2).join("");
+      return `<article class="testimonial-card">
+        <div class="stars">${stars}</div>
+        <p class="t-quote">“${r.comment}”</p>
+        <div class="t-author"><span class="t-avatar">${initials}</span>
+          <div><strong>${r.authorName}</strong><small>${prop ? prop.location : "Cliente LAR & CIA"}</small></div>
+        </div>
+      </article>`;
+    })
+    .join("");
 }
 
 /* ---------- Blog ---------- */
 function renderBlog() {
-  const grid = $("#blogGrid");
-  grid.innerHTML = state.blog
+  $("#blogGrid").innerHTML = state.blog
     .slice(0, 3)
     .map(
       (b) => `<article class="blog-card">
@@ -263,7 +359,7 @@ function renderBlog() {
     .join("");
 }
 
-/* ---------- Financing simulator (Tabela Price) ---------- */
+/* ---------- Financing simulator ---------- */
 function renderFinancing() {
   const price = +$("#finPrice").value || 0;
   const down = +$("#finDown").value || 0;
@@ -290,10 +386,7 @@ function initSearch() {
     render();
     document.getElementById("imoveis").scrollIntoView({ behavior: "smooth" });
   });
-  $("#sortSelect").addEventListener("change", (e) => {
-    state.sort = e.target.value;
-    render();
-  });
+  $("#sortSelect").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
   $("#clearFilters").addEventListener("click", () => {
     state.category = "all"; state.purpose = ""; state.type = ""; state.location = "";
     $("#searchLocation").value = ""; $("#searchPurpose").value = ""; $("#searchType").value = "";
@@ -304,27 +397,19 @@ function initSearch() {
 function initLeadForm() {
   const form = $("#leadForm");
   if (!form) return;
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const els = {
       name: $("#leadName"), email: $("#leadEmail"), phone: $("#leadPhone"),
-      role: $("#leadRole"), intent: $("#leadIntent"), financing: $("#leadFinancing"),
-      note: $("#leadNote"),
+      role: $("#leadRole"), intent: $("#leadIntent"), financing: $("#leadFinancing"), note: $("#leadNote"),
     };
     if (Object.values(els).some((el) => !el)) return;
-    // Em produção: firestore.collection('leads').add({...}) — ver FIRESTORE_SCHEMA.md §5
     const lead = {
-      name: els.name.value,
-      email: els.email.value,
-      phone: els.phone.value,
-      role: els.role.value,
-      intent: els.intent.value,
-      wantsFinancing: els.financing.checked,
-      source: "home",
-      status: "novo",
-      createdAt: Date.now(),
+      name: els.name.value, email: els.email.value, phone: els.phone.value,
+      role: els.role.value, intent: els.intent.value, wantsFinancing: els.financing.checked,
+      source: "home", status: "novo", createdAt: Date.now(),
     };
-    console.log("Novo lead (demo):", lead);
+    await window.Repository.createLead(lead);
     els.note.hidden = false;
     e.target.reset();
   });
@@ -339,18 +424,24 @@ function initWhats() {
 /* ---------- Boot ---------- */
 async function boot() {
   initTheme();
+  initNav();
+  $("#propertyGrid").innerHTML = skeletonHtml();
   await loadData();
   renderCategories();
   render();
+  renderTestimonials();
   renderBlog();
   renderFinancing();
+  animateCounters();
   initSearch();
   initLeadForm();
+  initScheduleForm();
   initWhats();
 
   $("#financingForm").addEventListener("input", renderFinancing);
   $("#financingForm").addEventListener("submit", (e) => e.preventDefault());
   document.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+  document.querySelectorAll("[data-close-schedule]").forEach((el) => el.addEventListener("click", closeSchedule));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { closeModal(); closeSchedule(); } });
 }
 boot();
