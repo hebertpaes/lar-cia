@@ -92,6 +92,34 @@ npx gscan ghost/theme/lar-cia   # validador oficial de temas Ghost
 
 ## Produção (Ghost Pro ou self-hosted)
 
-- **Ghost Pro** (ghost.org): suba o `lar-cia.zip` e importe o JSON — sem servidor.
+Onde o site vai morar:
+- **Ghost Pro** (ghost.org): hospedagem gerenciada — sem servidor.
 - **Self-hosted**: `ghost install` (Ubuntu) + MySQL 8 + Nginx; aponte o domínio
   e ative SSL (`ghost setup ssl`).
+
+Ambos expõem a **Admin API**, então o deploy é o mesmo nos dois.
+
+### Deploy automatizado (GitHub Actions)
+
+O workflow `.github/workflows/deploy-ghost.yml` roda os testes e publica o
+tema (e, opcional, o conteúdo) via Admin API. Configure uma vez:
+
+1. No Ghost Admin: **Settings → Integrations → Add custom integration**
+   (ex.: "GitHub Deploy"). Copie a **Admin API Key** (formato `id:secret`).
+2. No GitHub: **Settings → Secrets and variables → Actions** → adicione
+   `GHOST_ADMIN_API_URL` (ex.: `https://larecia.com`) e `GHOST_ADMIN_API_KEY`.
+3. Rode **Actions → Deploy (Ghost) → Run workflow** (marque *import_content*
+   na primeira vez para subir os imóveis/blog). Depois disso, todo push em
+   `main` que toque o tema republica automaticamente.
+
+### Deploy manual (mesma mecânica, local)
+
+```bash
+GHOST_URL=https://larecia.com ADMIN_KEY='id:secret' bash -c '
+  cd ghost/theme && zip -rq /tmp/lar-cia.zip lar-cia
+  TOKEN=$(node ../../.github/scripts/ghost-jwt.mjs)
+  API="$GHOST_URL/ghost/api/admin"
+  curl -fsS -X POST "$API/themes/upload/" -H "Authorization: Ghost $TOKEN" -H "Accept-Version: v5.0" -F "file=@/tmp/lar-cia.zip"
+  curl -fsS -X PUT  "$API/themes/lar-cia/activate/" -H "Authorization: Ghost $TOKEN" -H "Accept-Version: v5.0"
+'
+```
