@@ -25,6 +25,7 @@ const priceLabel = (p) => brl(p.price) + (p.rentalType === "sale" ? "" : p.renta
 const iso = (ms) => new Date(ms || Date.now()).toISOString().replace(/\.\d+Z$/, ".000Z");
 const slugify = (s) => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
   .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const humanize = (s) => String(s).replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const mobiledoc = (html) => JSON.stringify({
   version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]],
@@ -100,7 +101,8 @@ for (const p of db.properties || []) {
 
 // ---- blog (posts #post) ---------------------------------------------
 for (const b of db.blog_posts || []) {
-  const tagIds = (b.tags || []).map((t) => tag("#" + t, slugify(t), "public"));
+  // Namespace "tema-" evita colisão de slug com as categorias de imóvel.
+  const tagIds = (b.tags || []).map((t) => tag(humanize(t), "tema-" + slugify(t), "public"));
   tagIds.push(T_POST);
   const html = `<p>${esc(b.body || b.excerpt)}</p>`;
   addPost({

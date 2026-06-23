@@ -271,32 +271,44 @@
           },
           {
             "id": 14,
-            "name": "#financiamento",
-            "slug": "financiamento",
+            "name": "Financiamento",
+            "slug": "tema-financiamento",
             "visibility": "public"
           },
           {
             "id": 15,
-            "name": "#investimento",
-            "slug": "investimento",
+            "name": "Investimento",
+            "slug": "tema-investimento",
             "visibility": "public"
           },
           {
             "id": 16,
-            "name": "#cuiaba",
-            "slug": "cuiaba",
+            "name": "Cuiaba",
+            "slug": "tema-cuiaba",
             "visibility": "public"
           },
           {
             "id": 17,
-            "name": "#bairros",
-            "slug": "bairros",
+            "name": "Bairros",
+            "slug": "tema-bairros",
             "visibility": "public"
           },
           {
             "id": 18,
-            "name": "#agro",
-            "slug": "agro",
+            "name": "Florais Da Mata",
+            "slug": "tema-florais-da-mata",
+            "visibility": "public"
+          },
+          {
+            "id": 19,
+            "name": "Agro",
+            "slug": "tema-agro",
+            "visibility": "public"
+          },
+          {
+            "id": 20,
+            "name": "Fazenda",
+            "slug": "tema-fazenda",
             "visibility": "public"
           }
         ],
@@ -487,7 +499,7 @@
             "sort_order": 1
           },
           {
-            "tag_id": 4,
+            "tag_id": 18,
             "post_id": 10,
             "sort_order": 2
           },
@@ -497,12 +509,12 @@
             "sort_order": 3
           },
           {
-            "tag_id": 18,
+            "tag_id": 19,
             "post_id": 11,
             "sort_order": 0
           },
           {
-            "tag_id": 10,
+            "tag_id": 20,
             "post_id": 11,
             "sort_order": 1
           },
