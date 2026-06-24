@@ -16,6 +16,7 @@ const CAT = {
   casa: "Casas", apartamento: "Apartamentos", praia: "Beira-mar", piscina: "Com piscina",
   luxo: "Alto padrão", condominio: "Condomínio", rural: "Rural", florais_da_mata: "Florais da Mata",
   sitios_chacaras: "Sítios e chácaras", cuiaba: "Cuiabá", fazenda: "Fazendas", exotico: "Exóticos",
+  comercial: "Comercial", terreno: "Terrenos",
 };
 const FINAL = { sale: "Venda", monthly: "Aluguel", daily: "Temporada", seasonal: "Temporada" };
 
