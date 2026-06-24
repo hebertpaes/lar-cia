@@ -15,7 +15,7 @@ GHOST_URL="${GHOST_URL:-http://localhost:2368}"
 ADMIN_NAME="${ADMIN_NAME:-Hebert Paes}"
 ADMIN_EMAIL="${ADMIN_EMAIL:-ciencia@msn.com}"
 ADMIN_PASS="${ADMIN_PASS:-LarCia#2026Forte}"
-BLOG_TITLE="${BLOG_TITLE:-LAR & CIA}"
+BLOG_TITLE="${BLOG_TITLE:-Lar&Cia}"
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"          # .../ghost
 THEME_DIR="$ROOT/theme"
