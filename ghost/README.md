@@ -46,7 +46,18 @@ Depois, no Ghost Admin (`/ghost`):
    Financiamento `/financiamento/`, Blog `/blog/`, Contato `/contato/`.
 5. O `routes.yaml` já é montado pelo compose. (Hospedado: Labs → Routes → upload.)
 
-## ▶️ Sem Docker (Ghost CLI, SQLite)
+## ▶️ Quickstart no macOS (um comando)
+
+Sobe o Ghost local, provisiona o projeto **Lar&Cia**, roda os testes e abre
+no navegador:
+
+```bash
+bash ghost/scripts/macos-quickstart.sh
+```
+Pré-requisitos: `brew install node@22 git`. O script instala o Ghost CLI se
+faltar. Variáveis opcionais: `GHOST_DIR`, `ADMIN_EMAIL`, `ADMIN_PASS`.
+
+## ▶️ Sem Docker (Ghost CLI, SQLite) — passo a passo
 
 ```bash
 npm install ghost-cli -g
