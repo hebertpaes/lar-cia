@@ -103,6 +103,25 @@ ghost log               # ver logs
 
 ---
 
+## 4.1) Ligar automaticamente no login (LaunchAgent)
+
+Para o Ghost subir sozinho toda vez que você ligar o Mac (sem `ghost start`
+na mão):
+
+```bash
+cd ~/Sites/lar-cia
+ghost/scripts/install-autostart.sh        # usa ~/lar-cia-ghost por padrão
+# se instalou em outra pasta:  ghost/scripts/install-autostart.sh /caminho/da/instalacao
+```
+Ele cria `~/Library/LaunchAgents/com.larcia.ghost.plist`, carrega e já liga o
+site. Logs em `~/Library/Logs/larcia-ghost.log`.
+
+Desativar:
+```bash
+launchctl unload ~/Library/LaunchAgents/com.larcia.ghost.plist
+rm ~/Library/LaunchAgents/com.larcia.ghost.plist
+```
+
 ## 5) Cadastrar/editar imóveis
 
 **Opção visual (recomendada):** edite direto no Admin
