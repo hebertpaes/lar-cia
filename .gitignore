@@ -20,3 +20,7 @@ ghost/content/logs/
 .DS_Store
 Thumbs.db
 *.log
+
+# Python
+__pycache__/
+*.pyc
