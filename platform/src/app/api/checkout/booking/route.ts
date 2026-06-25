@@ -73,7 +73,8 @@ export async function POST(req: NextRequest) {
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
-    payment_method_types: ["card", "pix"],
+    // Sem payment_method_types fixos: o Stripe usa os métodos habilitados na
+    // sua conta (cartão por padrão; Pix/boleto se ativados no Dashboard).
     locale: "pt-BR",
     line_items: [
       {
