@@ -30,9 +30,19 @@ export default async function PropertyPage({ params }: { params: { slug: string 
         {p.isVerified && <span className="ml-2 font-semibold text-brand">✓ Verificado</span>}
       </p>
 
-      {p.images[0] && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={p.images[0].url} alt={p.title} className="mt-5 aspect-[16/9] w-full rounded-2xl object-cover" />
+      {p.images.length > 0 && (
+        <div className="mt-5 grid gap-2 md:grid-cols-4 md:grid-rows-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={p.images[0].url}
+            alt={p.title}
+            className="md:col-span-2 md:row-span-2 aspect-[4/3] w-full rounded-2xl object-cover md:aspect-auto md:h-full"
+          />
+          {p.images.slice(1, 5).map((img) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={img.id} src={img.url} alt="" className="aspect-[4/3] w-full rounded-xl object-cover" />
+          ))}
+        </div>
       )}
 
       <div className="mt-6 grid gap-8 md:grid-cols-3">
@@ -46,6 +56,13 @@ export default async function PropertyPage({ params }: { params: { slug: string 
             ))}
           </div>
           <p className="mt-6 whitespace-pre-line text-slate-700">{p.description}</p>
+          {p.amenities.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {p.amenities.map((a) => (
+                <span key={a} className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600">📍 {a}</span>
+              ))}
+            </div>
+          )}
         </div>
 
         <aside className="md:col-span-1">
