@@ -8,10 +8,11 @@ import { stripe, toCents } from "@/lib/stripe";
 // A reserva só vira CONFIRMED no webhook, ao confirmar o pagamento.
 const Body = z.object({
   propertyId: z.string(),
-  guestId: z.string(),
-  checkIn: z.string(),   // ISO date
+  checkIn: z.string(), // ISO date
   checkOut: z.string(),
   guests: z.number().int().min(1).default(1),
+  guestId: z.string().optional(),
+  guest: z.object({ name: z.string().optional(), email: z.string().email() }).optional(),
 });
 
 const nightsBetween = (a: Date, b: Date) =>
@@ -22,12 +23,27 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) {
     return NextResponse.json({ error: "Dados inválidos", details: parsed.error.flatten() }, { status: 400 });
   }
-  const { propertyId, guestId, checkIn, checkOut, guests } = parsed.data;
+  const { propertyId, checkIn, checkOut, guests } = parsed.data;
   const start = new Date(checkIn);
   const end = new Date(checkOut);
   const nights = nightsBetween(start, end);
   if (!(nights > 0)) {
     return NextResponse.json({ error: "Período inválido (check-out deve ser após o check-in)." }, { status: 400 });
+  }
+
+  // Hóspede: usa o id (se logado) ou cria/encontra pelo e-mail.
+  let guestId = parsed.data.guestId;
+  if (!guestId) {
+    const g = parsed.data.guest;
+    if (!g?.email) {
+      return NextResponse.json({ error: "Informe seu e-mail para reservar." }, { status: 400 });
+    }
+    const user = await prisma.user.upsert({
+      where: { email: g.email },
+      update: { name: g.name ?? undefined },
+      create: { email: g.email, name: g.name },
+    });
+    guestId = user.id;
   }
 
   const property = await prisma.property.findUnique({ where: { id: propertyId } });
