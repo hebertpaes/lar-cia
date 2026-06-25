@@ -1,0 +1,317 @@
+// Lar&Cia — modelo de dados (PostgreSQL via Prisma)
+// Cobre: imóveis, disponibilidade/temporada, reservas, pagamentos (cartão/
+// pix/boleto via Stripe), sinal de venda, leads, assinaturas de anunciantes,
+// avaliações e favoritos.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────── Usuários ─────────────────────────
+enum Role {
+  CLIENT      // comprador/locatário/hóspede
+  AGENT       // corretor/anunciante (assina plano)
+  ADMIN
+}
+
+model User {
+  id               String         @id @default(cuid())
+  name             String?
+  email            String         @unique
+  emailVerified    DateTime?
+  passwordHash     String?
+  image            String?
+  phone            String?
+  role             Role           @default(CLIENT)
+  stripeCustomerId String?        @unique
+  properties       Property[]     @relation("owner")
+  bookings         Booking[]
+  reservations     Reservation[]
+  payments         Payment[]
+  reviews          Review[]
+  favorites        Favorite[]
+  leads            Lead[]
+  subscription     Subscription?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+// ───────────────────────── Imóveis ─────────────────────────
+enum PropertyType {
+  CASA
+  APARTAMENTO
+  CONDOMINIO
+  LUXO
+  FAZENDA
+  SITIO
+  COMERCIAL
+  TERRENO
+}
+
+enum Purpose {
+  SALE      // venda
+  RENT      // aluguel mensal
+  SEASON    // temporada (reserva por noite)
+}
+
+enum PropertyStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  SOLD
+  RENTED
+}
+
+model Property {
+  id            String          @id @default(cuid())
+  slug          String          @unique
+  title         String
+  description   String
+  type          PropertyType
+  purpose       Purpose
+  status        PropertyStatus  @default(ACTIVE)
+  price         Decimal         @db.Decimal(14, 2) // venda/aluguel: total; temporada: diária
+  cleaningFee   Decimal?        @db.Decimal(10, 2)
+  condoFee      Decimal?        @db.Decimal(10, 2)
+  bedrooms      Int             @default(0)
+  bathrooms     Int             @default(0)
+  suites        Int             @default(0)
+  garages       Int             @default(0)
+  area          Decimal         @db.Decimal(12, 2)
+  maxGuests     Int?            // temporada
+  address       String?
+  neighborhood  String?
+  city          String
+  state         String          @default("MT")
+  latitude      Float?
+  longitude     Float?
+  isVerified    Boolean         @default(false)
+  owner         User?           @relation("owner", fields: [ownerId], references: [id])
+  ownerId       String?
+  images        PropertyImage[]
+  amenities     String[]        // ["piscina","wifi",...]
+  availability  Availability[]
+  bookings      Booking[]
+  reservations  Reservation[]
+  reviews       Review[]
+  favorites     Favorite[]
+  leads         Lead[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([purpose, city, status])
+  @@index([type, price])
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+  url        String
+  position   Int      @default(0)
+
+  @@index([propertyId, position])
+}
+
+// Calendário de temporada: bloqueios e preço por data
+model Availability {
+  id          String   @id @default(cuid())
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId  String
+  date        DateTime @db.Date
+  isAvailable Boolean  @default(true)
+  priceOverride Decimal? @db.Decimal(10, 2)
+
+  @@unique([propertyId, date])
+  @@index([propertyId, date])
+}
+
+// ───────────────────── Reservas (temporada) ─────────────────────
+enum BookingStatus {
+  PENDING     // aguardando pagamento
+  CONFIRMED   // pago
+  CANCELLED
+  COMPLETED
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  property    Property      @relation(fields: [propertyId], references: [id])
+  propertyId  String
+  guest       User          @relation(fields: [guestId], references: [id])
+  guestId     String
+  checkIn     DateTime      @db.Date
+  checkOut    DateTime      @db.Date
+  guests      Int           @default(1)
+  nights      Int
+  subtotal    Decimal       @db.Decimal(12, 2)
+  fees        Decimal       @db.Decimal(12, 2) @default(0)
+  total       Decimal       @db.Decimal(12, 2)
+  status      BookingStatus @default(PENDING)
+  payment     Payment?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([propertyId, checkIn, checkOut])
+  @@index([guestId, status])
+}
+
+// ───────────── Sinal/reserva de imóvel à venda ─────────────
+enum ReservationStatus {
+  PENDING
+  PAID
+  REFUNDED
+  CANCELLED
+}
+
+model Reservation {
+  id          String            @id @default(cuid())
+  property    Property          @relation(fields: [propertyId], references: [id])
+  propertyId  String
+  buyer       User              @relation(fields: [buyerId], references: [id])
+  buyerId     String
+  depositAmount Decimal         @db.Decimal(12, 2) // sinal pago online
+  status      ReservationStatus @default(PENDING)
+  payment     Payment?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([propertyId])
+  @@index([buyerId, status])
+}
+
+// ───────────────────────── Pagamentos ─────────────────────────
+enum PaymentKind {
+  BOOKING       // reserva de temporada
+  DEPOSIT       // sinal de venda
+  RENT          // 1º aluguel/caução
+  SUBSCRIPTION  // plano de anunciante
+}
+
+enum PaymentMethod {
+  CARD
+  PIX
+  BOLETO
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  kind                  PaymentKind
+  amount                Decimal       @db.Decimal(12, 2)
+  currency              String        @default("BRL")
+  method                PaymentMethod?
+  status                PaymentStatus @default(PENDING)
+  stripePaymentIntentId String?       @unique
+  stripeCheckoutId      String?       @unique
+  user                  User          @relation(fields: [userId], references: [id])
+  userId                String
+  booking               Booking?      @relation(fields: [bookingId], references: [id])
+  bookingId             String?       @unique
+  reservation           Reservation?  @relation(fields: [reservationId], references: [id])
+  reservationId         String?       @unique
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  @@index([userId, status])
+}
+
+// ─────────────────── Leads (venda/aluguel) ───────────────────
+enum LeadIntent {
+  BUY
+  RENT
+  VISIT
+  FINANCING
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  WON
+  LOST
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  property    Property?  @relation(fields: [propertyId], references: [id])
+  propertyId  String?
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
+  name        String
+  email       String
+  phone       String?
+  intent      LeadIntent
+  status      LeadStatus @default(NEW)
+  message     String?
+  createdAt   DateTime   @default(now())
+
+  @@index([status, createdAt])
+}
+
+// ───────────── Assinaturas de anunciantes (Billing) ─────────────
+model Plan {
+  id            String         @id @default(cuid())
+  name          String
+  stripePriceId String         @unique
+  priceMonthly  Decimal        @db.Decimal(10, 2)
+  maxListings   Int            @default(10)
+  features      String[]
+  subscriptions Subscription[]
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  TRIALING
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  user                 User               @relation(fields: [userId], references: [id])
+  userId               String             @unique
+  plan                 Plan               @relation(fields: [planId], references: [id])
+  planId               String
+  stripeSubscriptionId String             @unique
+  status               SubscriptionStatus @default(TRIALING)
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+// ───────────────────── Avaliações / Favoritos ─────────────────────
+model Review {
+  id         String   @id @default(cuid())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String
+  rating     Int      // 1..5
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  @@index([propertyId, createdAt])
+}
+
+model Favorite {
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+  createdAt  DateTime @default(now())
+
+  @@id([userId, propertyId])
+}
