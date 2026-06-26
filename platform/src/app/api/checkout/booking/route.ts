@@ -4,19 +4,26 @@ import { prisma } from "@/lib/prisma";
 import { stripe, toCents } from "@/lib/stripe";
 
 // POST /api/checkout/booking
-// Cria a reserva (PENDING) e uma Stripe Checkout Session (cartão + Pix).
-// A reserva só vira CONFIRMED no webhook, ao confirmar o pagamento.
+// Cria a reserva. Se o Stripe estiver configurado (chave real), abre o
+// Checkout (cartão/Pix). Senão, entra em MODO DEMO: confirma a reserva sem
+// pagamento real — para você testar o fluxo completo. Trocar a chave por uma
+// real ativa o pagamento de verdade automaticamente.
 const Body = z.object({
   propertyId: z.string(),
-  checkIn: z.string(), // ISO date
+  checkIn: z.string(),
   checkOut: z.string(),
   guests: z.number().int().min(1).default(1),
   guestId: z.string().optional(),
   guest: z.object({ name: z.string().optional(), email: z.string().email() }).optional(),
 });
 
-const nightsBetween = (a: Date, b: Date) =>
-  Math.round((b.getTime() - a.getTime()) / 86_400_000);
+const nightsBetween = (a: Date, b: Date) => Math.round((b.getTime() - a.getTime()) / 86_400_000);
+
+// Considera o Stripe configurado só com uma chave real (não placeholder).
+function stripeConfigured() {
+  const k = process.env.STRIPE_SECRET_KEY ?? "";
+  return /^sk_(test|live)_/.test(k) && k.length > 40 && !/SUA_CHAVE|COLE|placeholder|xxx/i.test(k);
+}
 
 export async function POST(req: NextRequest) {
   const parsed = Body.safeParse(await req.json());
@@ -51,7 +58,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Imóvel indisponível para reserva." }, { status: 400 });
   }
 
-  // Disponibilidade: nenhuma data do período pode estar bloqueada.
   const blocked = await prisma.availability.count({
     where: { propertyId, isAvailable: false, date: { gte: start, lt: end } },
   });
@@ -71,10 +77,24 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // ---- MODO DEMO (sem Stripe configurado): confirma sem pagamento real ----
+  if (!stripeConfigured()) {
+    await prisma.booking.update({ where: { id: booking.id }, data: { status: "CONFIRMED" } });
+    await prisma.payment.create({
+      data: {
+        kind: "BOOKING", amount: total, userId: guestId,
+        bookingId: booking.id, status: "SUCCEEDED",
+      },
+    });
+    return NextResponse.json({
+      url: `${process.env.APP_URL ?? ""}/reservas/${booking.id}?status=ok&demo=1`,
+      demo: true,
+    });
+  }
+
+  // ---- Stripe real ----
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
-    // Sem payment_method_types fixos: o Stripe usa os métodos habilitados na
-    // sua conta (cartão por padrão; Pix/boleto se ativados no Dashboard).
     locale: "pt-BR",
     line_items: [
       {
