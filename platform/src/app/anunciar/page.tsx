@@ -10,7 +10,7 @@ export default function Anunciar() {
         (Assinatura via Stripe — Fase 3 do roadmap.)
       </p>
       <a
-        href="https://wa.me/5565999887766?text=Quero%20anunciar%20no%20Lar%26Cia"
+        href="https://wa.me/5565999900005?text=Quero%20anunciar%20no%20Lar%26Cia"
         target="_blank"
         rel="noopener"
         className="mt-6 inline-block rounded-full bg-brand px-6 py-3 font-semibold text-white hover:bg-brand-600"

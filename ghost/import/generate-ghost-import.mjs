@@ -131,8 +131,8 @@ addPost({ title: "Financiamento", slug: "financiamento", type: "page", html: fin
 const contatoHtml = `
 <p>Quer comprar, vender, alugar ou anunciar? Fale com o Hebert Paes.</p>
 <ul>
-  <li>📞 <a href="tel:+5565999887766">(65) 99988-7766</a></li>
-  <li>💬 <a href="https://wa.me/5565999887766" target="_blank" rel="noopener">WhatsApp direto</a></li>
+  <li>📞 <a href="tel:+5565999900005">(65) 99990-0005</a></li>
+  <li>💬 <a href="https://wa.me/5565999900005" target="_blank" rel="noopener">WhatsApp direto</a></li>
   <li>✉️ <a href="mailto:ciencia@msn.com">ciencia@msn.com</a></li>
   <li>📍 Cuiabá / Várzea Grande - MT</li>
 </ul>

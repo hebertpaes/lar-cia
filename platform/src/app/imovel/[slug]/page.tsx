@@ -76,7 +76,7 @@ export default async function PropertyPage({ params }: { params: { slug: string 
                 <BookingWidget propertyId={p.id} nightly={Number(p.price)} />
               ) : (
                 <a
-                  href={`https://wa.me/5565999887766?text=${encodeURIComponent(`Tenho interesse no imóvel "${p.title}".`)}`}
+                  href={`https://wa.me/5565999900005?text=${encodeURIComponent(`Tenho interesse no imóvel "${p.title}".`)}`}
                   target="_blank"
                   rel="noopener"
                   className="block rounded-full bg-brand px-5 py-3 text-center font-semibold text-white hover:bg-brand-600"

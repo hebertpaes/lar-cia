@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { signIn, getProviders } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -13,6 +13,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hasGoogle, setHasGoogle] = useState(false);
+
+  useEffect(() => {
+    getProviders().then((p) => setHasGoogle(Boolean(p && "google" in p)));
+  }, []);
 
   async function submit() {
     setError("");
@@ -40,7 +45,22 @@ export default function LoginPage() {
     <main className="mx-auto max-w-sm px-6 py-20">
       <Link href="/" className="text-sm text-brand">← Início</Link>
       <h1 className="mt-4 text-2xl font-bold">{mode === "login" ? "Entrar" : "Criar conta"}</h1>
-      <div className="mt-6 space-y-3">
+
+      {hasGoogle && (
+        <>
+          <button
+            onClick={() => signIn("google", { callbackUrl: next })}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 font-semibold hover:bg-slate-50"
+          >
+            <span className="text-lg">🔵</span> Continuar com Google
+          </button>
+          <div className="my-5 flex items-center gap-3 text-xs text-slate-400">
+            <span className="h-px flex-1 bg-slate-200" /> ou e-mail <span className="h-px flex-1 bg-slate-200" />
+          </div>
+        </>
+      )}
+
+      <div className={hasGoogle ? "space-y-3" : "mt-6 space-y-3"}>
         {mode === "register" && (
           <input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} className={input} />
         )}
@@ -55,6 +75,7 @@ export default function LoginPage() {
           {loading ? "…" : mode === "login" ? "Entrar" : "Cadastrar"}
         </button>
       </div>
+
       <button
         onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); }}
         className="mt-4 w-full text-center text-sm text-slate-500 hover:text-brand"

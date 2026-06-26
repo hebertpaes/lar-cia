@@ -81,7 +81,7 @@
       if (principal > 0) pmt = i > 0 ? (principal * i) / (1 - Math.pow(1 + i, -months)) : principal / months;
       const out = $("#finResult"); if (out) out.textContent = pmt > 0 ? brl(pmt) : "—";
       const wa = $("#finWhats");
-      if (wa) wa.href = "https://wa.me/5565999887766?text=" +
+      if (wa) wa.href = "https://wa.me/5565999900005?text=" +
         encodeURIComponent(`Olá Hebert! Simulei: imóvel ${brl(price)}, entrada ${brl(down)}, ${months} meses → parcela ${brl(pmt)}.`);
     }
     form.addEventListener("input", calc);
