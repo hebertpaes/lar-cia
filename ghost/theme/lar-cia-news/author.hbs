@@ -1,0 +1,23 @@
+{{!< default}}
+
+{{#author}}
+<div class="container author-wrap">
+    <header class="author-head">
+        {{#if profile_image}}<img class="author-avatar" src="{{img_url profile_image size="s"}}" alt="{{name}}" />{{/if}}
+        <div>
+            <span class="card-kicker big">Colunista</span>
+            <h1 class="author-name">{{name}}</h1>
+            {{#if bio}}<p class="author-bio">{{bio}}</p>{{/if}}
+            <span class="editoria-count">{{plural ../pagination.total empty="Nenhuma matéria" singular="% matéria" plural="% matérias"}}</span>
+        </div>
+    </header>
+
+    <div class="archive-grid">
+        {{#foreach posts}}
+            {{> article-card size="compact"}}
+        {{/foreach}}
+    </div>
+
+    {{> pagination}}
+</div>
+{{/author}}

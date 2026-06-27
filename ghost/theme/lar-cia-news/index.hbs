@@ -1,0 +1,16 @@
+{{!< default}}
+
+<div class="container archive">
+    <header class="archive-head">
+        <h1 class="archive-title">Últimas notícias</h1>
+        <p class="archive-sub">Cobertura de Cuiabá, Várzea Grande e todo o Mato Grosso.</p>
+    </header>
+
+    <div class="archive-grid">
+        {{#foreach posts}}
+            {{> article-card size="compact"}}
+        {{/foreach}}
+    </div>
+
+    {{> pagination}}
+</div>

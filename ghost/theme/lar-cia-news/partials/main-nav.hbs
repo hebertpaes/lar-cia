@@ -1,0 +1,26 @@
+{{!-- Navegação de editorias. Usa o menu primário do Ghost (Settings → Navigation);
+      se vazio, cai num conjunto padrão de editorias de MT. --}}
+<nav class="main-nav" id="mainNav" aria-label="Editorias">
+    <div class="container main-nav-inner">
+        {{#if @site.navigation}}
+            <ul class="nav-list">
+                {{#foreach navigation}}
+                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
+                {{/foreach}}
+            </ul>
+        {{else}}
+            <ul class="nav-list">
+                <li><a href="{{@site.url}}/editoria/politica/">Política</a></li>
+                <li><a href="{{@site.url}}/editoria/cidades/">Cidades</a></li>
+                <li><a href="{{@site.url}}/editoria/policia/">Polícia</a></li>
+                <li><a href="{{@site.url}}/editoria/economia/">Economia</a></li>
+                <li><a href="{{@site.url}}/editoria/agro/">Agro</a></li>
+                <li><a href="{{@site.url}}/editoria/brasil-mundo/">Brasil &amp; Mundo</a></li>
+                <li><a href="{{@site.url}}/editoria/esportes/">Esportes</a></li>
+                <li><a href="{{@site.url}}/editoria/imoveis/">Imóveis</a></li>
+                <li><a href="{{@site.url}}/fontes-oficiais/">Fontes</a></li>
+                <li class="nav-cta"><a href="{{@site.url}}/anuncie/">Anuncie</a></li>
+            </ul>
+        {{/if}}
+    </div>
+</nav>

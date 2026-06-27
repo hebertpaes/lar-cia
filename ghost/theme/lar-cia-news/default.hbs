@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{meta_title}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{asset "css/screen.css"}}" />
+
+    <style>:root{
+        {{#if @custom.cor_destaque}}--urgent: {{@custom.cor_destaque}};{{/if}}
+        {{#if @site.accent_color}}--brand: {{@site.accent_color}};{{/if}}
+    }</style>
+
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+    {{> topbar}}
+    {{> site-header}}
+    {{> main-nav}}
+
+    {{!-- Anúncio topo (leaderboard) — gerenciado no Ghost Admin via tag #ad-leaderboard --}}
+    {{> ad zone="leaderboard" filter="tag:hash-ad-leaderboard" limit="1"}}
+
+    <main id="site-main" class="site-main">
+        {{{body}}}
+    </main>
+
+    {{> network}}
+    {{> site-footer}}
+
+    <a class="fab-whats" href="https://wa.me/{{@custom.whatsapp_redacao}}?text=Ol%C3%A1!%20Tenho%20uma%20pauta%2Fden%C3%BAncia%20para%20o%20portal."
+       target="_blank" rel="noopener" aria-label="Fale com a redação">💬</a>
+
+    <script src="{{asset "js/main.js"}}"></script>
+    {{ghost_foot}}
+</body>
+</html>

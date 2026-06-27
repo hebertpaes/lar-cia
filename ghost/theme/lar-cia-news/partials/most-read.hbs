@@ -1,0 +1,14 @@
+{{!-- Sidebar "Mais lidas" (aproximada por mais recentes/destaque). --}}
+<aside class="most-read" aria-label="Mais lidas">
+    <h2 class="rail-title">Mais lidas</h2>
+    <ol class="most-read-list">
+        {{#get "posts" filter="tag:-hash-ad" limit="6" order="published_at desc" as |top|}}
+            {{#foreach top}}
+                <li>
+                    <span class="mr-num">{{@number}}</span>
+                    <a href="{{url}}">{{title}}</a>
+                </li>
+            {{/foreach}}
+        {{/get}}
+    </ol>
+</aside>

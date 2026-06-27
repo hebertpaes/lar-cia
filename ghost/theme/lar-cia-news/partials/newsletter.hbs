@@ -1,0 +1,18 @@
+{{!-- Assinatura de membros (nativo do Ghost). --}}
+<section class="newsletter" id="newsletter">
+    <div class="container newsletter-inner">
+        <div class="newsletter-copy">
+            <h2>Receba as notícias de MT no seu e-mail</h2>
+            <p>Resumo diário de Cuiabá, Várzea Grande e todo o estado. Grátis.</p>
+        </div>
+        {{#if @site.members_enabled}}
+            <form data-members-form="subscribe" class="newsletter-form">
+                <input data-members-email type="email" required placeholder="seu@email.com" aria-label="Seu e-mail" />
+                <button type="submit" class="btn-subscribe">Assinar grátis</button>
+                <span class="newsletter-msg" data-members-error></span>
+            </form>
+        {{else}}
+            <a class="btn-subscribe" href="{{@site.url}}/#/portal/signup">Assinar grátis</a>
+        {{/if}}
+    </div>
+</section>

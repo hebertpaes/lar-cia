@@ -1,0 +1,32 @@
+{{!--
+  Zona de publicidade. Cada anúncio contratado por uma agência é um POST no Ghost:
+    • Título           → nome do anunciante/campanha (não aparece no banner)
+    • Imagem destacada → o banner (feature_image)
+    • Resumo (excerpt) → URL de destino do clique (ex.: https://anunciante.com.br)
+    • Tags             → #ad  +  #ad-leaderboard | #ad-sidebar | #ad-inarticle
+  Parâmetros: zone (classe CSS), filter (filtro do Ghost), limit.
+  Se não houver anúncio na zona, mostra um "house ad" convidando a anunciar.
+--}}
+<aside class="ad ad-{{zone}}" aria-label="Publicidade">
+    {{#get "posts" filter=filter limit=limit order="published_at desc" as |ads|}}
+        {{#if ads}}
+            {{#foreach ads}}
+                <a class="ad-banner" href="{{#if custom_excerpt}}{{custom_excerpt}}{{else}}{{url}}{{/if}}"
+                   target="_blank" rel="nofollow sponsored noopener" data-ad="{{slug}}">
+                    {{#if feature_image}}
+                        <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="lazy" />
+                    {{else}}
+                        <span class="ad-text">{{title}}</span>
+                    {{/if}}
+                </a>
+            {{/foreach}}
+        {{else}}
+            <a class="ad-banner ad-house" href="{{@site.url}}/anuncie/">
+                <span class="ad-house-label">Publicidade</span>
+                <strong>Anuncie aqui</strong>
+                <small>Fale com o comercial do portal LAR &amp; CIA News</small>
+            </a>
+        {{/if}}
+    {{/get}}
+    <span class="ad-tag">Publicidade</span>
+</aside>

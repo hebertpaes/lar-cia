@@ -1,0 +1,32 @@
+<header class="site-header">
+    <div class="container header-inner">
+        <button class="icon-btn nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">☰</button>
+
+        <a class="brand" href="{{@site.url}}" aria-label="{{@site.title}} — início">
+            {{#if @site.logo}}
+                <img class="brand-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+            {{else}}
+                <span class="brand-mark">LAR&amp;CIA</span>
+                <span class="brand-news">NEWS</span>
+            {{/if}}
+        </a>
+
+        <div class="header-meta">
+            <span class="header-date" id="headerDate"></span>
+            <span class="header-place">Cuiabá / Várzea Grande · MT</span>
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn search-toggle" id="searchToggle" aria-label="Buscar">🔍</button>
+            <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro"><span class="theme-icon">🌙</span></button>
+            <a class="btn-subscribe" href="#newsletter">Assinar</a>
+        </div>
+    </div>
+
+    <div class="search-drawer" id="searchDrawer" hidden>
+        <form class="container search-form" action="{{@site.url}}/search/" method="get" role="search">
+            <input type="search" name="q" id="searchInput" placeholder="Buscar notícias, editorias, autores…" autocomplete="off" />
+            <button type="submit" class="btn-subscribe">Buscar</button>
+        </form>
+    </div>
+</header>

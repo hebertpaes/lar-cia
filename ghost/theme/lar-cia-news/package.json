@@ -1,0 +1,42 @@
+{
+  "name": "lar-cia-news",
+  "description": "Portal de notícias LAR & CIA — Mato Grosso (Cuiabá, Várzea Grande e região).",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Hebert Paes",
+    "email": "ciencia@msn.com"
+  },
+  "keywords": ["ghost-theme", "news", "magazine", "jornal", "noticias"],
+  "config": {
+    "posts_per_page": 14,
+    "image_sizes": {
+      "xs": { "width": 160 },
+      "s": { "width": 400 },
+      "m": { "width": 720 },
+      "l": { "width": 1000 },
+      "xl": { "width": 1600 }
+    },
+    "card_assets": true,
+    "custom": {
+      "cor_destaque": {
+        "type": "color",
+        "default": "#C20017",
+        "description": "Cor de urgência / faixa de últimas notícias."
+      },
+      "mostrar_chip_demo": {
+        "type": "boolean",
+        "default": true,
+        "description": "Exibe o selo DEMO em conteúdo de demonstração (tag #demo)."
+      },
+      "whatsapp_redacao": {
+        "type": "text",
+        "default": "5565999900005",
+        "description": "Número da redação (somente dígitos) para o botão de contato/denúncia."
+      }
+    }
+  }
+}
