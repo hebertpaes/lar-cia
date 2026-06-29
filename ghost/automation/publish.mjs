@@ -30,6 +30,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const sourcePath = args.find((a) => !a.startsWith("--"));
 const dryRun = args.includes("--dry-run");
+const draftMode = args.includes("--draft");
 const onlyArg = args.find((a) => a.startsWith("--only="));
 const only = onlyArg ? onlyArg.split("=")[1] : null;
 
@@ -72,7 +73,7 @@ async function publish(site, post, key) {
   const body = { posts: [{
     title: post.title, slug: post.slug, html: htmlOf(post),
     custom_excerpt: post.custom_excerpt || null, feature_image: post.feature_image || null,
-    status: "published", published_at: post.published_at || undefined,
+    status: draftMode ? "draft" : "published", published_at: draftMode ? undefined : (post.published_at || undefined),
     tags: tagsOf(post.id).filter((t) => t.visibility === "public").map((t) => ({ name: t.name })),
   }] };
   const r = await fetch(`${site.url}/ghost/api/admin/posts/?source=html`, {
