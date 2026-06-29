@@ -55,8 +55,8 @@
       },
       "youtube_embed": {
         "type": "boolean",
-        "default": false,
-        "description": "Tocar o vídeo embutido. Deixe desligado p/ vídeos que bloqueiam embed (ex.: CazéTV)."
+        "default": true,
+        "description": "Tocar embutido (autoplay mudo + PiP). Desligue p/ vídeos que bloqueiam embed (ex.: CazéTV)."
       }
     }
   }
