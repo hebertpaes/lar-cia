@@ -1,0 +1,23 @@
+{{!-- Bloco Política: notícias automáticas do portal + espaço de pesquisas.
+      As notícias vêm da editoria Política (automático). As pesquisas vêm de um
+      JSON externo (Design → pesquisas_url); sem URL, a coluna fica oculta. --}}
+<section class="pol-stats container">
+    <div class="section-head">
+        <h2 class="section-title">📊 Política — Brasil &amp; MT</h2>
+        <a class="section-more" href="{{@site.url}}/tag/politica/">Ver Política →</a>
+    </div>
+    <div class="pol-grid">
+        <div class="pol-news">
+            {{#get "posts" filter="tag:politica+tag:-hash-ad" limit="4" order="published_at desc" as |pn|}}
+                {{#if pn}}{{#foreach pn}}{{> article-card size="compact"}}{{/foreach}}
+                {{else}}<p class="section-empty">Sem matérias de Política ainda.</p>{{/if}}
+            {{/get}}
+        </div>
+        {{#if @custom.pesquisas_url}}
+        <aside class="pol-polls" data-url="{{@custom.pesquisas_url}}">
+            <h3 class="rail-title">Últimas pesquisas</h3>
+            <div id="pollsBox"><p class="rail-empty">Carregando pesquisas…</p></div>
+        </aside>
+        {{/if}}
+    </div>
+</section>

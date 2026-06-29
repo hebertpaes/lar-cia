@@ -58,6 +58,20 @@
         "default": false,
         "description": "Ligue p/ tocar embutido (autoplay+PiP) SÓ se o vídeo permitir embed. CazéTV/Copa bloqueia."
       },
+      "copa_ativa": {
+        "type": "boolean",
+        "default": true,
+        "description": "Mostrar o bloco da Copa do Mundo (resultados) abaixo do player."
+      },
+      "copa_api": {
+        "type": "text",
+        "default": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
+        "description": "API de jogos (JSON com 'events'). Padrão: TheSportsDB (Copa)."
+      },
+      "pesquisas_url": {
+        "type": "text",
+        "description": "URL de um JSON com pesquisas eleitorais (veja docs). Vazio = oculto."
+      },
       "whats_url": {
         "type": "text",
         "description": "Link do WhatsApp (ex.: https://wa.me/5565999900005)."
