@@ -8,8 +8,8 @@ Código 100% original e versionável.
 
 - **Capa** (`home.hbs`): manchete principal + chamadas, trilho "Mais lidas",
   blocos por editoria, faixa de últimas notícias (ticker) e bloco de Fontes.
-- **Editorias** por tag (`/editoria/{slug}/`): Política, Cidades, Polícia,
-  Economia, Agro, Brasil & Mundo, Esportes, Cultura, Imóveis, Serviços.
+- **Editorias** por tag (`/tag/{slug}/`, rota padrão do Ghost — sem precisar de
+  routes.yaml): Política, Cidades, Polícia, Economia, Agro, Brasil & Mundo, etc.
 - **Sistema de publicidade** nativo (3 zonas) — veja `PUBLICIDADE.md`.
 - **Tema claro/escuro**, busca, menu mobile, relógio e data.
 - **Selo DEMO** em conteúdo de demonstração (tag interna `#demo`).
@@ -24,9 +24,9 @@ cp -R ghost/theme/lar-cia-news "$GHOST_CONTENT/themes/lar-cia-news"
 
 # 2) No Ghost Admin: Settings → Design → Change theme → Installed → Activate
 #    (ou faça upload do .zip do tema)
-
-# 3) Roteamento: Settings → Labs → Routes → faça upload de routes.yaml
-#    (já incluído na raiz do tema: define /editoria/{slug}/, /autor/{slug}/ e a home)
+#
+# Roteamento: NÃO precisa de routes.yaml. As editorias usam a rota padrão
+# /tag/{slug}/ e a home usa home.hbs automaticamente.
 ```
 
 ## Conteúdo de demonstração

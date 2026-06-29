@@ -1,7 +1,7 @@
 {
   "name": "lar-cia-news",
   "description": "Portal de notícias LAR & CIA — Mato Grosso (Cuiabá, Várzea Grande e região).",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
@@ -31,7 +31,7 @@
         "type": "select",
         "options": ["3", "4", "5", "6", "7", "8", "9", "10"],
         "default": "5",
-        "description": "Quantos posts aparecem no slider principal da home (Featured ficam fixados no início)."
+        "description": "Quantos posts no slider da home (Featured ficam fixados)."
       },
       "mostrar_chip_demo": {
         "type": "boolean",
@@ -45,12 +45,13 @@
       },
       "youtube_live_id": {
         "type": "text",
-        "description": "ID do vídeo/transmissão do YouTube exibido no bloco AO VIVO da barra lateral (ex.: dQw4w9WgXcQ)."
+        "default": "XL2jTQdj134",
+        "description": "ID do vídeo do YouTube no AO VIVO (ex.: jogo da CazéTV)."
       },
       "youtube_canal": {
         "type": "text",
-        "default": "https://www.youtube.com/tvassembleiamt",
-        "description": "URL do canal do YouTube (usada quando não há transmissão ao vivo configurada)."
+        "default": "https://www.youtube.com/@CazeTV/live",
+        "description": "Canal do AO VIVO quando não há vídeo fixo (padrão: CazéTV)."
       }
     }
   }

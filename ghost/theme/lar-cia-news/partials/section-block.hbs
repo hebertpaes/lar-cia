@@ -1,8 +1,8 @@
 {{!-- Bloco de uma editoria na home. Params: slug, titulo. --}}
 <section class="section-block">
     <div class="section-head">
-        <h2 class="section-title"><a href="{{@site.url}}/editoria/{{slug}}/">{{titulo}}</a></h2>
-        <a class="section-more" href="{{@site.url}}/editoria/{{slug}}/">Ver tudo →</a>
+        <h2 class="section-title"><a href="{{@site.url}}/tag/{{slug}}/">{{titulo}}</a></h2>
+        <a class="section-more" href="{{@site.url}}/tag/{{slug}}/">Ver tudo →</a>
     </div>
     {{#get "posts" filter=filter limit="4" order="published_at desc" as |items|}}
         {{#if items}}
