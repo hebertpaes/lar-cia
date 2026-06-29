@@ -36,6 +36,15 @@
         "type": "text",
         "default": "5565999900005",
         "description": "Número da redação (somente dígitos) para o botão de contato/denúncia."
+      },
+      "youtube_live_id": {
+        "type": "text",
+        "description": "ID do vídeo/transmissão do YouTube exibido no bloco AO VIVO da barra lateral (ex.: dQw4w9WgXcQ)."
+      },
+      "youtube_canal": {
+        "type": "text",
+        "default": "https://www.youtube.com/tvassembleiamt",
+        "description": "URL do canal do YouTube (usada quando não há transmissão ao vivo configurada)."
       }
     }
   }

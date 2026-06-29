@@ -246,18 +246,7 @@ addPost({ type: "page", title: "Fontes oficiais", slug: "fontes-oficiais", at: F
   <li><a href="https://www.gov.br/secom/pt-br" target="_blank" rel="noopener">Gov.br / SECOM</a></li>
   <li><a href="https://www.youtube.com/tvassembleiamt" target="_blank" rel="noopener">TV Assembleia MT</a></li>
 </ul>
-<h3>Imprensa de Mato Grosso</h3>
-<ul>
-  <li><a href="https://olhardireto.com.br/" target="_blank" rel="noopener">Olhar Direto</a></li>
-  <li><a href="https://www.gazetadigital.com.br/" target="_blank" rel="noopener">Gazeta Digital</a></li>
-  <li><a href="https://odocumento.com.br/" target="_blank" rel="noopener">O Documento</a></li>
-</ul>
-<h3>Referências internacionais de jornalismo</h3>
-<ul>
-  <li><a href="https://edition.cnn.com/" target="_blank" rel="noopener">CNN</a></li>
-  <li><a href="https://www.foxnews.com/" target="_blank" rel="noopener">Fox News</a></li>
-  <li><a href="https://www.politico.com/" target="_blank" rel="noopener">Politico</a></li>
-</ul>` });
+` });
 
 addPost({ type: "page", title: "Contato", slug: "contato", at: FIX,
   html: `<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>
