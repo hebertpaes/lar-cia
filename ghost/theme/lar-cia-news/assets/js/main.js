@@ -63,6 +63,20 @@
     track.innerHTML = track.innerHTML + track.innerHTML;
   })();
 
+  /* ---- Rotação de banners (5s por padrão) ---- */
+  (function initAdRotators() {
+    $$(".ad-rotator").forEach(function (r) {
+      var slides = $$(".ad-banner", r);
+      if (slides.length < 2) return;
+      var i = 0, iv = parseInt(r.getAttribute("data-interval"), 10) || 5000;
+      setInterval(function () {
+        slides[i].classList.remove("active");
+        i = (i + 1) % slides.length;
+        slides[i].classList.add("active");
+      }, iv);
+    });
+  })();
+
   /* ---- Slider principal (autoplay + pausa/travamento) ---- */
   (function initSlider() {
     var slider = $(".hero-slider");

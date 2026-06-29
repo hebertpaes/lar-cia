@@ -5,15 +5,15 @@
     {{> hero-slider}}
     <aside class="hero-live">
         {{> live}}
-        {{> ad zone="video" filter="tag:hash-ad-video" limit="1"}}
+        {{> ad zone="video" filter="tag:hash-ad-video" limit="6"}}
     </aside>
 </section>
 
-{{!-- ===== Colunas: Mais lidas · Curtinhas · Banner vertical ===== --}}
+{{!-- ===== Colunas (3, só conteúdo): Mais lidas · Curtinhas · Vídeos ===== --}}
 <section class="columns container">
     {{> most-read}}
     {{> curtinhas}}
-    {{> ad zone="vertical" filter="tag:hash-ad-vertical" limit="1"}}
+    {{> videos}}
 </section>
 
 {{!-- ===== Últimas + editorias ===== --}}
@@ -30,7 +30,7 @@
     {{> section-block slug="politica"     titulo="Política"            filter="tag:politica+tag:-hash-ad"}}
     {{> section-block slug="cidades"      titulo="Cidades"             filter="tag:cidades+tag:-hash-ad"}}
 
-    {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="1"}}
+    {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="6"}}
 
     {{> section-block slug="policia"      titulo="Polícia"             filter="tag:policia+tag:-hash-ad"}}
     {{> section-block slug="economia"     titulo="Economia"            filter="tag:economia+tag:-hash-ad"}}
