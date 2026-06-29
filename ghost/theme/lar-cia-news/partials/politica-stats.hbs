@@ -1,6 +1,6 @@
-{{!-- Bloco Política: notícias automáticas do portal + espaço de pesquisas.
-      As notícias vêm da editoria Política (automático). As pesquisas vêm de um
-      JSON externo (Design → pesquisas_url); sem URL, a coluna fica oculta. --}}
+{{!-- Bloco Política: notícias automáticas do portal + pesquisas.
+      A coluna mostra um CENÁRIO HIPOTÉTICO (demonstração) por padrão. Se você
+      definir Design → pesquisas_url, o JS troca pelos números reais do seu JSON. --}}
 <section class="pol-stats container">
     <div class="section-head">
         <h2 class="section-title">📊 Política — Brasil &amp; MT</h2>
@@ -13,11 +13,26 @@
                 {{else}}<p class="section-empty">Sem matérias de Política ainda.</p>{{/if}}
             {{/get}}
         </div>
-        {{#if @custom.pesquisas_url}}
         <aside class="pol-polls" data-url="{{@custom.pesquisas_url}}">
-            <h3 class="rail-title">Últimas pesquisas</h3>
-            <div id="pollsBox"><p class="rail-empty">Carregando pesquisas…</p></div>
+            <h3 class="rail-title">Pesquisas <span class="poll-demo">cenário hipotético</span></h3>
+            <div id="pollsBox">
+                <div class="poll">
+                    <div class="poll-head">Presidente — Brasil <small>hipotético · 06/2026</small></div>
+                    <div class="poll-row"><span class="poll-name">Situação</span><span class="poll-pct">38%</span><div class="poll-bar"><i style="width:38%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Oposição</span><span class="poll-pct">33%</span><div class="poll-bar"><i style="width:33%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">3ª via</span><span class="poll-pct">9%</span><div class="poll-bar"><i style="width:9%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Brancos/Nulos</span><span class="poll-pct">12%</span><div class="poll-bar"><i style="width:12%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Indecisos</span><span class="poll-pct">8%</span><div class="poll-bar"><i style="width:8%"></i></div></div>
+                </div>
+                <div class="poll">
+                    <div class="poll-head">Governo de Mato Grosso <small>hipotético · 06/2026</small></div>
+                    <div class="poll-row"><span class="poll-name">Situação</span><span class="poll-pct">44%</span><div class="poll-bar"><i style="width:44%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Oposição</span><span class="poll-pct">29%</span><div class="poll-bar"><i style="width:29%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Outros</span><span class="poll-pct">14%</span><div class="poll-bar"><i style="width:14%"></i></div></div>
+                    <div class="poll-row"><span class="poll-name">Indecisos</span><span class="poll-pct">13%</span><div class="poll-bar"><i style="width:13%"></i></div></div>
+                </div>
+            </div>
+            <p class="poll-note">Dados ilustrativos. Configure <b>pesquisas_url</b> para exibir números reais de institutos.</p>
         </aside>
-        {{/if}}
     </div>
 </section>
