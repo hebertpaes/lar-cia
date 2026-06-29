@@ -1,26 +1,33 @@
-{{!-- Navegação de editorias. Usa o menu primário do Ghost (Settings → Navigation);
-      se vazio, cai num conjunto padrão de editorias de MT. --}}
-<nav class="main-nav" id="mainNav" aria-label="Editorias">
-    <div class="container main-nav-inner">
-        {{#if @site.navigation}}
-            <ul class="nav-list">
-                {{#foreach navigation}}
-                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
-                {{/foreach}}
-            </ul>
-        {{else}}
-            <ul class="nav-list">
-                <li><a href="{{@site.url}}/tag/politica/">Política</a></li>
-                <li><a href="{{@site.url}}/tag/cidades/">Cidades</a></li>
-                <li><a href="{{@site.url}}/tag/policia/">Polícia</a></li>
-                <li><a href="{{@site.url}}/tag/economia/">Economia</a></li>
-                <li><a href="{{@site.url}}/tag/agro/">Agro</a></li>
-                <li><a href="{{@site.url}}/tag/brasil-mundo/">Brasil &amp; Mundo</a></li>
-                <li><a href="{{@site.url}}/tag/esportes/">Esportes</a></li>
-                <li><a href="{{@site.url}}/tag/imoveis/">Imóveis</a></li>
-                <li><a href="{{@site.url}}/fontes-oficiais/">Fontes</a></li>
-                <li class="nav-cta"><a href="{{@site.url}}/anuncie/">Anuncie</a></li>
-            </ul>
-        {{/if}}
+{{!-- Navegação de editorias + redes sociais + login (abre como menu no mobile). --}}
+<nav class="main-nav" aria-label="Editorias">
+    <div class="container">
+        <div class="nav-collapse" id="mainNav">
+            {{#if @site.navigation}}
+                <ul class="nav-list">
+                    {{#foreach navigation}}<li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>{{/foreach}}
+                </ul>
+            {{else}}
+                <ul class="nav-list">
+                    <li><a href="{{@site.url}}/tag/politica/">Política</a></li>
+                    <li><a href="{{@site.url}}/tag/cidades/">Cidades</a></li>
+                    <li><a href="{{@site.url}}/tag/policia/">Polícia</a></li>
+                    <li><a href="{{@site.url}}/tag/economia/">Economia</a></li>
+                    <li><a href="{{@site.url}}/tag/agro/">Agro</a></li>
+                    <li><a href="{{@site.url}}/tag/brasil-mundo/">Brasil &amp; Mundo</a></li>
+                    <li><a href="{{@site.url}}/tag/esportes/">Esportes</a></li>
+                    <li><a href="{{@site.url}}/tag/imoveis/">Imóveis</a></li>
+                    <li><a href="{{@site.url}}/fontes-oficiais/">Fontes</a></li>
+                    <li class="nav-cta"><a href="{{@site.url}}/anuncie/">Anuncie</a></li>
+                </ul>
+            {{/if}}
+
+            <div class="nav-extra">
+                <div class="nav-auth">
+                    <a class="nav-login" href="#/portal/signin">Entrar</a>
+                    <a class="btn-subscribe" href="#/portal/signup">Assinar grátis</a>
+                </div>
+                {{> social}}
+            </div>
+        </div>
     </div>
 </nav>

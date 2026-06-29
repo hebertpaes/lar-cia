@@ -57,6 +57,26 @@
         "type": "boolean",
         "default": false,
         "description": "Ligue p/ tocar embutido (autoplay+PiP) SÓ se o vídeo permitir embed. CazéTV/Copa bloqueia."
+      },
+      "whats_url": {
+        "type": "text",
+        "description": "Link do WhatsApp (ex.: https://wa.me/5565999900005)."
+      },
+      "face_url": {
+        "type": "text",
+        "description": "Link da página no Facebook."
+      },
+      "insta_url": {
+        "type": "text",
+        "description": "Link do Instagram."
+      },
+      "x_url": {
+        "type": "text",
+        "description": "Link do X (Twitter)."
+      },
+      "yt_url": {
+        "type": "text",
+        "description": "Link do canal no YouTube."
       }
     }
   }
