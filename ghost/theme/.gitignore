@@ -1,1 +1,8 @@
+# Artefatos gerados por build-portal.sh (cópias do tema base lar-cia-news).
+# A fonte de verdade é lar-cia-news/; as variantes são geradas sob demanda.
 *.zip
+hebertpaes/
+hojemt/
+estadomt/
+odiapolitico/
+larcia/
