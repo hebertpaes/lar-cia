@@ -89,14 +89,18 @@ let pub = 0, skip = 0, dup = 0, err = 0;
 for (const site of cfg.sites) {
   if (only && site.name !== only) continue;
   const key = process.env[site.keyEnv];
-  if (!key) { console.log(`• ${site.name}: sem ${site.keyEnv} no ambiente — pulando.`); continue; }
+  // O dry-run é offline: não exige chave nem acessa a API.
+  if (!dryRun) {
+    if (!key) { console.log(`• ${site.name}: sem ${site.keyEnv} no ambiente — pulando.`); continue; }
+    if (!key.includes(":")) { console.log(`• ${site.name}: ${site.keyEnv} inválida (use id:secret) — pulando.`); continue; }
+  }
   console.log(`\n== ${site.name} (${site.url}) — editorias: ${JSON.stringify(site.editorias)} ==`);
   for (const post of data.posts.filter((p) => p.type === "post")) {
     const ed = editoriaOf(post);
     if (!accepts(site, ed)) { skip++; continue; }
+    if (dryRun) { console.log(`  [dry-run] publicaria [${ed}] ${post.title}`); pub++; continue; }
     try {
       if (await exists(site, post.slug, key)) { console.log(`  ~ já existe: ${post.slug}`); dup++; continue; }
-      if (dryRun) { console.log(`  [dry-run] publicaria [${ed}] ${post.title}`); pub++; continue; }
       await publish(site, post, key);
       console.log(`  ✓ [${ed}] ${post.title}`); pub++;
     } catch (e) { console.log(`  ✗ ${post.slug}: ${e.message}`); err++; }
