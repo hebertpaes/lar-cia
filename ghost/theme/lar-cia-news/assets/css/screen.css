@@ -139,8 +139,24 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .hero-excerpt { color: var(--ink-soft); font-size: 16.5px; margin: 12px 0; max-width: 60ch; }
 .lead-secondary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
 
+/* ---- Topo: slider + vídeo ao lado --------------------------------------- */
+.hero-row { display: grid; grid-template-columns: 1fr; gap: 24px; padding-top: 22px; }
+.hero-live { display: flex; flex-direction: column; gap: 14px; }
+.hero-live .live-embed, .hero-live .live-placeholder { aspect-ratio: 16/9; }
+
+/* ---- Colunas: Mais lidas · Curtinhas · Vídeos · Banner vertical ---------- */
+.columns { display: grid; grid-template-columns: 1fr; gap: 26px; padding: 26px 0; margin-top: 8px; border-top: 1px solid var(--line); }
+.curtinhas-list { list-style: none; margin: 0; padding: 0; }
+.curtinhas-list li { border-bottom: 1px solid var(--line); }
+.curtinhas-list a { display: block; padding: 9px 0; font-size: 14px; font-weight: 600; line-height: 1.35; }
+.curtinhas-list a:hover { color: var(--urgent); }
+.curt-kicker { display: inline-block; color: var(--urgent); font-family: var(--font-ui); font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; margin-right: 6px; }
+.ad-vertical { align-self: start; }
+.ad-vertical .ad-banner { min-height: 480px; }
+.ad-video .ad-banner { min-height: 90px; }
+
 /* ---- Slider principal ---------------------------------------------------- */
-.hero-slider { position: relative; padding-top: 22px; }
+.hero-slider { position: relative; }
 .slider-track { position: relative; aspect-ratio: 16/7; border-radius: 10px; overflow: hidden; background: var(--bg-soft); box-shadow: var(--shadow); }
 .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
 .slide.active { opacity: 1; pointer-events: auto; }
@@ -326,10 +342,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 @media (min-width: 720px) {
   .header-meta { display: block; }
   .archive-grid { grid-template-columns: repeat(3, 1fr); }
+  .columns { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 960px) {
   .nav-burger { display: none; }
-  .lead { grid-template-columns: minmax(0, 2.2fr) minmax(280px, 1fr); }
+  .hero-row { grid-template-columns: minmax(0, 2.3fr) minmax(280px, 1fr); }
+  .columns { grid-template-columns: 1.1fr 1.1fr 1.1fr 0.9fr; }
   .article-wrap { grid-template-columns: minmax(0, 1fr) 320px; }
   .editoria-wrap { grid-template-columns: minmax(0, 1fr) 320px; }
 }

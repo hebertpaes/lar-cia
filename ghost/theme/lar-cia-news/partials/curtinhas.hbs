@@ -1,0 +1,18 @@
+{{!-- Curtinhas: notas curtas (mais recentes). Para uma coluna só de curtas,
+      marque matérias com a tag "curtinhas"; sem ela, usa as mais recentes. --}}
+<aside class="curtinhas" aria-label="Curtinhas">
+    <h2 class="rail-title">Curtinhas</h2>
+    {{#get "posts" filter="tag:curtinhas+tag:-hash-ad" limit="6" order="published_at desc" as |cur|}}
+        {{#if cur}}
+            <ul class="curtinhas-list">
+                {{#foreach cur}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+            </ul>
+        {{else}}
+            {{#get "posts" filter="tag:-hash-ad" limit="6" order="published_at desc" as |late|}}
+                <ul class="curtinhas-list">
+                    {{#foreach late}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+                </ul>
+            {{/get}}
+        {{/if}}
+    {{/get}}
+</aside>

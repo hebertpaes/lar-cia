@@ -1,39 +1,43 @@
 {{!< default}}
 
-{{!-- ===== Slider principal (até 10, Featured fixados) ===== --}}
-{{> hero-slider}}
+{{!-- ===== Topo: slider + vídeo (Ao Vivo) ao lado ===== --}}
+<section class="hero-row container">
+    {{> hero-slider}}
+    <aside class="hero-live">
+        {{> live}}
+        {{> ad zone="video" filter="tag:hash-ad-video" limit="1"}}
+    </aside>
+</section>
 
-{{!-- ===== Últimas notícias + trilho lateral ===== --}}
-<section class="lead container">
-    <div class="lead-main">
+{{!-- ===== Colunas: Mais lidas · Curtinhas · Vídeos · Banner vertical ===== --}}
+<section class="columns container">
+    {{> most-read}}
+    {{> curtinhas}}
+    {{> videos}}
+    {{> ad zone="vertical" filter="tag:hash-ad-vertical" limit="1"}}
+</section>
+
+{{!-- ===== Últimas + editorias ===== --}}
+<div class="container sections">
+    <section class="section-block">
         <div class="section-head"><h2 class="section-title"><a href="{{@site.url}}/noticias/">Últimas notícias</a></h2></div>
-        <div class="lead-secondary">
-            {{#get "posts" filter="tag:-hash-ad" limit="6" order="published_at desc" as |recent|}}
+        <div class="section-grid">
+            {{#get "posts" filter="tag:-hash-ad" limit="8" order="published_at desc" as |recent|}}
                 {{#foreach recent}}{{> article-card size="compact"}}{{/foreach}}
             {{/get}}
         </div>
-    </div>
+    </section>
 
-    <div class="lead-rail">
-        {{> live}}
-        {{> videos}}
-        {{> most-read}}
-        {{> ad zone="sidebar" filter="tag:hash-ad-sidebar" limit="1"}}
-    </div>
-</section>
-
-{{!-- ===== Editorias (configuráveis em package.json → editorias_home) ===== --}}
-<div class="container sections">
-    {{> section-block slug="politica"     titulo="Política"        filter="tag:politica+tag:-hash-ad"}}
-    {{> section-block slug="cidades"       titulo="Cidades"         filter="tag:cidades+tag:-hash-ad"}}
+    {{> section-block slug="politica"     titulo="Política"            filter="tag:politica+tag:-hash-ad"}}
+    {{> section-block slug="cidades"      titulo="Cidades"             filter="tag:cidades+tag:-hash-ad"}}
 
     {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="1"}}
 
-    {{> section-block slug="policia"       titulo="Polícia"         filter="tag:policia+tag:-hash-ad"}}
-    {{> section-block slug="economia"      titulo="Economia"        filter="tag:economia+tag:-hash-ad"}}
-    {{> section-block slug="agro"          titulo="Agro"            filter="tag:agro+tag:-hash-ad"}}
-    {{> section-block slug="brasil-mundo"  titulo="Brasil &amp; Mundo" filter="tag:brasil-mundo+tag:-hash-ad"}}
-    {{> section-block slug="imoveis"       titulo="Imóveis"         filter="tag:imoveis+tag:-hash-ad"}}
+    {{> section-block slug="policia"      titulo="Polícia"             filter="tag:policia+tag:-hash-ad"}}
+    {{> section-block slug="economia"     titulo="Economia"            filter="tag:economia+tag:-hash-ad"}}
+    {{> section-block slug="agro"         titulo="Agro"                filter="tag:agro+tag:-hash-ad"}}
+    {{> section-block slug="brasil-mundo" titulo="Brasil &amp; Mundo"  filter="tag:brasil-mundo+tag:-hash-ad"}}
+    {{> section-block slug="imoveis"      titulo="Imóveis"             filter="tag:imoveis+tag:-hash-ad"}}
 </div>
 
 {{> sources}}

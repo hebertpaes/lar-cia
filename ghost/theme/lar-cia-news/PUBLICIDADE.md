@@ -6,11 +6,13 @@ contratado por uma agência é cadastrado como um **post**.
 
 ## Zonas disponíveis
 
-| Zona         | Onde aparece                         | Tamanho ideal | Tag interna           |
-|--------------|--------------------------------------|---------------|-----------------------|
-| Leaderboard  | Topo de todas as páginas             | 970×90        | `#ad-leaderboard`     |
-| Retângulo    | Trilho lateral (home e artigos)      | 300×250       | `#ad-sidebar`         |
-| In-article   | Dentro das matérias / entre editorias| 728×90        | `#ad-inarticle`       |
+| Zona         | Onde aparece                          | Tamanho ideal | Tag interna           |
+|--------------|---------------------------------------|---------------|-----------------------|
+| Leaderboard  | Topo de todas as páginas              | 970×90        | `#ad-leaderboard`     |
+| No vídeo     | Abaixo do "Ao Vivo" (ao lado do slider)| 728×90       | `#ad-video`           |
+| Vertical     | Coluna da home (skyscraper)           | 300×600       | `#ad-vertical`        |
+| Retângulo    | Trilho lateral (artigos e editorias)  | 300×250       | `#ad-sidebar`         |
+| In-article   | Dentro das matérias / entre editorias | 728×90        | `#ad-inarticle`       |
 
 ## Como publicar um banner contratado (passo a passo)
 
