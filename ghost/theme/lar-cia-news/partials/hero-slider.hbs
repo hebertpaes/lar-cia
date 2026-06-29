@@ -1,30 +1,27 @@
-{{!-- Slider principal da home. Mostra até N posts (Design → slides_home, 3 a 10).
-      "Travamento": posts marcados como Featured no Ghost ficam fixados no início
-      do slider (order featured desc). Botão de pausa trava a transição. --}}
+{{!-- Slider principal: mostra os posts FIXADOS (Featured). "Fixe" no Ghost a
+      matéria que deve aparecer aqui. Sem fixados, mostra as mais recentes.
+      O slider usa só os fixados e "Últimas" usa os não-fixados → sem repetição.
+      Quantidade: Design → slides_home (3 a 10). --}}
 <section class="hero-slider" data-autoplay="5000" aria-label="Destaques">
-    {{#get "posts" filter="tag:-hash-ad" limit=@custom.slides_home order="featured desc, published_at desc" as |slides|}}
-        <div class="slider-track">
-            {{#foreach slides}}
-                <article class="slide{{#if @first}} active{{/if}}" data-index="{{@index}}">
-                    <a class="slide-media" href="{{url}}">
-                        {{#if feature_image}}<img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />{{else}}<span class="card-media-fallback big">{{@site.title}}</span>{{/if}}
-                    </a>
-                    <div class="slide-caption">
-                        {{#if featured}}<span class="slide-pin">📌 Fixado</span>{{/if}}
-                        {{#primary_tag}}<a class="card-kicker big" href="{{url}}">{{name}}</a>{{/primary_tag}}
-                        <h2 class="slide-title"><a href="{{url}}">{{title}}</a></h2>
-                        <p class="slide-excerpt">{{excerpt words="26"}}</p>
-                    </div>
-                </article>
-            {{/foreach}}
-        </div>
-        <button class="slider-arrow prev" type="button" aria-label="Anterior">‹</button>
-        <button class="slider-arrow next" type="button" aria-label="Próximo">›</button>
-        <div class="slider-controls">
-            <button class="slider-pause" type="button" aria-label="Pausar ou retomar a transição">⏸</button>
-            <div class="slider-dots">
-                {{#foreach slides}}<button class="slider-dot{{#if @first}} active{{/if}}" type="button" data-go="{{@index}}" aria-label="Ir para o slide {{@number}}"></button>{{/foreach}}
+    {{#get "posts" filter="featured:true+tag:-hash-ad" limit=@custom.slides_home order="published_at desc" as |slides|}}
+        {{#if slides}}
+            <div class="slider-track">{{#foreach slides}}{{> slide}}{{/foreach}}</div>
+            <button class="slider-arrow prev" type="button" aria-label="Anterior">‹</button>
+            <button class="slider-arrow next" type="button" aria-label="Próximo">›</button>
+            <div class="slider-controls">
+                <button class="slider-pause" type="button" aria-label="Pausar ou retomar">⏸</button>
+                <div class="slider-dots">{{#foreach slides}}<button class="slider-dot{{#if @first}} active{{/if}}" type="button" data-go="{{@index}}" aria-label="Slide {{@number}}"></button>{{/foreach}}</div>
             </div>
-        </div>
+        {{else}}
+            {{#get "posts" filter="tag:-hash-ad" limit=@custom.slides_home order="published_at desc" as |slides|}}
+                <div class="slider-track">{{#foreach slides}}{{> slide}}{{/foreach}}</div>
+                <button class="slider-arrow prev" type="button" aria-label="Anterior">‹</button>
+                <button class="slider-arrow next" type="button" aria-label="Próximo">›</button>
+                <div class="slider-controls">
+                    <button class="slider-pause" type="button" aria-label="Pausar ou retomar">⏸</button>
+                    <div class="slider-dots">{{#foreach slides}}<button class="slider-dot{{#if @first}} active{{/if}}" type="button" data-go="{{@index}}" aria-label="Slide {{@number}}"></button>{{/foreach}}</div>
+                </div>
+            {{/get}}
+        {{/if}}
     {{/get}}
 </section>
