@@ -1,33 +1,17 @@
 {{!< default}}
 
-{{!-- ===== Bloco principal: manchete + chamadas + trilho lateral ===== --}}
+{{!-- ===== Slider principal (até 10, Featured fixados) ===== --}}
+{{> hero-slider}}
+
+{{!-- ===== Últimas notícias + trilho lateral ===== --}}
 <section class="lead container">
     <div class="lead-main">
-        {{#get "posts" filter="tag:-hash-ad" limit="5" order="published_at desc" as |front|}}
-            {{#foreach front}}
-                {{#if @first}}
-                    <article class="hero-lead">
-                        <a class="hero-media" href="{{url}}">
-                            {{#if feature_image}}<img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />{{else}}<span class="card-media-fallback big">{{@site.title}}</span>{{/if}}
-                            {{#if @custom.mostrar_chip_demo}}{{#has tag="hash-demo"}}<span class="chip-demo">DEMO</span>{{/has}}{{/if}}
-                        </a>
-                        <div class="hero-text">
-                            {{#primary_tag}}<a class="card-kicker big" href="{{url}}">{{name}}</a>{{/primary_tag}}
-                            <h1 class="hero-title"><a href="{{url}}">{{title}}</a></h1>
-                            <p class="hero-excerpt">{{excerpt words="32"}}</p>
-                            <div class="card-meta">{{#if primary_author}}<span>{{primary_author.name}}</span> · {{/if}}<time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD/MM/YYYY HH:mm"}}</time></div>
-                        </div>
-                    </article>
-                {{/if}}
-            {{/foreach}}
-            <div class="lead-secondary">
-                {{#foreach front}}
-                    {{#unless @first}}
-                        {{> article-card size="compact"}}
-                    {{/unless}}
-                {{/foreach}}
-            </div>
-        {{/get}}
+        <div class="section-head"><h2 class="section-title"><a href="{{@site.url}}/noticias/">Últimas notícias</a></h2></div>
+        <div class="lead-secondary">
+            {{#get "posts" filter="tag:-hash-ad" limit="6" order="published_at desc" as |recent|}}
+                {{#foreach recent}}{{> article-card size="compact"}}{{/foreach}}
+            {{/get}}
+        </div>
     </div>
 
     <div class="lead-rail">
