@@ -52,6 +52,11 @@
         "type": "text",
         "default": "https://www.youtube.com/@CazeTV/live",
         "description": "Canal do AO VIVO quando não há vídeo fixo (padrão: CazéTV)."
+      },
+      "youtube_embed": {
+        "type": "boolean",
+        "default": false,
+        "description": "Tocar o vídeo embutido. Deixe desligado p/ vídeos que bloqueiam embed (ex.: CazéTV)."
       }
     }
   }

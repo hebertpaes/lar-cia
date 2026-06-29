@@ -1,16 +1,24 @@
-{{!-- Bloco "AO VIVO" da barra lateral. Configure o vídeo em
-      Settings → Design → youtube_live_id (ID do vídeo/transmissão do YouTube).
-      Sem ID, mostra um chamariz com link para o canal. --}}
+{{!-- Bloco "AO VIVO" da barra lateral.
+      youtube_live_id = ID do vídeo (Design). Por padrão mostra a miniatura com
+      botão de play que abre no YouTube (funciona mesmo com vídeos que bloqueiam
+      embed, como CazéTV/Copa). Ligue "youtube_embed" para tocar embutido. --}}
 <aside class="live-box" aria-label="Ao vivo">
     <h2 class="rail-title rail-live"><span class="live-dot"></span> AO VIVO</h2>
     {{#if @custom.youtube_live_id}}
-        <div class="live-embed">
-            <iframe src="https://www.youtube.com/embed/{{@custom.youtube_live_id}}?rel=0&autoplay=1&mute=1&playsinline=1"
-                title="Ao vivo" loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen></iframe>
-        </div>
+        {{#if @custom.youtube_embed}}
+            <div class="live-embed">
+                <iframe src="https://www.youtube.com/embed/{{@custom.youtube_live_id}}?rel=0&autoplay=1&mute=1&playsinline=1"
+                    title="Ao vivo" loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        {{else}}
+            <a class="live-thumb" href="https://www.youtube.com/watch?v={{@custom.youtube_live_id}}" target="_blank" rel="noopener">
+                <img src="https://img.youtube.com/vi/{{@custom.youtube_live_id}}/hqdefault.jpg" alt="Assistir à transmissão ao vivo" loading="lazy" />
+                <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
+                <span class="live-play">▶</span>
+            </a>
+        {{/if}}
     {{else}}
         <a class="live-placeholder" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}" target="_blank" rel="noopener">
             <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
