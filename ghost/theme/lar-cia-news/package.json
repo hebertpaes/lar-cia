@@ -55,8 +55,8 @@
       },
       "youtube_embed": {
         "type": "boolean",
-        "default": true,
-        "description": "Tocar embutido (autoplay mudo + PiP). Desligue p/ vídeos que bloqueiam embed (ex.: CazéTV)."
+        "default": false,
+        "description": "Ligue p/ tocar embutido (autoplay+PiP) SÓ se o vídeo permitir embed. CazéTV/Copa bloqueia."
       }
     }
   }

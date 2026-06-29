@@ -206,6 +206,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .live-thumb:hover img { opacity: .9; }
 .live-thumb .live-badge { position: absolute; top: 10px; left: 10px; }
 .live-play { position: absolute; inset: 0; margin: auto; width: 58px; height: 58px; display: grid; place-items: center; background: var(--urgent); color: #fff; border-radius: 50%; font-size: 22px; box-shadow: 0 4px 16px rgba(0,0,0,.4); }
+.live-cta { position: absolute; left: 0; right: 0; bottom: 0; padding: 9px 12px; background: linear-gradient(transparent, rgba(0,0,0,.85)); color: #fff; font-family: var(--font-ui); font-weight: 700; font-size: 12.5px; text-align: center; }
 .live-placeholder { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 8px; background: #111; color: #fff; aspect-ratio: 16/9; justify-content: center; }
 .live-placeholder strong { font-family: var(--font-head); font-size: 17px; }
 .live-placeholder small { color: #b9bdc6; font-size: 11.5px; }
