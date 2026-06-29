@@ -1,0 +1,35 @@
+[
+  {
+    "cargo": "Presidente — Brasil",
+    "instituto": "SUBSTITUA pelo instituto (ex.: Quaest)",
+    "data": "06/2026",
+    "candidatos": [
+      { "nome": "Candidato A", "pct": 0 },
+      { "nome": "Candidato B", "pct": 0 },
+      { "nome": "Candidato C", "pct": 0 },
+      { "nome": "Brancos/Nulos", "pct": 0 },
+      { "nome": "Indecisos", "pct": 0 }
+    ]
+  },
+  {
+    "cargo": "Governo de Mato Grosso",
+    "instituto": "SUBSTITUA pelo instituto",
+    "data": "06/2026",
+    "candidatos": [
+      { "nome": "Candidato 1", "pct": 0 },
+      { "nome": "Candidato 2", "pct": 0 },
+      { "nome": "Candidato 3", "pct": 0 },
+      { "nome": "Indecisos", "pct": 0 }
+    ]
+  },
+  {
+    "cargo": "Senado — Mato Grosso",
+    "instituto": "SUBSTITUA pelo instituto",
+    "data": "06/2026",
+    "candidatos": [
+      { "nome": "Nome A", "pct": 0 },
+      { "nome": "Nome B", "pct": 0 },
+      { "nome": "Nome C", "pct": 0 }
+    ]
+  }
+]
