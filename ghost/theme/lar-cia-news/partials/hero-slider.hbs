@@ -1,7 +1,7 @@
 {{!-- Slider principal da home. Mostra até N posts (Design → slides_home, 3 a 10).
       "Travamento": posts marcados como Featured no Ghost ficam fixados no início
       do slider (order featured desc). Botão de pausa trava a transição. --}}
-<section class="hero-slider" data-autoplay="6000" aria-label="Destaques">
+<section class="hero-slider" data-autoplay="5000" aria-label="Destaques">
     {{#get "posts" filter="tag:-hash-ad" limit=@custom.slides_home order="featured desc, published_at desc" as |slides|}}
         <div class="slider-track">
             {{#foreach slides}}
