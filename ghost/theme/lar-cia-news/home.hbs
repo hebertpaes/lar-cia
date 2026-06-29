@@ -9,18 +9,15 @@
     </aside>
 </section>
 
-{{!-- ===== Copa do Mundo (logo abaixo do player) + Política ===== --}}
-{{> copa}}
-{{> politica-stats}}
-
-{{!-- ===== Colunas (3, só conteúdo): Mais lidas · Curtinhas · Vídeos ===== --}}
+{{!-- ===== Colunas (3, só conteúdo): Mais lidas · Curtinhas · Vídeos =====
+      Ficam logo abaixo do topo, coladas ao herói (não mais depois das faixas). --}}
 <section class="columns container">
     {{> most-read}}
     {{> curtinhas}}
     {{> videos}}
 </section>
 
-{{!-- ===== Últimas + editorias ===== --}}
+{{!-- ===== Últimas notícias ===== --}}
 <div class="container sections">
     <section class="section-block">
         <div class="section-head"><h2 class="section-title"><a href="{{@site.url}}/">Últimas notícias</a></h2></div>
@@ -30,13 +27,19 @@
             {{/get}}
         </div>
     </section>
+</div>
 
-    {{> section-block slug="politica"     titulo="Política"            filter="tag:politica+tag:-hash-ad"}}
+{{!-- ===== Copa do Mundo + Política (faixas de conteúdo, fora do topo) ===== --}}
+{{> copa}}
+{{> politica-stats}}
+
+{{!-- ===== Demais editorias ===== --}}
+<div class="container sections">
     {{> section-block slug="cidades"      titulo="Cidades"             filter="tag:cidades+tag:-hash-ad"}}
+    {{> section-block slug="policia"      titulo="Polícia"             filter="tag:policia+tag:-hash-ad"}}
 
     {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="6"}}
 
-    {{> section-block slug="policia"      titulo="Polícia"             filter="tag:policia+tag:-hash-ad"}}
     {{> section-block slug="economia"     titulo="Economia"            filter="tag:economia+tag:-hash-ad"}}
     {{> section-block slug="agro"         titulo="Agro"                filter="tag:agro+tag:-hash-ad"}}
     {{> section-block slug="brasil-mundo" titulo="Brasil &amp; Mundo"  filter="tag:brasil-mundo+tag:-hash-ad"}}
