@@ -63,6 +63,37 @@
     track.innerHTML = track.innerHTML + track.innerHTML;
   })();
 
+  /* ---- Player de vídeo em popup (lightbox) ao clicar no AO VIVO ---- */
+  (function initYtLightbox() {
+    function open(id) {
+      var ov = document.createElement("div");
+      ov.className = "yt-modal";
+      ov.innerHTML =
+        '<div class="yt-modal-box">' +
+        '<button class="yt-close" type="button" aria-label="Fechar">×</button>' +
+        '<div class="yt-frame"><iframe src="https://www.youtube.com/embed/' + id +
+        '?autoplay=1&rel=0&playsinline=1" title="Ao vivo" ' +
+        'allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe></div>' +
+        '<a class="yt-open" href="https://www.youtube.com/watch?v=' + id +
+        '" target="_blank" rel="noopener">Se não carregar aqui, assista no YouTube ↗</a></div>';
+      function close() { ov.remove(); document.removeEventListener("keydown", esc); }
+      function esc(e) { if (e.key === "Escape") close(); }
+      ov.addEventListener("click", function (e) {
+        if (e.target === ov || e.target.classList.contains("yt-close")) close();
+      });
+      document.addEventListener("keydown", esc);
+      document.body.appendChild(ov);
+    }
+    $$(".js-yt").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var id = a.getAttribute("data-yt");
+        if (!id) return;
+        e.preventDefault();
+        open(id);
+      });
+    });
+  })();
+
   /* ---- Rotação de banners (5s por padrão) ---- */
   (function initAdRotators() {
     $$(".ad-rotator").forEach(function (r) {

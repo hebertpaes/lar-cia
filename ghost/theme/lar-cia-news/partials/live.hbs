@@ -13,11 +13,11 @@
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         {{else}}
-            <a class="live-thumb" href="https://www.youtube.com/watch?v={{@custom.youtube_live_id}}" target="_blank" rel="noopener">
+            <a class="live-thumb js-yt" href="https://www.youtube.com/watch?v={{@custom.youtube_live_id}}" data-yt="{{@custom.youtube_live_id}}" target="_blank" rel="noopener">
                 <img src="https://img.youtube.com/vi/{{@custom.youtube_live_id}}/hqdefault.jpg" alt="Assistir à transmissão ao vivo" loading="lazy" />
                 <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
                 <span class="live-play">▶</span>
-                <span class="live-cta">Assistir ao vivo no YouTube</span>
+                <span class="live-cta">Clique para assistir ao vivo</span>
             </a>
         {{/if}}
     {{else}}
