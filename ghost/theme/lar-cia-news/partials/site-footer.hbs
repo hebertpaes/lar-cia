@@ -1,8 +1,12 @@
 <footer class="site-footer">
     <div class="container footer-grid">
         <div class="footer-brand">
-            <span class="brand-mark">LAR&amp;CIA</span><span class="brand-news">NEWS</span>
-            <p>Portal de notícias de Mato Grosso. Cuiabá, Várzea Grande e região. Uma iniciativa de Hebert Paes.</p>
+            {{#if @site.logo}}
+                <img class="footer-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+            {{else}}
+                <span class="brand-mark">{{@site.title}}</span>
+            {{/if}}
+            <p>{{#if @site.description}}{{@site.description}}{{else}}Portal de notícias.{{/if}}</p>
         </div>
         <div class="footer-col">
             <h4>Editorias</h4>
@@ -27,7 +31,7 @@
         </div>
     </div>
     <div class="container footer-bottom">
-        <span>© {{date format="YYYY"}} {{@site.title}} — Hebert Paes. Conteúdo de demonstração identificado com o selo DEMO.</span>
+        <span>© {{date format="YYYY"}} {{@site.title}}. Todos os direitos reservados.</span>
         <span class="footer-credits">Veículos privados creditados à fonte · Releases oficiais reproduzidos com atribuição</span>
     </div>
 </footer>
