@@ -82,7 +82,7 @@ page("Fontes oficiais", "fontes-oficiais",
 </ul>`);
 page("Contato", "contato",
   `<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>
-<ul><li>💬 <a href="https://wa.me/5565999900005" target="_blank" rel="noopener">WhatsApp</a></li><li>✉️ <a href="mailto:ciencia@msn.com">ciencia@msn.com</a></li><li>📍 Cuiabá / Várzea Grande - MT</li></ul>`);
+<ul><li>💬 <a href="https://wa.me/5565999900005" target="_blank" rel="noopener">WhatsApp</a></li><li>✉️ <a href="mailto:contato@hojemt.com.br">contato@hojemt.com.br</a></li><li>📍 Cuiabá / Várzea Grande - MT</li></ul>`);
 
 /* ---- settings (menus) --------------------------------------------------- */
 const settings = [

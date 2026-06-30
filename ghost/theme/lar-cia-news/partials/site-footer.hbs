@@ -26,7 +26,7 @@
         <div class="footer-col">
             <h4>Redação</h4>
             <a href="https://wa.me/{{@custom.whatsapp_redacao}}" target="_blank" rel="noopener">WhatsApp da redação</a>
-            <a href="mailto:ciencia@msn.com">ciencia@msn.com</a>
+            {{#if @custom.email_contato}}<a href="mailto:{{@custom.email_contato}}">{{@custom.email_contato}}</a>{{/if}}
             <span class="footer-place">Cuiabá / Várzea Grande · MT</span>
         </div>
     </div>

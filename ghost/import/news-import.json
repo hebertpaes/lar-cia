@@ -336,7 +336,7 @@
             "type": "page",
             "status": "published",
             "visibility": "public",
-            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>\\n<ul>\\n  <li>💬 <a href=\\\"https://wa.me/5565999900005\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">WhatsApp da redação</a></li>\\n  <li>✉️ <a href=\\\"mailto:ciencia@msn.com\\\">ciencia@msn.com</a></li>\\n  <li>📍 Cuiabá / Várzea Grande - MT</li>\\n</ul>\"}]]}",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>\\n<ul>\\n  <li>💬 <a href=\\\"https://wa.me/5565999900005\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">WhatsApp da redação</a></li>\\n  <li>✉️ <a href=\\\"mailto:contato@hojemt.com.br\\\">contato@hojemt.com.br</a></li>\\n  <li>📍 Cuiabá / Várzea Grande - MT</li>\\n</ul>\"}]]}",
             "feature_image": null,
             "custom_excerpt": null,
             "created_at": "2026-04-21T15:00:00.000Z",

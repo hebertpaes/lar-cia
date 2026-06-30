@@ -252,7 +252,7 @@ addPost({ type: "page", title: "Contato", slug: "contato", at: FIX,
   html: `<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>
 <ul>
   <li>💬 <a href="https://wa.me/5565999900005" target="_blank" rel="noopener">WhatsApp da redação</a></li>
-  <li>✉️ <a href="mailto:ciencia@msn.com">ciencia@msn.com</a></li>
+  <li>✉️ <a href="mailto:contato@hojemt.com.br">contato@hojemt.com.br</a></li>
   <li>📍 Cuiabá / Várzea Grande - MT</li>
 </ul>` });
 

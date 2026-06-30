@@ -2,6 +2,7 @@
 
 Publica matérias automaticamente em vários portais Ghost, **roteando por editoria**:
 - **Hoje MT** (`hojemt.com.br`) → recebe **tudo**
+- **Pacu News** (`pacunews.com.br`) → recebe **tudo**
 - **O Dia Político** (`odiapolitico.com.br`) → recebe **só Política**
 - **local** (`localhost:2368`) → para **testar** antes de produção
 
@@ -31,12 +32,16 @@ LOCAL_ADMIN_KEY='id:secret' node ghost/automation/publish.mjs ghost/import/secom
 
 ```bash
 HOJEMT_ADMIN_KEY='id:secret' \
+PACUNEWS_ADMIN_KEY='id:secret' \
 ODIAPOLITICO_ADMIN_KEY='id:secret' \
-node ghost/automation/publish.mjs ghost/import/secom-import.json
+node ghost/automation/publish.mjs ghost/import/secom-hoje.json
 ```
 
+> **`secom-hoje.json`** = matérias do dia (gere com `node ghost/import/generate-secom-hoje.mjs`).
+> `secom-import.json` = lote maior de releases. Use o arquivo que quiser como fonte.
+
 - **Não duplica:** se já existe matéria com o mesmo slug no portal, ela é pulada.
-- **Roteia por editoria:** O Dia Político só recebe Política; Hoje MT recebe tudo.
+- **Roteia por editoria:** O Dia Político só recebe Política; Hoje MT e Pacu News recebem tudo.
 - A **fonte** (`<fonte.json>`) é qualquer arquivo no formato de import do Ghost — você decide qual usar.
 
 ## 5) Agendar (rodar sozinho)

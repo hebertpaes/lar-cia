@@ -133,7 +133,7 @@ const contatoHtml = `
 <ul>
   <li>📞 <a href="tel:+5565999900005">(65) 99990-0005</a></li>
   <li>💬 <a href="https://wa.me/5565999900005" target="_blank" rel="noopener">WhatsApp direto</a></li>
-  <li>✉️ <a href="mailto:ciencia@msn.com">ciencia@msn.com</a></li>
+  <li>✉️ <a href="mailto:contato@larcia.com.br">contato@larcia.com.br</a></li>
   <li>📍 Cuiabá / Várzea Grande - MT</li>
 </ul>
 <p>Assine a newsletter no rodapé para receber novos imóveis e oportunidades. (Membros/assinaturas são nativos do Ghost — configure tiers com Stripe no Admin.)</p>`;

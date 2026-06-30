@@ -160,23 +160,4 @@
     load(2);
     setInterval(function () { load(1); }, 90000);
   })();
-
-  /* ---- Pesquisas eleitorais (JSON externo, com fallback) ---- */
-  (function initPolls() {
-    var box = $("#pollsBox"); if (!box) return;
-    var url = box.parentNode.getAttribute("data-url"); if (!url) return;
-    var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-    function render(list) {
-      if (!list || !list.length) { box.innerHTML = '<p class="rail-empty">Sem pesquisas no momento.</p>'; return; }
-      box.innerHTML = list.slice(0, 3).map(function (p) {
-        var cand = (p.candidatos || []).slice(0, 5).map(function (c) {
-          return '<div class="poll-row"><span class="poll-name">' + esc(c.nome) + '</span><span class="poll-pct">' + esc(c.pct) + '%</span><div class="poll-bar"><i style="width:' + (parseFloat(c.pct) || 0) + '%"></i></div></div>';
-        }).join("");
-        return '<div class="poll"><div class="poll-head">' + esc(p.cargo || "") + ' <small>' + esc(p.instituto || "") + ' · ' + esc(p.data || "") + '</small></div>' + cand + '</div>';
-      }).join("");
-    }
-    fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
-      .then(function (d) { render(Array.isArray(d) ? d : (d.pesquisas || [])); })
-      .catch(function () { box.innerHTML = '<p class="rail-empty">Não foi possível carregar as pesquisas.</p>'; });
-  })();
 })();

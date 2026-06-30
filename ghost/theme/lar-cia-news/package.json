@@ -8,7 +8,7 @@
   "license": "MIT",
   "author": {
     "name": "Hebert Paes",
-    "email": "ciencia@msn.com"
+    "email": "contato@hojemt.com.br"
   },
   "keywords": ["ghost-theme", "news", "magazine", "jornal", "noticias"],
   "config": {
@@ -43,6 +43,11 @@
         "default": "5565999900005",
         "description": "Número da redação (somente dígitos) para o botão de contato/denúncia."
       },
+      "email_contato": {
+        "type": "text",
+        "default": "contato@hojemt.com.br",
+        "description": "E-mail de contato/redação exibido no rodapé."
+      },
       "youtube_live_id": {
         "type": "text",
         "default": "XL2jTQdj134",
@@ -67,10 +72,6 @@
         "type": "text",
         "default": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
         "description": "API de jogos (JSON com 'events'). Padrão: TheSportsDB (Copa)."
-      },
-      "pesquisas_url": {
-        "type": "text",
-        "description": "URL de um JSON com pesquisas eleitorais (veja docs). Vazio = oculto."
       },
       "whats_url": {
         "type": "text",
