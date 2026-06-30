@@ -1,12 +1,17 @@
-{{!-- Bloco Copa do Mundo: resultados ao vivo (preenchido pelo JS via API).
-      Configure em Design: copa_ativa, copa_api. Atualiza sozinho e tem
-      fallback (link da CazéTV) se a fonte falhar. --}}
+{{!-- Bloco Copa do Mundo: resultados + próximos jogos + tabela (preenchido pelo
+      JS via API). Configure em Design: copa_ativa, copa_api (resultados),
+      copa_api_next (próximos) e copa_tabela (grupos, opcional). Atualiza sozinho
+      e tem fallback (link da CazéTV) se as fontes falharem. --}}
 {{#if @custom.copa_ativa}}
-<section class="copa container" data-api="{{@custom.copa_api}}" data-canal="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}">
+<section class="copa container"
+         data-api="{{@custom.copa_api}}"
+         data-next="{{@custom.copa_api_next}}"
+         data-tabela="{{@custom.copa_tabela}}"
+         data-canal="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}">
     <div class="section-head">
-        <h2 class="section-title">⚽ Copa do Mundo</h2>
+        <h2 class="section-title">⚽ Copa do Mundo 2026</h2>
         <a class="section-more" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}" target="_blank" rel="noopener">Ao vivo na CazéTV →</a>
     </div>
-    <div class="copa-grid" id="copaGrid"><div class="copa-loading">Carregando jogos…</div></div>
+    <div class="copa-body" id="copaBody"><div class="copa-loading">Carregando jogos…</div></div>
 </section>
 {{/if}}
