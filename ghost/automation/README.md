@@ -53,3 +53,59 @@ Exemplo de cron a cada hora (no Mac/servidor):
 ```
 
 > Segurança: `sites.config.json` e as chaves ficam **fora do Git** (veja .gitignore).
+
+---
+
+# Coletor das assessorias oficiais de MT (SECOM, ALMT, prefeituras e câmaras)
+
+Coleta sozinho as **notícias do dia de cada assessoria** e gera o JSON pronto
+para publicar. A **fonte aparece na legenda da imagem** (logo abaixo da foto),
+via `feature_image_caption`.
+
+> ⚠️ Rode o coletor na **sua máquina/servidor** (que alcança `.gov.br`/`.leg.br`).
+> O ambiente de desenvolvimento do Claude **não** acessa esses domínios.
+
+## Fontes (`sources.mt.json`)
+Gere/atualize o registro com **284 fontes** (SECOM-MT, ALMT, 141 prefeituras e
+141 câmaras):
+```bash
+node ghost/automation/gen-sources.mjs
+```
+Os domínios municipais são derivados por padrão (`<municipio>.mt.gov.br` e
+`<municipio>.mt.leg.br`) e marcados com `"verificar": true`. Ajuste a `url` ou
+informe um `feed` (URL do RSS) nas fontes que não responderem.
+
+## Coletar o dia
+```bash
+# gera ghost/import/coletado-AAAA-MM-DD.json (só matérias de hoje):
+node ghost/automation/collect.mjs
+
+# opções úteis:
+node ghost/automation/collect.mjs --date=2026-06-30 --max=4 --verbose
+node ghost/automation/collect.mjs --only=cuiaba        # só uma cidade/fonte
+node ghost/automation/collect.mjs --all-dates          # ignora o filtro de data
+```
+O coletor isola falhas: fonte sem RSS é apenas reportada (nunca derruba a rodada).
+Testar o parser sem rede: `node ghost/automation/test-collect.mjs`.
+
+## Publicar o que foi coletado
+- **Vários portais, roteando por editoria** (recomendado):
+  ```bash
+  HOJEMT_ADMIN_KEY='id:secret' PACUNEWS_ADMIN_KEY='id:secret' ODIAPOLITICO_ADMIN_KEY='id:secret' \
+    node ghost/automation/publish.mjs ghost/import/coletado-2026-06-30.json
+  ```
+- **Tudo num site só** (import nativo em lote):
+  ```bash
+  SITE_URL='https://hojemt.com.br' SITE_ADMIN_KEY='id:secret' \
+    node ghost/automation/import.mjs ghost/import/coletado-2026-06-30.json
+  ```
+
+## Pipeline diário (cron) — coleta + publica sozinho
+```cron
+0 6 * * * cd /caminho/lar-cia && \
+  /usr/local/bin/node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json && \
+  HOJEMT_ADMIN_KEY='..' PACUNEWS_ADMIN_KEY='..' ODIAPOLITICO_ADMIN_KEY='..' \
+  /usr/local/bin/node ghost/automation/publish.mjs ghost/import/coletado-hoje.json \
+  >> /tmp/coleta.log 2>&1
+```
+As coletas diárias (`coletado-*.json`) ficam **fora do Git**.

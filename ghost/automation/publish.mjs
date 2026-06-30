@@ -73,6 +73,7 @@ async function publish(site, post, key) {
   const body = { posts: [{
     title: post.title, slug: post.slug, html: htmlOf(post),
     custom_excerpt: post.custom_excerpt || null, feature_image: post.feature_image || null,
+    feature_image_caption: post.feature_image_caption || null,
     status: draftMode ? "draft" : "published", published_at: draftMode ? undefined : (post.published_at || undefined),
     tags: tagsOf(post.id).filter((t) => t.visibility === "public").map((t) => ({ name: t.name })),
   }] };

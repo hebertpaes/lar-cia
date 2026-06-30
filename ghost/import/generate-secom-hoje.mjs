@@ -53,19 +53,21 @@ const posts = [];
 const posts_tags = [];
 let pid = 0;
 let when = BASE_MS;
-function addPost({ title, slug, html, feature_image, custom_excerpt, tagIds }) {
+function addPost({ title, slug, html, feature_image, feature_image_caption, custom_excerpt, tagIds }) {
   const id = ++pid;
   const published = when; when -= 35 * 60 * 1000;
   posts.push({
     id, title, slug: slugify(slug || title), type: "post", status: "published", visibility: "public",
-    mobiledoc: mobiledoc(html), feature_image: feature_image || null, custom_excerpt: custom_excerpt || null,
+    mobiledoc: mobiledoc(html), feature_image: feature_image || null,
+    feature_image_caption: feature_image_caption || null, custom_excerpt: custom_excerpt || null,
     created_at: iso(published), updated_at: iso(published), published_at: iso(published),
   });
   tagIds.forEach((tid, i) => posts_tags.push({ tag_id: tid, post_id: id, sort_order: i }));
   return id;
 }
-const body = (paras, fonte) => paras.map((p) => `<p>${esc(p)}</p>`).join("") +
-  `<p><em>Fonte: <a href="${fonte.url}" target="_blank" rel="noopener">${esc(fonte.nome)}</a>.</em></p>`;
+const body = (paras) => paras.map((p) => `<p>${esc(p)}</p>`).join("");
+// A FONTE vai na legenda da imagem (feature_image_caption) — aparece logo ABAIXO da foto.
+const credito = (fonte) => `Fonte: <a href="${fonte.url}" target="_blank" rel="noopener">${esc(fonte.nome)}</a>`;
 
 // Ordem do array = ordem de publicação (1º = mais recente = manchete).
 const NEWS = [
@@ -140,8 +142,9 @@ NEWS.forEach((n) => {
   const tagIds = [EDIT[n.ed], T_SECOM];
   if (COM_VIDEO.has(n.seed)) tagIds.push(T_VIDEO);
   addPost({
-    title: n.title, slug: n.seed, html: body(n.paras, n.fonte),
-    feature_image: photo(n.seed), custom_excerpt: n.excerpt, tagIds,
+    title: n.title, slug: n.seed, html: body(n.paras),
+    feature_image: photo(n.seed), feature_image_caption: credito(n.fonte),
+    custom_excerpt: n.excerpt, tagIds,
   });
 });
 

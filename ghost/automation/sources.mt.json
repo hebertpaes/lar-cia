@@ -1,0 +1,2847 @@
+{
+  "_comment": "Assessorias oficiais de MT. 'editoria' roteia a publicação (politica=O Dia Político). 'feed' (opcional) força a URL do RSS. 'verificar':true = domínio derivado por padrão, confirme antes de produção. Edite à vontade.",
+  "gerado_em": "2026-06-30T23:01:15.084Z",
+  "total": 284,
+  "sources": [
+    {
+      "id": "secom-mt",
+      "nome": "SECOM-MT (Governo de Mato Grosso)",
+      "nivel": "estadual",
+      "poder": "executivo",
+      "municipio": "Mato Grosso",
+      "url": "https://www.secom.mt.gov.br",
+      "editoria": "politica",
+      "verificar": false
+    },
+    {
+      "id": "almt",
+      "nome": "Assembleia Legislativa de MT (ALMT)",
+      "nivel": "estadual",
+      "poder": "legislativo",
+      "municipio": "Mato Grosso",
+      "url": "https://www.al.mt.gov.br",
+      "editoria": "politica",
+      "verificar": false
+    },
+    {
+      "id": "pref-acorizal",
+      "nome": "Prefeitura de Acorizal",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Acorizal",
+      "url": "https://www.acorizal.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-acorizal",
+      "nome": "Câmara de Acorizal",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Acorizal",
+      "url": "https://www.acorizal.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-aguaboa",
+      "nome": "Prefeitura de Água Boa",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Água Boa",
+      "url": "https://www.aguaboa.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-aguaboa",
+      "nome": "Câmara de Água Boa",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Água Boa",
+      "url": "https://www.aguaboa.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altafloresta",
+      "nome": "Prefeitura de Alta Floresta",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alta Floresta",
+      "url": "https://www.altafloresta.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altafloresta",
+      "nome": "Câmara de Alta Floresta",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alta Floresta",
+      "url": "https://www.altafloresta.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altoaraguaia",
+      "nome": "Prefeitura de Alto Araguaia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alto Araguaia",
+      "url": "https://www.altoaraguaia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altoaraguaia",
+      "nome": "Câmara de Alto Araguaia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alto Araguaia",
+      "url": "https://www.altoaraguaia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altoboavista",
+      "nome": "Prefeitura de Alto Boa Vista",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alto Boa Vista",
+      "url": "https://www.altoboavista.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altoboavista",
+      "nome": "Câmara de Alto Boa Vista",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alto Boa Vista",
+      "url": "https://www.altoboavista.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altogarcas",
+      "nome": "Prefeitura de Alto Garças",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alto Garças",
+      "url": "https://www.altogarcas.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altogarcas",
+      "nome": "Câmara de Alto Garças",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alto Garças",
+      "url": "https://www.altogarcas.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altoparaguai",
+      "nome": "Prefeitura de Alto Paraguai",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alto Paraguai",
+      "url": "https://www.altoparaguai.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altoparaguai",
+      "nome": "Câmara de Alto Paraguai",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alto Paraguai",
+      "url": "https://www.altoparaguai.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-altotaquari",
+      "nome": "Prefeitura de Alto Taquari",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Alto Taquari",
+      "url": "https://www.altotaquari.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-altotaquari",
+      "nome": "Câmara de Alto Taquari",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Alto Taquari",
+      "url": "https://www.altotaquari.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-apiacas",
+      "nome": "Prefeitura de Apiacás",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Apiacás",
+      "url": "https://www.apiacas.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-apiacas",
+      "nome": "Câmara de Apiacás",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Apiacás",
+      "url": "https://www.apiacas.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-araguaiana",
+      "nome": "Prefeitura de Araguaiana",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Araguaiana",
+      "url": "https://www.araguaiana.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-araguaiana",
+      "nome": "Câmara de Araguaiana",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Araguaiana",
+      "url": "https://www.araguaiana.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-araguainha",
+      "nome": "Prefeitura de Araguainha",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Araguainha",
+      "url": "https://www.araguainha.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-araguainha",
+      "nome": "Câmara de Araguainha",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Araguainha",
+      "url": "https://www.araguainha.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-araputanga",
+      "nome": "Prefeitura de Araputanga",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Araputanga",
+      "url": "https://www.araputanga.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-araputanga",
+      "nome": "Câmara de Araputanga",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Araputanga",
+      "url": "https://www.araputanga.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-arenapolis",
+      "nome": "Prefeitura de Arenápolis",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Arenápolis",
+      "url": "https://www.arenapolis.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-arenapolis",
+      "nome": "Câmara de Arenápolis",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Arenápolis",
+      "url": "https://www.arenapolis.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-aripuana",
+      "nome": "Prefeitura de Aripuanã",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Aripuanã",
+      "url": "https://www.aripuana.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-aripuana",
+      "nome": "Câmara de Aripuanã",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Aripuanã",
+      "url": "https://www.aripuana.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-baraodemelgaco",
+      "nome": "Prefeitura de Barão de Melgaço",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Barão de Melgaço",
+      "url": "https://www.baraodemelgaco.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-baraodemelgaco",
+      "nome": "Câmara de Barão de Melgaço",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Barão de Melgaço",
+      "url": "https://www.baraodemelgaco.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-barradobugres",
+      "nome": "Prefeitura de Barra do Bugres",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Barra do Bugres",
+      "url": "https://www.barradobugres.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-barradobugres",
+      "nome": "Câmara de Barra do Bugres",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Barra do Bugres",
+      "url": "https://www.barradobugres.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-barradogarcas",
+      "nome": "Prefeitura de Barra do Garças",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Barra do Garças",
+      "url": "https://www.barradogarcas.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-barradogarcas",
+      "nome": "Câmara de Barra do Garças",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Barra do Garças",
+      "url": "https://www.barradogarcas.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-bomjesusdoaraguaia",
+      "nome": "Prefeitura de Bom Jesus do Araguaia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Bom Jesus do Araguaia",
+      "url": "https://www.bomjesusdoaraguaia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-bomjesusdoaraguaia",
+      "nome": "Câmara de Bom Jesus do Araguaia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Bom Jesus do Araguaia",
+      "url": "https://www.bomjesusdoaraguaia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-brasnorte",
+      "nome": "Prefeitura de Brasnorte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Brasnorte",
+      "url": "https://www.brasnorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-brasnorte",
+      "nome": "Câmara de Brasnorte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Brasnorte",
+      "url": "https://www.brasnorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-caceres",
+      "nome": "Prefeitura de Cáceres",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Cáceres",
+      "url": "https://www.caceres.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-caceres",
+      "nome": "Câmara de Cáceres",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Cáceres",
+      "url": "https://www.caceres.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-campinapolis",
+      "nome": "Prefeitura de Campinápolis",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Campinápolis",
+      "url": "https://www.campinapolis.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-campinapolis",
+      "nome": "Câmara de Campinápolis",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Campinápolis",
+      "url": "https://www.campinapolis.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-camponovodoparecis",
+      "nome": "Prefeitura de Campo Novo do Parecis",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Campo Novo do Parecis",
+      "url": "https://www.camponovodoparecis.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-camponovodoparecis",
+      "nome": "Câmara de Campo Novo do Parecis",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Campo Novo do Parecis",
+      "url": "https://www.camponovodoparecis.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-campoverde",
+      "nome": "Prefeitura de Campo Verde",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Campo Verde",
+      "url": "https://www.campoverde.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-campoverde",
+      "nome": "Câmara de Campo Verde",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Campo Verde",
+      "url": "https://www.campoverde.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-camposdejulio",
+      "nome": "Prefeitura de Campos de Júlio",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Campos de Júlio",
+      "url": "https://www.camposdejulio.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-camposdejulio",
+      "nome": "Câmara de Campos de Júlio",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Campos de Júlio",
+      "url": "https://www.camposdejulio.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-canabravadonorte",
+      "nome": "Prefeitura de Canabrava do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Canabrava do Norte",
+      "url": "https://www.canabravadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-canabravadonorte",
+      "nome": "Câmara de Canabrava do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Canabrava do Norte",
+      "url": "https://www.canabravadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-canarana",
+      "nome": "Prefeitura de Canarana",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Canarana",
+      "url": "https://www.canarana.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-canarana",
+      "nome": "Câmara de Canarana",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Canarana",
+      "url": "https://www.canarana.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-carlinda",
+      "nome": "Prefeitura de Carlinda",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Carlinda",
+      "url": "https://www.carlinda.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-carlinda",
+      "nome": "Câmara de Carlinda",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Carlinda",
+      "url": "https://www.carlinda.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-castanheira",
+      "nome": "Prefeitura de Castanheira",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Castanheira",
+      "url": "https://www.castanheira.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-castanheira",
+      "nome": "Câmara de Castanheira",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Castanheira",
+      "url": "https://www.castanheira.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-chapadadosguimaraes",
+      "nome": "Prefeitura de Chapada dos Guimarães",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Chapada dos Guimarães",
+      "url": "https://www.chapadadosguimaraes.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-chapadadosguimaraes",
+      "nome": "Câmara de Chapada dos Guimarães",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Chapada dos Guimarães",
+      "url": "https://www.chapadadosguimaraes.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-claudia",
+      "nome": "Prefeitura de Cláudia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Cláudia",
+      "url": "https://www.claudia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-claudia",
+      "nome": "Câmara de Cláudia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Cláudia",
+      "url": "https://www.claudia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-cocalinho",
+      "nome": "Prefeitura de Cocalinho",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Cocalinho",
+      "url": "https://www.cocalinho.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-cocalinho",
+      "nome": "Câmara de Cocalinho",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Cocalinho",
+      "url": "https://www.cocalinho.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-colider",
+      "nome": "Prefeitura de Colíder",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Colíder",
+      "url": "https://www.colider.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-colider",
+      "nome": "Câmara de Colíder",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Colíder",
+      "url": "https://www.colider.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-colniza",
+      "nome": "Prefeitura de Colniza",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Colniza",
+      "url": "https://www.colniza.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-colniza",
+      "nome": "Câmara de Colniza",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Colniza",
+      "url": "https://www.colniza.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-comodoro",
+      "nome": "Prefeitura de Comodoro",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Comodoro",
+      "url": "https://www.comodoro.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-comodoro",
+      "nome": "Câmara de Comodoro",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Comodoro",
+      "url": "https://www.comodoro.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-confresa",
+      "nome": "Prefeitura de Confresa",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Confresa",
+      "url": "https://www.confresa.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-confresa",
+      "nome": "Câmara de Confresa",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Confresa",
+      "url": "https://www.confresa.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-conquistadoeste",
+      "nome": "Prefeitura de Conquista d'Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Conquista d'Oeste",
+      "url": "https://www.conquistadoeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-conquistadoeste",
+      "nome": "Câmara de Conquista d'Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Conquista d'Oeste",
+      "url": "https://www.conquistadoeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-cotriguacu",
+      "nome": "Prefeitura de Cotriguaçu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Cotriguaçu",
+      "url": "https://www.cotriguacu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-cotriguacu",
+      "nome": "Câmara de Cotriguaçu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Cotriguaçu",
+      "url": "https://www.cotriguacu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-curvelandia",
+      "nome": "Prefeitura de Curvelândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Curvelândia",
+      "url": "https://www.curvelandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-curvelandia",
+      "nome": "Câmara de Curvelândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Curvelândia",
+      "url": "https://www.curvelandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-cuiaba",
+      "nome": "Prefeitura de Cuiabá",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Cuiabá",
+      "url": "https://www.cuiaba.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-cuiaba",
+      "nome": "Câmara de Cuiabá",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Cuiabá",
+      "url": "https://www.cuiaba.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-denise",
+      "nome": "Prefeitura de Denise",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Denise",
+      "url": "https://www.denise.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-denise",
+      "nome": "Câmara de Denise",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Denise",
+      "url": "https://www.denise.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-diamantino",
+      "nome": "Prefeitura de Diamantino",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Diamantino",
+      "url": "https://www.diamantino.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-diamantino",
+      "nome": "Câmara de Diamantino",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Diamantino",
+      "url": "https://www.diamantino.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-domaquino",
+      "nome": "Prefeitura de Dom Aquino",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Dom Aquino",
+      "url": "https://www.domaquino.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-domaquino",
+      "nome": "Câmara de Dom Aquino",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Dom Aquino",
+      "url": "https://www.domaquino.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-feliznatal",
+      "nome": "Prefeitura de Feliz Natal",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Feliz Natal",
+      "url": "https://www.feliznatal.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-feliznatal",
+      "nome": "Câmara de Feliz Natal",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Feliz Natal",
+      "url": "https://www.feliznatal.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-figueiropolisdoeste",
+      "nome": "Prefeitura de Figueirópolis d'Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Figueirópolis d'Oeste",
+      "url": "https://www.figueiropolisdoeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-figueiropolisdoeste",
+      "nome": "Câmara de Figueirópolis d'Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Figueirópolis d'Oeste",
+      "url": "https://www.figueiropolisdoeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-gauchadonorte",
+      "nome": "Prefeitura de Gaúcha do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Gaúcha do Norte",
+      "url": "https://www.gauchadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-gauchadonorte",
+      "nome": "Câmara de Gaúcha do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Gaúcha do Norte",
+      "url": "https://www.gauchadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-generalcarneiro",
+      "nome": "Prefeitura de General Carneiro",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "General Carneiro",
+      "url": "https://www.generalcarneiro.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-generalcarneiro",
+      "nome": "Câmara de General Carneiro",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "General Carneiro",
+      "url": "https://www.generalcarneiro.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-gloriadoeste",
+      "nome": "Prefeitura de Glória d'Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Glória d'Oeste",
+      "url": "https://www.gloriadoeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-gloriadoeste",
+      "nome": "Câmara de Glória d'Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Glória d'Oeste",
+      "url": "https://www.gloriadoeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-guarantadonorte",
+      "nome": "Prefeitura de Guarantã do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Guarantã do Norte",
+      "url": "https://www.guarantadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-guarantadonorte",
+      "nome": "Câmara de Guarantã do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Guarantã do Norte",
+      "url": "https://www.guarantadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-guiratinga",
+      "nome": "Prefeitura de Guiratinga",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Guiratinga",
+      "url": "https://www.guiratinga.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-guiratinga",
+      "nome": "Câmara de Guiratinga",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Guiratinga",
+      "url": "https://www.guiratinga.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-indiavai",
+      "nome": "Prefeitura de Indiavaí",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Indiavaí",
+      "url": "https://www.indiavai.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-indiavai",
+      "nome": "Câmara de Indiavaí",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Indiavaí",
+      "url": "https://www.indiavai.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-ipirangadonorte",
+      "nome": "Prefeitura de Ipiranga do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Ipiranga do Norte",
+      "url": "https://www.ipirangadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-ipirangadonorte",
+      "nome": "Câmara de Ipiranga do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Ipiranga do Norte",
+      "url": "https://www.ipirangadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-itanhanga",
+      "nome": "Prefeitura de Itanhangá",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Itanhangá",
+      "url": "https://www.itanhanga.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-itanhanga",
+      "nome": "Câmara de Itanhangá",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Itanhangá",
+      "url": "https://www.itanhanga.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-itauba",
+      "nome": "Prefeitura de Itaúba",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Itaúba",
+      "url": "https://www.itauba.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-itauba",
+      "nome": "Câmara de Itaúba",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Itaúba",
+      "url": "https://www.itauba.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-itiquira",
+      "nome": "Prefeitura de Itiquira",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Itiquira",
+      "url": "https://www.itiquira.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-itiquira",
+      "nome": "Câmara de Itiquira",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Itiquira",
+      "url": "https://www.itiquira.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-jaciara",
+      "nome": "Prefeitura de Jaciara",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Jaciara",
+      "url": "https://www.jaciara.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-jaciara",
+      "nome": "Câmara de Jaciara",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Jaciara",
+      "url": "https://www.jaciara.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-jangada",
+      "nome": "Prefeitura de Jangada",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Jangada",
+      "url": "https://www.jangada.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-jangada",
+      "nome": "Câmara de Jangada",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Jangada",
+      "url": "https://www.jangada.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-jauru",
+      "nome": "Prefeitura de Jauru",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Jauru",
+      "url": "https://www.jauru.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-jauru",
+      "nome": "Câmara de Jauru",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Jauru",
+      "url": "https://www.jauru.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-juara",
+      "nome": "Prefeitura de Juara",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Juara",
+      "url": "https://www.juara.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-juara",
+      "nome": "Câmara de Juara",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Juara",
+      "url": "https://www.juara.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-juina",
+      "nome": "Prefeitura de Juína",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Juína",
+      "url": "https://www.juina.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-juina",
+      "nome": "Câmara de Juína",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Juína",
+      "url": "https://www.juina.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-juruena",
+      "nome": "Prefeitura de Juruena",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Juruena",
+      "url": "https://www.juruena.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-juruena",
+      "nome": "Câmara de Juruena",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Juruena",
+      "url": "https://www.juruena.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-juscimeira",
+      "nome": "Prefeitura de Juscimeira",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Juscimeira",
+      "url": "https://www.juscimeira.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-juscimeira",
+      "nome": "Câmara de Juscimeira",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Juscimeira",
+      "url": "https://www.juscimeira.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-lambaridoeste",
+      "nome": "Prefeitura de Lambari d'Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Lambari d'Oeste",
+      "url": "https://www.lambaridoeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-lambaridoeste",
+      "nome": "Câmara de Lambari d'Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Lambari d'Oeste",
+      "url": "https://www.lambaridoeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-lucasdorioverde",
+      "nome": "Prefeitura de Lucas do Rio Verde",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Lucas do Rio Verde",
+      "url": "https://www.lucasdorioverde.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-lucasdorioverde",
+      "nome": "Câmara de Lucas do Rio Verde",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Lucas do Rio Verde",
+      "url": "https://www.lucasdorioverde.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-luciara",
+      "nome": "Prefeitura de Luciára",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Luciára",
+      "url": "https://www.luciara.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-luciara",
+      "nome": "Câmara de Luciára",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Luciára",
+      "url": "https://www.luciara.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-marcelandia",
+      "nome": "Prefeitura de Marcelândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Marcelândia",
+      "url": "https://www.marcelandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-marcelandia",
+      "nome": "Câmara de Marcelândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Marcelândia",
+      "url": "https://www.marcelandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-matupa",
+      "nome": "Prefeitura de Matupá",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Matupá",
+      "url": "https://www.matupa.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-matupa",
+      "nome": "Câmara de Matupá",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Matupá",
+      "url": "https://www.matupa.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-mirassoldoeste",
+      "nome": "Prefeitura de Mirassol d'Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Mirassol d'Oeste",
+      "url": "https://www.mirassoldoeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-mirassoldoeste",
+      "nome": "Câmara de Mirassol d'Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Mirassol d'Oeste",
+      "url": "https://www.mirassoldoeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-nobres",
+      "nome": "Prefeitura de Nobres",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nobres",
+      "url": "https://www.nobres.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-nobres",
+      "nome": "Câmara de Nobres",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nobres",
+      "url": "https://www.nobres.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-nortelandia",
+      "nome": "Prefeitura de Nortelândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nortelândia",
+      "url": "https://www.nortelandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-nortelandia",
+      "nome": "Câmara de Nortelândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nortelândia",
+      "url": "https://www.nortelandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-nossasenhoradolivramento",
+      "nome": "Prefeitura de Nossa Senhora do Livramento",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nossa Senhora do Livramento",
+      "url": "https://www.nossasenhoradolivramento.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-nossasenhoradolivramento",
+      "nome": "Câmara de Nossa Senhora do Livramento",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nossa Senhora do Livramento",
+      "url": "https://www.nossasenhoradolivramento.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novabandeirantes",
+      "nome": "Prefeitura de Nova Bandeirantes",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Bandeirantes",
+      "url": "https://www.novabandeirantes.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novabandeirantes",
+      "nome": "Câmara de Nova Bandeirantes",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Bandeirantes",
+      "url": "https://www.novabandeirantes.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novabrasilandia",
+      "nome": "Prefeitura de Nova Brasilândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Brasilândia",
+      "url": "https://www.novabrasilandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novabrasilandia",
+      "nome": "Câmara de Nova Brasilândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Brasilândia",
+      "url": "https://www.novabrasilandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novacanaadonorte",
+      "nome": "Prefeitura de Nova Canaã do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Canaã do Norte",
+      "url": "https://www.novacanaadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novacanaadonorte",
+      "nome": "Câmara de Nova Canaã do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Canaã do Norte",
+      "url": "https://www.novacanaadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novaguarita",
+      "nome": "Prefeitura de Nova Guarita",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Guarita",
+      "url": "https://www.novaguarita.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novaguarita",
+      "nome": "Câmara de Nova Guarita",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Guarita",
+      "url": "https://www.novaguarita.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novalacerda",
+      "nome": "Prefeitura de Nova Lacerda",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Lacerda",
+      "url": "https://www.novalacerda.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novalacerda",
+      "nome": "Câmara de Nova Lacerda",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Lacerda",
+      "url": "https://www.novalacerda.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novamarilandia",
+      "nome": "Prefeitura de Nova Marilândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Marilândia",
+      "url": "https://www.novamarilandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novamarilandia",
+      "nome": "Câmara de Nova Marilândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Marilândia",
+      "url": "https://www.novamarilandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novamaringa",
+      "nome": "Prefeitura de Nova Maringá",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Maringá",
+      "url": "https://www.novamaringa.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novamaringa",
+      "nome": "Câmara de Nova Maringá",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Maringá",
+      "url": "https://www.novamaringa.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novamonteverde",
+      "nome": "Prefeitura de Nova Monte Verde",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Monte Verde",
+      "url": "https://www.novamonteverde.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novamonteverde",
+      "nome": "Câmara de Nova Monte Verde",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Monte Verde",
+      "url": "https://www.novamonteverde.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novamutum",
+      "nome": "Prefeitura de Nova Mutum",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Mutum",
+      "url": "https://www.novamutum.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novamutum",
+      "nome": "Câmara de Nova Mutum",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Mutum",
+      "url": "https://www.novamutum.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novanazare",
+      "nome": "Prefeitura de Nova Nazaré",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Nazaré",
+      "url": "https://www.novanazare.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novanazare",
+      "nome": "Câmara de Nova Nazaré",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Nazaré",
+      "url": "https://www.novanazare.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novaolimpia",
+      "nome": "Prefeitura de Nova Olímpia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Olímpia",
+      "url": "https://www.novaolimpia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novaolimpia",
+      "nome": "Câmara de Nova Olímpia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Olímpia",
+      "url": "https://www.novaolimpia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novasantahelena",
+      "nome": "Prefeitura de Nova Santa Helena",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Santa Helena",
+      "url": "https://www.novasantahelena.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novasantahelena",
+      "nome": "Câmara de Nova Santa Helena",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Santa Helena",
+      "url": "https://www.novasantahelena.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novaubirata",
+      "nome": "Prefeitura de Nova Ubiratã",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Ubiratã",
+      "url": "https://www.novaubirata.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novaubirata",
+      "nome": "Câmara de Nova Ubiratã",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Ubiratã",
+      "url": "https://www.novaubirata.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novaxavantina",
+      "nome": "Prefeitura de Nova Xavantina",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Nova Xavantina",
+      "url": "https://www.novaxavantina.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novaxavantina",
+      "nome": "Câmara de Nova Xavantina",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Nova Xavantina",
+      "url": "https://www.novaxavantina.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novohorizontedonorte",
+      "nome": "Prefeitura de Novo Horizonte do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Novo Horizonte do Norte",
+      "url": "https://www.novohorizontedonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novohorizontedonorte",
+      "nome": "Câmara de Novo Horizonte do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Novo Horizonte do Norte",
+      "url": "https://www.novohorizontedonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novomundo",
+      "nome": "Prefeitura de Novo Mundo",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Novo Mundo",
+      "url": "https://www.novomundo.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novomundo",
+      "nome": "Câmara de Novo Mundo",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Novo Mundo",
+      "url": "https://www.novomundo.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novosantoantonio",
+      "nome": "Prefeitura de Novo Santo Antônio",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Novo Santo Antônio",
+      "url": "https://www.novosantoantonio.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novosantoantonio",
+      "nome": "Câmara de Novo Santo Antônio",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Novo Santo Antônio",
+      "url": "https://www.novosantoantonio.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-novosaojoaquim",
+      "nome": "Prefeitura de Novo São Joaquim",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Novo São Joaquim",
+      "url": "https://www.novosaojoaquim.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-novosaojoaquim",
+      "nome": "Câmara de Novo São Joaquim",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Novo São Joaquim",
+      "url": "https://www.novosaojoaquim.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-paranaita",
+      "nome": "Prefeitura de Paranaíta",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Paranaíta",
+      "url": "https://www.paranaita.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-paranaita",
+      "nome": "Câmara de Paranaíta",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Paranaíta",
+      "url": "https://www.paranaita.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-paranatinga",
+      "nome": "Prefeitura de Paranatinga",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Paranatinga",
+      "url": "https://www.paranatinga.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-paranatinga",
+      "nome": "Câmara de Paranatinga",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Paranatinga",
+      "url": "https://www.paranatinga.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-pedrapreta",
+      "nome": "Prefeitura de Pedra Preta",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Pedra Preta",
+      "url": "https://www.pedrapreta.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-pedrapreta",
+      "nome": "Câmara de Pedra Preta",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Pedra Preta",
+      "url": "https://www.pedrapreta.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-peixotodeazevedo",
+      "nome": "Prefeitura de Peixoto de Azevedo",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Peixoto de Azevedo",
+      "url": "https://www.peixotodeazevedo.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-peixotodeazevedo",
+      "nome": "Câmara de Peixoto de Azevedo",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Peixoto de Azevedo",
+      "url": "https://www.peixotodeazevedo.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-planaltodaserra",
+      "nome": "Prefeitura de Planalto da Serra",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Planalto da Serra",
+      "url": "https://www.planaltodaserra.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-planaltodaserra",
+      "nome": "Câmara de Planalto da Serra",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Planalto da Serra",
+      "url": "https://www.planaltodaserra.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-pocone",
+      "nome": "Prefeitura de Poconé",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Poconé",
+      "url": "https://www.pocone.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-pocone",
+      "nome": "Câmara de Poconé",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Poconé",
+      "url": "https://www.pocone.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-pontaldoaraguaia",
+      "nome": "Prefeitura de Pontal do Araguaia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Pontal do Araguaia",
+      "url": "https://www.pontaldoaraguaia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-pontaldoaraguaia",
+      "nome": "Câmara de Pontal do Araguaia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Pontal do Araguaia",
+      "url": "https://www.pontaldoaraguaia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-pontebranca",
+      "nome": "Prefeitura de Ponte Branca",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Ponte Branca",
+      "url": "https://www.pontebranca.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-pontebranca",
+      "nome": "Câmara de Ponte Branca",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Ponte Branca",
+      "url": "https://www.pontebranca.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-ponteselacerda",
+      "nome": "Prefeitura de Pontes e Lacerda",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Pontes e Lacerda",
+      "url": "https://www.ponteselacerda.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-ponteselacerda",
+      "nome": "Câmara de Pontes e Lacerda",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Pontes e Lacerda",
+      "url": "https://www.ponteselacerda.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-portoalegredonorte",
+      "nome": "Prefeitura de Porto Alegre do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Porto Alegre do Norte",
+      "url": "https://www.portoalegredonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-portoalegredonorte",
+      "nome": "Câmara de Porto Alegre do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Porto Alegre do Norte",
+      "url": "https://www.portoalegredonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-portodosgauchos",
+      "nome": "Prefeitura de Porto dos Gaúchos",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Porto dos Gaúchos",
+      "url": "https://www.portodosgauchos.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-portodosgauchos",
+      "nome": "Câmara de Porto dos Gaúchos",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Porto dos Gaúchos",
+      "url": "https://www.portodosgauchos.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-portoesperidiao",
+      "nome": "Prefeitura de Porto Esperidião",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Porto Esperidião",
+      "url": "https://www.portoesperidiao.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-portoesperidiao",
+      "nome": "Câmara de Porto Esperidião",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Porto Esperidião",
+      "url": "https://www.portoesperidiao.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-portoestrela",
+      "nome": "Prefeitura de Porto Estrela",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Porto Estrela",
+      "url": "https://www.portoestrela.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-portoestrela",
+      "nome": "Câmara de Porto Estrela",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Porto Estrela",
+      "url": "https://www.portoestrela.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-poxoreu",
+      "nome": "Prefeitura de Poxoréu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Poxoréu",
+      "url": "https://www.poxoreu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-poxoreu",
+      "nome": "Câmara de Poxoréu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Poxoréu",
+      "url": "https://www.poxoreu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-primaveradoleste",
+      "nome": "Prefeitura de Primavera do Leste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Primavera do Leste",
+      "url": "https://www.primaveradoleste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-primaveradoleste",
+      "nome": "Câmara de Primavera do Leste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Primavera do Leste",
+      "url": "https://www.primaveradoleste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-querencia",
+      "nome": "Prefeitura de Querência",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Querência",
+      "url": "https://www.querencia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-querencia",
+      "nome": "Câmara de Querência",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Querência",
+      "url": "https://www.querencia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-reservadocabacal",
+      "nome": "Prefeitura de Reserva do Cabaçal",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Reserva do Cabaçal",
+      "url": "https://www.reservadocabacal.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-reservadocabacal",
+      "nome": "Câmara de Reserva do Cabaçal",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Reserva do Cabaçal",
+      "url": "https://www.reservadocabacal.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-ribeiraocascalheira",
+      "nome": "Prefeitura de Ribeirão Cascalheira",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Ribeirão Cascalheira",
+      "url": "https://www.ribeiraocascalheira.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-ribeiraocascalheira",
+      "nome": "Câmara de Ribeirão Cascalheira",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Ribeirão Cascalheira",
+      "url": "https://www.ribeiraocascalheira.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-ribeiraozinho",
+      "nome": "Prefeitura de Ribeirãozinho",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Ribeirãozinho",
+      "url": "https://www.ribeiraozinho.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-ribeiraozinho",
+      "nome": "Câmara de Ribeirãozinho",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Ribeirãozinho",
+      "url": "https://www.ribeiraozinho.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-riobranco",
+      "nome": "Prefeitura de Rio Branco",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Rio Branco",
+      "url": "https://www.riobranco.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-riobranco",
+      "nome": "Câmara de Rio Branco",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Rio Branco",
+      "url": "https://www.riobranco.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-rondolandia",
+      "nome": "Prefeitura de Rondolândia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Rondolândia",
+      "url": "https://www.rondolandia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-rondolandia",
+      "nome": "Câmara de Rondolândia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Rondolândia",
+      "url": "https://www.rondolandia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-rondonopolis",
+      "nome": "Prefeitura de Rondonópolis",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Rondonópolis",
+      "url": "https://www.rondonopolis.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-rondonopolis",
+      "nome": "Câmara de Rondonópolis",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Rondonópolis",
+      "url": "https://www.rondonopolis.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-rosariooeste",
+      "nome": "Prefeitura de Rosário Oeste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Rosário Oeste",
+      "url": "https://www.rosariooeste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-rosariooeste",
+      "nome": "Câmara de Rosário Oeste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Rosário Oeste",
+      "url": "https://www.rosariooeste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saltodoceu",
+      "nome": "Prefeitura de Salto do Céu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Salto do Céu",
+      "url": "https://www.saltodoceu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saltodoceu",
+      "nome": "Câmara de Salto do Céu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Salto do Céu",
+      "url": "https://www.saltodoceu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santacarmem",
+      "nome": "Prefeitura de Santa Carmem",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santa Carmem",
+      "url": "https://www.santacarmem.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santacarmem",
+      "nome": "Câmara de Santa Carmem",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santa Carmem",
+      "url": "https://www.santacarmem.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santacruzdoxingu",
+      "nome": "Prefeitura de Santa Cruz do Xingu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santa Cruz do Xingu",
+      "url": "https://www.santacruzdoxingu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santacruzdoxingu",
+      "nome": "Câmara de Santa Cruz do Xingu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santa Cruz do Xingu",
+      "url": "https://www.santacruzdoxingu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santaritadotrivelato",
+      "nome": "Prefeitura de Santa Rita do Trivelato",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santa Rita do Trivelato",
+      "url": "https://www.santaritadotrivelato.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santaritadotrivelato",
+      "nome": "Câmara de Santa Rita do Trivelato",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santa Rita do Trivelato",
+      "url": "https://www.santaritadotrivelato.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santaterezinha",
+      "nome": "Prefeitura de Santa Terezinha",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santa Terezinha",
+      "url": "https://www.santaterezinha.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santaterezinha",
+      "nome": "Câmara de Santa Terezinha",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santa Terezinha",
+      "url": "https://www.santaterezinha.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santoafonso",
+      "nome": "Prefeitura de Santo Afonso",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santo Afonso",
+      "url": "https://www.santoafonso.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santoafonso",
+      "nome": "Câmara de Santo Afonso",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santo Afonso",
+      "url": "https://www.santoafonso.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santoantoniodoleste",
+      "nome": "Prefeitura de Santo Antônio do Leste",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santo Antônio do Leste",
+      "url": "https://www.santoantoniodoleste.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santoantoniodoleste",
+      "nome": "Câmara de Santo Antônio do Leste",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santo Antônio do Leste",
+      "url": "https://www.santoantoniodoleste.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-santoantoniodoleverger",
+      "nome": "Prefeitura de Santo Antônio do Leverger",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Santo Antônio do Leverger",
+      "url": "https://www.santoantoniodoleverger.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-santoantoniodoleverger",
+      "nome": "Câmara de Santo Antônio do Leverger",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Santo Antônio do Leverger",
+      "url": "https://www.santoantoniodoleverger.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saofelixdoaraguaia",
+      "nome": "Prefeitura de São Félix do Araguaia",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São Félix do Araguaia",
+      "url": "https://www.saofelixdoaraguaia.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saofelixdoaraguaia",
+      "nome": "Câmara de São Félix do Araguaia",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São Félix do Araguaia",
+      "url": "https://www.saofelixdoaraguaia.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saojosedopovo",
+      "nome": "Prefeitura de São José do Povo",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São José do Povo",
+      "url": "https://www.saojosedopovo.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saojosedopovo",
+      "nome": "Câmara de São José do Povo",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São José do Povo",
+      "url": "https://www.saojosedopovo.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saojosedorioclaro",
+      "nome": "Prefeitura de São José do Rio Claro",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São José do Rio Claro",
+      "url": "https://www.saojosedorioclaro.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saojosedorioclaro",
+      "nome": "Câmara de São José do Rio Claro",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São José do Rio Claro",
+      "url": "https://www.saojosedorioclaro.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saojosedoxingu",
+      "nome": "Prefeitura de São José do Xingu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São José do Xingu",
+      "url": "https://www.saojosedoxingu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saojosedoxingu",
+      "nome": "Câmara de São José do Xingu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São José do Xingu",
+      "url": "https://www.saojosedoxingu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saojosedosquatromarcos",
+      "nome": "Prefeitura de São José dos Quatro Marcos",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São José dos Quatro Marcos",
+      "url": "https://www.saojosedosquatromarcos.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saojosedosquatromarcos",
+      "nome": "Câmara de São José dos Quatro Marcos",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São José dos Quatro Marcos",
+      "url": "https://www.saojosedosquatromarcos.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-saopedrodacipa",
+      "nome": "Prefeitura de São Pedro da Cipa",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "São Pedro da Cipa",
+      "url": "https://www.saopedrodacipa.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-saopedrodacipa",
+      "nome": "Câmara de São Pedro da Cipa",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "São Pedro da Cipa",
+      "url": "https://www.saopedrodacipa.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-sapezal",
+      "nome": "Prefeitura de Sapezal",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Sapezal",
+      "url": "https://www.sapezal.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-sapezal",
+      "nome": "Câmara de Sapezal",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Sapezal",
+      "url": "https://www.sapezal.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-serranovadourada",
+      "nome": "Prefeitura de Serra Nova Dourada",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Serra Nova Dourada",
+      "url": "https://www.serranovadourada.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-serranovadourada",
+      "nome": "Câmara de Serra Nova Dourada",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Serra Nova Dourada",
+      "url": "https://www.serranovadourada.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-sinop",
+      "nome": "Prefeitura de Sinop",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Sinop",
+      "url": "https://www.sinop.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-sinop",
+      "nome": "Câmara de Sinop",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Sinop",
+      "url": "https://www.sinop.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-sorriso",
+      "nome": "Prefeitura de Sorriso",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Sorriso",
+      "url": "https://www.sorriso.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-sorriso",
+      "nome": "Câmara de Sorriso",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Sorriso",
+      "url": "https://www.sorriso.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-tabapora",
+      "nome": "Prefeitura de Tabaporã",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Tabaporã",
+      "url": "https://www.tabapora.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-tabapora",
+      "nome": "Câmara de Tabaporã",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Tabaporã",
+      "url": "https://www.tabapora.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-tangaradaserra",
+      "nome": "Prefeitura de Tangará da Serra",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Tangará da Serra",
+      "url": "https://www.tangaradaserra.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-tangaradaserra",
+      "nome": "Câmara de Tangará da Serra",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Tangará da Serra",
+      "url": "https://www.tangaradaserra.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-tapurah",
+      "nome": "Prefeitura de Tapurah",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Tapurah",
+      "url": "https://www.tapurah.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-tapurah",
+      "nome": "Câmara de Tapurah",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Tapurah",
+      "url": "https://www.tapurah.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-terranovadonorte",
+      "nome": "Prefeitura de Terra Nova do Norte",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Terra Nova do Norte",
+      "url": "https://www.terranovadonorte.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-terranovadonorte",
+      "nome": "Câmara de Terra Nova do Norte",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Terra Nova do Norte",
+      "url": "https://www.terranovadonorte.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-tesouro",
+      "nome": "Prefeitura de Tesouro",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Tesouro",
+      "url": "https://www.tesouro.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-tesouro",
+      "nome": "Câmara de Tesouro",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Tesouro",
+      "url": "https://www.tesouro.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-torixoreu",
+      "nome": "Prefeitura de Torixoréu",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Torixoréu",
+      "url": "https://www.torixoreu.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-torixoreu",
+      "nome": "Câmara de Torixoréu",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Torixoréu",
+      "url": "https://www.torixoreu.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-uniaodosul",
+      "nome": "Prefeitura de União do Sul",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "União do Sul",
+      "url": "https://www.uniaodosul.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-uniaodosul",
+      "nome": "Câmara de União do Sul",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "União do Sul",
+      "url": "https://www.uniaodosul.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-valedesaodomingos",
+      "nome": "Prefeitura de Vale de São Domingos",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Vale de São Domingos",
+      "url": "https://www.valedesaodomingos.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-valedesaodomingos",
+      "nome": "Câmara de Vale de São Domingos",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Vale de São Domingos",
+      "url": "https://www.valedesaodomingos.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-varzeagrande",
+      "nome": "Prefeitura de Várzea Grande",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Várzea Grande",
+      "url": "https://www.varzeagrande.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-varzeagrande",
+      "nome": "Câmara de Várzea Grande",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Várzea Grande",
+      "url": "https://www.varzeagrande.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-vera",
+      "nome": "Prefeitura de Vera",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Vera",
+      "url": "https://www.vera.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-vera",
+      "nome": "Câmara de Vera",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Vera",
+      "url": "https://www.vera.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-vilabeladasantissimatrindade",
+      "nome": "Prefeitura de Vila Bela da Santíssima Trindade",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Vila Bela da Santíssima Trindade",
+      "url": "https://www.vilabeladasantissimatrindade.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-vilabeladasantissimatrindade",
+      "nome": "Câmara de Vila Bela da Santíssima Trindade",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Vila Bela da Santíssima Trindade",
+      "url": "https://www.vilabeladasantissimatrindade.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    },
+    {
+      "id": "pref-vilarica",
+      "nome": "Prefeitura de Vila Rica",
+      "nivel": "municipal",
+      "poder": "executivo",
+      "municipio": "Vila Rica",
+      "url": "https://www.vilarica.mt.gov.br",
+      "editoria": "cidades",
+      "verificar": true
+    },
+    {
+      "id": "cam-vilarica",
+      "nome": "Câmara de Vila Rica",
+      "nivel": "municipal",
+      "poder": "legislativo",
+      "municipio": "Vila Rica",
+      "url": "https://www.vilarica.mt.leg.br",
+      "editoria": "politica",
+      "verificar": true
+    }
+  ]
+}

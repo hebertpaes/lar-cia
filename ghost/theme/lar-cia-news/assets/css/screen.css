@@ -315,6 +315,9 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .article-hero { margin: 20px 0; }
 .article-hero img { width: 100%; border-radius: 8px; }
 .article-hero figcaption { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-soft); padding-top: 7px; }
+.fonte-credito { font-weight: 600; border-left: 3px solid var(--urgent); padding-left: 9px; }
+.fonte-credito a { color: var(--urgent); font-weight: 800; text-decoration: none; }
+.fonte-credito a:hover { text-decoration: underline; }
 
 .gh-content { font-size: 18px; line-height: 1.75; }
 .gh-content p { margin: 0 0 1.25em; }
