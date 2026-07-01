@@ -252,6 +252,22 @@
     setInterval(loadAll, 60000);   /* atualiza sozinho a cada 60s */
   })();
 
+  /* ---- Embeds sociais: carrega os scripts só quando há embed na página ---- */
+  (function initEmbeds() {
+    if ($(".twitter-tweet")) {
+      var s = document.createElement("script");
+      s.src = "https://platform.twitter.com/widgets.js"; s.async = true; s.charset = "utf-8";
+      document.body.appendChild(s);
+    }
+    if ($(".fb-post") || $(".fb-video")) {
+      if (!$("#fb-root")) { var r = document.createElement("div"); r.id = "fb-root"; document.body.insertBefore(r, document.body.firstChild); }
+      var f = document.createElement("script");
+      f.async = true; f.defer = true; f.crossOrigin = "anonymous";
+      f.src = "https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v19.0";
+      document.body.appendChild(f);
+    }
+  })();
+
   /* ---- Chat flutuante (assistente + IA opcional) ---- */
   (function initChat() {
     var wrap = $("#chatWidget"); if (!wrap) return;
