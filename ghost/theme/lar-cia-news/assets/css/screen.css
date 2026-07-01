@@ -409,7 +409,9 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .gh-content .kg-embed-card { margin: 1.6em 0; display: flex; flex-direction: column; align-items: center; }
 .gh-content .kg-embed-card iframe { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: 10px; }
 .gh-content .kg-embed-card .twitter-tweet, .gh-content .kg-embed-card .fb-post { margin: 0 auto; max-width: 100%; }
-.gh-content .media-nota { font-size: 12.5px; color: var(--ink-soft); margin-top: -.6em; }
+/* Produção: esconde qualquer nota de "vídeo ilustrativo / substitua" que tenha
+   vindo em conteúdo importado — não aparece no site. */
+.gh-content .media-nota, .media-nota { display: none !important; }
 
 /* Larguras do editor Koenig (imagens/cards largos e full-bleed) */
 .gh-content .kg-width-wide { position: relative; width: 85vw; min-width: 100%; margin-left: 50%; transform: translateX(-50%); }
