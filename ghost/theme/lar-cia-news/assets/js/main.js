@@ -308,6 +308,18 @@
     }
   })();
 
+  /* ---- AO VIVO: tira o mudo no 1º gesto do usuário (política de autoplay) ---- */
+  (function initLiveSound() {
+    var frames = $$(".live-embed iframe"); if (!frames.length) return;
+    function cmd(f, func, args) { try { f.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: args || "" }), "*"); } catch (e) {} }
+    var evs = ["click", "touchstart", "keydown", "scroll"];
+    function on() {
+      frames.forEach(function (f) { cmd(f, "unMute"); cmd(f, "setVolume", [100]); cmd(f, "playVideo"); });
+      evs.forEach(function (e) { document.removeEventListener(e, on); });
+    }
+    evs.forEach(function (e) { document.addEventListener(e, on, { passive: true }); });
+  })();
+
   /* ---- Chat flutuante (assistente + IA opcional) ---- */
   (function initChat() {
     var wrap = $("#chatWidget"); if (!wrap) return;
