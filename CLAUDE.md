@@ -39,12 +39,14 @@ bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
 - `ghost/whatsapp-crm/` — CRM + disparo (Cloud API oficial) + QR opcional + webhook `/chat`.
 
 ## Operar (roda na máquina do usuário — o sandbox NÃO alcança os sites/gov)
-- **Ativar tudo num portal** (Membros/Portal p/ os popups, menu, comentários, tema, conteúdo):
+- **Ativar tudo num portal** (jeito fácil — pergunta a chave, você cola só ela):
   ```bash
-  SITE_URL=https://hojemt.com.br SITE_ADMIN_KEY='id:secret' \
-  THEME_ZIP=ghost/theme/hojemt.zip CONTENT_JSON=ghost/import/noticias-300.json \
-    node ghost/scripts/ativar-tudo.mjs
+  bash ghost/scripts/ativar.sh hojemt            # Membros/Portal, menu, comentários, páginas do rodapé
+  bash ghost/scripts/ativar.sh hojemt --dry-run  # só simula
+  bash ghost/scripts/ativar.sh hojemt --completo # + sobe o tema e importa as 300 notícias
   ```
+  O wrapper entra na pasta certa sozinho. Por baixo chama o `ativar-tudo.mjs`
+  (que também aceita `SITE_URL`/`SITE_ADMIN_KEY`/`THEME_ZIP`/`CONTENT_JSON` direto).
 - **Coletar + publicar** (rotea por editoria — O Dia Político só recebe Política):
   ```bash
   node ghost/automation/collect.mjs
