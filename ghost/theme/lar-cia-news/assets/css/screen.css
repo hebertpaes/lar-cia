@@ -181,7 +181,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .hero-live .live-embed, .hero-live .live-placeholder { aspect-ratio: 16/9; }
 
 /* ---- Colunas: Mais lidas · Curtinhas · Vídeos · Banner vertical ---------- */
-.columns { display: grid; grid-template-columns: 1fr; gap: 26px; padding: 26px 0; margin-top: 8px; border-top: 1px solid var(--line); }
+.columns { display: grid; grid-template-columns: 1fr; gap: 26px; padding-block: 26px; margin-top: 8px; border-top: 1px solid var(--line); }
 .curtinhas-list { list-style: none; margin: 0; padding: 0; }
 .curtinhas-list li { border-bottom: 1px solid var(--line); }
 .curtinhas-list a { display: block; padding: 9px 0; font-size: 14px; font-weight: 600; line-height: 1.35; }
@@ -270,7 +270,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .rail-empty { color: var(--ink-soft); font-size: 13px; }
 
 /* ---- Seções de editoria ------------------------------------------------- */
-.sections { padding: 18px 0 10px; }
+.sections { padding-block: 18px 10px; }
 .section-block { padding: 26px 0; border-top: 1px solid var(--line); }
 .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .section-title { font-size: 22px; font-weight: 900; padding-left: 12px; border-left: 5px solid var(--urgent); }
@@ -280,7 +280,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .section-empty { color: var(--ink-soft); font-size: 14px; }
 
 /* ---- Copa do Mundo ------------------------------------------------------- */
-.copa, .pol-stats { padding: 24px 0; border-top: 1px solid var(--line); }
+.copa, .pol-stats { padding-block: 24px; border-top: 1px solid var(--line); }
 .copa-loading { color: var(--ink-soft); font-size: 14px; }
 .copa-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
 .copa-block { min-width: 0; }
@@ -369,6 +369,10 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .ad-banner img { width: auto; max-width: 100%; }
 .ad-house { padding: 0; color: var(--ink-soft); }
 .ad-house img { width: 100%; height: auto; display: block; border-radius: 6px; }
+/* O banner-casa (GIF horizontal) só cabe em zonas horizontais. Nas quadradas/
+   verticais, esconde a casa; e some a zona inteira quando não há anúncio real. */
+.ad-video .ad-house, .ad-sidebar .ad-house, .ad-vertical .ad-house { display: none; }
+.ad-video:not(:has(.ad-rotator)), .ad-sidebar:not(:has(.ad-rotator)), .ad-vertical:not(:has(.ad-rotator)) { display: none; }
 .ad-house strong { font-family: var(--font-head); font-size: 20px; color: var(--ink); }
 .ad-house-label { font-family: var(--font-ui); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9aa1ad; }
 .ad-text { font-family: var(--font-head); font-weight: 700; font-size: 18px; padding: 18px; }

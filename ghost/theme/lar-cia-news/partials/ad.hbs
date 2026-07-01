@@ -4,13 +4,12 @@
     • Resumo (excerpt) → URL de destino do clique
     • Tags             → #ad  +  #ad-leaderboard | #ad-video | #ad-vertical | #ad-sidebar | #ad-inarticle
   Se houver mais de um banner na zona, eles giram a cada 5 segundos (data-interval).
-  Parâmetros: zone (classe CSS), filter (filtro do Ghost), limit, casa (mostra o
-  banner-casa GIF só onde ele cabe, ex.: leaderboard). Sem anúncio e sem "casa",
-  a zona fica vazia (não mostra banner de aspecto errado nem texto de placeholder).
+  Sem anúncio, mostra o banner-casa (GIF). O CSS esconde o banner-casa nas zonas
+  quadradas/verticais (onde o GIF horizontal não cabe).
 --}}
-{{#get "posts" filter=filter limit=limit order="published_at desc" as |ads|}}
-    {{#if ads}}
-        <aside class="ad ad-{{zone}}" aria-label="Publicidade">
+<aside class="ad ad-{{zone}}" aria-label="Publicidade">
+    {{#get "posts" filter=filter limit=limit order="published_at desc" as |ads|}}
+        {{#if ads}}
             <div class="ad-rotator" data-interval="5000">
                 {{#foreach ads}}
                     <a class="ad-banner ad-slide{{#if @first}} active{{/if}}"
@@ -21,13 +20,11 @@
                 {{/foreach}}
             </div>
             <span class="ad-tag">Publicidade</span>
-        </aside>
-    {{else if casa}}
-        <aside class="ad ad-{{zone}}" aria-label="Publicidade">
+        {{else}}
             <a class="ad-banner ad-house" href="https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}." target="_blank" rel="noopener" aria-label="Anuncie">
                 <img class="ad-house-img" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" />
             </a>
             <span class="ad-tag">Publicidade</span>
-        </aside>
-    {{/if}}
-{{/get}}
+        {{/if}}
+    {{/get}}
+</aside>
