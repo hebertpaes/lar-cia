@@ -143,7 +143,7 @@
     var apiPast = sec.getAttribute("data-api"), apiNext = sec.getAttribute("data-next"),
         apiTab = sec.getAttribute("data-tabela"), canal = sec.getAttribute("data-canal");
     var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-    var fbHtml = '<a class="copa-fallback" href="' + canal + '" target="_blank" rel="noopener">▶ Acompanhe os jogos ao vivo na CazéTV</a>';
+    var fbHtml = '<a class="copa-fallback" href="' + canal + '" target="_blank" rel="noopener">▶ Acompanhe os jogos ao vivo no YouTube</a>';
     function fallback() { body.innerHTML = fbHtml; }
 
     /* Tradução EN → PT de seleções/países (nomes vêm em inglês na API). */
@@ -250,5 +250,89 @@
     function loadAll() { grab(apiPast, "past", 2); grab(apiNext, "next", 2); grab(apiTab, "table", 1); }
     loadAll();
     setInterval(loadAll, 60000);   /* atualiza sozinho a cada 60s */
+  })();
+
+  /* ---- Chat flutuante (assistente + IA opcional) ---- */
+  (function initChat() {
+    var wrap = $("#chatWidget"); if (!wrap) return;
+    var fab = $("#chatFab"), panel = $("#chatPanel"), closeBtn = $("#chatClose"),
+        bodyEl = $("#chatBody"), quickEl = $("#chatQuick"), form = $("#chatForm"),
+        input = $("#chatInput"), waLink = $("#chatWa"), badge = $("#chatBadge");
+    var wa = wrap.getAttribute("data-wa") || "";
+    var iaUrl = wrap.getAttribute("data-ia") || "";
+    var nome = wrap.getAttribute("data-nome") || "Redação";
+    var siteUrl = (wrap.getAttribute("data-url") || "").replace(/\/$/, "");
+    var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var history = [], started = false;
+
+    function waHref(text) { return "https://wa.me/" + wa + (text ? "?text=" + encodeURIComponent(text) : ""); }
+    if (waLink) waLink.href = waHref("Olá! Vim pelo site " + nome + " e gostaria de falar com a redação.");
+    function scroll() { bodyEl.scrollTop = bodyEl.scrollHeight; }
+    function bubble(who, html) { var d = document.createElement("div"); d.className = "chat-msg " + who; d.innerHTML = html; bodyEl.appendChild(d); scroll(); return d; }
+    function botText(t) { history.push({ role: "assistant", content: t }); return bubble("bot", esc(t).replace(/\n/g, "<br>")); }
+    function userText(t) { history.push({ role: "user", content: t }); return bubble("user", esc(t)); }
+    function typing() { return bubble("bot typing", "<span></span><span></span><span></span>"); }
+
+    var defaultQuick = [
+      { label: "📰 Últimas notícias", value: "últimas notícias" },
+      { label: "📣 Anunciar", value: "anunciar" },
+      { label: "✅ Assinar grátis", value: "assinar" },
+      { label: "💬 Falar com a redação", value: "whatsapp" }
+    ];
+    function setQuick(items) {
+      quickEl.innerHTML = "";
+      (items || []).forEach(function (it) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "chat-chip"; b.textContent = it.label;
+        b.addEventListener("click", function () { handle(it.value || it.label); });
+        quickEl.appendChild(b);
+      });
+    }
+    function localReply(msg) {
+      var m = msg.toLowerCase();
+      if (/anunci|public|comercial|midia kit|m[ií]dia|patroc/.test(m))
+        return { text: "Para anunciar é rápido: fale com o comercial no WhatsApp que enviamos a tabela e as opções de banner.", quick: [{ label: "💬 Falar com o comercial", value: "whatsapp" }, { label: "Ver página Anuncie", value: "url:/anuncie/" }] };
+      if (/assinar|assinatura|inscrev|newsletter|cadastr/.test(m))
+        return { text: "Você pode assinar de graça e receber as notícias por e-mail. É só clicar em Assinar.", quick: [{ label: "✅ Assinar grátis", value: "portal" }] };
+      if (/contato|reda[çc][aã]o|pauta|den[uú]ncia|whats|humano|atendente/.test(m))
+        return { text: "Quer falar direto com a redação? Te levo ao nosso WhatsApp agora.", quick: [{ label: "💬 Abrir WhatsApp", value: "whatsapp" }] };
+      if (/copa|jogo|placar|sele[çc][aã]o|futebol|tabela/.test(m))
+        return { text: "Os jogos, resultados e a tabela da Copa estão na home, atualizando em tempo real.", quick: [{ label: "⚽ Ver a Copa", value: "url:/" }] };
+      if (/pol[ií]tic|cidade|pol[ií]cia|economia|agro|esporte|im[oó]ve/.test(m)) {
+        var slug = /pol[ií]tic/.test(m) ? "politica" : /pol[ií]cia/.test(m) ? "policia" : /cidade/.test(m) ? "cidades" : /economia/.test(m) ? "economia" : /agro/.test(m) ? "agro" : /esporte/.test(m) ? "esportes" : "imoveis";
+        return { text: "Aqui está a editoria que você procura:", quick: [{ label: "Abrir editoria", value: "url:/tag/" + slug + "/" }] };
+      }
+      if (/[uú]ltim|not[ií]cia|hoje|agora|novidade/.test(m))
+        return { text: "As últimas notícias ficam na página inicial, atualizadas o dia todo.", quick: [{ label: "📰 Abrir a home", value: "url:/" }, { label: "Política", value: "url:/tag/politica/" }, { label: "Cidades", value: "url:/tag/cidades/" }] };
+      if (/^(oi|ol[aá]|bom dia|boa tarde|boa noite|e a[íi]|hey)/.test(m))
+        return { text: "Olá! 👋 Sou o assistente do " + nome + ". Como posso ajudar?", quick: defaultQuick };
+      return { text: "Posso ajudar com notícias, anúncios, assinatura ou falar com a redação. Para atendimento humano, toque em WhatsApp.", quick: defaultQuick };
+    }
+    function doAction(v) {
+      if (v === "whatsapp") { window.open(waHref("Olá! Vim pelo site e preciso de ajuda."), "_blank", "noopener"); return true; }
+      if (v === "portal") { location.hash = "#/portal/signup"; return true; }
+      if (v.indexOf("url:") === 0) { window.open(siteUrl + v.slice(4), "_blank", "noopener"); return true; }
+      return false;
+    }
+    function localOut(msg) { var r = localReply(msg); botText(r.text); setQuick(r.quick || defaultQuick); }
+    function respond(msg) {
+      if (iaUrl) {
+        var t = typing();
+        fetch(iaUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: msg, history: history.slice(-12) }) })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { t.remove(); var reply = d && (d.reply || d.text || d.message); if (reply) { botText(reply); setQuick(defaultQuick); } else { botText("Não consegui responder agora. Quer falar no WhatsApp?"); setQuick([{ label: "💬 Abrir WhatsApp", value: "whatsapp" }]); } })
+          .catch(function () { t.remove(); botText("Não consegui responder agora. Quer falar no WhatsApp?"); setQuick([{ label: "💬 Abrir WhatsApp", value: "whatsapp" }]); });
+      } else {
+        var t2 = typing();
+        setTimeout(function () { t2.remove(); localOut(msg); }, 500);
+      }
+    }
+    function handle(value) { if (doAction(value)) return; userText(value); respond(value); }
+    function start() { if (started) return; started = true; botText("Olá! 👋 Sou o assistente do " + nome + ". Posso ajudar com notícias, anúncios e assinatura — ou te levar ao WhatsApp da redação."); setQuick(defaultQuick); }
+    function open() { panel.hidden = false; fab.setAttribute("aria-expanded", "true"); wrap.classList.add("open"); if (badge) badge.style.display = "none"; start(); setTimeout(function () { input.focus(); }, 50); }
+    function close() { panel.hidden = true; fab.setAttribute("aria-expanded", "false"); wrap.classList.remove("open"); }
+    fab.addEventListener("click", function () { panel.hidden ? open() : close(); });
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    form.addEventListener("submit", function (e) { e.preventDefault(); var v = input.value.trim(); if (!v) return; input.value = ""; handle(v); });
   })();
 })();

@@ -48,20 +48,35 @@
         "default": "contato@hojemt.com.br",
         "description": "E-mail de contato/redação exibido no rodapé."
       },
+      "chat_ativo": {
+        "type": "boolean",
+        "default": true,
+        "description": "Mostrar o chat flutuante (assistente/IA) estilo WhatsApp."
+      },
+      "chat_ia_url": {
+        "type": "text",
+        "default": "",
+        "description": "Webhook do seu backend de IA (POST message/history → reply). Vazio = FAQ."
+      },
+      "youtube_canal_id": {
+        "type": "text",
+        "default": "",
+        "description": "ID do canal (UC...) p/ embutir a transmissão AO VIVO atual (tempo real)."
+      },
       "youtube_live_id": {
         "type": "text",
-        "default": "XL2jTQdj134",
-        "description": "ID do vídeo do YouTube no AO VIVO (ex.: jogo da CazéTV)."
+        "default": "",
+        "description": "ID do vídeo do YouTube p/ tocar no AO VIVO (um jogo específico)."
       },
       "youtube_canal": {
         "type": "text",
         "default": "https://www.youtube.com/@CazeTV/live",
-        "description": "Canal do AO VIVO quando não há vídeo fixo (padrão: CazéTV)."
+        "description": "Link do 'ao vivo' no YouTube (botão de abrir a transmissão)."
       },
       "youtube_embed": {
         "type": "boolean",
-        "default": false,
-        "description": "Ligue p/ tocar embutido (autoplay+PiP) SÓ se o vídeo permitir embed. CazéTV/Copa bloqueia."
+        "default": true,
+        "description": "Toca o vídeo embutido (autoplay mudo). Desligue se o vídeo bloquear embed."
       },
       "copa_ativa": {
         "type": "boolean",

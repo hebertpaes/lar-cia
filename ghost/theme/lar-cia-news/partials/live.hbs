@@ -1,30 +1,39 @@
-{{!-- Bloco "AO VIVO" da barra lateral.
-      youtube_live_id = ID do vídeo (Design). Por padrão mostra a miniatura com
-      botão de play que abre no YouTube (funciona mesmo com vídeos que bloqueiam
-      embed, como CazéTV/Copa). Ligue "youtube_embed" para tocar embutido. --}}
+{{!-- Bloco AO VIVO. Em tempo real: se você informar o ID do canal (Design →
+      youtube_canal_id), embute a transmissão AO VIVO ATUAL do canal (atualiza
+      sozinha). Senão, usa um vídeo específico (youtube_live_id); senão, um link
+      para a transmissão. --}}
 <aside class="live-box" aria-label="Ao vivo">
     <h2 class="rail-title rail-live"><span class="live-dot"></span> AO VIVO</h2>
-    {{#if @custom.youtube_live_id}}
-        {{#if @custom.youtube_embed}}
-            <div class="live-embed">
-                <iframe src="https://www.youtube.com/embed/{{@custom.youtube_live_id}}?rel=0&autoplay=1&mute=1&playsinline=1"
-                    title="Ao vivo" loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
+    {{#if @custom.youtube_canal_id}}
+        <div class="live-embed">
+            <iframe src="https://www.youtube.com/embed/live_stream?channel={{@custom.youtube_canal_id}}&autoplay=1&mute=1&playsinline=1&rel=0"
+                title="Ao vivo" loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    {{else}}
+        {{#if @custom.youtube_live_id}}
+            {{#if @custom.youtube_embed}}
+                <div class="live-embed">
+                    <iframe src="https://www.youtube.com/embed/{{@custom.youtube_live_id}}?rel=0&autoplay=1&mute=1&playsinline=1"
+                        title="Ao vivo" loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            {{else}}
+                <a class="live-thumb js-yt" href="https://www.youtube.com/watch?v={{@custom.youtube_live_id}}" data-yt="{{@custom.youtube_live_id}}" target="_blank" rel="noopener">
+                    <img src="https://img.youtube.com/vi/{{@custom.youtube_live_id}}/hqdefault.jpg" alt="Assistir à transmissão ao vivo" loading="lazy" />
+                    <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
+                    <span class="live-play">▶</span>
+                    <span class="live-cta">Clique para assistir ao vivo</span>
+                </a>
+            {{/if}}
         {{else}}
-            <a class="live-thumb js-yt" href="https://www.youtube.com/watch?v={{@custom.youtube_live_id}}" data-yt="{{@custom.youtube_live_id}}" target="_blank" rel="noopener">
-                <img src="https://img.youtube.com/vi/{{@custom.youtube_live_id}}/hqdefault.jpg" alt="Assistir à transmissão ao vivo" loading="lazy" />
+            <a class="live-placeholder" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/{{/if}}" target="_blank" rel="noopener">
                 <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
-                <span class="live-play">▶</span>
-                <span class="live-cta">Clique para assistir ao vivo</span>
+                <strong>Assista aos jogos ao vivo</strong>
+                <small>Clique para abrir a transmissão no YouTube</small>
             </a>
         {{/if}}
-    {{else}}
-        <a class="live-placeholder" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}" target="_blank" rel="noopener">
-            <span class="live-badge"><span class="live-dot"></span> AO VIVO</span>
-            <strong>Jogos da Copa · CazéTV</strong>
-            <small>Cole o ID do jogo (YouTube) em Design → youtube_live_id</small>
-        </a>
     {{/if}}
 </aside>
