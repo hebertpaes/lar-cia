@@ -25,12 +25,6 @@
             {{content}}
         </div>
 
-        {{!-- Atribuição de fonte (releases oficiais / veículos creditados) --}}
-        <div class="article-sources">
-            <span>Fontes oficiais e parceiros de imprensa:</span>
-            <a href="{{@site.url}}/fontes-oficiais/">ver lista completa →</a>
-        </div>
-
         <div class="article-share">
             <span>Compartilhar:</span>
             <a href="https://wa.me/?text={{encode title}}%20{{url absolute="true"}}" target="_blank" rel="noopener">WhatsApp</a>
@@ -40,16 +34,20 @@
 
         {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="6"}}
 
-        {{#if primary_tag}}
-            <section class="related">
-                <h2 class="rail-title">Mais de {{primary_tag.name}}</h2>
-                <div class="section-grid">
+        <section class="related">
+            <h2 class="rail-title">{{#if primary_tag}}Relacionadas{{else}}Mais notícias{{/if}}</h2>
+            <div class="section-grid">
+                {{#if primary_tag}}
                     {{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}+tag:-hash-ad" limit="3" order="published_at desc" as |rel|}}
                         {{#foreach rel}}{{> article-card size="compact"}}{{/foreach}}
                     {{/get}}
-                </div>
-            </section>
-        {{/if}}
+                {{else}}
+                    {{#get "posts" filter="id:-{{id}}+tag:-hash-ad" limit="3" order="published_at desc" as |rel|}}
+                        {{#foreach rel}}{{> article-card size="compact"}}{{/foreach}}
+                    {{/get}}
+                {{/if}}
+            </div>
+        </section>
 
         {{!-- Comentários nativos do Ghost (requer Membros ativos). --}}
         {{#if comments_enabled}}
