@@ -233,13 +233,53 @@
       return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · grupos</h3><p class="copa-hint"><b class="qz-key"></b> zona de classificação (2 primeiros) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
     }
 
+    /* Chaveamento (mata-mata) — organiza os jogos de eliminatória em colunas
+       Oitavas → Quartas → Semifinais → Final, do lado das tabelas. */
+    function koRound(e) {
+      var r = String(e.strRound || "").toLowerCase();
+      if (/^\d+$/.test(r)) return null;
+      if (/3rd|third|terceiro/.test(r)) return { o: 3.5, l: "3º lugar" };
+      if (/\bfinal\b/.test(r) && !/semi|quarter|quartas/.test(r)) return { o: 4, l: "Final" };
+      if (/semi/.test(r)) return { o: 3, l: "Semifinais" };
+      if (/quarter|quartas/.test(r)) return { o: 2, l: "Quartas de final" };
+      if (/round of 16|oitavas|1\/8|last 16/.test(r)) return { o: 1, l: "Oitavas de final" };
+      return null;
+    }
+    function koCard(e) {
+      var s = status(e);
+      function side(name, badge, sc) {
+        var img = badge ? '<img class="cbadge sm" src="' + esc(badge) + '" alt="" onerror="this.remove()">' : "";
+        return '<div class="ko-team"><span class="ko-nm">' + img + esc(tr(name) || "A definir") + '</span><em>' + ((sc == null || sc === "") ? "" : esc(sc)) + '</em></div>';
+      }
+      return '<div class="ko-match ' + s.cls + '">' + side(e.strHomeTeam, e.strHomeTeamBadge, e.intHomeScore)
+        + side(e.strAwayTeam, e.strAwayTeamBadge, e.intAwayScore) + '<div class="ko-meta">' + esc(fmtData(e) || s.txt) + '</div></div>';
+    }
+    function bracket(events) {
+      if (!events || !events.length) return "";
+      var cols = {}, seen = {};
+      events.forEach(function (e) {
+        var k = koRound(e); if (!k) return;
+        var id = e.idEvent || (e.strHomeTeam + e.strAwayTeam + e.dateEvent); if (seen[id]) return; seen[id] = 1;
+        (cols[k.o] = cols[k.o] || { l: k.l, items: [] }).items.push(e);
+      });
+      var keys = Object.keys(cols).sort(function (a, b) { return a - b; });
+      if (!keys.length) return "";
+      var out = keys.map(function (k) {
+        var c = cols[k];
+        var its = c.items.sort(function (a, b) { return String(a.dateEvent || "").localeCompare(String(b.dateEvent || "")); });
+        return '<div class="ko-col"><h4 class="ko-col-t">' + c.l + '</h4>' + its.map(koCard).join("") + '</div>';
+      }).join("");
+      return '<div class="copa-block"><h3 class="copa-block-title">🏆 Chaveamento · mata-mata até a final</h3><div class="copa-bracket">' + out + '</div></div>';
+    }
+
     var got = { past: null, next: null, table: null };
     function paint() {
       if (got.past === null && got.next === null) return;
       var past = (got.past || []).slice().sort(function (a, b) { return String(b.dateEvent || "").localeCompare(String(a.dateEvent || "")); });
       var next = (got.next || []).slice().sort(function (a, b) { return String(a.dateEvent || "").localeCompare(String(b.dateEvent || "")); });
       if (!past.length && !next.length && !(got.table && got.table.length)) { fallback(); return; }
-      body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table)) || fbHtml;
+      var todos = past.concat(next);
+      body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table) + bracket(todos)) || fbHtml;
     }
     function grab(url, key, retry) {
       if (!url) { got[key] = []; paint(); return; }

@@ -155,6 +155,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .card-meta { font-family: var(--font-ui); font-size: 12px; color: var(--ink-soft); }
 .card-compact .card-title { font-size: 16px; }
 .card-compact .card-excerpt { display: none; }
+/* No mobile, todo card fica "cheio" como o primeiro: título maior + resumo visível. */
+@media (max-width: 719px) {
+  .card-compact .card-title { font-size: 18px; }
+  .card-compact .card-excerpt { display: block; }
+  .card-media { aspect-ratio: 16 / 9; }
+}
 .chip-demo { position: absolute; top: 8px; left: 8px; background: #111; color: #ffd400; font-family: var(--font-ui); font-weight: 800; font-size: 10px; letter-spacing: .08em; padding: 3px 7px; border-radius: 3px; }
 
 /* ---- Bloco principal (manchete) ---------------------------------------- */
@@ -333,6 +339,16 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .tbar i { display: block; height: 100%; background: var(--urgent); }
 .copa-table tr.qz .tbar i { background: #16a34a; }
 .copa-table tbody tr:last-child td { border-bottom: 0; }
+/* Chaveamento (mata-mata) — colunas lado a lado até a final */
+.copa-bracket { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; }
+.ko-col { flex: 0 0 auto; width: 210px; max-width: 78vw; display: flex; flex-direction: column; gap: 12px; }
+.ko-col-t { margin: 0; font: 800 11px/1.1 var(--font-ui); text-transform: uppercase; letter-spacing: .05em; color: #fff; background: var(--urgent); padding: 8px 10px; border-radius: 6px; text-align: center; }
+.ko-match { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; }
+.ko-match.live { border-color: var(--urgent); box-shadow: 0 0 0 1px var(--urgent) inset; }
+.ko-team { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ko-nm { display: flex; align-items: center; gap: 6px; min-width: 0; font: 700 13px var(--font-ui); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ko-team em { font-style: normal; font-weight: 800; font-family: var(--font-head); flex: none; }
+.ko-meta { font-size: 10.5px; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 4px; }
 
 /* ---- Política ------------------------------------------------------------ */
 @media (min-width: 640px) { .copa-cards { grid-template-columns: repeat(2, 1fr); } }
