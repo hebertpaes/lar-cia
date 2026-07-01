@@ -136,7 +136,7 @@
     show(0); start();
   })();
 
-  /* ---- Copa do Mundo: resultados + próximos jogos + tabela (retry + fallback) ---- */
+  /* ---- Copa do Mundo: resultados + próximos + tabela, em PT, tempo real ---- */
   (function initCopa() {
     var sec = $(".copa"); if (!sec) return;
     var body = $("#copaBody", sec);
@@ -146,18 +146,37 @@
     var fbHtml = '<a class="copa-fallback" href="' + canal + '" target="_blank" rel="noopener">▶ Acompanhe os jogos ao vivo na CazéTV</a>';
     function fallback() { body.innerHTML = fbHtml; }
 
+    /* Tradução EN → PT de seleções/países (nomes vêm em inglês na API). */
+    var PT = { "Brazil": "Brasil", "Argentina": "Argentina", "France": "França", "Spain": "Espanha",
+      "Portugal": "Portugal", "Germany": "Alemanha", "England": "Inglaterra", "Netherlands": "Países Baixos",
+      "Belgium": "Bélgica", "Italy": "Itália", "Croatia": "Croácia", "Switzerland": "Suíça", "Uruguay": "Uruguai",
+      "Mexico": "México", "United States": "Estados Unidos", "USA": "EUA", "Canada": "Canadá", "Ecuador": "Equador",
+      "Colombia": "Colômbia", "Peru": "Peru", "Chile": "Chile", "Paraguay": "Paraguai", "Bolivia": "Bolívia",
+      "Venezuela": "Venezuela", "Japan": "Japão", "South Korea": "Coreia do Sul", "Korea Republic": "Coreia do Sul",
+      "Australia": "Austrália", "Saudi Arabia": "Arábia Saudita", "Iran": "Irã", "Qatar": "Catar",
+      "Morocco": "Marrocos", "Senegal": "Senegal", "Ghana": "Gana", "Nigeria": "Nigéria", "Cameroon": "Camarões",
+      "Egypt": "Egito", "Tunisia": "Tunísia", "Algeria": "Argélia", "Ivory Coast": "Costa do Marfim",
+      "Cote d'Ivoire": "Costa do Marfim", "Mali": "Mali", "DR Congo": "RD Congo", "South Africa": "África do Sul",
+      "Cape Verde": "Cabo Verde", "Poland": "Polônia", "Serbia": "Sérvia", "Denmark": "Dinamarca", "Sweden": "Suécia",
+      "Norway": "Noruega", "Austria": "Áustria", "Turkey": "Turquia", "Greece": "Grécia", "Scotland": "Escócia",
+      "Wales": "País de Gales", "Ireland": "Irlanda", "Ukraine": "Ucrânia", "Czech Republic": "Tchéquia",
+      "Slovakia": "Eslováquia", "Slovenia": "Eslovênia", "Hungary": "Hungria", "Romania": "Romênia",
+      "New Zealand": "Nova Zelândia", "Uzbekistan": "Uzbequistão", "Jordan": "Jordânia", "United Arab Emirates": "Emirados Árabes",
+      "Costa Rica": "Costa Rica", "Panama": "Panamá", "Jamaica": "Jamaica", "Honduras": "Honduras" };
+    function tr(n) { return n && PT[String(n).trim()] || n || ""; }
+
     function fmtData(e) {
       var d = e.dateEvent ? String(e.dateEvent).split("-") : null;
       var data = d && d.length === 3 ? d[2] + "/" + d[1] : (e.dateEvent || "");
       var hora = e.strTime ? String(e.strTime).slice(0, 5) : "";
       return [data, hora].filter(Boolean).join(" · ");
     }
-    function local(e) { return [e.strVenue, e.strCity, e.strCountry].filter(Boolean).join(", "); }
+    function local(e) { return [e.strVenue, tr(e.strCountry)].filter(Boolean).join(" · "); }
     function fase(e) {
       var r = e.strRound != null ? String(e.strRound).trim() : "";
       var g = e.strGroup ? String(e.strGroup).trim() : "";
       if (g) return "Grupo " + g.replace(/^group\s*/i, "");
-      if (!r) return "Copa do Mundo";
+      if (!r || /world cup/i.test(r)) return "Copa do Mundo";
       if (/^\d+$/.test(r)) return "Fase de grupos · Rodada " + r;
       return r;
     }
@@ -170,7 +189,7 @@
     }
     function team(name, badge, away) {
       var img = badge ? '<img class="cbadge" src="' + esc(badge) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-      var nm = '<span class="cteam-name">' + esc(name || "A definir") + '</span>';
+      var nm = '<span class="cteam-name">' + esc(tr(name) || "A definir") + '</span>';
       return '<div class="cteam' + (away ? " away" : "") + '">' + (away ? nm + img : img + nm) + '</div>';
     }
     function card(e) {
@@ -185,24 +204,33 @@
     }
     function block(titulo, evs) {
       if (!evs.length) return "";
-      return '<div class="copa-block"><h3 class="copa-block-title">' + titulo + '</h3><div class="copa-cards">' + evs.map(card).join("") + '</div></div>';
+      return '<div class="copa-block"><h3 class="copa-block-title">' + titulo + ' <span class="copa-count">' + evs.length + '</span></h3><div class="copa-cards">' + evs.map(card).join("") + '</div></div>';
     }
+    function grupoLabel(g) { return String(g).replace(/^group\s*/i, "").trim(); }
     function tabela(rows) {
       if (!rows || !rows.length) return "";
       var groups = {};
       rows.forEach(function (r) { var g = r.strGroup || r.intGroup || ""; (groups[g] = groups[g] || []).push(r); });
-      var out = Object.keys(groups).map(function (g) {
+      var keys = Object.keys(groups).sort(function (a, b) { return grupoLabel(a).localeCompare(grupoLabel(b), "pt", { numeric: true }); });
+      var out = keys.map(function (g) {
         var rs = groups[g].slice().sort(function (a, b) { return (+a.intRank || 99) - (+b.intRank || 99); });
-        var cap = g ? '<caption>' + esc(String(g).replace(/^group\s*/i, "Grupo ")) + '</caption>' : '';
-        var tb = rs.map(function (r) {
+        var maxP = Math.max.apply(null, rs.map(function (r) { return +r.intPoints || 0; }).concat([1]));
+        var lbl = grupoLabel(g);
+        var cap = lbl ? '<caption><span class="gdot">' + esc(lbl) + '</span>Grupo ' + esc(lbl) + '</caption>' : '';
+        var tb = rs.map(function (r, i) {
+          var rank = +r.intRank || (i + 1);
           var bd = r.strBadge ? '<img class="cbadge sm" src="' + esc(r.strBadge) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-          return '<tr><td class="r">' + esc(r.intRank || "") + '</td><td class="t">' + bd + esc(r.strTeam || r.name || "")
-            + '</td><td>' + esc(r.intPlayed || 0) + '</td><td>' + esc(r.intWin || 0) + '</td><td>' + esc(r.intDraw || 0)
-            + '</td><td>' + esc(r.intLoss || 0) + '</td><td>' + esc(r.intGoalDifference || 0) + '</td><td class="p">' + esc(r.intPoints || 0) + '</td></tr>';
+          var pts = +r.intPoints || 0, pct = Math.round(pts / maxP * 100);
+          var gd = parseInt(r.intGoalDifference, 10), sg = isNaN(gd) ? esc(r.intGoalDifference || 0) : ((gd > 0 ? "+" : "") + gd);
+          return '<tr class="' + (rank <= 2 ? "qz" : "") + '"><td class="r"><span class="cpos">' + rank + '</span></td>'
+            + '<td class="t"><span class="cteam-row">' + bd + '<span class="cteam-nm">' + esc(tr(r.strTeam || r.name || "")) + '</span></span>'
+            + '<span class="tbar"><i style="width:' + pct + '%"></i></span></td>'
+            + '<td>' + esc(r.intPlayed || 0) + '</td><td>' + esc(r.intWin || 0) + '</td><td>' + esc(r.intDraw || 0)
+            + '</td><td>' + esc(r.intLoss || 0) + '</td><td>' + sg + '</td><td class="p">' + pts + '</td></tr>';
         }).join("");
         return '<table class="copa-table">' + cap + '<thead><tr><th>#</th><th class="t">Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>P</th></tr></thead><tbody>' + tb + '</tbody></table>';
       }).join("");
-      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação</h3><div class="copa-tables">' + out + '</div></div>';
+      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · grupos</h3><p class="copa-hint"><b class="qz-key"></b> zona de classificação (2 primeiros) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
     }
 
     var got = { past: null, next: null, table: null };
@@ -211,7 +239,7 @@
       var past = (got.past || []).slice().sort(function (a, b) { return String(b.dateEvent || "").localeCompare(String(a.dateEvent || "")); });
       var next = (got.next || []).slice().sort(function (a, b) { return String(a.dateEvent || "").localeCompare(String(b.dateEvent || "")); });
       if (!past.length && !next.length && !(got.table && got.table.length)) { fallback(); return; }
-      body.innerHTML = block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table) || fbHtml;
+      body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table)) || fbHtml;
     }
     function grab(url, key, retry) {
       if (!url) { got[key] = []; paint(); return; }
@@ -221,6 +249,6 @@
     }
     function loadAll() { grab(apiPast, "past", 2); grab(apiNext, "next", 2); grab(apiTab, "table", 1); }
     loadAll();
-    setInterval(loadAll, 90000);
+    setInterval(loadAll, 60000);   /* atualiza sozinho a cada 60s */
   })();
 })();

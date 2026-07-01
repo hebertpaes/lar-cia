@@ -1,7 +1,7 @@
-{{!-- Bloco Copa do Mundo: resultados + próximos jogos + tabela (preenchido pelo
-      JS via API). Configure em Design: copa_ativa, copa_api (resultados),
-      copa_api_next (próximos) e copa_tabela (grupos, opcional). Atualiza sozinho
-      e tem fallback (link da CazéTV) se as fontes falharem. --}}
+{{!-- Bloco Copa do Mundo: play ao vivo (CazéTV) + resultados + próximos jogos +
+      classificação (grupos). Tudo preenchido pelo JS via API, em português,
+      atualizando sozinho a cada 60s. Configure em Design: copa_ativa, copa_api,
+      copa_api_next, copa_tabela e youtube_live_id/youtube_canal. --}}
 {{#if @custom.copa_ativa}}
 <section class="copa container"
          data-api="{{@custom.copa_api}}"
@@ -9,9 +9,21 @@
          data-tabela="{{@custom.copa_tabela}}"
          data-canal="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}">
     <div class="section-head">
-        <h2 class="section-title">⚽ Copa do Mundo 2026</h2>
+        <div class="sh-left">
+            <h2 class="section-title">⚽ Copa do Mundo 2026</h2>
+            <span class="copa-live-tag"><span class="live-dot"></span> tempo real</span>
+        </div>
         <a class="section-more" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}" target="_blank" rel="noopener">Ao vivo na CazéTV →</a>
     </div>
+
+    {{!-- Play ao vivo (abre o player em popup; usa o mesmo vídeo do AO VIVO) --}}
+    <a class="copa-watch js-yt" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/@CazeTV/live{{/if}}"
+       data-yt="{{@custom.youtube_live_id}}" target="_blank" rel="noopener">
+        <span class="copa-watch-ico">▶</span>
+        <span class="copa-watch-txt"><b>Assista aos jogos ao vivo</b><small>Transmissão da CazéTV — clique para abrir o player</small></span>
+        <span class="copa-watch-badge"><span class="live-dot"></span> AO VIVO</span>
+    </a>
+
     <div class="copa-body" id="copaBody"><div class="copa-loading">Carregando jogos…</div></div>
 </section>
 {{/if}}
