@@ -332,6 +332,10 @@
     function open() { panel.hidden = false; fab.setAttribute("aria-expanded", "true"); wrap.classList.add("open"); start(); setTimeout(function () { input.focus(); }, 50); }
     function close() { panel.hidden = true; fab.setAttribute("aria-expanded", "false"); wrap.classList.remove("open"); }
     fab.addEventListener("click", function () { panel.hidden ? open() : close(); });
+    /* Abre ao passar o mouse (só em telas com hover/desktop); fecha no × ou clique. */
+    if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      wrap.addEventListener("mouseenter", function () { if (panel.hidden) open(); });
+    }
     if (closeBtn) closeBtn.addEventListener("click", close);
     form.addEventListener("submit", function (e) { e.preventDefault(); var v = input.value.trim(); if (!v) return; input.value = ""; handle(v); });
   })();
