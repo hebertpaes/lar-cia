@@ -368,7 +368,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .ad-inarticle .ad-banner { min-height: 120px; }
 .ad-banner img { width: auto; max-width: 100%; }
 .ad-house { padding: 0; color: var(--ink-soft); }
-.ad-house-img { width: 100%; height: auto; display: block; border-radius: 6px; }
+.ad-house img { width: 100%; height: auto; display: block; border-radius: 6px; }
 .ad-house strong { font-family: var(--font-head); font-size: 20px; color: var(--ink); }
 .ad-house-label { font-family: var(--font-ui); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9aa1ad; }
 .ad-text { font-family: var(--font-head); font-weight: 700; font-size: 18px; padding: 18px; }
@@ -378,7 +378,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 @keyframes adfade { from { opacity: .25; } to { opacity: 1; } }
 
 /* ---- Artigo ------------------------------------------------------------- */
-.article-wrap { display: grid; grid-template-columns: 1fr; gap: 36px; padding: 28px 18px; }
+.article-wrap { display: grid; grid-template-columns: 1fr; gap: 36px; padding: 28px 20px; }
+@media (max-width: 719px) { .article-wrap { padding: 22px 22px; } }
 .article { max-width: 760px; }
 .article-head { margin-bottom: 18px; }
 .article-title { font-size: clamp(28px, 4.5vw, 44px); font-weight: 900; letter-spacing: -.5px; margin-top: 8px; }
@@ -423,7 +424,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .article-rail { display: flex; flex-direction: column; gap: 26px; }
 
 /* ---- Arquivo / editoria / autor ---------------------------------------- */
-.archive, .editoria-wrap, .author-wrap { padding: 26px 18px; }
+.archive, .editoria-wrap, .author-wrap { padding: 26px 20px; }
+@media (max-width: 719px) { .archive, .editoria-wrap, .author-wrap { padding: 22px 22px; } }
 .editoria-wrap { display: grid; grid-template-columns: 1fr; gap: 36px; }
 .archive-head, .editoria-head, .author-head { margin-bottom: 22px; padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
 .archive-title, .editoria-title, .author-name { font-size: clamp(26px, 4vw, 38px); font-weight: 900; }
