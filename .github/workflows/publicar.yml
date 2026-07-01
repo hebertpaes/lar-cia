@@ -1,0 +1,68 @@
+name: Publicar notícias (automático)
+
+# Coleta as notícias do dia das assessorias oficiais (RSS) e publica nos 3
+# portais, roteando por editoria. Roda NA NUVEM (não precisa do seu Mac).
+#
+# Antes de usar, cadastre os segredos em:
+#   GitHub → Settings → Secrets and variables → Actions → New repository secret
+#     HOJEMT_ADMIN_KEY        = id:secret   (Admin API Key do Hoje MT)
+#     ODIAPOLITICO_ADMIN_KEY  = id:secret   (Admin API Key do O Dia Político)
+#     PACUNEWS_ADMIN_KEY      = id:secret   (Admin API Key do Pacu News)
+#
+# Dispare manualmente em Actions → "Publicar notícias" → Run workflow, ou deixe
+# no agendamento diário abaixo.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Só simular (não publica)"
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 11 * * *"   # 08:00 no horário de Cuiabá (UTC-3) — ajuste se quiser
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    name: Coletar + publicar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preparar config dos sites
+        run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
+
+      - name: Coletar notícias do dia (RSS das assessorias)
+        run: node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json || echo "Coleta sem itens hoje."
+
+      - name: Publicar nos portais (roteando por editoria)
+        env:
+          HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
+          ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
+          PACUNEWS_ADMIN_KEY: ${{ secrets.PACUNEWS_ADMIN_KEY }}
+        run: |
+          FILE=ghost/import/coletado-hoje.json
+          [ -f "$FILE" ] || { echo "Nada coletado — encerrando."; exit 0; }
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            node ghost/automation/publish.mjs "$FILE" --dry-run
+          else
+            node ghost/automation/publish.mjs "$FILE"
+          fi
+
+      - name: Guardar o que foi coletado (artefato)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coletado-hoje
+          path: ghost/import/coletado-hoje.json
+          if-no-files-found: ignore

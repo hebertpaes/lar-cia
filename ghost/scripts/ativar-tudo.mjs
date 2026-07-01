@@ -3,8 +3,12 @@
    Roda na SUA máquina (que alcança o site). A chave nunca sai daqui.
 
    Faz (o que você pedir): sobe+ativa o tema, liga Membros/Portal (os popups de
-   Assinar/Entrar), liga comentários, configura o menu (editorias) e importa o
-   conteúdo. Cada passo é opcional por variável de ambiente.
+   Assinar/Entrar), liga comentários, configura o menu (editorias), cria as
+   páginas institucionais do rodapé (Sobre, Anuncie, Fontes oficiais, Contato —
+   assim os links param de dar 404) e importa o conteúdo. Cada passo é opcional.
+
+   Contatos das páginas (opcional): EMAIL_CONTATO e WHATSAPP preenchem os
+   endereços nas páginas Sobre/Anuncie/Contato.
 
    Uso mínimo (liga Membros/Portal + menu + comentários):
      SITE_URL=https://hojemt.com.br SITE_ADMIN_KEY='id:secret' \
@@ -15,7 +19,7 @@
      THEME_ZIP=ghost/theme/hojemt.zip CONTENT_JSON=ghost/import/noticias-300.json \
        node ghost/scripts/ativar-tudo.mjs
 
-   Flags: --dry-run (só mostra), --no-portal, --no-nav, --no-comments */
+   Flags: --dry-run (só mostra), --no-portal, --no-nav, --no-comments, --no-pages */
 import crypto from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import { basename } from "node:path";
@@ -57,6 +61,39 @@ const NAV2 = [
   { label: "Agência Brasil", url: "https://agenciabrasil.ebc.com.br" },
 ];
 
+// Páginas institucionais que o rodapé aponta (senão dá 404). Idempotente:
+// só cria a que ainda não existir. EMAIL/WHATS preenchem os contatos.
+const EMAIL = process.env.EMAIL_CONTATO || "";
+const WHATS = (process.env.WHATSAPP || "").replace(/\D/g, "");
+const contato = () =>
+  (EMAIL ? `<p>E-mail: <a href="mailto:${EMAIL}">${EMAIL}</a></p>` : "") +
+  (WHATS ? `<p>WhatsApp da redação: <a href="https://wa.me/${WHATS}">+${WHATS}</a></p>` : "");
+const PAGES = [
+  { slug: "sobre", title: "Sobre o portal",
+    html: `<p>Somos um portal de notícias com foco em Mato Grosso e no Brasil. Publicamos apuração própria e reproduzimos releases oficiais das assessorias públicas com a devida atribuição à fonte.</p><p>Nosso compromisso é com a informação de interesse público, apurada e creditada.</p>${contato()}` },
+  { slug: "anuncie", title: "Anuncie conosco",
+    html: `<p>Leve sua marca a milhares de leitores em Mato Grosso. Oferecemos banners (topo, meio e barra lateral), publieditoriais e conteúdo patrocinado.</p><p>Fale com o comercial que enviamos a tabela de preços e os formatos disponíveis.</p>${contato()}` },
+  { slug: "fontes-oficiais", title: "Fontes oficiais",
+    html: `<p>Reproduzimos, com atribuição, releases das assessorias oficiais de Mato Grosso — Governo do Estado (SECOM-MT), Assembleia Legislativa (ALMT), prefeituras e câmaras municipais — além de agências públicas nacionais (Agência Brasil, Agência Câmara, Agência Senado).</p><p>Todo release oficial é publicado com o crédito da respectiva fonte. Conteúdo de veículos privados é creditado ao veículo de origem.</p>` },
+  { slug: "contato", title: "Contato / Redação",
+    html: `<p>Tem uma pauta, denúncia ou sugestão? Fale com a redação.</p>${contato() || "<p>Use os canais oficiais do portal para entrar em contato com a redação.</p>"}<p>Cuiabá / Várzea Grande · MT</p>` },
+];
+
+async function ensurePages() {
+  console.log("• Páginas institucionais (rodapé): sobre, anuncie, fontes-oficiais, contato");
+  for (const p of PAGES) {
+    let exists = false;
+    try { await api(`/pages/slug/${p.slug}/?fields=id`); exists = true; } catch { exists = false; }
+    if (exists) { console.log(`  · ${p.slug} — já existe (mantido)`); continue; }
+    if (dry) { console.log(`  · ${p.slug} — criaria`); continue; }
+    await api("/pages/?source=html", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pages: [{ title: p.title, slug: p.slug, html: p.html, status: "published" }] }),
+    });
+    console.log(`  ✓ ${p.slug} — criada`);
+  }
+}
+
 async function main() {
   console.log(`${dry ? "[DRY-RUN] " : ""}Ativando tudo em ${URL_} …`);
 
@@ -80,6 +117,8 @@ async function main() {
     console.log("• Configurações:", settings.map((s) => s.key).join(", "));
     if (!dry) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings }) }); console.log("  ✓ salvo (Membros/Portal, comentários e menu)"); }
   }
+
+  if (!has("--no-pages")) await ensurePages();
 
   if (CONTENT_JSON) {
     if (!existsSync(CONTENT_JSON)) throw new Error(`Conteúdo não encontrado: ${CONTENT_JSON}`);
