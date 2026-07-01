@@ -257,7 +257,7 @@
     var wrap = $("#chatWidget"); if (!wrap) return;
     var fab = $("#chatFab"), panel = $("#chatPanel"), closeBtn = $("#chatClose"),
         bodyEl = $("#chatBody"), quickEl = $("#chatQuick"), form = $("#chatForm"),
-        input = $("#chatInput"), waLink = $("#chatWa"), badge = $("#chatBadge");
+        input = $("#chatInput"), waLink = $("#chatWa");
     var wa = wrap.getAttribute("data-wa") || "";
     var iaUrl = wrap.getAttribute("data-ia") || "";
     var nome = wrap.getAttribute("data-nome") || "Redação";
@@ -329,7 +329,7 @@
     }
     function handle(value) { if (doAction(value)) return; userText(value); respond(value); }
     function start() { if (started) return; started = true; botText("Olá! 👋 Sou o assistente do " + nome + ". Posso ajudar com notícias, anúncios e assinatura — ou te levar ao WhatsApp da redação."); setQuick(defaultQuick); }
-    function open() { panel.hidden = false; fab.setAttribute("aria-expanded", "true"); wrap.classList.add("open"); if (badge) badge.style.display = "none"; start(); setTimeout(function () { input.focus(); }, 50); }
+    function open() { panel.hidden = false; fab.setAttribute("aria-expanded", "true"); wrap.classList.add("open"); start(); setTimeout(function () { input.focus(); }, 50); }
     function close() { panel.hidden = true; fab.setAttribute("aria-expanded", "false"); wrap.classList.remove("open"); }
     fab.addEventListener("click", function () { panel.hidden ? open() : close(); });
     if (closeBtn) closeBtn.addEventListener("click", close);
