@@ -19,10 +19,8 @@
                 {{/foreach}}
             </div>
         {{else}}
-            <a class="ad-banner ad-house" href="https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}." target="_blank" rel="noopener">
-                <span class="ad-house-label">Publicidade</span>
-                <strong>Anuncie aqui</strong>
-                <small>Fale com o comercial no WhatsApp</small>
+            <a class="ad-banner ad-house" href="https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}." target="_blank" rel="noopener" aria-label="Anuncie">
+                <img class="ad-house-img" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" />
             </a>
         {{/if}}
     {{/get}}

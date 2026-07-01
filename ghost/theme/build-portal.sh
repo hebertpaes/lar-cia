@@ -39,6 +39,10 @@ OUT="$DIR/$SLUG"
 rm -rf "$OUT" "$DIR/$SLUG.zip"
 cp -R "$SRC" "$OUT"
 
+# Banner do portal (house ad) — usa o GIF da marca, se existir
+mkdir -p "$OUT/assets/img"
+[ -f "$DIR/../banners/anuncie-$SLUG.gif" ] && cp "$DIR/../banners/anuncie-$SLUG.gif" "$OUT/assets/img/anuncie.gif"
+
 node -e '
 const fs = require("fs");
 const [file, slug, nome, cor, email] = process.argv.slice(1);

@@ -33,7 +33,6 @@ function tag(name, slug, visibility, description) {
   if (tagId.has(slug)) return tagId.get(slug);
   const id = tags.length + 1; tags.push({ id, name, slug, visibility, description: description || null }); tagId.set(slug, id); return id;
 }
-const T_DEMO = tag("#demo", "hash-demo", "internal");
 const T_VIDEO = tag("Vídeo", "video", "public", "Matérias com vídeo.");
 
 /* ---- posts ---- */
@@ -53,13 +52,7 @@ function addPost({ title, slug, html, feature_image, feature_image_caption, cust
 /* ---- embeds de vídeo (ilustrativos — troque pelos reais) ---- */
 const YT = ["jNQXAC9IVRw", "aqz-KE-bpKQ", "ScMzIvxBSi4"];
 function ytEmbed(i) {
-  return `<figure class="kg-card kg-embed-card"><iframe width="560" height="315" src="https://www.youtube.com/embed/${pick(YT, i)}" title="Vídeo" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></figure><p class="media-nota"><em>▶ Vídeo ilustrativo (demo) — substitua pelo vídeo real do YouTube.</em></p>`;
-}
-function xEmbed() {
-  return `<figure class="kg-card kg-embed-card"><blockquote class="twitter-tweet"><a href="https://twitter.com/AgenciaBrasil/status/1"></a></blockquote></figure><p class="media-nota"><em>𝕏 Post ilustrativo — cole a URL do post real do X.</em></p>`;
-}
-function fbEmbed() {
-  return `<figure class="kg-card kg-embed-card"><div class="fb-post" data-href="https://www.facebook.com/facebook/posts/1" data-width="500"></div></figure><p class="media-nota"><em>Vídeo/post ilustrativo do Meta — cole a URL real do Facebook/Instagram.</em></p>`;
+  return `<figure class="kg-card kg-embed-card"><iframe width="560" height="315" src="https://www.youtube.com/embed/${pick(YT, i)}" title="Vídeo" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></figure>`;
 }
 
 /* ---- fontes confiáveis (nacionais + internacionais) ---- */
@@ -242,12 +235,9 @@ EDS.forEach((ed) => {
     const title = ed.titles(i);
     const seed = slugify(ed.slug + "-" + title).slice(0, 60) + "-" + i;
     let body = ed.paras(title, i).map((p) => `<p>${esc(p)}</p>`).join("");
-    const tagIds = [T_ED, T_DEMO];
-    // 1 em cada 3 matérias tem vídeo/embed (YouTube / X / Meta, rotacionando)
-    const mediaKind = count % 3 === 0 ? "yt" : count % 6 === 4 ? "x" : count % 9 === 7 ? "fb" : null;
-    if (mediaKind === "yt") { body += ytEmbed(i); tagIds.push(T_VIDEO); }
-    else if (mediaKind === "x") { body += xEmbed(); }
-    else if (mediaKind === "fb") { body += fbEmbed(); }
+    const tagIds = [T_ED];
+    // 1 em cada 4 matérias tem vídeo do YouTube incorporado
+    if (count % 4 === 0) { body += ytEmbed(i); tagIds.push(T_VIDEO); }
     addPost({
       title, slug: seed, html: body, feature_image: photo(seed),
       feature_image_caption: credito(ed.scope, i),

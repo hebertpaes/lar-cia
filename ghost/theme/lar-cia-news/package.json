@@ -35,7 +35,7 @@
       },
       "mostrar_chip_demo": {
         "type": "boolean",
-        "default": true,
+        "default": false,
         "description": "Exibe o selo DEMO em conteúdo de demonstração (tag #demo)."
       },
       "whatsapp_redacao": {
@@ -60,7 +60,7 @@
       },
       "youtube_canal_id": {
         "type": "text",
-        "default": "",
+        "default": "UCZiYbVptd3PVPf4f6eR6UaQ",
         "description": "ID do canal (UC...) p/ embutir a transmissão AO VIVO atual (tempo real)."
       },
       "youtube_live_id": {

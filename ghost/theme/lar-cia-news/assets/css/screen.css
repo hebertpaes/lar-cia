@@ -49,7 +49,8 @@ img { max-width: 100%; display: block; }
 .gh-content iframe, .gh-content video, .gh-content embed { max-width: 100%; }
 .gh-content table { display: block; width: 100%; overflow-x: auto; }
 h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; font-weight: 700; }
-.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+@media (max-width: 719px) { .container { padding-left: 22px; padding-right: 22px; } }
 /* Anti-corte no mobile: itens de grid podem encolher e palavras longas quebram. */
 #site-main { overflow-x: clip; }
 .columns > *, .section-grid > *, .hero-row > *, .pol-grid > *, .copa-cards > * { min-width: 0; }
@@ -366,7 +367,8 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .ad-inarticle { margin: 28px 0; }
 .ad-inarticle .ad-banner { min-height: 120px; }
 .ad-banner img { width: auto; max-width: 100%; }
-.ad-house { padding: 18px; color: var(--ink-soft); }
+.ad-house { padding: 0; color: var(--ink-soft); }
+.ad-house-img { width: 100%; height: auto; display: block; border-radius: 6px; }
 .ad-house strong { font-family: var(--font-head); font-size: 20px; color: var(--ink); }
 .ad-house-label { font-family: var(--font-ui); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9aa1ad; }
 .ad-text { font-family: var(--font-head); font-weight: 700; font-size: 18px; padding: 18px; }
