@@ -43,6 +43,23 @@ cp -R "$SRC" "$OUT"
 mkdir -p "$OUT/assets/img"
 [ -f "$DIR/../banners/anuncie-$SLUG.gif" ] && cp "$DIR/../banners/anuncie-$SLUG.gif" "$OUT/assets/img/anuncie.gif"
 
+# Logo da marca (se existir): embute no tema e faz o cabeçalho/rodapé usarem ele
+# quando o Ghost ainda não tem um logo definido. Portais sem SVG mantêm o nome
+# em texto (o tema-base não é alterado).
+if [ -f "$DIR/../brand/$SLUG-logo.svg" ]; then
+  cp "$DIR/../brand/$SLUG-logo.svg" "$OUT/assets/img/logo.svg"
+  node -e '
+    const fs = require("fs");
+    const out = process.argv[1];
+    const span = "<span class=\"brand-mark\">{{@site.title}}</span>";
+    const img = (cls) => `<img class="${cls}" src="{{asset "img/logo.svg"}}" alt="{{@site.title}}" />`;
+    for (const [file, cls] of [["partials/site-header.hbs", "brand-logo"], ["partials/site-footer.hbs", "footer-logo"]]) {
+      const p = out + "/" + file;
+      fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace(span, img(cls)));
+    }
+  ' "$OUT"
+fi
+
 node -e '
 const fs = require("fs");
 const [file, slug, nome, cor, email] = process.argv.slice(1);
