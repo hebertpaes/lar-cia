@@ -1,0 +1,4 @@
+.env
+contacts.json
+.wwebjs_auth/
+node_modules/

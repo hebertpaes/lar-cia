@@ -1,0 +1,19 @@
+{{!-- Cartão de notícia para grades/listas. Param: size = "" (padrão) | "compact". --}}
+<article class="card card-{{#if size}}{{size}}{{else}}default{{/if}}">
+    <a class="card-media" href="{{url}}" tabindex="-1" aria-hidden="true">
+        {{#if feature_image}}
+            <img src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy" onerror="this.remove()" />
+        {{else}}
+            <span class="card-media-fallback">{{@site.title}}</span>
+        {{/if}}
+        {{#if @custom.mostrar_chip_demo}}{{#has tag="hash-demo"}}<span class="chip-demo">DEMO</span>{{/has}}{{/if}}
+    </a>
+    <div class="card-body">
+        {{#primary_tag}}<a class="card-kicker" href="{{url}}">{{name}}</a>{{/primary_tag}}
+        <h3 class="card-title"><a href="{{url}}">{{title}}</a></h3>
+        <p class="card-excerpt">{{excerpt words="22"}}</p>
+        <div class="card-meta">
+            {{#if primary_author}}<span>{{primary_author.name}}</span> · {{/if}}<time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD/MM HH:mm"}}</time>
+        </div>
+    </div>
+</article>

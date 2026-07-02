@@ -1,0 +1,33 @@
+<header class="site-header">
+    <div class="container header-inner">
+        <button class="icon-btn nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">☰</button>
+
+        <a class="brand" href="{{@site.url}}" aria-label="{{@site.title}} — início">
+            {{#if @site.logo}}
+                <img class="brand-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+            {{else}}
+                <span class="brand-mark">{{@site.title}}</span>
+            {{/if}}
+        </a>
+
+        <div class="header-meta">
+            <span class="header-date" id="headerDate"></span>
+            <span class="header-place">Cuiabá / Várzea Grande · MT</span>
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn search-toggle" id="searchToggle" aria-label="Buscar">
+                <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/></svg>
+            </button>
+            <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro"><span class="theme-icon">🌙</span></button>
+            <a class="btn-subscribe" href="#/portal/signup" data-portal="signup">Assinar</a>
+        </div>
+    </div>
+
+    <div class="search-drawer" id="searchDrawer" hidden>
+        <form class="container search-form" action="{{@site.url}}/search/" method="get" role="search">
+            <input type="search" name="q" id="searchInput" placeholder="Buscar notícias, editorias, autores…" autocomplete="off" />
+            <button type="submit" class="btn-subscribe">Buscar</button>
+        </form>
+    </div>
+</header>

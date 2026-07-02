@@ -1,0 +1,814 @@
+{
+  "db": [
+    {
+      "meta": {
+        "exported_on": 1767225600000,
+        "version": "5.0.0"
+      },
+      "data": {
+        "posts": [
+          {
+            "id": 1,
+            "title": "Casa térrea em condomínio fechado",
+            "slug": "prop-001",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Casa térrea em condomínio fechado\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 1.290.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>4</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>5</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>380 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2021</b><span>Ano</span></div>\\n  </div><p>Casa de alto padrão em condomínio com segurança 24h, área gourmet, piscina aquecida e acabamento premium. Próximo a escolas e ao shopping.</p><div class=\\\"prop-prox\\\"><span>📌 Shopping</span><span>📌 Escolas</span><span>📌 Parque</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 1.290.000 · 🛏 4 🛁 5 🚗 4 · 380 m² · 📍 Florais da Mata, Várzea Grande - MT",
+            "created_at": "2024-05-20T00:00:00.000Z",
+            "updated_at": "2024-05-20T00:00:00.000Z",
+            "published_at": "2024-05-20T00:00:00.000Z"
+          },
+          {
+            "id": 2,
+            "title": "Apartamento alto padrão com vista para o Rio Cuiabá",
+            "slug": "prop-002",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Apartamento alto padrão com vista para o Rio Cuiabá\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 890.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>142 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2020</b><span>Ano</span></div>\\n  </div><p>Apartamento com 3 suítes, varanda gourmet integrada e lazer completo no condomínio. Andar alto, sol da manhã.</p><div class=\\\"prop-prox\\\"><span>📌 Orla</span><span>📌 Restaurantes</span><span>📌 Academia</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 890.000 · 🛏 3 🛁 3 🚗 2 · 142 m² · 📍 Jardim Aclimação, Cuiabá - MT",
+            "created_at": "2024-05-15T00:00:00.000Z",
+            "updated_at": "2024-05-15T00:00:00.000Z",
+            "published_at": "2024-05-15T00:00:00.000Z"
+          },
+          {
+            "id": 3,
+            "title": "Cobertura duplex de luxo com piscina privativa",
+            "slug": "prop-003",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Cobertura duplex de luxo com piscina privativa\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 2.450.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>4</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>6</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>410 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2022</b><span>Ano</span></div>\\n  </div><p>Cobertura duplex com piscina privativa, espaço gourmet, home theater e acabamentos importados. Vista panorâmica da cidade.</p><div class=\\\"prop-prox\\\"><span>📌 Centro</span><span>📌 Hospital</span><span>📌 Shopping</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 2.450.000 · 🛏 4 🛁 6 🚗 4 · 410 m² · 📍 Bosque da Saúde, Cuiabá - MT",
+            "created_at": "2024-04-25T00:00:00.000Z",
+            "updated_at": "2024-04-25T00:00:00.000Z",
+            "published_at": "2024-04-25T00:00:00.000Z"
+          },
+          {
+            "id": 4,
+            "title": "Apartamento 2 quartos para alugar mobiliado",
+            "slug": "prop-004",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Apartamento 2 quartos para alugar mobiliado\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 2.800/mês</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>2</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>68 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2019</b><span>Ano</span></div>\\n  </div><p>Totalmente mobiliado e decorado, pronto para morar. Condomínio com piscina, academia e portaria 24h.</p><div class=\\\"prop-prox\\\"><span>📌 UFMT</span><span>📌 Shopping Goiabeiras</span><span>📌 Av. Fernando Corrêa</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 2.800/mês · 🛏 2 🛁 2 🚗 1 · 68 m² · 📍 Goiabeiras, Cuiabá - MT",
+            "created_at": "2024-05-31T00:00:00.000Z",
+            "updated_at": "2024-05-31T00:00:00.000Z",
+            "published_at": "2024-05-31T00:00:00.000Z"
+          },
+          {
+            "id": 5,
+            "title": "Chácara com lago e pomar a 20 min de Cuiabá",
+            "slug": "prop-005",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Chácara com lago e pomar a 20 min de Cuiabá\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 750.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>6</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>5000 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2015</b><span>Ano</span></div>\\n  </div><p>Chácara com sede de 3 quartos, lago para pesca, pomar e área de churrasqueira. Ideal para descanso ou renda com eventos.</p><div class=\\\"prop-prox\\\"><span>📌 Rio Cuiabá</span><span>📌 Balneário</span><span>📌 Estrada asfaltada</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 750.000 · 🛏 3 🛁 2 🚗 6 · 5000 m² · 📍 Zona Rural, Santo Antônio de Leverger - MT",
+            "created_at": "2024-04-18T00:00:00.000Z",
+            "updated_at": "2024-04-18T00:00:00.000Z",
+            "published_at": "2024-04-18T00:00:00.000Z"
+          },
+          {
+            "id": 6,
+            "title": "Fazenda produtiva 1.200 hectares com pecuária",
+            "slug": "prop-006",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Fazenda produtiva 1.200 hectares com pecuária\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1444858345149-8ff5f0fa7a3a?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1444858345149-8ff5f0fa7a3a?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 18.500.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>5</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>10</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>1.200 ha</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2010</b><span>Ano</span></div>\\n  </div><p>Fazenda dupla aptidão com 1.200 ha, pastagens formadas, curral, sede e dois funcionários. Documentação regular e georreferenciada.</p><div class=\\\"prop-prox\\\"><span>📌 BR-364</span><span>📌 Cidade 35km</span><span>📌 Energia trifásica</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 18.500.000 · 🛏 5 🛁 4 🚗 10 · 1.200 ha · 📍 Rosário Oeste - MT",
+            "created_at": "2024-03-31T00:00:00.000Z",
+            "updated_at": "2024-03-31T00:00:00.000Z",
+            "published_at": "2024-03-31T00:00:00.000Z"
+          },
+          {
+            "id": 7,
+            "title": "Casa de campo com piscina em condomínio de chácaras",
+            "slug": "prop-007",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Casa de campo com piscina em condomínio de chácaras\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 3.500/diária</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>800 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2018</b><span>Ano</span></div>\\n  </div><p>Casa de temporada com piscina, churrasqueira, Wi-Fi e capacidade para 12 pessoas. Diária com café incluso.</p><div class=\\\"prop-prox\\\"><span>📌 Cachoeira</span><span>📌 Trilhas</span><span>📌 Pesque-pague</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 3.500/diária · 🛏 3 🛁 3 🚗 4 · 800 m² · 📍 Acorizal - MT",
+            "created_at": "2024-05-24T00:00:00.000Z",
+            "updated_at": "2024-05-24T00:00:00.000Z",
+            "published_at": "2024-05-24T00:00:00.000Z"
+          },
+          {
+            "id": 8,
+            "title": "Sobrado moderno em condomínio com lazer completo",
+            "slug": "prop-008",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Sobrado moderno em condomínio com lazer completo\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 1.150.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>4</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>260 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2023</b><span>Ano</span></div>\\n  </div><p>Sobrado com arquitetura contemporânea, pé-direito duplo, automação residencial e energia solar. Condomínio com clube.</p><div class=\\\"prop-prox\\\"><span>📌 UFMT</span><span>📌 Shopping</span><span>📌 Saída para Chapada</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 1.150.000 · 🛏 4 🛁 4 🚗 3 · 260 m² · 📍 Ribeirão do Lipa, Cuiabá - MT",
+            "created_at": "2024-06-04T00:00:00.000Z",
+            "updated_at": "2024-06-04T00:00:00.000Z",
+            "published_at": "2024-06-04T00:00:00.000Z"
+          },
+          {
+            "id": 9,
+            "title": "Apartamento 3 quartos no Jardim Itália",
+            "slug": "prop-009",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Apartamento 3 quartos no Jardim Itália\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 690.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>92 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2019</b><span>Ano</span></div>\\n  </div><p>Apartamento com 3 quartos, sendo 1 suíte, varanda gourmet integrada, 2 vagas e lazer completo (piscina, academia e salão de festas). Pronto para morar em uma das regiões mais valorizadas de Cuiabá.</p><div class=\\\"prop-prox\\\"><span>📌 Shopping Pantanal</span><span>📌 Av. Miguel Sutil</span><span>📌 Parque Mãe Bonifácia</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 690.000 · 🛏 3 🛁 2 🚗 2 · 92 m² · 📍 Jardim Itália, Cuiabá - MT",
+            "created_at": "2026-06-18T00:00:00.000Z",
+            "updated_at": "2026-06-18T00:00:00.000Z",
+            "published_at": "2026-06-18T00:00:00.000Z"
+          },
+          {
+            "id": 10,
+            "title": "Casa térrea 3 suítes no Jardim Imperial",
+            "slug": "prop-010",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Casa térrea 3 suítes no Jardim Imperial\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 850.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>200 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2017</b><span>Ano</span></div>\\n  </div><p>Casa térrea com 3 suítes, ampla área gourmet com churrasqueira, quintal e 3 vagas cobertas. Acabamento de qualidade em bairro residencial tranquilo e bem localizado.</p><div class=\\\"prop-prox\\\"><span>📌 Escolas</span><span>📌 Supermercado</span><span>📌 Av. das Torres</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 850.000 · 🛏 3 🛁 4 🚗 3 · 200 m² · 📍 Jardim Imperial, Cuiabá - MT",
+            "created_at": "2026-06-17T00:00:00.000Z",
+            "updated_at": "2026-06-17T00:00:00.000Z",
+            "published_at": "2026-06-17T00:00:00.000Z"
+          },
+          {
+            "id": 11,
+            "title": "Studio mobiliado próximo à UFMT",
+            "slug": "prop-011",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Studio mobiliado próximo à UFMT\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 1.600/mês</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>1</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>0</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>32 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2021</b><span>Ano</span></div>\\n  </div><p>Studio totalmente mobiliado e decorado, ideal para estudantes da UFMT ou profissionais. Condomínio com lavanderia, portaria 24h e internet inclusa. Aluguel já com condomínio.</p><div class=\\\"prop-prox\\\"><span>📌 UFMT</span><span>📌 Hospital Geral</span><span>📌 Shopping Goiabeiras</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 1.600/mês · 🛏 1 🛁 1 🚗 1 · 32 m² · 📍 Boa Esperança, Cuiabá - MT",
+            "created_at": "2026-06-16T00:00:00.000Z",
+            "updated_at": "2026-06-16T00:00:00.000Z",
+            "published_at": "2026-06-16T00:00:00.000Z"
+          },
+          {
+            "id": 12,
+            "title": "Casa de campo com piscina na Chapada dos Guimarães",
+            "slug": "prop-012",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Casa de campo com piscina na Chapada dos Guimarães\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 680/diária</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>4</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>4</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>1200 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2018</b><span>Ano</span></div>\\n  </div><p>Casa de temporada com piscina, churrasqueira, fogão a lenha, Wi-Fi e vista para a serra. Acomoda até 12 pessoas. Diária com café da manhã. A 1h de Cuiabá, perto das cachoeiras.</p><div class=\\\"prop-prox\\\"><span>📌 Véu de Noiva</span><span>📌 Centro da Chapada</span><span>📌 Mirante</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 680/diária · 🛏 4 🛁 3 🚗 4 · 1200 m² · 📍 Chapada dos Guimarães - MT",
+            "created_at": "2026-06-15T00:00:00.000Z",
+            "updated_at": "2026-06-15T00:00:00.000Z",
+            "published_at": "2026-06-15T00:00:00.000Z"
+          },
+          {
+            "id": 13,
+            "title": "Cobertura com vista para o Rio Cuiabá no Santa Rosa",
+            "slug": "prop-013",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Cobertura com vista para o Rio Cuiabá no Santa Rosa\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 1.350.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>4</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>5</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>230 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2022</b><span>Ano</span></div>\\n  </div><p>Cobertura duplex com 4 quartos, terraço com piscina privativa e vista deslumbrante para o Rio Cuiabá. Espaço gourmet, automação e 3 vagas. Alto padrão na região central.</p><div class=\\\"prop-prox\\\"><span>📌 Orla do Porto</span><span>📌 Centro</span><span>📌 Restaurantes</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 1.350.000 · 🛏 4 🛁 5 🚗 3 · 230 m² · 📍 Santa Rosa, Cuiabá - MT",
+            "created_at": "2026-06-14T00:00:00.000Z",
+            "updated_at": "2026-06-14T00:00:00.000Z",
+            "published_at": "2026-06-14T00:00:00.000Z"
+          },
+          {
+            "id": 14,
+            "title": "Casa em condomínio fechado no Costa Verde",
+            "slug": "prop-014",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Casa em condomínio fechado no Costa Verde\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 720.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>160 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2020</b><span>Ano</span></div>\\n  </div><p>Casa em condomínio fechado com segurança 24h, área de lazer com piscina e quadra. 3 quartos sendo 1 suíte, quintal e 2 vagas. Pronta para morar, próxima ao Shopping Várzea Grande.</p><div class=\\\"prop-prox\\\"><span>📌 Shopping VG</span><span>📌 UNIVAG</span><span>📌 Av. da FEB</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 720.000 · 🛏 3 🛁 3 🚗 2 · 160 m² · 📍 Costa Verde, Várzea Grande - MT",
+            "created_at": "2026-06-13T00:00:00.000Z",
+            "updated_at": "2026-06-13T00:00:00.000Z",
+            "published_at": "2026-06-13T00:00:00.000Z"
+          },
+          {
+            "id": 15,
+            "title": "Sobrado 3 quartos no Morada do Ouro",
+            "slug": "prop-015",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Sobrado 3 quartos no Morada do Ouro\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 580.000</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>3</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>3</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>2</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>150 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2015</b><span>Ano</span></div>\\n  </div><p>Sobrado com 3 quartos (1 suíte), sala em dois ambientes, cozinha planejada e quintal com churrasqueira. Bairro com comércio, escolas e fácil acesso à Av. do CPA.</p><div class=\\\"prop-prox\\\"><span>📌 Av. do CPA</span><span>📌 Escolas</span><span>📌 Mercado</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 580.000 · 🛏 3 🛁 3 🚗 2 · 150 m² · 📍 Morada do Ouro, Cuiabá - MT",
+            "created_at": "2026-06-12T00:00:00.000Z",
+            "updated_at": "2026-06-12T00:00:00.000Z",
+            "published_at": "2026-06-12T00:00:00.000Z"
+          },
+          {
+            "id": 16,
+            "title": "Sala comercial no CPA - Centro Político",
+            "slug": "prop-016",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<div class=\\\"prop-gallery\\\"><img src=\\\"https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"Sala comercial no CPA - Centro Político\\\"><div class=\\\"g-side\\\"><img src=\\\"https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"><img src=\\\"https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80\\\" alt=\\\"\\\"></div></div><div class=\\\"prop-price\\\">R$ 3.200/mês</div><div class=\\\"prop-specs\\\">\\n    <div class=\\\"spec\\\"><b>0</b><span>Quartos</span></div>\\n    <div class=\\\"spec\\\"><b>0</b><span>Suítes</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Banheiros</span></div>\\n    <div class=\\\"spec\\\"><b>1</b><span>Vagas</span></div>\\n    <div class=\\\"spec\\\"><b>45 m²</b><span>Área</span></div>\\n    <div class=\\\"spec\\\"><b>2016</b><span>Ano</span></div>\\n  </div><p>Sala comercial em prédio corporativo no Centro Político Administrativo, com recepção, ar-condicionado, copa e estacionamento. Ideal para escritórios e consultórios. Aluguel mensal.</p><div class=\\\"prop-prox\\\"><span>📌 Assembleia Legislativa</span><span>📌 Bancos</span><span>📌 Av. Historiador Rubens de Mendonça</span></div>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "R$ 3.200/mês · 🛏 0 🛁 1 🚗 1 · 45 m² · 📍 CPA, Cuiabá - MT",
+            "created_at": "2026-06-11T00:00:00.000Z",
+            "updated_at": "2026-06-11T00:00:00.000Z",
+            "published_at": "2026-06-11T00:00:00.000Z"
+          },
+          {
+            "id": 17,
+            "title": "Como financiar seu imóvel em Cuiabá em 2026: guia completo",
+            "slug": "financiamento-imovel-cuiaba-2026",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O financiamento imobiliário continua sendo o principal caminho para a casa própria...</p>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "Entenda as linhas de crédito, simule parcelas e descubra como aprovar seu financiamento mais rápido na região metropolitana de Cuiabá.",
+            "created_at": "2024-06-14T00:00:00.000Z",
+            "updated_at": "2024-06-14T00:00:00.000Z",
+            "published_at": "2024-06-14T00:00:00.000Z"
+          },
+          {
+            "id": 18,
+            "title": "Morar no Florais da Mata vale a pena? Veja prós e contras",
+            "slug": "florais-da-mata-vale-a-pena",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Florais da Mata se consolidou como um dos endereços mais desejados...</p>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "Segurança, valorização e infraestrutura: analisamos se o Florais da Mata é o melhor investimento para a sua família em 2026.",
+            "created_at": "2024-06-07T00:00:00.000Z",
+            "updated_at": "2024-06-07T00:00:00.000Z",
+            "published_at": "2024-06-07T00:00:00.000Z"
+          },
+          {
+            "id": 19,
+            "title": "Investir em fazendas em Mato Grosso: rentabilidade e cuidados",
+            "slug": "investir-em-fazendas-mato-grosso",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>A aquisição de terras produtivas exige análise de georreferenciamento...</p>\"}]]}",
+            "feature_image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80",
+            "custom_excerpt": "Mato Grosso lidera a produção agropecuária do país. Veja como avaliar uma fazenda e os documentos essenciais antes de comprar.",
+            "created_at": "2024-05-24T00:00:00.000Z",
+            "updated_at": "2024-05-24T00:00:00.000Z",
+            "published_at": "2024-05-24T00:00:00.000Z"
+          },
+          {
+            "id": 20,
+            "title": "Financiamento",
+            "slug": "financiamento",
+            "type": "page",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"\\n<p>Estimativa rápida pela Tabela Price. Depois, fale com o Hebert para uma análise personalizada com os melhores bancos.</p>\\n<form id=\\\"financingForm\\\" class=\\\"financing-card\\\" onsubmit=\\\"return false\\\">\\n  <div class=\\\"field\\\"><label for=\\\"finPrice\\\">Valor do imóvel (R$)</label><input type=\\\"number\\\" id=\\\"finPrice\\\" value=\\\"500000\\\" min=\\\"50000\\\" step=\\\"1000\\\"></div>\\n  <div class=\\\"field\\\"><label for=\\\"finDown\\\">Entrada (R$)</label><input type=\\\"number\\\" id=\\\"finDown\\\" value=\\\"100000\\\" min=\\\"0\\\" step=\\\"1000\\\"></div>\\n  <div class=\\\"field-row\\\">\\n    <div class=\\\"field\\\"><label for=\\\"finMonths\\\">Prazo (meses)</label><input type=\\\"number\\\" id=\\\"finMonths\\\" value=\\\"360\\\" min=\\\"12\\\" max=\\\"420\\\" step=\\\"12\\\"></div>\\n    <div class=\\\"field\\\"><label for=\\\"finRate\\\">Juros (% a.a.)</label><input type=\\\"number\\\" id=\\\"finRate\\\" value=\\\"10.5\\\" min=\\\"1\\\" max=\\\"20\\\" step=\\\"0.1\\\"></div>\\n  </div>\\n  <div class=\\\"financing-result\\\"><span>Parcela estimada</span><strong id=\\\"finResult\\\">—</strong></div>\\n  <a class=\\\"btn-primary financing-cta\\\" id=\\\"finWhats\\\" href=\\\"#\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">Falar no WhatsApp</a>\\n</form>\\n<p class=\\\"bank-chips\\\"><span>Caixa</span> <span>Banco do Brasil</span> <span>Itaú</span> <span>Bradesco</span> <span>Santander</span></p>\"}]]}",
+            "feature_image": null,
+            "custom_excerpt": null,
+            "created_at": "2026-01-01T00:00:00.000Z",
+            "updated_at": "2026-01-01T00:00:00.000Z",
+            "published_at": "2026-01-01T00:00:00.000Z"
+          },
+          {
+            "id": 21,
+            "title": "Contato",
+            "slug": "contato",
+            "type": "page",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"\\n<p>Quer comprar, vender, alugar ou anunciar? Fale com o Hebert Paes.</p>\\n<ul>\\n  <li>📞 <a href=\\\"tel:+5565999900005\\\">(65) 99990-0005</a></li>\\n  <li>💬 <a href=\\\"https://wa.me/5565999900005\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">WhatsApp direto</a></li>\\n  <li>✉️ <a href=\\\"mailto:contato@larcia.com.br\\\">contato@larcia.com.br</a></li>\\n  <li>📍 Cuiabá / Várzea Grande - MT</li>\\n</ul>\\n<p>Assine a newsletter no rodapé para receber novos imóveis e oportunidades. (Membros/assinaturas são nativos do Ghost — configure tiers com Stripe no Admin.)</p>\"}]]}",
+            "feature_image": null,
+            "custom_excerpt": null,
+            "created_at": "2026-01-01T00:00:00.000Z",
+            "updated_at": "2026-01-01T00:00:00.000Z",
+            "published_at": "2026-01-01T00:00:00.000Z"
+          }
+        ],
+        "tags": [
+          {
+            "id": 1,
+            "name": "#imovel",
+            "slug": "hash-imovel",
+            "visibility": "internal"
+          },
+          {
+            "id": 2,
+            "name": "#post",
+            "slug": "hash-post",
+            "visibility": "internal"
+          },
+          {
+            "id": 3,
+            "name": "#verificado",
+            "slug": "hash-verificado",
+            "visibility": "internal"
+          },
+          {
+            "id": 4,
+            "name": "Florais da Mata",
+            "slug": "florais-da-mata",
+            "visibility": "public"
+          },
+          {
+            "id": 5,
+            "name": "Venda",
+            "slug": "venda",
+            "visibility": "public"
+          },
+          {
+            "id": 6,
+            "name": "Apartamentos",
+            "slug": "apartamento",
+            "visibility": "public"
+          },
+          {
+            "id": 7,
+            "name": "Alto padrão",
+            "slug": "luxo",
+            "visibility": "public"
+          },
+          {
+            "id": 8,
+            "name": "Aluguel",
+            "slug": "aluguel",
+            "visibility": "public"
+          },
+          {
+            "id": 9,
+            "name": "Sítios e chácaras",
+            "slug": "sitios-chacaras",
+            "visibility": "public"
+          },
+          {
+            "id": 10,
+            "name": "Fazendas",
+            "slug": "fazenda",
+            "visibility": "public"
+          },
+          {
+            "id": 11,
+            "name": "Com piscina",
+            "slug": "piscina",
+            "visibility": "public"
+          },
+          {
+            "id": 12,
+            "name": "Temporada",
+            "slug": "temporada",
+            "visibility": "public"
+          },
+          {
+            "id": 13,
+            "name": "Condomínio",
+            "slug": "condominio",
+            "visibility": "public"
+          },
+          {
+            "id": 14,
+            "name": "Casas",
+            "slug": "casa",
+            "visibility": "public"
+          },
+          {
+            "id": 15,
+            "name": "Comercial",
+            "slug": "comercial",
+            "visibility": "public"
+          },
+          {
+            "id": 16,
+            "name": "Financiamento",
+            "slug": "tema-financiamento",
+            "visibility": "public"
+          },
+          {
+            "id": 17,
+            "name": "Investimento",
+            "slug": "tema-investimento",
+            "visibility": "public"
+          },
+          {
+            "id": 18,
+            "name": "Cuiaba",
+            "slug": "tema-cuiaba",
+            "visibility": "public"
+          },
+          {
+            "id": 19,
+            "name": "Bairros",
+            "slug": "tema-bairros",
+            "visibility": "public"
+          },
+          {
+            "id": 20,
+            "name": "Florais Da Mata",
+            "slug": "tema-florais-da-mata",
+            "visibility": "public"
+          },
+          {
+            "id": 21,
+            "name": "Agro",
+            "slug": "tema-agro",
+            "visibility": "public"
+          },
+          {
+            "id": 22,
+            "name": "Fazenda",
+            "slug": "tema-fazenda",
+            "visibility": "public"
+          }
+        ],
+        "posts_tags": [
+          {
+            "tag_id": 4,
+            "post_id": 1,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 1,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 1,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 1,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 6,
+            "post_id": 2,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 2,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 2,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 2,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 7,
+            "post_id": 3,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 3,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 3,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 3,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 6,
+            "post_id": 4,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 8,
+            "post_id": 4,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 4,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 4,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 9,
+            "post_id": 5,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 5,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 5,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 10,
+            "post_id": 6,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 6,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 6,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 6,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 11,
+            "post_id": 7,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 12,
+            "post_id": 7,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 7,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 7,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 13,
+            "post_id": 8,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 8,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 8,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 8,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 6,
+            "post_id": 9,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 9,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 9,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 9,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 14,
+            "post_id": 10,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 10,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 10,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 10,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 6,
+            "post_id": 11,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 8,
+            "post_id": 11,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 11,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 11,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 11,
+            "post_id": 12,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 12,
+            "post_id": 12,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 12,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 12,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 7,
+            "post_id": 13,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 13,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 13,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 13,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 13,
+            "post_id": 14,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 14,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 14,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 14,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 14,
+            "post_id": 15,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 15,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 15,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 15,
+            "post_id": 16,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 8,
+            "post_id": 16,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 16,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 16,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 16,
+            "post_id": 17,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 17,
+            "post_id": 17,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 18,
+            "post_id": 17,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 2,
+            "post_id": 17,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 19,
+            "post_id": 18,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 17,
+            "post_id": 18,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 20,
+            "post_id": 18,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 2,
+            "post_id": 18,
+            "sort_order": 3
+          },
+          {
+            "tag_id": 21,
+            "post_id": 19,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 22,
+            "post_id": 19,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 17,
+            "post_id": 19,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 2,
+            "post_id": 19,
+            "sort_order": 3
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "db": [
+    {
+      "meta": {
+        "exported_on": 1782842400000,
+        "version": "5.0.0"
+      },
+      "data": {
+        "posts": [
+          {
+            "id": 1,
+            "title": "Governo de MT lidera investimentos e avança em entregas em todas as regiões",
+            "slug": "mt-lidera-investimentos-2026",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Governo de Mato Grosso afirma liderar os investimentos públicos e avançar em entregas que melhoram a vida da população em todas as regiões do estado.</p><p>Segundo o Executivo estadual, os aportes em obras e ações cresceram de forma expressiva nos últimos anos, e a expectativa para 2026 é manter o alto nível de investimentos, sustentado pela solidez fiscal construída no período.</p><p>As entregas envolvem infraestrutura, saúde, educação e segurança, com foco em levar serviços a municípios de todo o território mato-grossense.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/mt-lidera-investimentos-2026/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/w/governo-de-mt-lidera-investimentos-avan%C3%A7a-em-entregas-e-melhora-vida-da-popula%C3%A7%C3%A3o-em-todas-as-regi%C3%B5es\" target=\"_blank\" rel=\"noopener\">SECOM-MT</a>",
+            "custom_excerpt": "Estado afirma manter ritmo recorde de obras em 2026, sustentado pela saúde fiscal construída nos últimos anos.",
+            "created_at": "2026-06-30T18:00:00.000Z",
+            "updated_at": "2026-06-30T18:00:00.000Z",
+            "published_at": "2026-06-30T18:00:00.000Z"
+          },
+          {
+            "id": 2,
+            "title": "Investimentos do Estado crescem 637% e sustentam novo ciclo de obras em 2026",
+            "slug": "investimentos-crescem-637",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>Os investimentos do Governo de Mato Grosso cresceram 637,2% entre 2019 e 2025, passando de R$ 773,5 milhões para R$ 5,7 bilhões ao ano.</p><p>De acordo com o Estado, o salto foi possível graças ao reequilíbrio das contas públicas e à disciplina fiscal adotada no período, o que abriu espaço para ampliar obras sem comprometer o pagamento de servidores e fornecedores.</p><p>A expectativa é manter o patamar elevado de investimentos em 2026, sustentando um novo ciclo de obras em infraestrutura, saúde e educação.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/investimentos-crescem-637/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT</a>",
+            "custom_excerpt": "Aportes saltaram de R$ 773,5 milhões em 2019 para R$ 5,7 bilhões em 2025, segundo o Governo de MT.",
+            "created_at": "2026-06-30T17:25:00.000Z",
+            "updated_at": "2026-06-30T17:25:00.000Z",
+            "published_at": "2026-06-30T17:25:00.000Z"
+          },
+          {
+            "id": 3,
+            "title": "Governo encaminha à Assembleia projeto para viabilizar mais 60 mil casas populares",
+            "slug": "60-mil-casas-populares",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Governo de Mato Grosso, sob o comando do governador Otaviano Pivetta, encaminhou à Assembleia Legislativa um projeto para viabilizar a construção de mais 60 mil casas populares no estado.</p><p>A proposta integra a política habitacional do Estado e tem como objetivo ampliar o acesso à moradia, com foco em famílias de baixa renda.</p><p>Caso aprovada, a medida deve impulsionar a habitação popular em municípios de diferentes regiões de Mato Grosso.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/60-mil-casas-populares/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT / Sinfra</a>",
+            "custom_excerpt": "Proposta enviada à AL busca ampliar o acesso à moradia em Mato Grosso.",
+            "created_at": "2026-06-30T16:50:00.000Z",
+            "updated_at": "2026-06-30T16:50:00.000Z",
+            "published_at": "2026-06-30T16:50:00.000Z"
+          },
+          {
+            "id": 4,
+            "title": "Governo anuncia construção de Hospital Regional em Barra do Garças",
+            "slug": "hospital-regional-barra-garcas",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Governo de Mato Grosso anunciou a construção de um Hospital Regional em Barra do Garças, em encontro com o prefeito e vereadores do município.</p><p>Pelo cronograma apresentado, o município terá 60 dias para apresentar o terreno e a documentação da área. Em seguida, o Estado inicia os projetos técnicos e avança para a fase de licitação.</p><p>A nova unidade deve ampliar o atendimento de média e alta complexidade para a população da região do Araguaia.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/hospital-regional-barra-garcas/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT</a>",
+            "custom_excerpt": "Município terá 60 dias para apresentar terreno e documentação; depois o Estado inicia os projetos técnicos.",
+            "created_at": "2026-06-30T16:15:00.000Z",
+            "updated_at": "2026-06-30T16:15:00.000Z",
+            "published_at": "2026-06-30T16:15:00.000Z"
+          },
+          {
+            "id": 5,
+            "title": "Mais de 7 mil km de novo asfalto serão entregues até o fim de 2026",
+            "slug": "7-mil-km-asfalto-2026",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Governo de Mato Grosso projeta entregar mais de 7 mil quilômetros de novo asfalto até o fim de 2026.</p><p>Segundo o Estado, o volume previsto para o período corresponde ao dobro de tudo o que foi pavimentado em 271 anos de história de Mato Grosso.</p><p>As obras viárias buscam melhorar a logística, reduzir custos de transporte e integrar as regiões produtoras do estado.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/7-mil-km-asfalto-2026/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT</a>",
+            "custom_excerpt": "Volume previsto equivale ao dobro do pavimentado em 271 anos de história do estado, afirma o Governo.",
+            "created_at": "2026-06-30T15:40:00.000Z",
+            "updated_at": "2026-06-30T15:40:00.000Z",
+            "published_at": "2026-06-30T15:40:00.000Z"
+          },
+          {
+            "id": 6,
+            "title": "Inscrições do programa 'Meninas que Transformam' terminam nesta segunda (30)",
+            "slug": "meninas-que-transformam-prazo",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>Terminam nesta segunda-feira (30) as inscrições para o programa 'Meninas que Transformam', do Governo de Mato Grosso, voltado a alunas do Ensino Médio.</p><p>As inscrições podem ser feitas até as 18h por meio do sistema SiesMT. A iniciativa é conduzida pela Secretaria de Estado de Planejamento e Gestão (Seplag) em parceria com o Gabinete de Enfrentamento à Violência de Gênero contra a Mulher.</p><p>O programa busca aproximar as estudantes do mundo do trabalho e estimular a participação feminina em diferentes áreas.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/meninas-que-transformam-prazo/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT / SEPLAG</a>",
+            "custom_excerpt": "Iniciativa da Seplag oferece estágio a alunas do Ensino Médio; inscrições vão até as 18h pelo SiesMT.",
+            "created_at": "2026-06-30T15:05:00.000Z",
+            "updated_at": "2026-06-30T15:05:00.000Z",
+            "published_at": "2026-06-30T15:05:00.000Z"
+          },
+          {
+            "id": 7,
+            "title": "Veja 10 obras de infraestrutura do Governo de MT em Cuiabá",
+            "slug": "10-obras-infraestrutura-cuiaba",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>O Governo de Mato Grosso destacou dez obras de infraestrutura realizadas em Cuiabá, com foco em mobilidade urbana e qualidade de vida na capital.</p><p>Entre as intervenções estão obras viárias, drenagem e requalificação de avenidas e corredores que concentram grande fluxo de veículos.</p><p>Segundo a Sinfra, as entregas integram o plano do Estado de modernizar a infraestrutura da capital e da região metropolitana.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/10-obras-infraestrutura-cuiaba/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/web/sinfra/w/veja-10-obras-de-infraestrutura-realizadas-pelo-governo-de-mato-grosso-em-cuiab%C3%A1\" target=\"_blank\" rel=\"noopener\">SECOM-MT / Sinfra</a>",
+            "custom_excerpt": "Estado lista intervenções viárias e estruturantes que mudam a mobilidade na capital.",
+            "created_at": "2026-06-30T14:30:00.000Z",
+            "updated_at": "2026-06-30T14:30:00.000Z",
+            "published_at": "2026-06-30T14:30:00.000Z"
+          },
+          {
+            "id": 8,
+            "title": "Mato Grosso é destaque em regularização ambiental, afirma secretária",
+            "slug": "regularizacao-ambiental-referencia",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p>Mato Grosso tem a estratégia mais consistente de regularização ambiental do país, segundo a secretária da área, em balanço divulgado pelo Governo do Estado.</p><p>O trabalho avança com o Cadastro Ambiental Rural (CAR) e o apoio à recuperação de áreas, conciliando produção agropecuária e preservação.</p><p>A regularização dá mais segurança jurídica ao produtor e fortalece a imagem do agro mato-grossense nos mercados.</p>\"}]]}",
+            "feature_image": "https://picsum.photos/seed/regularizacao-ambiental-referencia/1200/675",
+            "feature_image_caption": "Fonte: <a href=\"https://www.secom.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">SECOM-MT / Sema</a>",
+            "custom_excerpt": "Estado afirma ter a estratégia mais consistente de regularização ambiental do país, com avanço no CAR.",
+            "created_at": "2026-06-30T13:55:00.000Z",
+            "updated_at": "2026-06-30T13:55:00.000Z",
+            "published_at": "2026-06-30T13:55:00.000Z"
+          }
+        ],
+        "tags": [
+          {
+            "id": 1,
+            "name": "Política",
+            "slug": "politica",
+            "visibility": "public",
+            "description": "Governo, gestão e poder público em Mato Grosso."
+          },
+          {
+            "id": 2,
+            "name": "Cidades",
+            "slug": "cidades",
+            "visibility": "public",
+            "description": "Saúde, educação e serviços nos municípios de MT."
+          },
+          {
+            "id": 3,
+            "name": "Economia",
+            "slug": "economia",
+            "visibility": "public",
+            "description": "Economia, indústria e desenvolvimento."
+          },
+          {
+            "id": 4,
+            "name": "Agro",
+            "slug": "agro",
+            "visibility": "public",
+            "description": "O agronegócio que move Mato Grosso."
+          },
+          {
+            "id": 5,
+            "name": "#fonte-secom",
+            "slug": "hash-fonte-secom",
+            "visibility": "internal",
+            "description": null
+          },
+          {
+            "id": 6,
+            "name": "Vídeo",
+            "slug": "video",
+            "visibility": "public",
+            "description": "Matérias com vídeo."
+          }
+        ],
+        "posts_tags": [
+          {
+            "tag_id": 1,
+            "post_id": 1,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 1,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 6,
+            "post_id": 1,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 3,
+            "post_id": 2,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 2,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 1,
+            "post_id": 3,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 3,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 2,
+            "post_id": 4,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 4,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 6,
+            "post_id": 4,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 1,
+            "post_id": 5,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 5,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 2,
+            "post_id": 6,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 6,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 2,
+            "post_id": 7,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 7,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 6,
+            "post_id": 7,
+            "sort_order": 2
+          },
+          {
+            "tag_id": 4,
+            "post_id": 8,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 5,
+            "post_id": 8,
+            "sort_order": 1
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{{!< default}}
+
+{{#is "home"}}
+<section class="hero" id="topo">
+    <div class="container">
+        <span class="hero-eyebrow">🏆 Referência imobiliária em Cuiabá &amp; Várzea Grande — MT</span>
+        <h1 class="hero-title">Encontre o lar dos seus sonhos<br />ou o imóvel ideal para investir</h1>
+        <p class="hero-sub">Casas, apartamentos, fazendas e chácaras com curadoria, verificação e atendimento de quem entende da região.</p>
+
+        <form class="search-card" id="searchForm" autocomplete="off" onsubmit="return false">
+            <div class="search-field">
+                <label>Onde / o quê</label>
+                <input type="text" id="searchLocation" placeholder="Cidade, bairro, tipo…" />
+            </div>
+            <button class="search-btn" type="submit" aria-label="Buscar">
+                <span class="search-btn-icon">🔍</span><span class="search-btn-label">Buscar</span>
+            </button>
+        </form>
+
+        <div class="hero-stats">
+            <div><strong data-count="320">0</strong><span>imóveis ativos</span></div>
+            <div><strong data-count="12">0</strong><span>cidades atendidas</span></div>
+            <div><strong data-count="1500">0</strong><span>famílias atendidas</span></div>
+            <div><strong data-count="98">0</strong><span>% satisfação</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="categories">
+    <div class="container">
+        <div class="category-scroll" id="categoryScroll" role="tablist" aria-label="Categorias">
+            <a class="cat-chip active" href="{{@site.url}}/"><span class="cat-emoji">✨</span>Todos</a>
+            {{#get "tags" filter="visibility:public" limit="20" order="name asc"}}
+                {{#foreach tags}}
+                    <a class="cat-chip" href="{{url}}"><span class="cat-emoji">🏠</span>{{name}}</a>
+                {{/foreach}}
+            {{/get}}
+        </div>
+    </div>
+</section>
+{{/is}}
+
+<div class="container toolbar">
+    <span class="result-count" id="resultCount">{{pagination.total}} imóveis encontrados</span>
+    <div class="toolbar-right">
+        <label class="sort-label">Filtrar na página:</label>
+        <input type="text" id="gridFilter" class="grid-filter" placeholder="filtrar…" />
+    </div>
+</div>
+
+<main class="container">
+    <div class="property-grid" id="propertyGrid">
+        {{#foreach posts}}
+            {{> property-card}}
+        {{/foreach}}
+    </div>
+    <div class="empty-state" id="emptyState" hidden><p>Nenhum imóvel corresponde ao filtro.</p></div>
+    {{pagination}}
+</main>
+
+{{#is "home"}}
+<section class="features" id="diferenciais">
+    <div class="container">
+        <div class="section-head center">
+            <h2>Por que escolher a LAR &amp; CIA</h2>
+            <p class="section-sub">Tecnologia e atendimento humano do primeiro clique às chaves na mão.</p>
+        </div>
+        <div class="features-grid">
+            <article class="feature-card"><span class="feature-ico">✅</span><h3>Imóveis verificados</h3><p>Selo de verificação com checagem de documentação em cada anúncio.</p></article>
+            <article class="feature-card"><span class="feature-ico">💳</span><h3>Financiamento facilitado</h3><p>Simulação na hora e parceria com os principais bancos.</p></article>
+            <article class="feature-card"><span class="feature-ico">📅</span><h3>Visitas quando quiser</h3><p>Agende visitas presenciais ou online em poucos cliques.</p></article>
+            <article class="feature-card"><span class="feature-ico">📍</span><h3>Especialistas na região</h3><p>Cuiabá, Várzea Grande, Florais da Mata e todo o interior de MT.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="container cta-inner">
+        <div>
+            <h2>Tem um imóvel para vender ou alugar?</h2>
+            <p>Anuncie com a LAR &amp; CIA e alcance compradores qualificados em toda a região.</p>
+        </div>
+        <a class="btn-light" href="{{@site.url}}/contato/">Quero anunciar</a>
+    </div>
+</section>
+{{/is}}

@@ -1,0 +1,7 @@
+{{#if pagination.total}}
+<nav class="pagination" role="navigation" aria-label="Paginação">
+    {{#if pagination.prev}}<a class="page-link" href="{{page_url pagination.prev}}">← Anteriores</a>{{else}}<span></span>{{/if}}
+    <span class="page-count">Página {{pagination.page}} de {{pagination.pages}}</span>
+    {{#if pagination.next}}<a class="page-link" href="{{page_url pagination.next}}">Próximas →</a>{{else}}<span></span>{{/if}}
+</nav>
+{{/if}}

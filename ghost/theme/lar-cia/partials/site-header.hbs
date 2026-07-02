@@ -1,0 +1,23 @@
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="{{@site.url}}" aria-label="{{@site.title}} — início">
+            <span class="brand-mark">L&amp;C</span>
+            <span class="brand-text">
+                <strong>{{@site.title}}</strong>
+                <small>Hebert Paes · Imobiliária</small>
+            </span>
+        </a>
+
+        <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+            {{navigation}}
+        </nav>
+
+        <div class="header-actions">
+            <button class="btn-ghost theme-toggle" id="themeToggle" title="Alternar tema" aria-label="Alternar tema claro/escuro">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <a class="btn-primary header-cta" href="{{@site.url}}/contato/">Anunciar imóvel</a>
+            <button class="btn-ghost nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">☰</button>
+        </div>
+    </div>
+</header>

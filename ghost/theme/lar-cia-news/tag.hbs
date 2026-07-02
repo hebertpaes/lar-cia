@@ -1,0 +1,29 @@
+{{!< default}}
+
+<div class="container editoria-wrap">
+    <div class="editoria-main">
+        <header class="editoria-head">
+            <span class="card-kicker big">Editoria</span>
+            <h1 class="editoria-title">{{#tag}}{{name}}{{/tag}}</h1>
+            {{#tag}}{{#if description}}<p class="editoria-sub">{{description}}</p>{{/if}}{{/tag}}
+            <span class="editoria-count">{{plural pagination.total empty="Nenhuma matéria" singular="% matéria" plural="% matérias"}}</span>
+        </header>
+
+        <div class="archive-grid">
+            {{#foreach posts}}
+                {{> article-card size="compact"}}
+            {{else}}
+                <p class="section-empty">Nenhuma matéria nesta editoria ainda.</p>
+            {{/foreach}}
+        </div>
+
+        {{> pagination}}
+    </div>
+
+    <aside class="editoria-rail">
+        {{> live}}
+        {{> videos}}
+        {{> most-read}}
+        {{> ad zone="sidebar" filter="tag:hash-ad-sidebar" limit="6"}}
+    </aside>
+</div>

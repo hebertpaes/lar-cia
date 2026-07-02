@@ -1,0 +1,26 @@
+# Node / tooling
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Segredos
+.env
+.env.*
+!.env.example
+serviceAccount*.json
+
+# Ghost local (ao usar `ghost install` localmente)
+ghost/content/data/
+ghost/content/logs/
+*.zip
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Python
+__pycache__/
+*.pyc

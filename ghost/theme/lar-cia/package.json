@@ -1,0 +1,25 @@
+{
+  "name": "lar-cia",
+  "description": "Tema Ghost do portal imobiliário LAR & CIA (Hebert Paes).",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Hebert Paes",
+    "email": "contato@larcia.com.br"
+  },
+  "keywords": ["ghost-theme", "imobiliaria", "real-estate"],
+  "config": {
+    "posts_per_page": 12,
+    "image_sizes": {
+      "s": { "width": 400 },
+      "m": { "width": 800 },
+      "l": { "width": 1200 },
+      "xl": { "width": 2000 }
+    },
+    "card_assets": true,
+    "custom": {}
+  }
+}

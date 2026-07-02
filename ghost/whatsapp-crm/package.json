@@ -1,0 +1,16 @@
+{
+  "name": "larcia-whatsapp-crm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "CRM + disparo (Cloud API oficial) e conexão via QR (opcional) para os portais.",
+  "scripts": {
+    "broadcast": "node broadcast.mjs",
+    "server": "node server.mjs",
+    "qr": "node qr-session.mjs"
+  },
+  "optionalDependencies": {
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

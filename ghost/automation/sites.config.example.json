@@ -1,0 +1,9 @@
+{
+  "_comment": "Copie para sites.config.json e ajuste. As CHAVES não ficam aqui — cada site usa uma variável de ambiente (keyEnv). editorias: '*' = recebe tudo; lista = recebe só essas editorias (por slug).",
+  "sites": [
+    { "name": "local",        "url": "http://localhost:2368",      "keyEnv": "LOCAL_ADMIN_KEY",        "editorias": "*" },
+    { "name": "hojemt",       "url": "https://hojemt.com.br",      "keyEnv": "HOJEMT_ADMIN_KEY",       "editorias": "*" },
+    { "name": "odiapolitico", "url": "https://odiapolitico.com.br","keyEnv": "ODIAPOLITICO_ADMIN_KEY", "editorias": ["politica"] },
+    { "name": "pacunews",     "url": "https://pacunews.com.br",    "keyEnv": "PACUNEWS_ADMIN_KEY",     "editorias": "*" }
+  ]
+}

@@ -1,0 +1,16 @@
+{{!-- Faixa de últimas notícias (ticker) na cor de destaque, estilo Fox/CNN. --}}
+<div class="topbar">
+    <div class="container topbar-inner">
+        <span class="topbar-flag">URGENTE</span>
+        <div class="ticker" aria-label="Últimas notícias">
+            <div class="ticker-track">
+                {{#get "posts" filter="tag:-hash-ad" limit="8" order="published_at desc" as |urgent|}}
+                    {{#foreach urgent}}
+                        <a class="ticker-item" href="{{url}}">{{title}}</a><span class="ticker-dot">•</span>
+                    {{/foreach}}
+                {{/get}}
+            </div>
+        </div>
+        <span class="topbar-clock" id="topClock"></span>
+    </div>
+</div>

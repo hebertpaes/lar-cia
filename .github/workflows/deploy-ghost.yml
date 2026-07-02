@@ -1,0 +1,88 @@
+name: Deploy (Ghost)
+
+# Publica o tema (e, opcionalmente, o conteúdo) num Ghost de produção via
+# Admin API. Roda os testes ANTES de publicar.
+#
+# Pré-requisitos — Settings → Secrets and variables → Actions:
+#   GHOST_ADMIN_API_URL  -> URL do site (ex.: https://larecia.com)
+#   GHOST_ADMIN_API_KEY  -> Admin API Key (Settings → Integrations → Add custom
+#                           integration → copie a "Admin API Key", formato id:secret)
+on:
+  workflow_dispatch:
+    inputs:
+      import_content:
+        description: Também importar o conteúdo (ghost-import.json)?
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - ghost/theme/**
+      - ghost/import/ghost-import.json
+      - .github/workflows/deploy-ghost.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-ghost-production
+  cancel-in-progress: false
+
+jobs:
+  # Porta de qualidade: reutiliza o CI (gscan + JSON + drift do import).
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    name: Publicar no Ghost
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Conferir secrets
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          ADMIN_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        run: |
+          [ -n "$GHOST_URL" ] && [ -n "$ADMIN_KEY" ] || {
+            echo "::error::Defina os secrets GHOST_ADMIN_API_URL e GHOST_ADMIN_API_KEY."; exit 1; }
+
+      - name: Publicar e ativar o tema
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          ADMIN_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        run: |
+          set -euo pipefail
+          API="${GHOST_URL%/}/ghost/api/admin"
+          ( cd ghost/theme && zip -rq /tmp/lar-cia.zip lar-cia -x '*/.DS_Store' )
+          TOKEN=$(node .github/scripts/ghost-jwt.mjs)
+          curl -fsS -X POST "$API/themes/upload/" \
+            -H "Authorization: Ghost $TOKEN" -H "Accept-Version: v5.0" \
+            -F "file=@/tmp/lar-cia.zip;type=application/zip" -o /tmp/up.json
+          node -e 'const t=JSON.parse(require("fs").readFileSync("/tmp/up.json")).themes[0];
+            const e=(t.errors||[]).length,w=(t.warnings||[]).length;
+            console.log("gscan:",e,"erros,",w,"avisos"); if(e) process.exit(1);'
+          TOKEN=$(node .github/scripts/ghost-jwt.mjs)
+          curl -fsS -X PUT "$API/themes/lar-cia/activate/" \
+            -H "Authorization: Ghost $TOKEN" -H "Accept-Version: v5.0" >/dev/null
+          echo "✓ Tema lar-cia publicado e ativado em $GHOST_URL"
+
+      - name: Importar conteúdo (opcional)
+        if: ${{ inputs.import_content }}
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          ADMIN_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        run: |
+          set -euo pipefail
+          API="${GHOST_URL%/}/ghost/api/admin"
+          TOKEN=$(node .github/scripts/ghost-jwt.mjs)
+          curl -fsS -X POST "$API/db/" \
+            -H "Authorization: Ghost $TOKEN" -H "Accept-Version: v5.0" \
+            -F "importfile=@ghost/import/ghost-import.json;type=application/json" -o /tmp/imp.json
+          node -e 'const d=JSON.parse(require("fs").readFileSync("/tmp/imp.json"));
+            console.log("import problems:", JSON.stringify(d.problems||[]));'

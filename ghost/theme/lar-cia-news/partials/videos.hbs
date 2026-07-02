@@ -1,0 +1,24 @@
+{{!-- Bloco "Vídeos" da barra lateral: matérias marcadas com a tag pública "video". --}}
+<aside class="videos-box" aria-label="Vídeos">
+    <h2 class="rail-title"><span class="play-ico">▶</span> Vídeos</h2>
+    {{#get "posts" filter="tag:video+tag:-hash-ad" limit="4" order="published_at desc" as |vids|}}
+        {{#if vids}}
+            <ul class="video-list">
+                {{#foreach vids}}
+                    <li>
+                        <a href="{{url}}">
+                            <span class="video-thumb">
+                                {{#if feature_image}}<img src="{{img_url feature_image size="s"}}" alt="" loading="lazy" />{{/if}}
+                                <span class="video-play">▶</span>
+                            </span>
+                            <span class="video-title">{{title}}</span>
+                        </a>
+                    </li>
+                {{/foreach}}
+            </ul>
+            <a class="videos-more" href="{{@site.url}}/tag/video/">Ver todos os vídeos →</a>
+        {{else}}
+            <p class="rail-empty">Marque matérias com a tag <b>video</b> no Ghost para exibi-las aqui.</p>
+        {{/if}}
+    {{/get}}
+</aside>

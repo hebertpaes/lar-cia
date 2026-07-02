@@ -1,0 +1,13 @@
+{{!-- Bloco Política: matérias automáticas da editoria Política do portal. --}}
+<section class="pol-stats container">
+    <div class="section-head">
+        <h2 class="section-title">📊 Política — Brasil &amp; MT</h2>
+        <a class="section-more" href="{{@site.url}}/tag/politica/">Ver Política →</a>
+    </div>
+    <div class="section-grid">
+        {{#get "posts" filter="tag:politica+tag:-hash-ad" limit="8" order="published_at desc" as |pn|}}
+            {{#if pn}}{{#foreach pn}}{{> article-card size="compact"}}{{/foreach}}
+            {{else}}<p class="section-empty">Sem matérias de Política ainda.</p>{{/if}}
+        {{/get}}
+    </div>
+</section>

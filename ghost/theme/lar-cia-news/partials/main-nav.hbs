@@ -1,0 +1,25 @@
+{{!-- Menu de navegação: vem 100% do Ghost Admin (Settings → Navigation).
+      Mostra a navegação PRIMÁRIA e a SECUNDÁRIA, na ordem configurada.
+      Sem lista fixa: o que você configura no painel é o que aparece. --}}
+<nav class="main-nav" aria-label="Navegação">
+    <div class="container">
+        <div class="nav-collapse" id="mainNav">
+            <ul class="nav-list">
+                {{#foreach navigation}}
+                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
+                {{/foreach}}
+                {{#foreach secondary_navigation}}
+                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
+                {{/foreach}}
+            </ul>
+
+            <div class="nav-extra">
+                <div class="nav-auth">
+                    <a class="nav-login" href="#/portal/signin" data-portal="signin">Entrar</a>
+                    <a class="btn-subscribe" href="#/portal/signup" data-portal="signup">Assinar grátis</a>
+                </div>
+                {{> social}}
+            </div>
+        </div>
+    </div>
+</nav>

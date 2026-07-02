@@ -1,0 +1,34 @@
+{{!-- Fontes oficiais — logo + nome. Personalizável: edite em
+      Settings → Navigation → Secondary navigation (label = nome, url = site).
+      Sem nada configurado, usa a lista oficial padrão abaixo. --}}
+<section class="sources" id="fontes">
+    <div class="container">
+        <h2 class="rail-title">Fontes oficiais</h2>
+        <div class="sources-grid">
+            {{#if @site.secondary_navigation}}
+                {{#foreach @site.secondary_navigation}}
+                    <a class="source-card" href="{{url}}" target="_blank" rel="noopener">
+                        <img class="source-logo" src="https://www.google.com/s2/favicons?domain={{url}}&sz=64" alt="" loading="lazy" width="24" height="24" />
+                        <span>{{label}}</span>
+                    </a>
+                {{/foreach}}
+            {{else}}
+                <a class="source-card" href="https://www.secom.mt.gov.br/noticias" target="_blank" rel="noopener">
+                    <img class="source-logo" src="https://www.google.com/s2/favicons?domain=secom.mt.gov.br&sz=64" alt="" loading="lazy" width="24" height="24" /><span>SECOM Mato Grosso</span>
+                </a>
+                <a class="source-card" href="https://www.cuiaba.mt.gov.br/" target="_blank" rel="noopener">
+                    <img class="source-logo" src="https://www.google.com/s2/favicons?domain=cuiaba.mt.gov.br&sz=64" alt="" loading="lazy" width="24" height="24" /><span>Prefeitura de Cuiabá</span>
+                </a>
+                <a class="source-card" href="https://www.varzeagrande.mt.gov.br/" target="_blank" rel="noopener">
+                    <img class="source-logo" src="https://www.google.com/s2/favicons?domain=varzeagrande.mt.gov.br&sz=64" alt="" loading="lazy" width="24" height="24" /><span>Prefeitura de Várzea Grande</span>
+                </a>
+                <a class="source-card" href="https://www.gov.br/secom/pt-br" target="_blank" rel="noopener">
+                    <img class="source-logo" src="https://www.google.com/s2/favicons?domain=gov.br&sz=64" alt="" loading="lazy" width="24" height="24" /><span>Gov.br / SECOM</span>
+                </a>
+                <a class="source-card" href="https://www.youtube.com/tvassembleiamt" target="_blank" rel="noopener">
+                    <img class="source-logo" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=64" alt="" loading="lazy" width="24" height="24" /><span>TV Assembleia MT</span>
+                </a>
+            {{/if}}
+        </div>
+    </div>
+</section>

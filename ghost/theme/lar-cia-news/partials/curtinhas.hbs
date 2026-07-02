@@ -1,0 +1,14 @@
+{{!-- Curtinhas: notas curtas. Usa a 2ª página das mais recentes, para NÃO
+      repetir o que está em "Mais lidas" (1ª página). --}}
+<aside class="curtinhas" aria-label="Curtinhas">
+    <h2 class="rail-title">Curtinhas</h2>
+    {{#get "posts" filter="tag:-hash-ad" limit="6" page="2" order="published_at desc" as |cur|}}
+        {{#if cur}}
+            <ul class="curtinhas-list">
+                {{#foreach cur}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+            </ul>
+        {{else}}
+            <p class="rail-empty">Em breve mais notícias.</p>
+        {{/if}}
+    {{/get}}
+</aside>

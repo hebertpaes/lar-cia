@@ -1,0 +1,123 @@
+{
+  "name": "lar-cia-news",
+  "description": "Portal de notícias LAR & CIA — Mato Grosso (Cuiabá, Várzea Grande e região).",
+  "version": "1.1.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Hebert Paes",
+    "email": "contato@hojemt.com.br"
+  },
+  "keywords": ["ghost-theme", "news", "magazine", "jornal", "noticias"],
+  "config": {
+    "posts_per_page": 14,
+    "image_sizes": {
+      "xs": { "width": 160 },
+      "s": { "width": 400 },
+      "m": { "width": 720 },
+      "l": { "width": 1000 },
+      "xl": { "width": 1600 }
+    },
+    "card_assets": true,
+    "custom": {
+      "cor_destaque": {
+        "type": "color",
+        "default": "#0B857E",
+        "description": "Cor de destaque (kickers, faixa de últimas, badges)."
+      },
+      "slides_home": {
+        "type": "select",
+        "options": ["3", "4", "5", "6", "7", "8", "9", "10"],
+        "default": "5",
+        "description": "Quantos posts no slider da home (Featured ficam fixados)."
+      },
+      "mostrar_chip_demo": {
+        "type": "boolean",
+        "default": false,
+        "description": "Exibe o selo DEMO em conteúdo de demonstração (tag #demo)."
+      },
+      "whatsapp_redacao": {
+        "type": "text",
+        "default": "5565999900005",
+        "description": "Número da redação (somente dígitos) para o botão de contato/denúncia."
+      },
+      "email_contato": {
+        "type": "text",
+        "default": "contato@hojemt.com.br",
+        "description": "E-mail de contato/redação exibido no rodapé."
+      },
+      "chat_ativo": {
+        "type": "boolean",
+        "default": true,
+        "description": "Mostrar o chat flutuante (assistente/IA) estilo WhatsApp."
+      },
+      "chat_ia_url": {
+        "type": "text",
+        "default": "",
+        "description": "Webhook do seu backend de IA (POST message/history → reply). Vazio = FAQ."
+      },
+      "youtube_canal_id": {
+        "type": "text",
+        "default": "",
+        "description": "ID do SEU canal (UC...) p/ tocar a live automaticamente (canal que permita incorporação)."
+      },
+      "youtube_live_id": {
+        "type": "text",
+        "default": "",
+        "description": "ID do vídeo do YouTube p/ tocar no AO VIVO (um jogo específico)."
+      },
+      "youtube_canal": {
+        "type": "text",
+        "default": "",
+        "description": "Link do 'ao vivo' no YouTube (botão de abrir a transmissão)."
+      },
+      "youtube_embed": {
+        "type": "boolean",
+        "default": true,
+        "description": "Toca o vídeo embutido (autoplay mudo). Desligue se o vídeo bloquear embed."
+      },
+      "copa_ativa": {
+        "type": "boolean",
+        "default": true,
+        "description": "Mostrar o bloco da Copa do Mundo (resultados) abaixo do player."
+      },
+      "copa_api": {
+        "type": "text",
+        "default": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
+        "description": "API de resultados (JSON com 'events'). Padrão: TheSportsDB (Copa)."
+      },
+      "copa_api_next": {
+        "type": "text",
+        "default": "https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=4429",
+        "description": "API de próximos jogos (JSON com 'events')."
+      },
+      "copa_tabela": {
+        "type": "text",
+        "default": "https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4429&s=2026",
+        "description": "API da tabela/grupos (opcional). Vazio = oculta a tabela."
+      },
+      "whats_url": {
+        "type": "text",
+        "description": "Link do WhatsApp (ex.: https://wa.me/5565999900005)."
+      },
+      "face_url": {
+        "type": "text",
+        "description": "Link da página no Facebook."
+      },
+      "insta_url": {
+        "type": "text",
+        "description": "Link do Instagram."
+      },
+      "x_url": {
+        "type": "text",
+        "description": "Link do X (Twitter)."
+      },
+      "yt_url": {
+        "type": "text",
+        "description": "Link do canal no YouTube."
+      }
+    }
+  }
+}

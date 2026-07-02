@@ -1,0 +1,68 @@
+{{!< default}}
+
+{{#post}}
+<div class="container article-wrap">
+    <article class="article">
+        <header class="article-head">
+            {{#primary_tag}}<a class="card-kicker big" href="{{url}}">{{name}}</a>{{/primary_tag}}
+            <h1 class="article-title">{{title}}</h1>
+            {{#if custom_excerpt}}<p class="article-sub">{{custom_excerpt}}</p>{{/if}}
+            {{> byline}}
+        </header>
+
+        {{#if @custom.mostrar_chip_demo}}{{#has tag="hash-demo"}}
+            <p class="demo-note">⚠️ <strong>Conteúdo de demonstração.</strong> Texto-modelo para ilustrar o layout do portal — não é uma notícia real. Substitua pelo conteúdo editorial no Ghost Admin.</p>
+        {{/has}}{{/if}}
+
+        {{#if feature_image}}
+            <figure class="article-hero">
+                <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />
+                {{#if feature_image_caption}}<figcaption class="fonte-credito">{{{feature_image_caption}}}</figcaption>{{/if}}
+            </figure>
+        {{/if}}
+
+        <div class="gh-content">
+            {{content}}
+        </div>
+
+        <div class="article-share">
+            <span>Compartilhar:</span>
+            <a href="https://wa.me/?text={{encode title}}%20{{url absolute="true"}}" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text={{encode title}}&url={{url absolute="true"}}" target="_blank" rel="noopener">X</a>
+        </div>
+
+        {{> ad zone="inarticle" filter="tag:hash-ad-inarticle" limit="6"}}
+
+        <section class="related">
+            <h2 class="rail-title">{{#if primary_tag}}Relacionadas{{else}}Mais notícias{{/if}}</h2>
+            <div class="section-grid">
+                {{#if primary_tag}}
+                    {{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}+tag:-hash-ad" limit="3" order="published_at desc" as |rel|}}
+                        {{#foreach rel}}{{> article-card size="compact"}}{{/foreach}}
+                    {{/get}}
+                {{else}}
+                    {{#get "posts" filter="id:-{{id}}+tag:-hash-ad" limit="3" order="published_at desc" as |rel|}}
+                        {{#foreach rel}}{{> article-card size="compact"}}{{/foreach}}
+                    {{/get}}
+                {{/if}}
+            </div>
+        </section>
+
+        {{!-- Comentários nativos do Ghost (requer Membros ativos). --}}
+        {{#if comments_enabled}}
+            <section class="article-comments">
+                <h2 class="rail-title">Comentários</h2>
+                {{comments}}
+            </section>
+        {{/if}}
+    </article>
+
+    <aside class="article-rail">
+        {{> live}}
+        {{> videos}}
+        {{> most-read}}
+        {{> ad zone="sidebar" filter="tag:hash-ad-sidebar" limit="6"}}
+    </aside>
+</div>
+{{/post}}

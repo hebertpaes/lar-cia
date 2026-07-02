@@ -1,0 +1,37 @@
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            {{#if @site.logo}}
+                <img class="footer-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+            {{else}}
+                <span class="brand-mark">{{@site.title}}</span>
+            {{/if}}
+            <p>{{#if @site.description}}{{@site.description}}{{else}}Portal de notícias.{{/if}}</p>
+        </div>
+        <div class="footer-col">
+            <h4>Editorias</h4>
+            <a href="{{@site.url}}/tag/politica/">Política</a>
+            <a href="{{@site.url}}/tag/cidades/">Cidades</a>
+            <a href="{{@site.url}}/tag/policia/">Polícia</a>
+            <a href="{{@site.url}}/tag/economia/">Economia</a>
+            <a href="{{@site.url}}/tag/agro/">Agro</a>
+        </div>
+        <div class="footer-col">
+            <h4>Institucional</h4>
+            <a href="{{@site.url}}/sobre/">Sobre o portal</a>
+            <a href="{{@site.url}}/anuncie/">Anuncie conosco</a>
+            <a href="{{@site.url}}/fontes-oficiais/">Fontes oficiais</a>
+            <a href="{{@site.url}}/contato/">Contato / Redação</a>
+        </div>
+        <div class="footer-col">
+            <h4>Redação</h4>
+            <a href="https://wa.me/{{@custom.whatsapp_redacao}}" target="_blank" rel="noopener">WhatsApp da redação</a>
+            {{#if @custom.email_contato}}<a href="mailto:{{@custom.email_contato}}">{{@custom.email_contato}}</a>{{/if}}
+            <span class="footer-place">Cuiabá / Várzea Grande · MT</span>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <span>© {{date format="YYYY"}} {{@site.title}}. Todos os direitos reservados.</span>
+        <span class="footer-credits">Veículos privados creditados à fonte · Releases oficiais reproduzidos com atribuição</span>
+    </div>
+</footer>

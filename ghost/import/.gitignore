@@ -1,0 +1,3 @@
+# Coletas diárias geradas pelo collect.mjs (efêmeras).
+coletado-*.json
+_smoke.json
