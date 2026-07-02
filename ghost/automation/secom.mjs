@@ -148,7 +148,8 @@ async function main() {
   const fonte = opt("fonte", FONTE_NOME);
   const editoria = slugify(opt("editoria", "politica"));
   const id = slugify(opt("id", (base.match(/https?:\/\/(?:www\d*\.)?([^./]+)/) || [])[1] || "fonte"));
-  const outPath = resolve(__dirname, opt("out", `../import/${id}-${date}.json`));
+  const outArg = opt("out", null);
+  const outPath = outArg ? resolve(process.cwd(), outArg) : resolve(__dirname, `../import/${id}-${date}.json`);
 
   console.log(`Lendo ${listUrl} …`);
   const listHtml = await fetchText(listUrl);

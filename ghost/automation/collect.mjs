@@ -127,7 +127,8 @@ function main() {
   const conc = parseInt(opt("conc", "6"), 10);
   const allDates = has("all-dates");
   const verbose = has("verbose");
-  const outPath = resolve(__dirname, opt("out", `../import/coletado-${date}.json`));
+  const outArg = opt("out", null);
+  const outPath = outArg ? resolve(process.cwd(), outArg) : resolve(__dirname, `../import/coletado-${date}.json`);
 
   const reg = JSON.parse(readFileSync(resolve(__dirname, "sources.mt.json"), "utf8"));
   let sources = reg.sources;
