@@ -42,8 +42,11 @@ jobs:
       - name: Preparar config dos sites
         run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
 
-      - name: Coletar SECOM-MT (HTML de secom.mt.gov.br/noticias)
-        run: node ghost/automation/secom.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
+      - name: Instalar navegador headless (Playwright) p/ a SECOM
+        run: npm i playwright --no-save && npx playwright install --with-deps chromium
+
+      - name: Coletar SECOM-MT (headless — a lista é montada por JavaScript)
+        run: node ghost/automation/secom-headless.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
 
       - name: Coletar notícias do dia (RSS das assessorias)
         # teto de 4 min: muitas prefeituras não têm RSS e não podem travar o job
