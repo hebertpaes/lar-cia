@@ -384,8 +384,9 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .ad-leaderboard { display: flex; flex-direction: column; align-items: center; }
 /* O banner-casa (GIF horizontal) só cabe em zonas horizontais. Nas quadradas/
    verticais, esconde a casa; e some a zona inteira quando não há anúncio real. */
-.ad-video .ad-house, .ad-sidebar .ad-house, .ad-vertical .ad-house { display: none; }
-.ad-video:not(:has(.ad-rotator)), .ad-sidebar:not(:has(.ad-rotator)), .ad-vertical:not(:has(.ad-rotator)) { display: none; }
+/* Zonas quadradas (embaixo do player, sidebar, vertical) mostram o banner
+   "Anuncie" (house) quando não há anúncio real — ajustado à largura da zona. */
+.ad-video .ad-house img, .ad-sidebar .ad-house img, .ad-vertical .ad-house img { max-width: 100%; }
 .ad-house strong { font-family: var(--font-head); font-size: 20px; color: var(--ink); }
 .ad-house-label { font-family: var(--font-ui); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9aa1ad; }
 .ad-text { font-family: var(--font-head); font-weight: 700; font-size: 18px; padding: 18px; }
@@ -492,7 +493,10 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .footer-col h4 { font-family: var(--font-ui); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
 .footer-col a, .footer-place { display: block; color: var(--ink-soft); font-size: 14px; padding: 4px 0; }
 .footer-col a:hover { color: var(--urgent); }
-.footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--font-ui); font-size: 12px; color: var(--ink-soft); }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--font-ui); font-size: 12px; color: var(--ink-soft); }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 14px; }
+.footer-legal a { color: var(--ink-soft); font-weight: 600; }
+.footer-legal a:hover { color: var(--urgent); }
 
 /* ---- WhatsApp flutuante ------------------------------------------------- */
 /* ---- Chat flutuante (assistente / IA) estilo WhatsApp ------------------- */
