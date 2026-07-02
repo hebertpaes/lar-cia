@@ -67,10 +67,10 @@ export function parseFeed(xml) {
 }
 
 // ---------- rede ----------------------------------------------------------
-const FEED_PATHS = ["/feed", "/feed/", "/rss", "/rss.xml", "/feed.xml", "/RSS",
-  "/?format=feed&type=rss", "/noticias/feed", "/index.php/feed", "/category/noticias/feed"];
+const FEED_PATHS = ["/feed", "/rss", "/feed.xml", "/rss.xml",
+  "/noticias/feed", "/?format=feed&type=rss"];
 
-async function fetchText(url, ms = 12000) {
+async function fetchText(url, ms = 7000) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), ms);
   try {

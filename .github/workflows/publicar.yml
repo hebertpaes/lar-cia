@@ -42,11 +42,12 @@ jobs:
       - name: Preparar config dos sites
         run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
 
-      - name: Coletar notícias do dia (RSS das assessorias)
-        run: node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json || echo "Coleta sem itens hoje."
-
       - name: Coletar SECOM-MT (HTML de secom.mt.gov.br/noticias)
         run: node ghost/automation/secom.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
+
+      - name: Coletar notícias do dia (RSS das assessorias)
+        # teto de 4 min: muitas prefeituras não têm RSS e não podem travar o job
+        run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 || echo "Coleta RSS encerrada (tempo/sem itens)."
 
       - name: Publicar nos portais (roteando por editoria)
         env:
