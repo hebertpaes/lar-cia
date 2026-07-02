@@ -70,6 +70,8 @@ export function parseFeed(xml) {
 const FEED_PATHS = ["/feed", "/rss", "/feed.xml", "/rss.xml",
   "/noticias/feed", "/?format=feed&type=rss"];
 
+// Retorna: o texto; null (host respondeu, mas esse caminho não serve — 404 etc.);
+// undefined (erro de rede/timeout: host provavelmente fora do ar).
 async function fetchText(url, ms = 7000) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), ms);
@@ -77,13 +79,14 @@ async function fetchText(url, ms = 7000) {
     const r = await fetch(url, { redirect: "follow", signal: ctl.signal, headers: { "User-Agent": "LarCiaBot/1.0 (+coletor de releases oficiais)" } });
     if (!r.ok) return null;
     return await r.text();
-  } catch { return null; } finally { clearTimeout(t); }
+  } catch { return undefined; } finally { clearTimeout(t); }
 }
 
 async function feedFor(src) {
   const tries = src.feed ? [src.feed] : FEED_PATHS.map((p) => src.url.replace(/\/$/, "") + p);
   for (const u of tries) {
     const xml = await fetchText(u);
+    if (xml === undefined) break;   // host fora do ar/timeout: não adianta tentar outros caminhos
     if (xml && /<(item|entry)\b/i.test(xml)) return { url: u, items: parseFeed(xml) };
   }
   return null;
