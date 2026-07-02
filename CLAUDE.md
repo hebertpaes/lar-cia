@@ -4,9 +4,13 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
-| **Hoje MT** | hojemt.com.br | todas | `#C20017` |
+| **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
 | **O Dia Político** | odiapolitico.com.br | só **Política** | `#C20017` |
 | **Pacu News** | pacunews.com.br | todas | `#1466B8` |
+
+Logo da marca: `ghost/brand/hojemt-logo.svg` (cor) e `hojemt-logo-branco.svg`
+(fundo escuro), gerados por `ghost/brand/gen-logo.mjs`. O logo do site é definido
+no Ghost (Design → Brand → Logo) ou pelo `LOGO_FILE` do `ativar-tudo.mjs`.
 
 ## Como funciona (fonte única + variações)
 - O tema-base é **`ghost/theme/lar-cia-news/`** — **só edite aqui**.
@@ -16,7 +20,7 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 
 ```bash
 cd ghost/theme
-bash build-portal.sh hojemt       "Hoje MT"        "#C20017"
+bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
 bash build-portal.sh odiapolitico "O Dia Político" "#C20017"
 bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
 ```

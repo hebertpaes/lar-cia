@@ -9,6 +9,8 @@
 
    Contatos das páginas (opcional): EMAIL_CONTATO e WHATSAPP preenchem os
    endereços nas páginas Sobre/Anuncie/Contato.
+   Logo (opcional): LOGO_FILE=caminho/logo.svg define o logo do site (só troca
+   se ainda não houver um; use --logo-force para sobrescrever).
 
    Uso mínimo (liga Membros/Portal + menu + comentários):
      SITE_URL=https://hojemt.com.br SITE_ADMIN_KEY='id:secret' \
@@ -28,6 +30,7 @@ const URL_ = (process.env.SITE_URL || "").replace(/\/$/, "");
 const KEY = process.env.SITE_ADMIN_KEY || "";
 const THEME_ZIP = process.env.THEME_ZIP || "";
 const CONTENT_JSON = process.env.CONTENT_JSON || "";
+const LOGO_FILE = process.env.LOGO_FILE || "";
 const args = process.argv.slice(2);
 const has = (f) => args.includes(f);
 const dry = has("--dry-run");
@@ -48,6 +51,17 @@ async function api(path, opt = {}) {
   const t = await r.text();
   if (!r.ok) throw new Error(`HTTP ${r.status} ${t.slice(0, 200)}`);
   return t ? JSON.parse(t) : {};
+}
+const MIME = (f) => ({ svg: "image/svg+xml", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif", ico: "image/x-icon" }[f.toLowerCase().split(".").pop()] || "application/octet-stream");
+async function uploadImage(file) {
+  const fd = new FormData();
+  fd.append("file", new Blob([readFileSync(file)], { type: MIME(file) }), basename(file));
+  fd.append("purpose", "image");
+  const r = await api("/images/upload/", { method: "POST", body: fd });
+  return r?.images?.[0]?.url || "";
+}
+async function currentSetting(key) {
+  try { const s = await api("/settings/"); return s?.settings?.find((x) => x.key === key)?.value || ""; } catch { return ""; }
 }
 
 const NAV = [
@@ -106,6 +120,20 @@ async function main() {
       const up = await api("/themes/upload/", { method: "POST", body: fd });
       const name = up?.themes?.[0]?.name;
       if (name) { await api(`/themes/${name}/activate/`, { method: "PUT" }); console.log("  ✓ ativo:", name); }
+    }
+  }
+
+  if (LOGO_FILE) {
+    if (!existsSync(LOGO_FILE)) throw new Error(`Logo não encontrado: ${LOGO_FILE}`);
+    const atual = await currentSetting("logo");
+    if (atual && !has("--logo-force")) {
+      console.log("• Logo: já existe (use --logo-force para trocar) — mantido");
+    } else if (dry) {
+      console.log("• Logo: subiria", LOGO_FILE);
+    } else {
+      console.log("• Logo: enviando", LOGO_FILE);
+      const url = await uploadImage(LOGO_FILE);
+      if (url) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings: [{ key: "logo", value: url }] }) }); console.log("  ✓ logo definido"); }
     }
   }
 

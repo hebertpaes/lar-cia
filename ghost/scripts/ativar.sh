@@ -20,12 +20,16 @@ cd "$(cd "$(dirname "$0")/../.." && pwd)"
 # 2) portal -> domínio, nome e cor
 PORTAL="${1:-}"
 case "$PORTAL" in
-  hojemt)        DOM="hojemt.com.br";        NOME="Hoje MT";        COR="#C20017" ;;
+  hojemt)        DOM="hojemt.com.br";        NOME="Hoje MT";        COR="#0B857E" ;;
   odiapolitico)  DOM="odiapolitico.com.br";  NOME="O Dia Político"; COR="#C20017" ;;
   pacunews)      DOM="pacunews.com.br";      NOME="Pacu News";      COR="#1466B8" ;;
   *) echo "Uso: bash ghost/scripts/ativar.sh <hojemt|odiapolitico|pacunews> [--dry-run] [--completo]"; exit 1 ;;
 esac
 shift
+
+# logo padrão do portal (se existir um SVG da marca no repo)
+LOGO_DEFAULT=""
+[ -f "ghost/brand/$PORTAL-logo.svg" ] && LOGO_DEFAULT="ghost/brand/$PORTAL-logo.svg"
 
 # 3) separa --completo dos demais flags (que são repassados ao node)
 COMPLETO=0
@@ -44,7 +48,18 @@ case "$KEY" in
   *) echo "Isso não parece uma Admin API Key (falta o ':'). Copie de novo e rode outra vez."; exit 1 ;;
 esac
 
-# 5) opcional: gera o tema e prepara o conteúdo
+# 5) logo (só pergunta se houver um padrão da marca; Enter aceita)
+if [ -n "$LOGO_DEFAULT" ]; then
+  printf "Enviar o logo %s? [Enter=sim / outro caminho / 'nao']: " "$LOGO_DEFAULT"
+  read -r LG
+  case "$LG" in
+    "")        export LOGO_FILE="$LOGO_DEFAULT" ;;
+    nao|não|n|N|no) : ;;
+    *)         export LOGO_FILE="$LG" ;;
+  esac
+fi
+
+# 6) opcional: gera o tema e prepara o conteúdo
 export SITE_URL="https://$DOM"
 export SITE_ADMIN_KEY="$KEY"
 export EMAIL_CONTATO="contato@$DOM"
@@ -55,6 +70,6 @@ if [ "$COMPLETO" = "1" ]; then
   export CONTENT_JSON="ghost/import/noticias-300.json"
 fi
 
-# 6) roda de verdade
+# 7) roda de verdade
 echo ""
 node ghost/scripts/ativar-tudo.mjs $PASS

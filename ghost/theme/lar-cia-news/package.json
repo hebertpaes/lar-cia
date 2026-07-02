@@ -24,8 +24,8 @@
     "custom": {
       "cor_destaque": {
         "type": "color",
-        "default": "#C20017",
-        "description": "Cor de urgência / faixa de últimas notícias."
+        "default": "#0B857E",
+        "description": "Cor de destaque (kickers, faixa de últimas, badges)."
       },
       "slides_home": {
         "type": "select",
