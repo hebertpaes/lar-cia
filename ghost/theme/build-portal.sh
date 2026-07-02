@@ -48,14 +48,23 @@ mkdir -p "$OUT/assets/img"
 # em texto (o tema-base não é alterado).
 if [ -f "$DIR/../brand/$SLUG-logo.svg" ]; then
   cp "$DIR/../brand/$SLUG-logo.svg" "$OUT/assets/img/logo.svg"
+  # versão branca p/ dark mode (se existir); senão reusa a colorida
+  if [ -f "$DIR/../brand/$SLUG-logo-branco.svg" ]; then
+    cp "$DIR/../brand/$SLUG-logo-branco.svg" "$OUT/assets/img/logo-branco.svg"
+  else
+    cp "$DIR/../brand/$SLUG-logo.svg" "$OUT/assets/img/logo-branco.svg"
+  fi
   node -e '
     const fs = require("fs");
     const out = process.argv[1];
     const span = "<span class=\"brand-mark\">{{@site.title}}</span>";
-    const img = (cls) => `<img class="${cls}" src="{{asset "img/logo.svg"}}" alt="{{@site.title}}" />`;
-    for (const [file, cls] of [["partials/site-header.hbs", "brand-logo"], ["partials/site-footer.hbs", "footer-logo"]]) {
+    // duas imagens: colorida (light) e branca (dark) — o CSS troca conforme o tema
+    const pair = (base) =>
+      `<img class="${base} logo-light" src="{{asset "img/logo.svg"}}" alt="{{@site.title}}" />` +
+      `<img class="${base} logo-dark" src="{{asset "img/logo-branco.svg"}}" alt="{{@site.title}}" />`;
+    for (const [file, base] of [["partials/site-header.hbs", "brand-logo"], ["partials/site-footer.hbs", "footer-logo"]]) {
       const p = out + "/" + file;
-      fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace(span, img(cls)));
+      fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace(span, pair(base)));
     }
   ' "$OUT"
 fi

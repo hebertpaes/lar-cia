@@ -308,10 +308,20 @@
     }
   })();
 
-  /* ---- AO VIVO: tira o mudo no 1º gesto do usuário (política de autoplay) ---- */
-  (function initLiveSound() {
+  /* ---- AO VIVO: autoplay mudo automático + som no 1º gesto do usuário ---- */
+  (function initLive() {
     var frames = $$(".live-embed iframe"); if (!frames.length) return;
     function cmd(f, func, args) { try { f.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: args || "" }), "*"); } catch (e) {} }
+    function listen(f) { try { f.contentWindow.postMessage(JSON.stringify({ event: "listening" }), "*"); } catch (e) {} }
+    // Cutuca o player pra iniciar sozinho (mudo): alguns navegadores só dão play
+    // via API. Repete por ~8s pra pegar a hora em que o iframe termina de carregar.
+    frames.forEach(function (f) {
+      var n = 0, t = setInterval(function () {
+        listen(f); cmd(f, "playVideo");
+        if (++n >= 8) clearInterval(t);
+      }, 1000);
+    });
+    // Tira o mudo no 1º gesto (a política do navegador não deixa começar com som).
     var evs = ["click", "touchstart", "keydown", "scroll"];
     function on() {
       frames.forEach(function (f) { cmd(f, "unMute"); cmd(f, "setVolume", [100]); cmd(f, "playVideo"); });

@@ -60,8 +60,8 @@
       },
       "youtube_canal_id": {
         "type": "text",
-        "default": "UCZiYbVptd3PVPf4f6eR6UaQ",
-        "description": "ID do canal (UC...) p/ embutir a transmissão AO VIVO atual (tempo real)."
+        "default": "",
+        "description": "ID do SEU canal (UC...) p/ tocar a live automaticamente (canal que permita incorporação)."
       },
       "youtube_live_id": {
         "type": "text",
@@ -70,7 +70,7 @@
       },
       "youtube_canal": {
         "type": "text",
-        "default": "https://www.youtube.com/@CazeTV/live",
+        "default": "",
         "description": "Link do 'ao vivo' no YouTube (botão de abrir a transmissão)."
       },
       "youtube_embed": {
