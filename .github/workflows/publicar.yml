@@ -45,24 +45,29 @@ jobs:
       - name: Coletar notícias do dia (RSS das assessorias)
         run: node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json || echo "Coleta sem itens hoje."
 
+      - name: Coletar SECOM-MT (HTML de secom.mt.gov.br/noticias)
+        run: node ghost/automation/secom.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
+
       - name: Publicar nos portais (roteando por editoria)
         env:
           HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
           ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
           PACUNEWS_ADMIN_KEY: ${{ secrets.PACUNEWS_ADMIN_KEY }}
         run: |
-          FILE=ghost/import/coletado-hoje.json
-          [ -f "$FILE" ] || { echo "Nada coletado — encerrando."; exit 0; }
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            node ghost/automation/publish.mjs "$FILE" --dry-run
-          else
-            node ghost/automation/publish.mjs "$FILE"
-          fi
+          DRY=""
+          [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
+          for FILE in ghost/import/coletado-hoje.json ghost/import/secom-hoje.json; do
+            [ -f "$FILE" ] || { echo "sem $FILE — pulando"; continue; }
+            echo "== publicando $FILE $DRY =="
+            node ghost/automation/publish.mjs "$FILE" $DRY
+          done
 
       - name: Guardar o que foi coletado (artefato)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: coletado-hoje
-          path: ghost/import/coletado-hoje.json
+          name: coletado
+          path: |
+            ghost/import/coletado-hoje.json
+            ghost/import/secom-hoje.json
           if-no-files-found: ignore

@@ -38,7 +38,7 @@ bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
 - `ghost/theme/build-portal.sh` — gera as variações.
 - `ghost/banners/` — GIFs "Anuncie" por marca (o build embute em `assets/img/anuncie.gif`).
 - `ghost/import/` — geradores + JSON de conteúdo (`generate-noticias-300.mjs` → `noticias-300.json`; `generate-secom-*` etc.).
-- `ghost/automation/` — `collect.mjs` (coleta assessorias oficiais via RSS), `publish.mjs` (publica roteando por editoria), `import.mjs`, `sources.mt.json`.
+- `ghost/automation/` — `collect.mjs` (coleta assessorias oficiais via RSS), `secom.mjs` (coletor dedicado da SECOM-MT lendo o HTML de `/noticias` — pega foto real via og:image), `publish.mjs` (publica roteando por editoria), `import.mjs`, `sources.mt.json`.
 - `ghost/scripts/` — `ativar-tudo.mjs` (liga Membros/Portal, menu, comentários, sobe tema e importa) e helpers.
 - `ghost/whatsapp-crm/` — CRM + disparo (Cloud API oficial) + QR opcional + webhook `/chat`.
 
