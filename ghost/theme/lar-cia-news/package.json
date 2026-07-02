@@ -85,17 +85,17 @@
       },
       "copa_api": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4429",
         "description": "API de resultados (JSON com 'events'). Padrão: TheSportsDB (Copa)."
       },
       "copa_api_next": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=4429",
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4429",
         "description": "API de próximos jogos (JSON com 'events')."
       },
       "copa_tabela": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4429&s=2026",
+        "default": "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4429&s=2026",
         "description": "API da tabela/grupos (opcional). Vazio = oculta a tabela."
       },
       "whats_url": {
