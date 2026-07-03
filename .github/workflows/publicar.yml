@@ -42,15 +42,11 @@ jobs:
       - name: Preparar config dos sites
         run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
 
-      - name: Instalar navegador headless (Playwright) p/ a SECOM
-        run: npm i playwright --no-save && npx playwright install --with-deps chromium
-
-      - name: Coletar SECOM-MT (headless — a lista é montada por JavaScript)
-        run: node ghost/automation/secom-headless.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
-
-      - name: Coletar notícias do dia (RSS das assessorias)
-        # teto de 4 min: muitas prefeituras não têm RSS e não podem travar o job
-        run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 || echo "Coleta RSS encerrada (tempo/sem itens)."
+      # Obs.: a SECOM/estado de MT bloqueiam o IP da nuvem, então a coleta da
+      # SECOM roda LOCAL (ghost/scripts/publicar-secom.sh). Aqui pegamos as fontes
+      # com RSS que a nuvem alcança (federais: Agência Brasil/Câmara/Senado etc.).
+      - name: Coletar notícias do dia (RSS: assessorias MT + fontes federais)
+        run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 --verbose || echo "Coleta RSS encerrada (tempo/sem itens)."
 
       - name: Editar as matérias com IA (título/subtítulo/corpo/resumo SEO)
         env:

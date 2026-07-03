@@ -1,8 +1,51 @@
 {
   "_comment": "Assessorias oficiais de MT. 'editoria' roteia a publicação (politica=O Dia Político). 'feed' (opcional) força a URL do RSS. 'verificar':true = domínio derivado por padrão, confirme antes de produção. Edite à vontade.",
   "gerado_em": "2026-06-30T23:01:15.084Z",
-  "total": 284,
+  "total": 288,
   "sources": [
+    {
+      "id": "agencia-brasil",
+      "nome": "Agência Brasil (EBC)",
+      "nivel": "federal",
+      "poder": "executivo",
+      "municipio": "Brasil",
+      "url": "https://agenciabrasil.ebc.com.br",
+      "feed": "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml",
+      "editoria": "brasil-mundo",
+      "verificar": false
+    },
+    {
+      "id": "agencia-camara",
+      "nome": "Agência Câmara de Notícias",
+      "nivel": "federal",
+      "poder": "legislativo",
+      "municipio": "Brasil",
+      "url": "https://www.camara.leg.br",
+      "feed": "https://www.camara.leg.br/noticias/rss/todas",
+      "editoria": "politica",
+      "verificar": false
+    },
+    {
+      "id": "agencia-senado",
+      "nome": "Agência Senado",
+      "nivel": "federal",
+      "poder": "legislativo",
+      "municipio": "Brasil",
+      "url": "https://www12.senado.leg.br/noticias",
+      "feed": "https://www12.senado.leg.br/noticias/feed",
+      "editoria": "politica",
+      "verificar": false
+    },
+    {
+      "id": "gov-br-secom",
+      "nome": "gov.br — Notícias (Secretaria de Comunicação/PR)",
+      "nivel": "federal",
+      "poder": "executivo",
+      "municipio": "Brasil",
+      "url": "https://www.gov.br/secom/pt-br/assuntos/noticias",
+      "editoria": "brasil-mundo",
+      "verificar": true
+    },
     {
       "id": "secom-mt",
       "nome": "SECOM-MT (Governo de Mato Grosso)",
