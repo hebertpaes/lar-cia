@@ -58,6 +58,20 @@ async function main() {
       try { hrefs = await page.$$eval('a[href*="/w/"]', (els) => Array.from(new Set(els.map((e) => e.getAttribute("href")).filter(Boolean)))); }
       catch { await page.waitForTimeout(1000); }
     }
+    // Diagnóstico quando não achou /w/: mostra o que a página realmente tem
+    if (!hrefs.length) {
+      try {
+        const d = await page.evaluate(() => ({
+          url: location.href, title: document.title,
+          anchors: document.querySelectorAll("a").length,
+          iframes: document.querySelectorAll("iframe").length,
+          sample: Array.from(new Set(Array.from(document.querySelectorAll("a")).map((a) => a.getAttribute("href")).filter(Boolean))).slice(0, 40),
+        }));
+        console.log(`  [diag] url final: ${d.url}`);
+        console.log(`  [diag] título: ${d.title} | <a>: ${d.anchors} | <iframe>: ${d.iframes}`);
+        console.log("  [diag] hrefs de exemplo:\n   " + (d.sample.join("\n   ") || "(nenhum)"));
+      } catch (e) { console.log("  [diag] falhou:", e.message); }
+    }
     await page.close();
   } catch (e) { if (verbose) console.log("  aviso listagem:", e.message); }
   await browser.close();
