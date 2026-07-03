@@ -45,7 +45,7 @@ jobs:
       # Obs.: a SECOM/estado de MT bloqueiam o IP da nuvem, então a coleta da
       # SECOM roda LOCAL (ghost/scripts/publicar-secom.sh). Aqui pegamos as fontes
       # com RSS que a nuvem alcança (federais: Agência Brasil/Câmara/Senado etc.).
-      - name: Coletar notícias do dia (RSS: assessorias MT + fontes federais)
+      - name: "Coletar notícias do dia (RSS: assessorias MT + fontes federais)"
         run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 --verbose || echo "Coleta RSS encerrada (tempo/sem itens)."
 
       - name: Editar as matérias com IA (título/subtítulo/corpo/resumo SEO)
