@@ -52,6 +52,16 @@ jobs:
         # teto de 4 min: muitas prefeituras não têm RSS e não podem travar o job
         run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 || echo "Coleta RSS encerrada (tempo/sem itens)."
 
+      - name: Editar as matérias com IA (título/subtítulo/corpo/resumo SEO)
+        env:
+          IA_API_KEY: ${{ secrets.IA_API_KEY }}
+          IA_API_URL: ${{ vars.IA_API_URL }}
+          IA_MODEL: ${{ vars.IA_MODEL }}
+        run: |
+          for FILE in ghost/import/secom-hoje.json ghost/import/coletado-hoje.json; do
+            [ -f "$FILE" ] && node ghost/automation/reescrever.mjs "$FILE" --verbose || true
+          done
+
       - name: Publicar nos portais (roteando por editoria)
         env:
           HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
