@@ -50,8 +50,16 @@ async function main() {
   // ---- 1) links da listagem (extraídos do DOM, tolerante à SPA) ----
   let hrefs = [];
   try {
-    const page = await browser.newPage({ userAgent: "Mozilla/5.0 (compatible; LarCiaBot/1.0; +coletor de releases oficiais)" });
-    await page.goto(listUrl, { waitUntil: "domcontentloaded", timeout: 30000 }).catch(() => {});
+    const page = await browser.newPage({
+      userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      ignoreHTTPSErrors: true,   // sites gov às vezes têm cadeia de certificado incompleta
+    });
+    let resp = null;
+    for (let g = 0; g < 2 && !resp; g++) {
+      resp = await page.goto(listUrl, { waitUntil: "domcontentloaded", timeout: 40000 })
+        .catch((e) => { console.log(`  [goto] tentativa ${g + 1} falhou: ${e.message}`); return null; });
+    }
+    if (resp) console.log(`  [goto] status ${resp.status()} -> ${resp.url()}`);
     await page.waitForSelector('a[href*="/w/"]', { timeout: 20000 }).catch(() => {});
     await page.waitForTimeout(1200);
     for (let tentativa = 0; tentativa < 3 && !hrefs.length; tentativa++) {
