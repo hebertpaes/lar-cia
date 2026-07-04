@@ -1,15 +1,15 @@
 // Gera o logo do Pacu News (peixe pixelado + wordmark) como SVG — variante
 // colorida (fundo claro) e branca (fundo escuro). O "pacu" é um peixe; o mark é
-// um peixe formado por quadradinhos com gradiente azul, no mesmo estilo pixel do
-// logo do Hoje MT (consistência de rede).
+// um peixe formado por quadradinhos com gradiente vermelho (cor da marca), no
+// mesmo estilo pixel do logo do Hoje MT (consistência de rede).
 import { writeFileSync } from "node:fs";
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const hex = (c) => "#" + c.map((n) => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, "0")).join("");
 const STOPS = [
-  { t: 0.0, c: [11, 61, 119] },   // #0B3D77 (cauda, mais escuro)
-  { t: 0.55, c: [20, 102, 184] }, // #1466B8 (azul da marca)
-  { t: 1.0, c: [90, 170, 235] },  // #5AAAEB (frente, mais claro)
+  { t: 0.0, c: [120, 20, 20] },   // #781414 (cauda, vinho mais escuro)
+  { t: 0.55, c: [214, 40, 40] },  // #D62828 (vermelho da marca)
+  { t: 1.0, c: [240, 96, 96] },   // #F06060 (frente, mais claro)
 ];
 function ramp(t) {
   t = Math.max(0, Math.min(1, t));
@@ -51,15 +51,15 @@ function fish({ white }) {
     }
   }
   // pupila (um quadradinho escuro no meio do buraco)
-  const pup = white ? "#0b1220" : "#0C2A38";
+  const pup = white ? "#0b1220" : "#3a1414";
   rects += `<rect x="${eye.x - 2}" y="${eye.y - 2}" width="4" height="4" rx="1" fill="${pup}"/>`;
   return rects;
 }
 
 function build({ white }) {
   const W = 470, H = 132;
-  const wordFill = white ? "#ffffff" : "#0C2A38";
-  const labelFill = white ? "#ffffff" : "#1466B8";
+  const wordFill = white ? "#ffffff" : "#17181d";
+  const labelFill = white ? "#ffffff" : "#D62828";
   const labelOp = white ? "0.85" : "1";
   const tx = 128;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" fill="none" role="img" aria-label="Pacu News — Portal de Notícias">

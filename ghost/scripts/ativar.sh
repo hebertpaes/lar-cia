@@ -21,8 +21,8 @@ cd "$(cd "$(dirname "$0")/../.." && pwd)"
 PORTAL="${1:-}"
 case "$PORTAL" in
   hojemt)        DOM="hojemt.com.br";        NOME="Hoje MT";        COR="#0B857E" ;;
-  odiapolitico)  DOM="odiapolitico.com.br";  NOME="O Dia Político"; COR="#C20017" ;;
-  pacunews)      DOM="pacunews.com.br";      NOME="Pacu News";      COR="#1466B8" ;;
+  odiapolitico)  DOM="odiapolitico.com.br";  NOME="O Dia Político"; COR="#111111" ;;
+  pacunews)      DOM="pacunews.com.br";      NOME="Pacu News";      COR="#D62828" ;;
   *) echo "Uso: bash ghost/scripts/ativar.sh <hojemt|odiapolitico|pacunews> [--dry-run] [--completo]"; exit 1 ;;
 esac
 shift

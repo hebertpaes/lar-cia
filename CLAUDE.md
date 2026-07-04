@@ -5,8 +5,8 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
 | **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
-| **O Dia Político** | odiapolitico.com.br | só **Política** | `#C20017` |
-| **Pacu News** | pacunews.com.br | todas | `#1466B8` |
+| **O Dia Político** | odiapolitico.com.br | só **Política** | `#111111` (preto/branco) |
+| **Pacu News** | pacunews.com.br | todas | `#D62828` (vermelho) |
 
 Logo da marca: `ghost/brand/hojemt-logo.svg` (cor) e `hojemt-logo-branco.svg`
 (fundo escuro), gerados por `ghost/brand/gen-logo.mjs`. O logo do site é definido
