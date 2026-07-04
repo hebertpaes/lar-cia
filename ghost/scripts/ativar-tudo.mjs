@@ -76,6 +76,13 @@ const NAV = [
   { label: "Cidades", url: "/tag/cidades/" }, { label: "Polícia", url: "/tag/policia/" },
   { label: "Variedades", url: "/tag/cultura/" },
 ];
+// O Dia Político só recebe matérias de Política (ver publish.mjs). Um menu de
+// editorias cheio deixaria Brasil/Economia/Mundo/Esporte/etc. VAZIOS nesse
+// portal — o mesmo bug de "menu não funciona". Então ele usa um menu enxuto.
+const NAV_POLITICA = [
+  { label: "Início", url: "/" }, { label: "Política", url: "/tag/politica/" },
+];
+const MENU = /odiapolitico/i.test(URL_) ? NAV_POLITICA : NAV;
 const NAV2 = [
   { label: "SECOM-MT", url: "https://www.secom.mt.gov.br" }, { label: "ALMT", url: "https://www.al.mt.gov.br" },
   { label: "Agência Brasil", url: "https://agenciabrasil.ebc.com.br" },
@@ -146,7 +153,7 @@ async function main() {
   const settings = [];
   if (!has("--no-portal")) settings.push({ key: "members_signup_access", value: "all" }, { key: "portal_button", value: false }, { key: "portal_name", value: true });
   if (!has("--no-comments")) settings.push({ key: "comments_enabled", value: "all" });
-  if (!has("--no-nav")) settings.push({ key: "navigation", value: JSON.stringify(NAV) }, { key: "secondary_navigation", value: JSON.stringify(NAV2) });
+  if (!has("--no-nav")) settings.push({ key: "navigation", value: JSON.stringify(MENU) }, { key: "secondary_navigation", value: JSON.stringify(NAV2) });
   if (settings.length) {
     console.log("• Configurações:", settings.map((s) => s.key).join(", "));
     if (!dry) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings }) }); console.log("  ✓ salvo (Membros/Portal, comentários e menu)"); }
