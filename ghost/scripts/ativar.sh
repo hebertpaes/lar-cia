@@ -3,6 +3,11 @@
 # Admin API Key (você cola SÓ ela, sem editar linha comprida) e roda o
 # ativar-tudo.mjs. Roda na SUA máquina — a chave nunca sai daqui.
 #
+# IMPORTANTE: muitos Ghost NÃO deixam a Admin API Key (integração) editar as
+# CONFIGURAÇÕES do site (menu, Membros, comentários, logo) — retornam 403. Nesses
+# casos o script cria só o que a API permite (as PÁGINAS do rodapé) e lista, no
+# fim, o que você conclui à mão no painel. Isso é normal, não é erro do script.
+#
 # Uso:
 #   bash ghost/scripts/ativar.sh hojemt              # liga Membros/Portal, menu,
 #                                                    # comentários e cria as

@@ -136,6 +136,9 @@ async function main() {
     }
   }
 
+  // Junta o que a API recusar (403/401) pra listar no fim o que fazer à mão.
+  const pendencias = [];
+
   if (LOGO_FILE) {
     // Não-fatal: se a API recusar o upload (ex.: 403 do token), avisa e segue —
     // o menu/Membros ainda são configurados; o logo se define à mão no painel.
@@ -154,6 +157,7 @@ async function main() {
     } catch (e) {
       console.log(`  ⚠️ Logo não enviado (${String(e.message).slice(0, 90)})`);
       console.log("     Sem problema: defina o logo à mão em Design → Brand → Logo. Seguindo…");
+      pendencias.push("Logo: Design → Brand → Logo (suba o SVG)");
     }
   }
 
@@ -170,6 +174,9 @@ async function main() {
       } catch (e) {
         console.log(`  ⚠️ Não gravei as configurações via API (${String(e.message).slice(0, 90)})`);
         console.log("     Faça à mão: Settings → Navigation (menu) e Settings → Membership (Portal/assinaturas).");
+        if (!has("--no-nav")) pendencias.push("Menu: Settings → Navigation (as URLs certas estão no README/CLAUDE.md)");
+        if (!has("--no-portal")) pendencias.push("Assinaturas: Settings → Membership (ligar acesso de inscrição)");
+        if (!has("--no-comments")) pendencias.push("Comentários: Settings → Comments → All members");
       }
     }
   }
@@ -190,6 +197,17 @@ async function main() {
     }
   }
 
-  console.log(`\n${dry ? "(dry-run — nada foi alterado)" : "Pronto! Recarregue o site."}`);
+  if (dry) { console.log("\n(dry-run — nada foi alterado)"); return; }
+  if (!pendencias.length) {
+    console.log("\n✅ Pronto! Tudo configurado via API. Recarregue o site.");
+  } else {
+    // Este Ghost bloqueia chave de integração de editar CONFIGURAÇÕES do site
+    // (403). O que dá pra automatizar (páginas) foi feito; o resto é no painel:
+    console.log("\n✅ Feito o que a API permite (páginas do rodapé criadas).");
+    console.log("👉 O Ghost não deixa a Admin API Key mexer nas CONFIGURAÇÕES do site, então");
+    console.log("   finalize estes itens à mão no painel (uma vez só):");
+    for (const p of pendencias) console.log("   • " + p);
+    console.log("   Depois recarregue o site (Cmd/Ctrl+Shift+R).");
+  }
 }
 main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });
