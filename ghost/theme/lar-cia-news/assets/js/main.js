@@ -23,15 +23,9 @@
     });
   })();
 
-  /* ---- Menu mobile ---- */
-  (function initNav() {
-    var burger = $("#navBurger"), nav = $("#mainNav");
-    if (!burger || !nav) return;
-    burger.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      burger.setAttribute("aria-expanded", String(open));
-    });
-  })();
+  /* ---- Menu mobile ----
+     O toggle do menu agora vive INLINE em partials/main-nav.hbs (roda mesmo se
+     este arquivo falhar). Mantido aqui só o comentário para não duplicar o bind. */
 
   /* ---- Busca (drawer) ---- */
   (function initSearch() {
