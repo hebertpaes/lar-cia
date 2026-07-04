@@ -64,11 +64,17 @@ async function currentSetting(key) {
   try { const s = await api("/settings/"); return s?.settings?.find((x) => x.key === key)?.value || ""; } catch { return ""; }
 }
 
+// IMPORTANTE: cada `url` aponta para uma TAG que existe no conteúdo (senão a
+// página abre vazia/404 e o menu "não funciona"). Os slugs reais são:
+// politica, cidades, policia, economia, agro, brasil-mundo, esportes,
+// internacional, cultura, saude, tecnologia, imoveis. Os rótulos podem ser
+// livres, mas o /tag/<slug>/ TEM de bater com um slug real.
 const NAV = [
-  { label: "Política", url: "/tag/politica/" }, { label: "Cidades", url: "/tag/cidades/" },
-  { label: "Polícia", url: "/tag/policia/" }, { label: "Economia", url: "/tag/economia/" },
-  { label: "Agro", url: "/tag/agro/" }, { label: "Brasil & Mundo", url: "/tag/brasil-mundo/" },
-  { label: "Esportes", url: "/tag/esportes/" }, { label: "Internacional", url: "/tag/internacional/" },
+  { label: "Início", url: "/" }, { label: "Política", url: "/tag/politica/" },
+  { label: "Brasil", url: "/tag/brasil-mundo/" }, { label: "Economia", url: "/tag/economia/" },
+  { label: "Mundo", url: "/tag/internacional/" }, { label: "Esporte", url: "/tag/esportes/" },
+  { label: "Cidades", url: "/tag/cidades/" }, { label: "Polícia", url: "/tag/policia/" },
+  { label: "Variedades", url: "/tag/cultura/" },
 ];
 const NAV2 = [
   { label: "SECOM-MT", url: "https://www.secom.mt.gov.br" }, { label: "ALMT", url: "https://www.al.mt.gov.br" },
