@@ -16,6 +16,9 @@ cd "$(cd "$(dirname "$0")/../.." && pwd)"
 # 1) carrega as chaves locais, se existir o arquivo (NÃO versionado)
 if [ -f ghost/automation/.env.local ]; then set -a; . ghost/automation/.env.local; set +a; fi
 
+# garante o sites.config.json (gitignored). Sem ele o publish.mjs sai com "Crie ...".
+[ -f ghost/automation/sites.config.json ] || cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
+
 # 2) navegador headless (instala uma vez)
 if ! node -e "require.resolve('playwright')" >/dev/null 2>&1; then
   echo "• Instalando o navegador headless (uma vez)…"

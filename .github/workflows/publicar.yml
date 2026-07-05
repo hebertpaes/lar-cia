@@ -73,9 +73,11 @@ jobs:
         run: |
           DRY=""
           [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
-          # coletado (RSS) + secom (editado à mão) + gerado-* (matérias de reserva
-          # escritas a partir de fato real quando a coleta vem fraca). Dedup por slug.
-          for FILE in ghost/import/coletado-hoje.json ghost/import/secom-hoje.json ghost/import/gerado-*.json; do
+          # Só o conteúdo DO DIA: o coletado (RSS, refeito a cada run) e, se existir,
+          # a reserva gerada HOJE (gerado-AAAA-MM-DD.json). Seeds antigos
+          # (secom-hoje.json, gerado de dias passados) NÃO voltam ao ar toda hora —
+          # foram publicados uma vez; o dedup por slug só evita repetir DEPOIS da 1ª.
+          for FILE in ghost/import/coletado-hoje.json "ghost/import/gerado-$(date -u +%F).json"; do
             [ -f "$FILE" ] || { echo "sem $FILE — pulando"; continue; }
             echo "== publicando $FILE $DRY =="
             node ghost/automation/publish.mjs "$FILE" $DRY
