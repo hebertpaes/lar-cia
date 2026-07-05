@@ -20,7 +20,11 @@ on:
         type: boolean
         default: true
   schedule:
-    - cron: "0 11 * * *"   # 08:00 no horário de Cuiabá (UTC-3) — ajuste se quiser
+    # De hora em hora, todos os dias. Cada run publica só o que for NOTÍCIA NOVA
+    # real (o dedup por slug ignora repetidas), então o volume acompanha a
+    # notícia — não força número. Para gastar menos minutos de Actions, dá para
+    # limitar às horas ativas, ex.: cron "0 9-23 * * *".
+    - cron: "0 * * * *"
 
 permissions:
   contents: read
