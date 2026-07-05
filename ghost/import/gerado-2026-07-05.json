@@ -2,7 +2,7 @@
   "db": [
     {
       "meta": {
-        "exported_on": 1783282771754,
+        "exported_on": 1783292839596,
         "version": "5.0.0"
       },
       "data": {
@@ -18,12 +18,34 @@
             "feature_image": null,
             "feature_image_caption": "Fonte: <a href=\"https://www.cuiaba.mt.gov.br/noticias\" target=\"_blank\" rel=\"noopener\">Prefeitura de Cuiabá</a>",
             "custom_excerpt": "A Prefeitura de Cuiabá prorrogou o mutirão fiscal e os contribuintes têm até 31 de julho para negociar débitos, pela internet ou presencialmente.",
-            "created_at": "2026-07-05T20:19:31.000Z",
-            "updated_at": "2026-07-05T20:19:31.000Z",
-            "published_at": "2026-07-05T20:19:31.000Z"
+            "created_at": "2026-07-05T23:07:19.000Z",
+            "updated_at": "2026-07-05T23:07:19.000Z",
+            "published_at": "2026-07-05T23:07:19.000Z"
+          },
+          {
+            "id": 2,
+            "title": "Custo da safra 2026/27 sobe em MT e pressiona soja, milho e algodão",
+            "slug": "custo-safra-2026-27-mt-sobe-soja-milho-algodao",
+            "type": "post",
+            "status": "published",
+            "visibility": "public",
+            "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>Fertilizantes e defensivos puxam a alta</strong></p><p>O custo de produção das principais lavouras de Mato Grosso segue em alta para a safra 2026/27, o que pressiona a rentabilidade de soja, milho e algodão, segundo levantamento do Imea (Instituto Mato-grossense de Economia Agropecuária).</p><p>Pelos números do instituto, o custo total da soja é estimado em R$ 8.037,13 por hectare, alta de 4,70%. No milho, a previsão é de R$ 7.303,96 por hectare, aumento de 8,59%.</p><p>A pressão vem principalmente da valorização de fertilizantes e defensivos agrícolas e das incertezas do cenário internacional. Mato Grosso é o maior produtor de grãos do país.</p>\"}]]}",
+            "feature_image": null,
+            "feature_image_caption": "Fonte: <a href=\"https://sistemafamato.org.br/\" target=\"_blank\" rel=\"noopener\">Imea / Sistema Famato</a>",
+            "custom_excerpt": "Custo de produção da safra 2026/27 em Mato Grosso sobe e pressiona soja, milho e algodão; alta vem de fertilizantes, defensivos e cenário externo.",
+            "created_at": "2026-07-05T23:07:19.000Z",
+            "updated_at": "2026-07-05T23:07:19.000Z",
+            "published_at": "2026-07-05T23:07:19.000Z"
           }
         ],
         "tags": [
+          {
+            "id": 99,
+            "name": "#gerado-ia",
+            "slug": "hash-gerado-ia",
+            "visibility": "internal",
+            "description": null
+          },
           {
             "id": 1,
             "name": "Cidades",
@@ -33,9 +55,9 @@
           },
           {
             "id": 2,
-            "name": "#gerado-ia",
-            "slug": "hash-gerado-ia",
-            "visibility": "internal",
+            "name": "Economia",
+            "slug": "economia",
+            "visibility": "public",
             "description": null
           }
         ],
@@ -46,8 +68,18 @@
             "sort_order": 0
           },
           {
-            "tag_id": 2,
+            "tag_id": 99,
             "post_id": 1,
+            "sort_order": 1
+          },
+          {
+            "tag_id": 2,
+            "post_id": 2,
+            "sort_order": 0
+          },
+          {
+            "tag_id": 99,
+            "post_id": 2,
             "sort_order": 1
           }
         ]
