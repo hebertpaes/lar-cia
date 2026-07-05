@@ -8,6 +8,22 @@
             <ul class="nav-list">
                 {{#foreach navigation}}
                     <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
+                {{else}}
+                    {{!-- Menu padrão EMBUTIDO: aparece automaticamente quando a
+                         Navigation do Ghost está vazia, garantindo que o menu NUNCA
+                         some. Se você preencher Settings → Navigation, o seu menu
+                         passa a valer no lugar deste. --}}
+                    {{!-- FALLBACK-NAV-START --}}
+                    <li><a href="{{@site.url}}/">Início</a></li>
+                    <li><a href="{{@site.url}}/tag/politica/">Política</a></li>
+                    <li><a href="{{@site.url}}/tag/brasil-mundo/">Brasil</a></li>
+                    <li><a href="{{@site.url}}/tag/economia/">Economia</a></li>
+                    <li><a href="{{@site.url}}/tag/internacional/">Mundo</a></li>
+                    <li><a href="{{@site.url}}/tag/esportes/">Esporte</a></li>
+                    <li><a href="{{@site.url}}/tag/cidades/">Cidades</a></li>
+                    <li><a href="{{@site.url}}/tag/policia/">Polícia</a></li>
+                    <li><a href="{{@site.url}}/tag/cultura/">Variedades</a></li>
+                    {{!-- FALLBACK-NAV-END --}}
                 {{/foreach}}
                 {{#foreach secondary_navigation}}
                     <li class="nav-sec {{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>

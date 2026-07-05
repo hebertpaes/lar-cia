@@ -82,6 +82,23 @@ if (c && c.email_contato) c.email_contato.default = email;
 fs.writeFileSync(file, JSON.stringify(j, null, 2) + "\n");
 ' "$OUT/package.json" "$SLUG" "$NOME" "$COR" "$EMAIL"
 
+# Menu padrão embutido por portal: O Dia Político só recebe Política, então o
+# fallback dele é enxuto (senão mostraria editorias vazias). Os demais mantêm o
+# menu completo definido no partial base.
+if [ "$SLUG" = "odiapolitico" ]; then
+  node -e '
+    const fs = require("fs");
+    const p = process.argv[1] + "/partials/main-nav.hbs";
+    let s = fs.readFileSync(p, "utf8");
+    const slim = "{{!-- FALLBACK-NAV-START --}}\n" +
+      "                    <li><a href=\"{{@site.url}}/\">Início</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/politica/\">Política</a></li>\n" +
+      "                    {{!-- FALLBACK-NAV-END --}}";
+    s = s.replace(/\{\{!-- FALLBACK-NAV-START --\}\}[\s\S]*?\{\{!-- FALLBACK-NAV-END --\}\}/, slim);
+    fs.writeFileSync(p, s);
+  ' "$OUT"
+fi
+
 ( cd "$DIR" && zip -rq "$SLUG.zip" "$SLUG" -x "*.DS_Store" )
 echo "OK: $DIR/$SLUG.zip  (tema=$SLUG, cor=$COR)"
 echo "Suba esse .zip em Settings → Design → Change theme → Upload, e defina o Site title e a logo no painel."
