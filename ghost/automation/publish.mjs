@@ -70,9 +70,12 @@ async function exists(site, slug, key) {
 }
 
 async function publish(site, post, key) {
+  // Ghost limita custom_excerpt a 300 caracteres → trunca com segurança (sem a
+  // IA, o resumo cru da coleta pode passar disso e derrubar o post com HTTP 422).
+  const excerpt = post.custom_excerpt ? String(post.custom_excerpt).trim().slice(0, 296) : null;
   const body = { posts: [{
     title: post.title, slug: post.slug, html: htmlOf(post),
-    custom_excerpt: post.custom_excerpt || null, feature_image: post.feature_image || null,
+    custom_excerpt: excerpt, feature_image: post.feature_image || null,
     feature_image_caption: post.feature_image_caption || null,
     status: draftMode ? "draft" : "published", published_at: draftMode ? undefined : (post.published_at || undefined),
     tags: tagsOf(post.id).filter((t) => t.visibility === "public").map((t) => ({ name: t.name })),
