@@ -66,7 +66,9 @@ jobs:
         run: |
           DRY=""
           [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
-          for FILE in ghost/import/coletado-hoje.json ghost/import/secom-hoje.json; do
+          # coletado (RSS) + secom (editado à mão) + gerado-* (matérias de reserva
+          # escritas a partir de fato real quando a coleta vem fraca). Dedup por slug.
+          for FILE in ghost/import/coletado-hoje.json ghost/import/secom-hoje.json ghost/import/gerado-*.json; do
             [ -f "$FILE" ] || { echo "sem $FILE — pulando"; continue; }
             echo "== publicando $FILE $DRY =="
             node ghost/automation/publish.mjs "$FILE" $DRY
