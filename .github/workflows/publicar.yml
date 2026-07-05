@@ -52,15 +52,18 @@ jobs:
       - name: "Coletar notícias do dia (RSS: assessorias MT + fontes federais)"
         run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 --verbose || echo "Coleta RSS encerrada (tempo/sem itens)."
 
-      - name: Editar as matérias com IA (título/subtítulo/corpo/resumo SEO)
+      # REDATOR automático: só o material COLETADO (bruto, de fontes oficiais/CC —
+      # Agência Brasil é CC-BY, gov.br é reproduzível) passa pela IA, que reescreve
+      # original no padrão do editor e mantém o crédito da fonte. As secom-hoje e
+      # gerado-*.json já vêm prontas. --max limita custo/volume por run. Sem
+      # IA_API_KEY o passo é PULADO (publica o texto como veio).
+      - name: Redator IA (reescreve o coletado — título/subtítulo/corpo/resumo SEO)
         env:
           IA_API_KEY: ${{ secrets.IA_API_KEY }}
           IA_API_URL: ${{ vars.IA_API_URL }}
           IA_MODEL: ${{ vars.IA_MODEL }}
         run: |
-          for FILE in ghost/import/secom-hoje.json ghost/import/coletado-hoje.json; do
-            [ -f "$FILE" ] && node ghost/automation/reescrever.mjs "$FILE" --verbose || true
-          done
+          [ -f ghost/import/coletado-hoje.json ] && node ghost/automation/reescrever.mjs ghost/import/coletado-hoje.json --max=10 --verbose || true
 
       - name: Publicar nos portais (roteando por editoria)
         env:
