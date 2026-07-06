@@ -10,16 +10,18 @@
   function setTheme(t) {
     document.documentElement.dataset.theme = t;
     try { localStorage.setItem("lcn_theme", t); } catch (e) {}
-    var ic = $("#themeToggle .theme-icon");
-    if (ic) ic.textContent = t === "dark" ? "☀️" : "🌙";
+    $$(".theme-icon").forEach(function (ic) { ic.textContent = t === "dark" ? "☀️" : "🌙"; });
+    $$(".nav-theme-txt").forEach(function (el) { el.textContent = t === "dark" ? "Modo claro" : "Modo escuro"; });
   }
   (function initTheme() {
     var saved = null;
     try { saved = localStorage.getItem("lcn_theme"); } catch (e) {}
     setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-    var btn = $("#themeToggle");
-    if (btn) btn.addEventListener("click", function () {
-      setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+    // Todos os botões de tema (o do cabeçalho E o de dentro do menu ☰) alternam.
+    $$(".theme-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+      });
     });
   })();
 
