@@ -88,6 +88,30 @@ async function publish(site, post, key) {
   if (!r.ok) throw new Error(`HTTP ${r.status} ${(await r.text()).slice(0, 200)}`);
 }
 
+// --- Notificação opcional pro WhatsApp (webhook GENÉRICO) -------------------
+// Depois de publicar uma matéria NOVA, faz POST do JSON (titulo,url,resumo,imagem,
+// editoria,portal) para uma URL de gatilho — que dispara a campanha no WhatsApp.
+// Serve LeTalk, WaSpeed, Zapier→qualquer um, n8n… (é só apontar a URL do gatilho da
+// plataforma que você escolher). Configure WHATSAPP_WEBHOOK_URL (e WHATSAPP_TOKEN se
+// o gatilho exigir). Sem a URL, é ignorado. NÃO-FATAL: falha aqui não derruba a
+// publicação, e só notifica o que foi publicado de novo (dedup evita repetir).
+const WA_URL = process.env.WHATSAPP_WEBHOOK_URL || process.env.LETALK_WEBHOOK_URL || "";
+const WA_TOKEN = process.env.WHATSAPP_TOKEN || process.env.LETALK_TOKEN || "";
+async function notifyWhatsApp(site, post, ed) {
+  if (!WA_URL) return;
+  const headers = { "Content-Type": "application/json" };
+  if (WA_TOKEN) headers.Authorization = "Bearer " + WA_TOKEN;
+  const r = await fetch(WA_URL, {
+    method: "POST", headers,
+    body: JSON.stringify({
+      portal: site.name, site: site.url, editoria: ed || "",
+      titulo: post.title, url: site.url.replace(/\/$/, "") + "/" + post.slug + "/",
+      resumo: post.custom_excerpt || "", imagem: post.feature_image || "",
+    }),
+  });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+}
+
 const accepts = (site, ed) => site.editorias === "*" || (Array.isArray(site.editorias) && site.editorias.includes(ed));
 
 let pub = 0, skip = 0, dup = 0, err = 0;
@@ -108,6 +132,7 @@ for (const site of cfg.sites) {
       if (await exists(site, post.slug, key)) { console.log(`  ~ já existe: ${post.slug}`); dup++; continue; }
       await publish(site, post, key);
       console.log(`  ✓ [${ed}] ${post.title}`); pub++;
+      try { await notifyWhatsApp(site, post, ed); } catch (e) { console.log(`    · WhatsApp não notificado: ${e.message}`); }
     } catch (e) { console.log(`  ✗ ${post.slug}: ${e.message}`); err++; }
   }
 }

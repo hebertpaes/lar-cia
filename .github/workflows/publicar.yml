@@ -70,6 +70,9 @@ jobs:
           HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
           ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
           PACUNEWS_ADMIN_KEY: ${{ secrets.PACUNEWS_ADMIN_KEY }}
+          # Opcional: webhook de disparo no WhatsApp (LeTalk, WaSpeed, Zapier…).
+          WHATSAPP_WEBHOOK_URL: ${{ secrets.WHATSAPP_WEBHOOK_URL }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
         run: |
           DRY=""
           [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
