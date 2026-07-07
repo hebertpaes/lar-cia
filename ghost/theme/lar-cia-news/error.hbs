@@ -2,7 +2,7 @@
 
 <div class="container error-page">
     <span class="error-code">{{statusCode}}</span>
-    <h1 class="error-title">{{message}}</h1>
+    <h1 class="error-title">{{#match statusCode "404"}}Página não encontrada{{else}}{{message}}{{/match}}</h1>
     <p>A página que você procurou não foi encontrada ou saiu do ar.</p>
     <a class="btn-subscribe" href="{{@site.url}}/">← Voltar para a capa</a>
 </div>

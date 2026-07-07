@@ -72,6 +72,15 @@
 /* Editoria política ainda sem matéria não aparece na home (evita bloco vazio) */
 .section-block:has(.section-empty) { display: none; }
 
+/* ---- Anúncio da casa em PRETO+BRANCO (nada de GIF vermelho) -------------
+   No O Dia Político o banner "Anuncie aqui" substitui o GIF colorido em TODAS
+   as zonas (inclusive o leaderboard do topo), no preto do portal e sem rótulo. */
+.ad-house .ad-house-gif { display: none; }   /* especificidade > ".ad-house img" */
+.ad-house-card { display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; min-height: 90px; padding: 14px 20px; box-sizing: border-box; background: #111111; color: #fff; }
+.ad-house-card-txt { align-items: flex-start; }
+.ad-video .ad-house-card, .ad-sidebar .ad-house-card, .ad-vertical .ad-house-card { background: #111111; }
+.ad-video .ad-house-card-txt, .ad-sidebar .ad-house-card-txt, .ad-vertical .ad-house-card-txt { align-items: center; }
+
 /* ---- Rodapé preto (Fox) ------------------------------------------------- */
 .site-footer { background: var(--fox-navy); color: #cfcfcf; border-top: 3px solid var(--urgent); }
 .site-footer h4 { color: #fff; }
