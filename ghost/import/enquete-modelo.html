@@ -1,0 +1,25 @@
+<!--
+  ENQUETE — modelo para colar num "HTML card" do Ghost (dentro do post/coluna).
+  Como funciona (honesto, sem número inventado):
+   • Sem "data-endpoint": ao votar, o voto fica salvo NO APARELHO do leitor
+     (não deixa votar de novo) e aparece "Voto registrado. Obrigado!".
+   • Com "data-endpoint" (um serviço seu que soma os votos e devolve
+     {"results":{"sim":10,"nao":4}}): mostra o resultado REAL em barras.
+  Troque o data-id em cada enquete (identificador único) e as opções.
+-->
+<div class="enquete" data-id="troque-por-um-id-unico-2026">
+  <span class="enquete-tag">Enquete</span>
+  <h3 class="enquete-q">Escreva aqui a sua pergunta?</h3>
+  <div class="enquete-form">
+    <button type="button" class="enquete-opt" data-opt="sim"><span>Sim</span></button>
+    <button type="button" class="enquete-opt" data-opt="nao"><span>Não</span></button>
+    <button type="button" class="enquete-opt" data-opt="ns"><span>Não sei opinar</span></button>
+  </div>
+  <p class="enquete-msg" hidden></p>
+</div>
+
+<!-- Para resultados reais somados no servidor, acrescente o endpoint:
+<div class="enquete" data-id="reforma-adm-2026" data-endpoint="https://SEU-SERVIDOR/enquete">
+  ...mesmas opções...
+</div>
+-->

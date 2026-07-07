@@ -1,0 +1,12 @@
+{{!-- Rodapé de Opinião/Artigo: aviso de responsabilidade + mini-bio do autor. --}}
+<p class="col-disclaimer">As opiniões expressas neste texto são de responsabilidade do autor e não refletem necessariamente a posição do {{@site.title}}.</p>
+{{#primary_author}}{{#if bio}}
+<div class="autor-box">
+    {{#if profile_image}}<img class="autor-box-foto" src="{{img_url profile_image size="s"}}" alt="{{name}}" />{{/if}}
+    <div class="autor-box-info">
+        <b class="autor-box-nome">{{name}}</b>
+        <p class="autor-box-bio">{{bio}}</p>
+        {{#if website}}<a class="autor-box-link" href="{{website}}" target="_blank" rel="noopener">{{website}}</a>{{/if}}
+    </div>
+</div>
+{{/if}}{{/primary_author}}

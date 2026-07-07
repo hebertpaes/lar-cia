@@ -5,13 +5,14 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
 | **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
-| **O Dia Político** | odiapolitico.com.br | só **Política** | pele **"Fox News"**: marinho `#0a2342` + vermelho `#c8102e` |
+| **O Dia Político** | odiapolitico.com.br | só **Política** | **layout "Fox News" em PRETO + BRANCO** (`#111111`) |
 | **Pacu News** | pacunews.com.br | todas | `#D62828` (vermelho) |
 
-> **O Dia Político** roda uma *pele Fox News* (cabeçalho azul-marinho, faixa de
-> editorias clara com aba vermelha "Início", manchetes serifadas, rodapé marinho).
-> O visual mora em `ghost/theme/overrides/odiapolitico-fox.css`, anexado ao
-> `screen.css` **só nessa variação** pelo `build-portal.sh`. A faixa de editorias e
+> **O Dia Político** usa o **layout/funções do foxnews.com** (cabeçalho cheio,
+> faixa de editorias com aba ativa "Início", manchetes serifadas, rodapé escuro),
+> mas com identidade **preto + branco** — sem azul-marinho nem vermelho. O visual
+> mora em `ghost/theme/overrides/odiapolitico-fox.css`, anexado ao `screen.css`
+> **só nessa variação** pelo `build-portal.sh` (build com cor `#111111`). A faixa e
 > as seções da home dela são políticas (Congresso, Governo, Brasil, Mundo, Colunas).
 > Semente de conteúdo real (cívico, com fonte): `ghost/import/odiapolitico-seed.json`.
 
@@ -28,7 +29,7 @@ no Ghost (Design → Brand → Logo) ou pelo `LOGO_FILE` do `ativar-tudo.mjs`.
 ```bash
 cd ghost/theme
 bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
-bash build-portal.sh odiapolitico "O Dia Político" "#c8102e"   # pele Fox News
+bash build-portal.sh odiapolitico "O Dia Político" "#111111"   # layout Fox, preto+branco
 bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 ```
 

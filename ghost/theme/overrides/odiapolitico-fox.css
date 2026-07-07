@@ -1,49 +1,50 @@
 /* ===========================================================================
-   O DIA POLÍTICO — pele "Fox News"
+   O DIA POLÍTICO — LAYOUT "Fox News" em PRETO e BRANCO
    Este arquivo é ANEXADO ao screen.css SÓ na variação odiapolitico (build-portal.sh).
    Como entra depois do tema-base, cada regra sobrepõe o padrão sem !important
-   (mesma especificidade + ordem). Referência visual: foxnews.com — cabeçalho
-   azul-marinho, faixa de editorias clara com "aba" vermelha (Início), manchetes
-   serifadas em azul-marinho, rótulos/CTA em vermelho, rodapé marinho.
-   =========================================================================== */
+   (mesma especificidade + ordem). Estrutura/funções idênticas ao foxnews.com
+   (cabeçalho cheio, faixa de editorias com "aba" ativa, manchetes serifadas,
+   rodapé escuro), mas a IDENTIDADE é PRETO + BRANCO — sem azul-marinho nem
+   vermelho. O tom de destaque (--urgent) vem preto pelo build (cor_destaque
+   #111111), então aba ativa, rótulos e CTA ficam pretos. --*/
 :root {
-  --fox-navy:   #0a2342;   /* cabeçalho / rodapé (azul-marinho Fox) */
-  --fox-navy-2: #0b1c33;   /* marinho mais escuro (barras/sombra) */
-  --fox-ink:    #10233f;   /* manchetes serifadas (quase-marinho) */
-  --fox-strip:  #e9ebf0;   /* faixa de editorias (cinza-claro) */
-  --fox-strip-line: #d3d7e0;
-  --nav-bg: var(--fox-navy);   /* newsletter/outras barras acompanham o marinho */
-  --ink: var(--fox-ink);       /* manchetes e texto forte em marinho */
+  --fox-navy:   #111111;   /* cabeçalho / rodapé (preto) */
+  --fox-navy-2: #000000;   /* preto mais fundo (barras/sombra) */
+  --fox-ink:    #111111;   /* manchetes pretas */
+  --fox-strip:  #f0f0f0;   /* faixa de editorias (cinza-claro) */
+  --fox-strip-line: #dcdcdc;
+  --nav-bg: var(--fox-navy);   /* newsletter/outras barras acompanham o preto */
+  --ink: var(--fox-ink);       /* manchetes e texto forte em preto */
 }
 [data-theme="dark"] {
   --nav-bg: var(--fox-navy-2);
   --ink: #e8eaed;              /* no escuro, texto claro (mantém legível) */
 }
 
-/* ---- Cabeçalho azul-marinho, logo branca ------------------------------- */
+/* ---- Cabeçalho preto, logo branca -------------------------------------- */
 .site-header { background: var(--fox-navy); border-bottom: 3px solid var(--urgent); }
 .brand-mark { color: #fff; font-weight: 900; letter-spacing: -.6px; }
-.header-date { color: #eaf0f8; }
-.header-place { color: #b9c6da; }
+.header-date { color: #f2f2f2; }
+.header-place { color: #bdbdbd; }
 .header-actions .icon-btn { color: #fff; }
 .header-actions .icon-btn:hover { background: rgba(255,255,255,.14); }
 .header-actions .btn-subscribe { background: var(--urgent); }
-/* Logo embutida (par claro/branca): no marinho usa SEMPRE a versão branca */
+/* Logo embutida (par claro/branca): no cabeçalho preto usa SEMPRE a branca */
 .brand-logo.logo-light { display: none; }
 .brand-logo.logo-dark  { display: inline-block; }
 .search-drawer { background: var(--fox-navy-2); border-top: 1px solid rgba(255,255,255,.12); }
-.search-form input { background: #fff; border-color: transparent; color: #10233f; }
+.search-form input { background: #fff; border-color: transparent; color: #111111; }
 
-/* ---- Faixa de editorias estilo Fox: clara, com "aba" vermelha ---------- */
+/* ---- Faixa de editorias estilo Fox: clara, com "aba" ativa preta -------- */
 .main-nav { background: var(--fox-strip); color: var(--fox-ink); border-bottom: 1px solid var(--fox-strip-line); box-shadow: inset 0 1px 0 #fff; }
 .nav-list { gap: 0; align-items: stretch; }
 .nav-list a {
   color: var(--fox-ink); border-bottom: 0; border-radius: 0;
   padding: 14px 16px; font-weight: 800; letter-spacing: .02em;
 }
-.nav-list a:hover { color: var(--urgent); background: #dfe3ec; }
+.nav-list a:hover { color: var(--urgent); background: #e4e4e4; }
 .nav-list li + li { box-shadow: inset 1px 0 0 var(--fox-strip-line); }
-/* "Início" é a aba ativa vermelha (folder tab), como o "Home" da Fox */
+/* "Início" é a aba ativa preta (folder tab), como o "Home" da Fox */
 .nav-list li.nav-home a,
 .nav-list li.active a {
   background: var(--urgent); color: #fff;
@@ -51,40 +52,40 @@
 }
 .nav-list li.nav-home a:hover,
 .nav-list li.active a:hover { background: var(--urgent); color: #fff; filter: brightness(.95); }
-/* Aba especial (ex.: AO VIVO) — pílula marinho com ponto pulsante */
+/* Aba especial (ex.: AO VIVO) — texto preto com ponto pulsante */
 .nav-list li.nav-live a { display: inline-flex; align-items: center; gap: 7px; color: var(--urgent); font-weight: 900; }
-.nav-list li.nav-live a::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--urgent); box-shadow: 0 0 0 0 rgba(200,16,46,.6); animation: pulse 1.5s infinite; }
-/* Lado direito da faixa (Entrar + redes) em tom marinho sobre a faixa clara */
+.nav-list li.nav-live a::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--urgent); box-shadow: 0 0 0 0 rgba(0,0,0,.4); animation: pulse 1.5s infinite; }
+/* Lado direito da faixa (Entrar + redes) em preto sobre a faixa clara */
 .nav-login { color: var(--fox-ink); }
 .nav-login:hover { color: var(--urgent); }
 .soc { background: var(--fox-navy); color: #fff; }
 .soc:hover { background: var(--urgent); }
 
-/* ---- Manchetes serifadas em azul-marinho, rótulos vermelhos ------------ */
+/* ---- Manchetes serifadas em preto, rótulos pretos ---------------------- */
 .hero-title, .slide-title a, .card-title, .article-title, .section-title, .rail-title, .curt-kicker { color: var(--fox-ink); }
 .hero-title a:hover, .slide-title a:hover, .card-title a:hover, .section-title a:hover { color: var(--urgent); }
 .card-kicker, .curt-kicker, .copa-live-tag { color: var(--urgent); }
 .section-title { border-left-color: var(--urgent); }
 .rail-title { border-bottom-color: var(--urgent); }
-/* Manchete principal do slider: rótulo vermelho preenchido (WATCH NOW/URGENTE) */
+/* Manchete principal do slider: rótulo preto preenchido (WATCH NOW/URGENTE) */
 .slide-caption .card-kicker.big { background: var(--urgent); color: #fff; }
 /* Editoria política ainda sem matéria não aparece na home (evita bloco vazio) */
 .section-block:has(.section-empty) { display: none; }
 
-/* ---- Rodapé azul-marinho (Fox) ----------------------------------------- */
-.site-footer { background: var(--fox-navy); color: #cdd9ea; border-top: 3px solid var(--urgent); }
+/* ---- Rodapé preto (Fox) ------------------------------------------------- */
+.site-footer { background: var(--fox-navy); color: #cfcfcf; border-top: 3px solid var(--urgent); }
 .site-footer h4 { color: #fff; }
-.site-footer a { color: #cdd9ea; }
+.site-footer a { color: #cfcfcf; }
 .site-footer a:hover { color: #fff; }
 .footer-brand .brand-mark { color: #fff; }
-.footer-place, .footer-bottom { color: #9fb0c7; }
+.footer-place, .footer-bottom { color: #a6a6a6; }
 .footer-bottom { border-top-color: rgba(255,255,255,.14); }
 .footer-logo.logo-light { display: none; }
 .footer-logo.logo-dark  { display: inline-block; }
 
 /* ===========================================================================
    MOBILE — igual à Fox: logo à esquerda, ações + ☰ à direita, e a faixa de
-   editorias SEMPRE visível (rolagem horizontal), com a aba vermelha "Início".
+   editorias SEMPRE visível (rolagem horizontal), com a aba ativa preta "Início".
    =========================================================================== */
 @media (max-width: 959px) {
   /* Logo à esquerda; busca/tema/assinar à direita (some o "centralizar") */

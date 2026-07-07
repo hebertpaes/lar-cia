@@ -432,4 +432,56 @@
     if (closeBtn) closeBtn.addEventListener("click", close);
     form.addEventListener("submit", function (e) { e.preventDefault(); var v = input.value.trim(); if (!v) return; input.value = ""; handle(v); });
   })();
+
+  /* ---- Enquete: voto honesto. Sem endpoint, registra o voto no aparelho
+     (localStorage) e agradece — SEM porcentagem falsa. Com data-endpoint, envia
+     o voto e mostra o resultado real devolvido {results:{opcao:contagem}}. ---- */
+  (function initEnquetes() {
+    var polls = $$(".enquete"); if (!polls.length) return;
+    polls.forEach(function (el) {
+      var q = $(".enquete-q", el);
+      var id = el.getAttribute("data-id") || (location.pathname + "|" + (q ? q.textContent : ""));
+      var key = "enquete:" + id;
+      var endpoint = el.getAttribute("data-endpoint");
+      var opts = $$(".enquete-opt", el);
+      var msg = $(".enquete-msg", el);
+      function render(tallies, mine) {
+        el.classList.add("voted");
+        var total = 0;
+        if (tallies) Object.keys(tallies).forEach(function (k) { total += (+tallies[k] || 0); });
+        opts.forEach(function (b) {
+          b.setAttribute("disabled", "");
+          var v = b.getAttribute("data-opt");
+          if (v === mine) b.classList.add("chosen");
+          if (tallies && total > 0) {
+            var pct = Math.round((+tallies[v] || 0) / total * 100);
+            var fill = document.createElement("span"); fill.className = "enquete-fill"; fill.style.width = pct + "%";
+            b.insertBefore(fill, b.firstChild);
+            var p = document.createElement("span"); p.className = "enquete-pct"; p.textContent = pct + "%";
+            b.appendChild(p);
+          }
+        });
+        if (msg) { msg.hidden = false; msg.textContent = (tallies && total > 0) ? "Obrigado! Resultado parcial acima." : "Voto registrado. Obrigado!"; }
+      }
+      function results(mine) {
+        if (!endpoint) { render(null, mine); return; }
+        fetch(endpoint + (endpoint.indexOf("?") > -1 ? "&" : "?") + "id=" + encodeURIComponent(id), { cache: "no-store" })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { render(d.results || d.tallies || null, mine); })
+          .catch(function () { render(null, mine); });
+      }
+      function vote(v) {
+        try { localStorage.setItem(key, v); } catch (e) {}
+        if (endpoint) {
+          fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, opt: v }) })
+            .then(function (r) { return r.json(); })
+            .then(function (d) { render(d.results || d.tallies || null, v); })
+            .catch(function () { render(null, v); });
+        } else { render(null, v); }
+      }
+      var mine = null; try { mine = localStorage.getItem(key); } catch (e) {}
+      if (mine) results(mine);
+      else opts.forEach(function (b) { b.addEventListener("click", function () { vote(b.getAttribute("data-opt")); }); });
+    });
+  })();
 })();
