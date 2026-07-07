@@ -22,7 +22,7 @@
             <span class="ad-tag">Publicidade</span>
         {{else}}
             <a class="ad-banner ad-house" href="{{#if @custom.banner_link}}{{@custom.banner_link}}{{else}}https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}.{{/if}}" target="_blank" rel="noopener" aria-label="Anuncie">
-                {{#if @custom.banner_casa}}<img class="ad-house-img" src="{{@custom.banner_casa}}" alt="Anuncie no {{@site.title}}" loading="lazy" />{{else}}<img class="ad-house-img" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" />{{/if}}
+                {{#if @custom.banner_casa}}<img class="ad-house-img" src="{{@custom.banner_casa}}" alt="Anuncie no {{@site.title}}" loading="lazy" />{{else}}<img class="ad-house-img ad-house-gif" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" /><span class="ad-house-card"><span class="ad-house-card-ico">📣</span><b>Anuncie aqui</b><small>Fale com a redação</small></span>{{/if}}
             </a>
             <span class="ad-tag">Publicidade</span>
         {{/if}}

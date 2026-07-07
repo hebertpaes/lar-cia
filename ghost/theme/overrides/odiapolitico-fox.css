@@ -84,25 +84,32 @@
 .footer-logo.logo-dark  { display: inline-block; }
 
 /* ===========================================================================
-   MOBILE — igual à Fox: logo à esquerda, ações + ☰ à direita, e a faixa de
-   editorias SEMPRE visível (rolagem horizontal), com a aba ativa preta "Início".
+   MOBILE — igual à Fox: logo à esquerda, ações + ☰ à direita. A faixa de
+   editorias fica SEMPRE visível (rolagem horizontal, aba ativa preta "Início")
+   e o ☰ abre o menu com Entrar/Assinar, redes e modo escuro.
    =========================================================================== */
 @media (max-width: 959px) {
-  /* Logo à esquerda; busca/tema/assinar à direita (some o "centralizar") */
+  /* Logo à esquerda; busca + ☰ à direita (some o "centralizar") */
   .header-inner .brand { margin: 0 auto 0 0; order: 1; }
   .header-inner .header-actions { order: 2; margin-left: auto; }
-  .header-inner .nav-burger { order: 3; color: #fff; }
-  /* Tema (modo escuro) volta pro cabeçalho no mobile (a faixa fica sempre aberta) */
-  .header-actions .theme-toggle { display: inline-grid; color: #fff; }
+  .header-inner .nav-burger { order: 3; color: #fff; display: inline-grid; }  /* ☰ visível */
+  /* Modo escuro vai pra DENTRO do menu ☰ (não fica no cabeçalho) */
+  .header-actions .theme-toggle { display: none; }
 
-  /* Faixa de editorias aberta e horizontal (não colapsa mais no ☰) */
-  .main-nav .nav-collapse { max-height: none; opacity: 1; overflow: visible; padding: 0; flex-direction: row; }
+  /* nav-collapse em coluna: faixa (strip) em cima, menu do ☰ embaixo */
+  .main-nav .nav-collapse { max-height: none; opacity: 1; overflow: visible; padding: 0; flex-direction: column; }
+  /* Faixa de editorias sempre aberta e horizontal */
   .main-nav .nav-list { flex-direction: row; overflow-x: auto; gap: 0; }
   .main-nav .nav-list a { padding: 13px 15px; font-size: 13px; border-left: 0; border-radius: 0; }
   .main-nav .nav-list li.nav-home a,
   .main-nav .nav-list li.active a { background: var(--urgent); color: #fff; border-left: 0; }
   .main-nav .nav-list li + li { border-top: 0; box-shadow: inset 1px 0 0 var(--fox-strip-line); }
-  /* O ☰ não precisa abrir menu (a faixa já mostra tudo): vira só decorativo/oculto */
-  .nav-burger { display: none; }
+
+  /* Menu do ☰ (Entrar/Assinar, redes, modo escuro): fechado por padrão, abre
+     quando o ☰ marca .open no #mainNav (script inline do main-nav.hbs). */
   .main-nav .nav-extra { display: none; }
+  .main-nav .nav-collapse.open .nav-extra { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #fff; border-top: 1px solid var(--fox-strip-line); }
+  .main-nav .nav-collapse.open .nav-extra .nav-auth { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .main-nav .nav-collapse.open .nav-extra .nav-login,
+  .main-nav .nav-collapse.open .nav-extra .nav-theme { color: var(--fox-ink); }
 }
