@@ -1,7 +1,7 @@
 {
   "name": "lar-cia-news",
   "description": "Portal de notícias LAR & CIA — Mato Grosso (Cuiabá, Várzea Grande e região).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
