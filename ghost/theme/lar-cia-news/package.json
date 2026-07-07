@@ -33,10 +33,14 @@
         "default": "5",
         "description": "Quantos posts no slider da home (Featured ficam fixados)."
       },
-      "mostrar_chip_demo": {
-        "type": "boolean",
-        "default": false,
-        "description": "Exibe o selo DEMO em conteúdo de demonstração (tag #demo)."
+      "banner_casa": {
+        "type": "image",
+        "description": "Banner 'Anuncie aqui' da casa (sem anúncio pago). Vazio = usa o GIF do tema."
+      },
+      "banner_link": {
+        "type": "text",
+        "default": "",
+        "description": "Para onde o banner da casa leva no clique. Vazio = abre o WhatsApp da redação."
       },
       "whatsapp_redacao": {
         "type": "text",
@@ -52,11 +56,6 @@
         "type": "boolean",
         "default": true,
         "description": "Mostrar o chat flutuante (assistente/IA) estilo WhatsApp."
-      },
-      "chat_ia_url": {
-        "type": "text",
-        "default": "",
-        "description": "Webhook do seu backend de IA (POST message/history → reply). Vazio = FAQ."
       },
       "youtube_canal_id": {
         "type": "text",

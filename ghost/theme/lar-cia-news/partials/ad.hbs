@@ -21,8 +21,8 @@
             </div>
             <span class="ad-tag">Publicidade</span>
         {{else}}
-            <a class="ad-banner ad-house" href="https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}." target="_blank" rel="noopener" aria-label="Anuncie">
-                <img class="ad-house-img" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" />
+            <a class="ad-banner ad-house" href="{{#if @custom.banner_link}}{{@custom.banner_link}}{{else}}https://wa.me/{{@custom.whatsapp_redacao}}?text=Quero%20anunciar%20no%20portal%20{{@site.title}}.{{/if}}" target="_blank" rel="noopener" aria-label="Anuncie">
+                {{#if @custom.banner_casa}}<img class="ad-house-img" src="{{@custom.banner_casa}}" alt="Anuncie no {{@site.title}}" loading="lazy" />{{else}}<img class="ad-house-img" src="{{asset "img/anuncie.gif"}}" alt="Anuncie no {{@site.title}}" loading="lazy" />{{/if}}
             </a>
             <span class="ad-tag">Publicidade</span>
         {{/if}}

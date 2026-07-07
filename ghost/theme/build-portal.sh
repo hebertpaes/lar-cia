@@ -99,6 +99,12 @@ if [ "$SLUG" = "odiapolitico" ]; then
   ' "$OUT"
 fi
 
+# Pacu News: identidade VERMELHO + BRANCO → o "quase-preto" do tema (barra do
+# menu e newsletter) vira vermelho só nesse portal.
+if [ "$SLUG" = "pacunews" ]; then
+  printf '\n/* Pacu News — identidade vermelho + branco */\n:root{ --nav-bg:#c11616; }\n[data-theme="dark"]{ --nav-bg:#8f1010; }\n' >> "$OUT/assets/css/screen.css"
+fi
+
 ( cd "$DIR" && zip -rq "$SLUG.zip" "$SLUG" -x "*.DS_Store" )
 echo "OK: $DIR/$SLUG.zip  (tema=$SLUG, cor=$COR)"
 echo "Suba esse .zip em Settings → Design → Change theme → Upload, e defina o Site title e a logo no painel."
