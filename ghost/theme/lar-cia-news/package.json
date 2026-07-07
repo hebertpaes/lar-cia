@@ -84,12 +84,12 @@
       },
       "copa_api": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4351 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4725",
-        "description": "Resultados (JSON 'events'). Várias URLs por espaço. Padrão: Brasileirão + Copa do Brasil."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=5762 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4725 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4351",
+        "description": "Resultados (JSON 'events'). Várias URLs por espaço (Mato-grossense, Copa do Brasil, Brasileirão)."
       },
       "copa_api_next": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4351 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4725",
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=5762 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4725 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4351",
         "description": "Próximos jogos (JSON 'events'). Várias URLs por espaço."
       },
       "copa_tabela": {

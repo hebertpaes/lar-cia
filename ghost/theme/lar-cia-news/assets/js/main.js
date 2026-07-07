@@ -275,7 +275,7 @@
       var next = (got.next || []).slice().sort(function (a, b) { return String(a.dateEvent || "").localeCompare(String(b.dateEvent || "")); });
       if (!past.length && !next.length && !(got.table && got.table.length)) { fallback(); return; }
       var todos = past.concat(next);
-      body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table) + bracket(todos)) || fbHtml;
+      body.innerHTML = (block('🔴 Resultados', past.slice(0, 9)) + block('📅 Próximos jogos', next.slice(0, 9)) + tabela(got.table) + bracket(todos)) || fbHtml;
     }
     function fetchEvents(url, retry) {
       return fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
