@@ -1,0 +1,231 @@
+{
+ "db": [
+  {
+   "data": {
+    "posts": [
+     {
+      "id": 1,
+      "title": "Como funciona a Assembleia Legislativa de Mato Grosso",
+      "slug": "como-funciona-assembleia-legislativa-mato-grosso",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>O Legislativo estadual tem 24 deputados e três funções centrais: legislar, fiscalizar e representar.</strong></p><p>A Assembleia Legislativa de Mato Grosso (ALMT) é a casa do Poder Legislativo estadual. É formada por 24 deputados estaduais, eleitos a cada quatro anos, responsáveis por elaborar e votar as leis do estado e por fiscalizar os atos do Governo.</p><p>O trabalho legislativo passa pelas comissões — grupos temáticos que analisam os projetos antes de irem a plenário — e pelas sessões, quando os deputados debatem e votam as propostas. A Comissão de Constituição, Justiça e Redação (CCJR) é uma das mais importantes, por avaliar a legalidade dos textos.</p><p>Além de legislar, cabe à Assembleia acompanhar a aplicação do orçamento estadual e convocar autoridades para prestar contas. As sessões são públicas e podem ser acompanhadas ao vivo pelos canais oficiais da Casa.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.al.mt.gov.br/\" target=\"_blank\" rel=\"noopener\">Assembleia Legislativa de MT</a>",
+      "custom_excerpt": "A ALMT reúne 24 deputados estaduais que elaboram leis e fiscalizam o Executivo; entenda o papel do Legislativo de Mato Grosso.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     },
+     {
+      "id": 2,
+      "title": "O que faz um deputado federal e como acompanhar as votações",
+      "slug": "o-que-faz-deputado-federal-como-acompanhar-votacoes",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>A Câmara dos Deputados tem 513 parlamentares que legislam em nome de todo o país.</strong></p><p>A Câmara dos Deputados é uma das duas casas do Congresso Nacional, ao lado do Senado. São 513 deputados federais, distribuídos entre os estados de acordo com a população, com mandato de quatro anos.</p><p>Entre as atribuições estão propor e votar leis, analisar o orçamento da União e fiscalizar o Poder Executivo. Projetos aprovados na Câmara seguem para o Senado e, depois, para sanção presidencial.</p><p>As votações e o andamento dos projetos podem ser acompanhados em tempo real no portal oficial da Câmara e pela TV Câmara, que transmite as sessões do plenário e das comissões.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.camara.leg.br/\" target=\"_blank\" rel=\"noopener\">Câmara dos Deputados</a>",
+      "custom_excerpt": "Deputados federais representam a população na Câmara, votam leis e fiscalizam o governo; veja como acompanhar as votações em tempo real.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     },
+     {
+      "id": 3,
+      "title": "Como é organizado o Governo de Mato Grosso e suas secretarias",
+      "slug": "como-organizado-governo-mato-grosso-secretarias",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>O Poder Executivo de MT executa as políticas públicas por meio de secretarias temáticas.</strong></p><p>O Poder Executivo de Mato Grosso é chefiado pelo governador, eleito para um mandato de quatro anos. Cabe ao Executivo administrar o estado e colocar em prática as políticas públicas aprovadas em lei.</p><p>Para dar conta das diferentes áreas, o governo se divide em secretarias — como Saúde, Educação, Segurança Pública, Fazenda e Infraestrutura. Cada secretaria é responsável por planejar e executar ações do seu setor.</p><p>O controle sobre o uso dos recursos é feito pela Assembleia Legislativa e pelo Tribunal de Contas do Estado. Os dados de gastos e contratos ficam disponíveis nos portais de transparência oficiais.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.mt.gov.br/\" target=\"_blank\" rel=\"noopener\">Governo de Mato Grosso</a>",
+      "custom_excerpt": "O Executivo estadual é chefiado pelo governador e dividido em secretarias que cuidam de saúde, educação, segurança e outras áreas; entenda.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     },
+     {
+      "id": 4,
+      "title": "Como funcionam os três Poderes da República no Brasil",
+      "slug": "como-funcionam-tres-poderes-republica-brasil",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>A Constituição de 1988 organiza o país em três Poderes independentes e harmônicos.</strong></p><p>A República Federativa do Brasil é organizada em três Poderes: o Executivo, que governa e administra; o Legislativo, que faz as leis e fiscaliza; e o Judiciário, que julga e garante o cumprimento da Constituição.</p><p>Os Poderes são independentes, mas se controlam mutuamente — é o chamado sistema de freios e contrapesos. Uma lei aprovada pelo Congresso, por exemplo, pode ser vetada pelo presidente ou questionada no Supremo Tribunal Federal.</p><p>Esse equilíbrio, previsto na Constituição de 1988, existe para evitar a concentração de poder e proteger os direitos dos cidadãos. Cada esfera — federal, estadual e municipal — reproduz essa mesma divisão.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.gov.br/planalto/\" target=\"_blank\" rel=\"noopener\">Presidência da República</a>",
+      "custom_excerpt": "Executivo, Legislativo e Judiciário são independentes e se controlam mutuamente; entenda o sistema de freios e contrapesos da democracia brasileira.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     },
+     {
+      "id": 5,
+      "title": "O que é a ONU e como o Brasil participa das decisões globais",
+      "slug": "o-que-e-onu-como-brasil-participa-decisoes-globais",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>Criada em 1945, a ONU é o principal fórum de cooperação entre as nações.</strong></p><p>A Organização das Nações Unidas (ONU) foi criada em 1945, após a Segunda Guerra Mundial, para promover a paz, os direitos humanos e a cooperação entre os países. Hoje reúne 193 Estados-membros.</p><p>Suas decisões passam por órgãos como a Assembleia Geral, onde cada país tem um voto, e o Conselho de Segurança, responsável por questões de paz e segurança internacional. Também mantém agências para saúde, educação e refugiados.</p><p>O Brasil é um dos membros fundadores e, por tradição, é o primeiro país a discursar na abertura da Assembleia Geral. A atuação brasileira é conduzida pelo Ministério das Relações Exteriores, o Itamaraty.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.un.org/pt/\" target=\"_blank\" rel=\"noopener\">Nações Unidas</a>",
+      "custom_excerpt": "A ONU reúne 193 países para promover paz, direitos humanos e cooperação; o Brasil é membro fundador e voz ativa nos debates internacionais.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     },
+     {
+      "id": 6,
+      "title": "Por que a transparência pública fortalece a democracia",
+      "slug": "por-que-transparencia-publica-fortalece-democracia",
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "mobiledoc": "{\"version\":\"0.3.1\",\"atoms\":[],\"markups\":[],\"sections\":[[10,0]],\"cards\":[[\"html\",{\"html\":\"<p class=\\\"post-deck\\\"><strong>Opinião — quando o cidadão enxerga como o dinheiro público é usado, a democracia ganha.</strong></p><p>Transparência não é favor: é dever do poder público e direito do cidadão. A Lei de Acesso à Informação garante a qualquer pessoa consultar como os recursos são arrecadados e gastos.</p><p>Quando os dados de contratos, salários e obras estão abertos, o controle deixa de ser exclusivo dos órgãos oficiais e passa a ser também da imprensa e da sociedade. É o chamado controle social.</p><p>Portais de transparência, audiências públicas e prestações de contas não eliminam problemas sozinhos, mas encurtam o caminho entre o desvio e a descoberta. Cobrar clareza é uma forma concreta de fortalecer a democracia.</p>\"}]]}",
+      "feature_image": null,
+      "feature_image_caption": "Fonte: <a href=\"https://www.gov.br/cgu/\" target=\"_blank\" rel=\"noopener\">Controladoria-Geral da União</a>",
+      "custom_excerpt": "Acesso a dados de gastos e contratos permite ao cidadão fiscalizar o poder público; a transparência é um pilar do controle social e da confiança.",
+      "created_at": "2026-07-07T09:00:00.000Z",
+      "updated_at": "2026-07-07T09:00:00.000Z",
+      "published_at": "2026-07-07T09:00:00.000Z"
+     }
+    ],
+    "tags": [
+     {
+      "id": 99,
+      "name": "#gerado-ia",
+      "slug": "hash-gerado-ia",
+      "visibility": "internal"
+     },
+     {
+      "id": 3,
+      "name": "Política",
+      "slug": "politica",
+      "visibility": "public"
+     },
+     {
+      "id": 10,
+      "name": "Congresso",
+      "slug": "congresso",
+      "visibility": "public"
+     },
+     {
+      "id": 11,
+      "name": "Governo",
+      "slug": "governo",
+      "visibility": "public"
+     },
+     {
+      "id": 12,
+      "name": "Brasil & Mundo",
+      "slug": "brasil-mundo",
+      "visibility": "public"
+     },
+     {
+      "id": 13,
+      "name": "Mundo",
+      "slug": "internacional",
+      "visibility": "public"
+     },
+     {
+      "id": 14,
+      "name": "Colunas",
+      "slug": "colunas",
+      "visibility": "public"
+     }
+    ],
+    "posts_tags": [
+     {
+      "tag_id": 3,
+      "post_id": 1,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 99,
+      "post_id": 1,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 3,
+      "post_id": 2,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 10,
+      "post_id": 2,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 99,
+      "post_id": 2,
+      "sort_order": 2
+     },
+     {
+      "tag_id": 3,
+      "post_id": 3,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 11,
+      "post_id": 3,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 99,
+      "post_id": 3,
+      "sort_order": 2
+     },
+     {
+      "tag_id": 3,
+      "post_id": 4,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 12,
+      "post_id": 4,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 99,
+      "post_id": 4,
+      "sort_order": 2
+     },
+     {
+      "tag_id": 3,
+      "post_id": 5,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 13,
+      "post_id": 5,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 99,
+      "post_id": 5,
+      "sort_order": 2
+     },
+     {
+      "tag_id": 3,
+      "post_id": 6,
+      "sort_order": 0
+     },
+     {
+      "tag_id": 14,
+      "post_id": 6,
+      "sort_order": 1
+     },
+     {
+      "tag_id": 99,
+      "post_id": 6,
+      "sort_order": 2
+     }
+    ]
+   }
+  }
+ ]
+}

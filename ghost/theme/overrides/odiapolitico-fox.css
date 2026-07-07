@@ -1,0 +1,107 @@
+/* ===========================================================================
+   O DIA POLÍTICO — pele "Fox News"
+   Este arquivo é ANEXADO ao screen.css SÓ na variação odiapolitico (build-portal.sh).
+   Como entra depois do tema-base, cada regra sobrepõe o padrão sem !important
+   (mesma especificidade + ordem). Referência visual: foxnews.com — cabeçalho
+   azul-marinho, faixa de editorias clara com "aba" vermelha (Início), manchetes
+   serifadas em azul-marinho, rótulos/CTA em vermelho, rodapé marinho.
+   =========================================================================== */
+:root {
+  --fox-navy:   #0a2342;   /* cabeçalho / rodapé (azul-marinho Fox) */
+  --fox-navy-2: #0b1c33;   /* marinho mais escuro (barras/sombra) */
+  --fox-ink:    #10233f;   /* manchetes serifadas (quase-marinho) */
+  --fox-strip:  #e9ebf0;   /* faixa de editorias (cinza-claro) */
+  --fox-strip-line: #d3d7e0;
+  --nav-bg: var(--fox-navy);   /* newsletter/outras barras acompanham o marinho */
+  --ink: var(--fox-ink);       /* manchetes e texto forte em marinho */
+}
+[data-theme="dark"] {
+  --nav-bg: var(--fox-navy-2);
+  --ink: #e8eaed;              /* no escuro, texto claro (mantém legível) */
+}
+
+/* ---- Cabeçalho azul-marinho, logo branca ------------------------------- */
+.site-header { background: var(--fox-navy); border-bottom: 3px solid var(--urgent); }
+.brand-mark { color: #fff; font-weight: 900; letter-spacing: -.6px; }
+.header-date { color: #eaf0f8; }
+.header-place { color: #b9c6da; }
+.header-actions .icon-btn { color: #fff; }
+.header-actions .icon-btn:hover { background: rgba(255,255,255,.14); }
+.header-actions .btn-subscribe { background: var(--urgent); }
+/* Logo embutida (par claro/branca): no marinho usa SEMPRE a versão branca */
+.brand-logo.logo-light { display: none; }
+.brand-logo.logo-dark  { display: inline-block; }
+.search-drawer { background: var(--fox-navy-2); border-top: 1px solid rgba(255,255,255,.12); }
+.search-form input { background: #fff; border-color: transparent; color: #10233f; }
+
+/* ---- Faixa de editorias estilo Fox: clara, com "aba" vermelha ---------- */
+.main-nav { background: var(--fox-strip); color: var(--fox-ink); border-bottom: 1px solid var(--fox-strip-line); box-shadow: inset 0 1px 0 #fff; }
+.nav-list { gap: 0; align-items: stretch; }
+.nav-list a {
+  color: var(--fox-ink); border-bottom: 0; border-radius: 0;
+  padding: 14px 16px; font-weight: 800; letter-spacing: .02em;
+}
+.nav-list a:hover { color: var(--urgent); background: #dfe3ec; }
+.nav-list li + li { box-shadow: inset 1px 0 0 var(--fox-strip-line); }
+/* "Início" é a aba ativa vermelha (folder tab), como o "Home" da Fox */
+.nav-list li.nav-home a,
+.nav-list li.active a {
+  background: var(--urgent); color: #fff;
+  border-bottom: 0;
+}
+.nav-list li.nav-home a:hover,
+.nav-list li.active a:hover { background: var(--urgent); color: #fff; filter: brightness(.95); }
+/* Aba especial (ex.: AO VIVO) — pílula marinho com ponto pulsante */
+.nav-list li.nav-live a { display: inline-flex; align-items: center; gap: 7px; color: var(--urgent); font-weight: 900; }
+.nav-list li.nav-live a::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--urgent); box-shadow: 0 0 0 0 rgba(200,16,46,.6); animation: pulse 1.5s infinite; }
+/* Lado direito da faixa (Entrar + redes) em tom marinho sobre a faixa clara */
+.nav-login { color: var(--fox-ink); }
+.nav-login:hover { color: var(--urgent); }
+.soc { background: var(--fox-navy); color: #fff; }
+.soc:hover { background: var(--urgent); }
+
+/* ---- Manchetes serifadas em azul-marinho, rótulos vermelhos ------------ */
+.hero-title, .slide-title a, .card-title, .article-title, .section-title, .rail-title, .curt-kicker { color: var(--fox-ink); }
+.hero-title a:hover, .slide-title a:hover, .card-title a:hover, .section-title a:hover { color: var(--urgent); }
+.card-kicker, .curt-kicker, .copa-live-tag { color: var(--urgent); }
+.section-title { border-left-color: var(--urgent); }
+.rail-title { border-bottom-color: var(--urgent); }
+/* Manchete principal do slider: rótulo vermelho preenchido (WATCH NOW/URGENTE) */
+.slide-caption .card-kicker.big { background: var(--urgent); color: #fff; }
+/* Editoria política ainda sem matéria não aparece na home (evita bloco vazio) */
+.section-block:has(.section-empty) { display: none; }
+
+/* ---- Rodapé azul-marinho (Fox) ----------------------------------------- */
+.site-footer { background: var(--fox-navy); color: #cdd9ea; border-top: 3px solid var(--urgent); }
+.site-footer h4 { color: #fff; }
+.site-footer a { color: #cdd9ea; }
+.site-footer a:hover { color: #fff; }
+.footer-brand .brand-mark { color: #fff; }
+.footer-place, .footer-bottom { color: #9fb0c7; }
+.footer-bottom { border-top-color: rgba(255,255,255,.14); }
+.footer-logo.logo-light { display: none; }
+.footer-logo.logo-dark  { display: inline-block; }
+
+/* ===========================================================================
+   MOBILE — igual à Fox: logo à esquerda, ações + ☰ à direita, e a faixa de
+   editorias SEMPRE visível (rolagem horizontal), com a aba vermelha "Início".
+   =========================================================================== */
+@media (max-width: 959px) {
+  /* Logo à esquerda; busca/tema/assinar à direita (some o "centralizar") */
+  .header-inner .brand { margin: 0 auto 0 0; order: 1; }
+  .header-inner .header-actions { order: 2; margin-left: auto; }
+  .header-inner .nav-burger { order: 3; color: #fff; }
+  /* Tema (modo escuro) volta pro cabeçalho no mobile (a faixa fica sempre aberta) */
+  .header-actions .theme-toggle { display: inline-grid; color: #fff; }
+
+  /* Faixa de editorias aberta e horizontal (não colapsa mais no ☰) */
+  .main-nav .nav-collapse { max-height: none; opacity: 1; overflow: visible; padding: 0; flex-direction: row; }
+  .main-nav .nav-list { flex-direction: row; overflow-x: auto; gap: 0; }
+  .main-nav .nav-list a { padding: 13px 15px; font-size: 13px; border-left: 0; border-radius: 0; }
+  .main-nav .nav-list li.nav-home a,
+  .main-nav .nav-list li.active a { background: var(--urgent); color: #fff; border-left: 0; }
+  .main-nav .nav-list li + li { border-top: 0; box-shadow: inset 1px 0 0 var(--fox-strip-line); }
+  /* O ☰ não precisa abrir menu (a faixa já mostra tudo): vira só decorativo/oculto */
+  .nav-burger { display: none; }
+  .main-nav .nav-extra { display: none; }
+}

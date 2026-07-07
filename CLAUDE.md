@@ -5,8 +5,15 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
 | **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
-| **O Dia Político** | odiapolitico.com.br | só **Política** | `#111111` (preto/branco) |
+| **O Dia Político** | odiapolitico.com.br | só **Política** | pele **"Fox News"**: marinho `#0a2342` + vermelho `#c8102e` |
 | **Pacu News** | pacunews.com.br | todas | `#D62828` (vermelho) |
+
+> **O Dia Político** roda uma *pele Fox News* (cabeçalho azul-marinho, faixa de
+> editorias clara com aba vermelha "Início", manchetes serifadas, rodapé marinho).
+> O visual mora em `ghost/theme/overrides/odiapolitico-fox.css`, anexado ao
+> `screen.css` **só nessa variação** pelo `build-portal.sh`. A faixa de editorias e
+> as seções da home dela são políticas (Congresso, Governo, Brasil, Mundo, Colunas).
+> Semente de conteúdo real (cívico, com fonte): `ghost/import/odiapolitico-seed.json`.
 
 Logo da marca: `ghost/brand/hojemt-logo.svg` (cor) e `hojemt-logo-branco.svg`
 (fundo escuro), gerados por `ghost/brand/gen-logo.mjs`. O logo do site é definido
@@ -21,8 +28,8 @@ no Ghost (Design → Brand → Logo) ou pelo `LOGO_FILE` do `ativar-tudo.mjs`.
 ```bash
 cd ghost/theme
 bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
-bash build-portal.sh odiapolitico "O Dia Político" "#C20017"
-bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
+bash build-portal.sh odiapolitico "O Dia Político" "#c8102e"   # pele Fox News
+bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 ```
 
 ## Regras de trabalho
