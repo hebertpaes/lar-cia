@@ -1,7 +1,8 @@
-{{!-- Bloco Copa do Mundo: play ao vivo (YouTube) + resultados + próximos jogos +
-      classificação (grupos). Tudo preenchido pelo JS via API, em português,
-      atualizando sozinho a cada 60s. Configure em Design: copa_ativa, copa_api,
-      copa_api_next, copa_tabela e youtube_live_id/youtube_canal. --}}
+{{!-- Bloco de futebol: play ao vivo (YouTube) + resultados + próximos jogos +
+      classificação. Padrão: Brasileirão + Copa do Brasil (TheSportsDB). Tudo
+      preenchido pelo JS via API, em português, atualizando sozinho a cada 60s.
+      Configure em Design: copa_ativa, copa_api, copa_api_next, copa_tabela e
+      youtube_live_id/youtube_canal. --}}
 {{#if @custom.copa_ativa}}
 <section class="copa container"
          data-api="{{@custom.copa_api}}"
@@ -10,7 +11,7 @@
          data-canal="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/{{/if}}">
     <div class="section-head">
         <div class="sh-left">
-            <h2 class="section-title">⚽ Copa do Mundo 2026</h2>
+            <h2 class="section-title">⚽ Brasileirão &amp; Copa do Brasil</h2>
             <span class="copa-live-tag"><span class="live-dot"></span> tempo real</span>
         </div>
         <a class="section-more" href="{{#if @custom.youtube_canal}}{{@custom.youtube_canal}}{{else}}https://www.youtube.com/{{/if}}" target="_blank" rel="noopener">Assista ao vivo →</a>

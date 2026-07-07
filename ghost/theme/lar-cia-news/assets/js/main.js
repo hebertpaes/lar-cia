@@ -170,10 +170,10 @@
     function local(e) { return [e.strVenue, tr(e.strCountry)].filter(Boolean).join(" · "); }
     function fase(e) {
       var r = e.strRound != null ? String(e.strRound).trim() : "";
-      var g = e.strGroup ? String(e.strGroup).trim() : "";
-      if (g) return "Grupo " + g.replace(/^group\s*/i, "");
-      if (!r || /world cup/i.test(r)) return "Copa do Mundo";
-      if (/^\d+$/.test(r)) return "Fase de grupos · Rodada " + r;
+      var lg = e.strLeague ? String(e.strLeague).trim() : "";
+      if (!r || /^0$/.test(r)) return lg;                 /* sem rodada: mostra a competição */
+      if (/^\d+$/.test(r)) return "Rodada " + r;          /* liga (Brasileirão): Rodada N */
+      var k = koRound(e); if (k) return k.l;              /* mata-mata (Copa do Brasil) em PT */
       return r;
     }
     function status(e) {
@@ -218,15 +218,15 @@
           var bd = r.strBadge ? '<img class="cbadge sm" src="' + esc(r.strBadge) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '';
           var pts = +r.intPoints || 0, pct = Math.round(pts / maxP * 100);
           var gd = parseInt(r.intGoalDifference, 10), sg = isNaN(gd) ? esc(r.intGoalDifference || 0) : ((gd > 0 ? "+" : "") + gd);
-          return '<tr class="' + (rank <= 2 ? "qz" : "") + '"><td class="r"><span class="cpos">' + rank + '</span></td>'
+          return '<tr class="' + (rank <= 4 ? "qz" : "") + '"><td class="r"><span class="cpos">' + rank + '</span></td>'
             + '<td class="t"><span class="cteam-row">' + bd + '<span class="cteam-nm">' + esc(tr(r.strTeam || r.name || "")) + '</span></span>'
             + '<span class="tbar"><i style="width:' + pct + '%"></i></span></td>'
             + '<td>' + esc(r.intPlayed || 0) + '</td><td>' + esc(r.intWin || 0) + '</td><td>' + esc(r.intDraw || 0)
             + '</td><td>' + esc(r.intLoss || 0) + '</td><td>' + sg + '</td><td class="p">' + pts + '</td></tr>';
         }).join("");
-        return '<table class="copa-table">' + cap + '<thead><tr><th>#</th><th class="t">Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>P</th></tr></thead><tbody>' + tb + '</tbody></table>';
+        return '<table class="copa-table">' + cap + '<thead><tr><th>#</th><th class="t">Time</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>P</th></tr></thead><tbody>' + tb + '</tbody></table>';
       }).join("");
-      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · grupos</h3><p class="copa-hint"><b class="qz-key"></b> zona de classificação (2 primeiros) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
+      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · Brasileirão</h3><p class="copa-hint"><b class="qz-key"></b> zona de Libertadores (G4) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
     }
 
     /* Chaveamento (mata-mata) — organiza os jogos de eliminatória em colunas
@@ -277,13 +277,32 @@
       var todos = past.concat(next);
       body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table) + bracket(todos)) || fbHtml;
     }
-    function grab(url, key, retry) {
-      if (!url) { got[key] = []; paint(); return; }
-      fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
-        .then(function (d) { got[key] = d.events || d.results || d.table || d.matches || []; paint(); })
-        .catch(function () { if (retry > 0) setTimeout(function () { grab(url, key, retry - 1); }, 4000); else { got[key] = got[key] || []; paint(); } });
+    function fetchEvents(url, retry) {
+      return fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(function (d) { return d.events || d.results || d.table || d.matches || []; })
+        .catch(function () {
+          if (retry > 0) return new Promise(function (res) { setTimeout(function () { res(fetchEvents(url, retry - 1)); }, 4000); });
+          return [];
+        });
     }
-    function loadAll() { grab(apiPast, "past", 2); grab(apiNext, "next", 2); grab(apiTab, "table", 1); }
+    /* past/next podem trazer VÁRIAS ligas (URLs separadas por espaço): junta e tira duplicados. */
+    function grabList(urlStr, key, retry) {
+      var urls = String(urlStr || "").trim().split(/\s+/).filter(Boolean);
+      if (!urls.length) { got[key] = []; paint(); return; }
+      Promise.all(urls.map(function (u) { return fetchEvents(u, retry); })).then(function (lists) {
+        var all = [], seen = {};
+        lists.forEach(function (evs) { (evs || []).forEach(function (e) {
+          var id = e.idEvent || (e.strHomeTeam + e.strAwayTeam + e.dateEvent);
+          if (seen[id]) return; seen[id] = 1; all.push(e);
+        }); });
+        got[key] = all; paint();
+      });
+    }
+    function grabTable(url, retry) {
+      if (!url) { got.table = []; paint(); return; }
+      fetchEvents(url, retry).then(function (rows) { got.table = rows || []; paint(); });
+    }
+    function loadAll() { grabList(apiPast, "past", 2); grabList(apiNext, "next", 2); grabTable(apiTab, 1); }
     loadAll();
     setInterval(loadAll, 60000);   /* atualiza sozinho a cada 60s */
   })();

@@ -1,11 +1,17 @@
-{{!-- Curtinhas: notas curtas. Usa a 2ª página das mais recentes, para NÃO
-      repetir o que está em "Mais lidas" (1ª página). --}}
+{{!-- Curtinhas: notas curtas. Para TRAVAR uma nota aqui, marque-a com a tag
+      interna #curtinha no Ghost — elas vêm primeiro; o restante completa com as
+      mais recentes (2ª página, para não repetir "Mais lidas"). Limite: 6. --}}
 <aside class="curtinhas" aria-label="Curtinhas">
     <h2 class="rail-title">Curtinhas</h2>
-    {{#get "posts" filter="tag:-hash-ad" limit="6" page="2" order="published_at desc" as |cur|}}
-        {{#if cur}}
+    {{#get "posts" filter="tag:-hash-ad" limit="1" as |any|}}
+        {{#if any}}
             <ul class="curtinhas-list">
-                {{#foreach cur}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+                {{#get "posts" filter="tag:hash-curtinha+tag:-hash-ad" limit="6" order="published_at desc" as |pin|}}
+                    {{#foreach pin}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+                {{/get}}
+                {{#get "posts" filter="tag:-hash-curtinha+tag:-hash-ad" limit="6" page="2" order="published_at desc" as |cur|}}
+                    {{#foreach cur}}<li><a href="{{url}}">{{#primary_tag}}<span class="curt-kicker">{{name}}</span>{{/primary_tag}}{{title}}</a></li>{{/foreach}}
+                {{/get}}
             </ul>
         {{else}}
             <p class="rail-empty">Em breve mais notícias.</p>

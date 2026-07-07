@@ -1,14 +1,14 @@
-{{!-- Sidebar "Mais lidas" (aproximada por mais recentes/destaque). --}}
+{{!-- "Mais lidas". Para TRAVAR uma matéria no topo, marque-a com a tag interna
+      #destaque no Ghost — elas vêm primeiro; o restante completa com as mais
+      recentes. A numeração (1..6) é contínua via CSS e o limite é 6. --}}
 <aside class="most-read" aria-label="Mais lidas">
     <h2 class="rail-title">Mais lidas</h2>
     <ol class="most-read-list">
-        {{#get "posts" filter="tag:-hash-ad" limit="6" order="published_at desc" as |top|}}
-            {{#foreach top}}
-                <li>
-                    <span class="mr-num">{{@number}}</span>
-                    <a href="{{url}}">{{title}}</a>
-                </li>
-            {{/foreach}}
+        {{#get "posts" filter="tag:hash-destaque+tag:-hash-ad" limit="6" order="published_at desc" as |pin|}}
+            {{#foreach pin}}<li><a href="{{url}}">{{title}}</a></li>{{/foreach}}
+        {{/get}}
+        {{#get "posts" filter="tag:-hash-destaque+tag:-hash-ad" limit="6" order="published_at desc" as |top|}}
+            {{#foreach top}}<li><a href="{{url}}">{{title}}</a></li>{{/foreach}}
         {{/get}}
     </ol>
 </aside>

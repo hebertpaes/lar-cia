@@ -80,22 +80,22 @@
       "copa_ativa": {
         "type": "boolean",
         "default": true,
-        "description": "Mostrar o bloco da Copa do Mundo (resultados) abaixo do player."
+        "description": "Mostrar o bloco de futebol (resultados + próximos + tabela) abaixo do player."
       },
       "copa_api": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4429",
-        "description": "API de resultados (JSON com 'events'). Padrão: TheSportsDB (Copa)."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4351 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4725",
+        "description": "Resultados (JSON 'events'). Várias URLs por espaço. Padrão: Brasileirão + Copa do Brasil."
       },
       "copa_api_next": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4429",
-        "description": "API de próximos jogos (JSON com 'events')."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4351 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4725",
+        "description": "Próximos jogos (JSON 'events'). Várias URLs por espaço."
       },
       "copa_tabela": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4429&s=2026",
-        "description": "API da tabela/grupos (opcional). Vazio = oculta a tabela."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4351&s=2026",
+        "description": "API da classificação (opcional). Padrão: tabela do Brasileirão. Vazio = oculta a tabela."
       },
       "whats_url": {
         "type": "text",
