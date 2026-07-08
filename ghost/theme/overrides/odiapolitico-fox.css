@@ -61,14 +61,26 @@
 .soc { background: var(--fox-navy); color: #fff; }
 .soc:hover { background: var(--urgent); }
 
-/* ---- Manchetes serifadas em preto, rótulos pretos ---------------------- */
-.hero-title, .slide-title a, .card-title, .article-title, .section-title, .rail-title, .curt-kicker { color: var(--fox-ink); }
+/* ---- Manchetes serifadas: pretas no claro, CLARAS no escuro (usam --ink) --- */
+.hero-title, .slide-title a, .card-title, .article-title, .section-title, .rail-title { color: var(--ink); }
 .hero-title a:hover, .slide-title a:hover, .card-title a:hover, .section-title a:hover { color: var(--urgent); }
 .card-kicker, .curt-kicker, .copa-live-tag { color: var(--urgent); }
 .section-title { border-left-color: var(--urgent); }
 .rail-title { border-bottom-color: var(--urgent); }
 /* Manchete principal do slider: rótulo preto preenchido (WATCH NOW/URGENTE) */
 .slide-caption .card-kicker.big { background: var(--urgent); color: #fff; }
+/* MODO ESCURO: o "preto" (--urgent, fixado pelo cor_destaque inline) sumiria no
+   fundo escuro. Rótulos, bordas e hover ganham tom claro. A especificidade
+   :root[data-theme="dark"] vence o :root inline do cor_destaque. */
+:root[data-theme="dark"] .card-kicker:not(.big),
+:root[data-theme="dark"] .curt-kicker,
+:root[data-theme="dark"] .copa-live-tag { color: #cdd2da; }
+:root[data-theme="dark"] .section-title { border-left-color: #3a3f4a; }
+:root[data-theme="dark"] .rail-title { border-bottom-color: #3a3f4a; }
+:root[data-theme="dark"] .hero-title a:hover,
+:root[data-theme="dark"] .slide-title a:hover,
+:root[data-theme="dark"] .card-title a:hover,
+:root[data-theme="dark"] .section-title a:hover { color: #ffffff; }
 /* Editoria política ainda sem matéria não aparece na home (evita bloco vazio) */
 .section-block:has(.section-empty) { display: none; }
 
