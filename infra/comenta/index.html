@@ -133,6 +133,28 @@
   form.lead input, form.lead select, form.lead textarea{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.95); color:#141821; font:inherit; font-size:15px }
   form.lead button{ width:100% }
 
+  /* SaaS planos */
+  .planos{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px; }
+  @media(max-width:820px){ .planos{ grid-template-columns:1fr } }
+  .plano{ background:var(--bg); border:1px solid var(--line); border-radius:18px; padding:26px 24px; position:relative; }
+  .plano.pop{ border:2px solid var(--acc); box-shadow:0 16px 44px rgba(255,91,74,.16); }
+  .tagpop{ position:absolute; top:-12px; left:24px; background:var(--acc); color:#fff; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:5px 12px; border-radius:999px; }
+  .plano h3{ font-size:19px }
+  .preco{ font-size:38px; font-weight:900; color:var(--navy); margin:8px 0 14px }
+  .preco span{ font-size:15px; font-weight:600; color:var(--soft) }
+  .plano ul{ list-style:none; margin:0 0 20px; padding:0 }
+  .plano li{ position:relative; padding:8px 0 8px 24px; font-size:14.5px; color:var(--ink); border-top:1px solid var(--line) }
+  .plano li:first-child{ border-top:0 }
+  .plano li::before{ content:"✓"; position:absolute; left:0; color:var(--acc); font-weight:900 }
+  .plano .btn{ width:100%; justify-content:center }
+  .notep{ color:var(--soft); font-size:13px; margin-top:16px; text-align:center }
+  /* cursos */
+  .curso{ background:var(--bg-soft); border:1px solid var(--line); border-radius:16px; padding:22px }
+  .cbadge{ display:inline-block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--acc); background:var(--bg); border:1px solid var(--line); padding:4px 10px; border-radius:999px; margin-bottom:10px }
+  .curso h3{ font-size:17px; margin-bottom:6px }
+  .curso p{ color:var(--soft); font-size:14px; margin:0 0 12px }
+  .curso .link{ color:var(--acc); font-weight:700; font-size:14px }
+
   footer{ background:#0a1330; color:#9fb0d6; padding:40px 0 30px; font-size:14px }
   footer .cols{ display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px }
   @media(max-width:760px){ footer .cols{ grid-template-columns:1fr } }
@@ -149,7 +171,8 @@
   <nav class="nav-links">
     <a href="#servicos">Serviços</a>
     <a href="#eleitoral">Eleitoral</a>
-    <a href="#segmentos">Para quem</a>
+    <a href="#saas">SaaS WhatsApp</a>
+    <a href="#cursos">Cursos</a>
     <a href="#produtos">Produtos</a>
     <a href="#contato">Contato</a>
   </nav>
@@ -262,6 +285,66 @@
   </div>
 </div></section>
 
+<section id="saas"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">SaaS · assine e comece hoje</span>
+    <h2>Comenta Zap — WhatsApp com IA</h2>
+    <p>A ferramenta da agência agora como serviço: CRM, atendimento com IA, disparo oficial (Cloud API) e agendamento — com opt-in e LGPD. Sem instalar nada.</p>
+  </div>
+  <div class="planos">
+    <div class="plano">
+      <h3>Essencial</h3>
+      <div class="preco">R$ 147<span>/mês</span></div>
+      <ul>
+        <li>CRM de contatos + etiquetas</li>
+        <li>Atendimento com IA (FAQ inteligente)</li>
+        <li>1 número · opt-in e opt-out automáticos</li>
+        <li>Relatórios básicos</li>
+      </ul>
+      <a class="btn btn-dark" href="#" data-plan="Essencial">Começar</a>
+    </div>
+    <div class="plano pop">
+      <span class="tagpop">Mais popular</span>
+      <h3>Profissional</h3>
+      <div class="preco">R$ 297<span>/mês</span></div>
+      <ul>
+        <li>Tudo do Essencial</li>
+        <li>Disparo oficial (Cloud API) + templates</li>
+        <li>Agendamento e campanhas em lote</li>
+        <li>IA de atendimento avançada</li>
+        <li>Integração com o seu site/portal</li>
+      </ul>
+      <a class="btn btn-acc" href="#" data-plan="Profissional">Assinar</a>
+    </div>
+    <div class="plano">
+      <h3>Agência</h3>
+      <div class="preco">R$ 697<span>/mês</span></div>
+      <ul>
+        <li>Vários números / vários clientes</li>
+        <li>Multiusuário com permissões</li>
+        <li>API e webhooks</li>
+        <li>Suporte prioritário</li>
+      </ul>
+      <a class="btn btn-dark" href="#" data-plan="Agência">Falar com vendas</a>
+    </div>
+  </div>
+  <p class="notep">Valores de exemplo — ajuste conforme a sua tabela. O uso do WhatsApp segue as políticas da Meta (opt-in obrigatório) e a LGPD.</p>
+</div></section>
+
+<section id="cursos" class="produtos"><div class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">Comenta Academy</span>
+    <h2>Cursos com a prática dos produtos da agência</h2>
+    <p>Aprenda usando as mesmas ferramentas que a Comenta usa no dia a dia — do marketing eleitoral ao WhatsApp que vende.</p>
+  </div>
+  <div class="grid cursos">
+    <div class="curso"><div class="cbadge">Eleitoral</div><h3>Marketing político dentro da lei</h3><p>Calendário do TSE, o que pode e o que não pode, e como fazer campanha sem cair em multa.</p><a class="link" href="#" data-curso="Marketing político dentro da lei">Quero me inscrever →</a></div>
+    <div class="curso"><div class="cbadge">Vendas</div><h3>WhatsApp que vende (com IA)</h3><p>Do opt-in ao disparo oficial: CRM, campanhas e atendimento com IA usando o Comenta Zap.</p><a class="link" href="#" data-curso="WhatsApp que vende (com IA)">Quero me inscrever →</a></div>
+    <div class="curso"><div class="cbadge">Mídia</div><h3>Gestão de portal de notícias</h3><p>Publicação, automação, SEO e monetização de um portal como os da rede Comenta.</p><a class="link" href="#" data-curso="Gestão de portal de notícias">Quero me inscrever →</a></div>
+    <div class="curso"><div class="cbadge">Tráfego</div><h3>Tráfego &amp; SEO local</h3><p>Apareça no Google da sua cidade e faça anúncios dentro das regras de cada plataforma.</p><a class="link" href="#" data-curso="Tráfego e SEO local">Quero me inscrever →</a></div>
+  </div>
+</div></section>
+
 <section id="contato"><div class="wrap">
   <div class="cta-final">
     <div>
@@ -317,6 +400,16 @@
     var f = e.target;
     var txt = "Olá! Sou " + (f.nome.value||"") + " (" + (f.org.value||"-") + ", perfil: " + (f.perfil.value||"-") + ").\n" + (f.msg.value||"Quero uma proposta da Comenta.");
     window.open(waLink(txt), "_blank", "noopener");
+  });
+  document.querySelectorAll('[data-plan]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault();
+      window.open(waLink("Olá! Tenho interesse no plano " + a.dataset.plan + " do Comenta Zap (WhatsApp com IA)."), "_blank", "noopener");
+    });
+  });
+  document.querySelectorAll('[data-curso]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault();
+      window.open(waLink("Olá! Quero me inscrever no curso: " + a.dataset.curso + "."), "_blank", "noopener");
+    });
   });
 </script>
 </body>
