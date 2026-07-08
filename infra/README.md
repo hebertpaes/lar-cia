@@ -2,7 +2,7 @@
 
 Sobe **Hoje MT**, **O Dia Político** e **Pacu News** numa VM com Docker.
 Pilha: **Ghost 6 ×3 + MySQL 8 + Caddy** (HTTPS automático). A Caddy também
-serve o site de comandos em `openclaw.comenta.com.br` (pasta `site/`).
+serve o site de comandos em `openclaw.ai` (pasta `site/`).
 
 > Este ambiente (sandbox) **não acessa sua VM**. Os comandos abaixo você roda
 > na VM (direto por SSH, ou pedindo ao OpenClaw no seu Mac). O CI (opcional)
@@ -21,7 +21,7 @@ Aponte cada domínio para o **IP público da VM**:
 | A | `hojemt.com.br` (e `www`) | IP da VM |
 | A | `odiapolitico.com.br` (e `www`) | IP da VM |
 | A | `pacunews.com.br` (e `www`) | IP da VM |
-| A | `openclaw.comenta.com.br` | IP da VM |
+| A | `openclaw.ai` | IP da VM |
 
 > Se usar Cloudflare (recomendado), veja `CLOUDFLARE.md`. Durante a 1ª emissão
 > do certificado, deixe o proxy do Cloudflare em **DNS only (cinza)**; depois

@@ -17,7 +17,7 @@ pacunews.com.br, www.pacunews.com.br {
 }
 
 # Site de comandos/prompts (estático), servido de ./site
-openclaw.comenta.com.br {
+openclaw.ai {
 	root * /srv/openclaw
 	file_server
 	encode zstd gzip

@@ -1,6 +1,6 @@
 # Stack dos 3 portais Ghost na VM (Azure) — sobe com um comando.
 #   Ghost 6 (×3) + MySQL 8 + Caddy (HTTPS automático via Let's Encrypt).
-# A Caddy também serve o site de comandos em openclaw.comenta.com.br.
+# A Caddy também serve o site de comandos em openclaw.ai.
 #
 # Uso:  cp .env.example .env  (edite as senhas)  &&  bash setup.sh
 services:

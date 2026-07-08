@@ -45,6 +45,8 @@
   <a href="#cdn">Cloudflare</a>
   <a href="#auto">Automação</a>
   <a href="#backup">Backup</a>
+  <a href="#azure">Azure (VM)</a>
+  <a href="#automacao-deploy">Ligar automação</a>
 </div></nav>
 
 <main class="wrap">
@@ -111,10 +113,49 @@ done
 docker compose pull && docker compose up -d</code></pre>
 </section>
 
+<section id="azure">
+  <span class="step">Azure — ciclo de vida da VM</span>
+  <h2>7. Novo deploy (VM nova) e desligar a VM atual</h2>
+  <p class="note"><b>Antes de desligar</b>, faça o backup (seção 6) e suba os 3 portais na VM nova. <b>deallocate</b> para a cobrança de compute e mantém o disco/dados; <b>delete</b> apaga tudo.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># entrar na conta certa</span>
+az login
+az account set --subscription de047b31-2275-439a-a162-5596f80161cb
+
+<span class="cmt"># --- NOVO DEPLOY: cria uma VM nova e abre as portas web ---</span>
+az group create -n lar-cia-rg -l brazilsouth
+az vm create -g lar-cia-rg -n lar-cia-vm --image Ubuntu2404 --size Standard_B2s \
+  --admin-username azureuser --generate-ssh-keys --public-ip-sku Standard
+az vm open-port -g lar-cia-rg -n lar-cia-vm --port 80,443
+az vm show -d -g lar-cia-rg -n lar-cia-vm --query publicIps -o tsv  <span class="cmt"># IP p/ o DNS</span>
+<span class="cmt"># depois: seção 2 (scp infra + bash setup.sh) na VM nova</span>
+
+<span class="cmt"># --- DESLIGAR A VM ATUAL (para a cobrança; mantém os dados) ---</span>
+az vm deallocate -g openclaw-vm_group -n openclaw-vm
+
+<span class="cmt"># (opcional) apagar de vez a VM antiga — CUIDADO, é irreversível:</span>
+<span class="cmt"># az group delete -n openclaw-vm_group --yes --no-wait</span></code></pre>
+  <p class="note"><span class="tag">Prompt p/ o OpenClaw</span></p>
+  <pre class="prompt"><button class="copy">copiar</button><code>Crie a VM nova (bloco acima), me passe o IP, e aponte os DNS. Depois suba a
+stack (seção 2) e confirme que os 3 sites abrem em https. Só então rode
+"az vm deallocate -g openclaw-vm_group -n openclaw-vm". Me mostre cada passo.</code></pre>
+</section>
+
+<section id="automacao-deploy">
+  <span class="step">Ligar a automação no novo deploy</span>
+  <h2>8. Apontar a automação para os sites novos</h2>
+  <p class="note">A automação (coleta RSS → IA → publica) já roda de hora em hora. Para ela publicar nos sites do novo deploy, cada Ghost precisa de uma <b>Custom Integration</b> e a chave vai nos <b>Secrets</b> do GitHub.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># em CADA site: /ghost → Settings → Integrations → Add custom integration</span>
+<span class="cmt"># copie a "Admin API Key" (formato id:secret) e cadastre nos Secrets do repo:</span>
+<span class="cmt">#   HOJEMT_ADMIN_KEY, ODIAPOLITICO_ADMIN_KEY, PACUNEWS_ADMIN_KEY</span>
+<span class="cmt"># (e opcional IA_API_KEY p/ o redator de IA). Depois:</span>
+gh workflow run publicar.yml -f dry_run=false</code></pre>
+  <p class="note">O jeito guiado (pergunta a chave e faz o resto) continua sendo <code>bash ghost/scripts/ativar.sh &lt;portal&gt; --completo</code>.</p>
+</section>
+
 </main>
 
 <footer>
-  Gerado para a rede de portais de MT · a página é servida pela Caddy em <b>openclaw.comenta.com.br</b> (pasta <code>infra/site</code>).
+  Gerado para a rede de portais de MT · a página é servida pela Caddy em <b>openclaw.ai</b> (pasta <code>infra/site</code>).
 </footer>
 
 <script>
