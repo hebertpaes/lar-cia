@@ -1,0 +1,72 @@
+name: Deploy para a VM (Azure)
+
+# Build dos temas + envia a pasta infra/ e os .zip para a VM por SSH e sobe a
+# stack. Requer os secrets (Settings → Secrets → Actions):
+#   VM_HOST     = IP público da VM
+#   VM_USER     = usuário SSH (ex.: azureuser)
+#   VM_SSH_KEY  = chave PRIVADA SSH (conteúdo do arquivo id_ed25519)
+# Dispare em Actions → "Deploy para a VM" → Run workflow, ou automático no push.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "ghost/theme/**"
+      - "infra/**"
+      - ".github/workflows/deploy-vm.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-vm
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Gerar os .zip dos 3 portais
+        run: |
+          cd ghost/theme
+          bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
+          bash build-portal.sh odiapolitico "O Dia Político" "#111111"
+          bash build-portal.sh pacunews     "Pacu News"      "#D62828"
+
+      - name: Enviar infra/ e temas para a VM (rsync via SSH)
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avzr --delete --exclude='.env'
+          path: infra/
+          remote_path: /opt/lar-cia/infra/
+          remote_host: ${{ secrets.VM_HOST }}
+          remote_user: ${{ secrets.VM_USER }}
+          remote_key: ${{ secrets.VM_SSH_KEY }}
+
+      - name: Copiar os .zip dos temas para a VM
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avz
+          path: ghost/theme/hojemt.zip ghost/theme/odiapolitico.zip ghost/theme/pacunews.zip
+          remote_path: /opt/lar-cia/temas/
+          remote_host: ${{ secrets.VM_HOST }}
+          remote_user: ${{ secrets.VM_USER }}
+          remote_key: ${{ secrets.VM_SSH_KEY }}
+
+      - name: Subir/atualizar a stack na VM
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cd /opt/lar-cia/infra
+            docker compose pull
+            docker compose up -d
+            docker compose ps

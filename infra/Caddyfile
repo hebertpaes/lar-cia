@@ -1,0 +1,24 @@
+# Caddy — HTTPS automático (Let's Encrypt) e roteamento por domínio.
+# Aponte os DNS (A/AAAA) dos domínios para o IP da VM ANTES de subir.
+
+hojemt.com.br, www.hojemt.com.br {
+	reverse_proxy ghost-hojemt:2368
+	encode zstd gzip
+}
+
+odiapolitico.com.br, www.odiapolitico.com.br {
+	reverse_proxy ghost-odiapolitico:2368
+	encode zstd gzip
+}
+
+pacunews.com.br, www.pacunews.com.br {
+	reverse_proxy ghost-pacunews:2368
+	encode zstd gzip
+}
+
+# Site de comandos/prompts (estático), servido de ./site
+openclaw.comenta.com.br {
+	root * /srv/openclaw
+	file_server
+	encode zstd gzip
+}
