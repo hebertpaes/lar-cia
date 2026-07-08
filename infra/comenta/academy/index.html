@@ -56,11 +56,10 @@
 
 <footer><div class="wrap">Um produto do ecossistema <a href="/">Comenta</a> · Intsoft Digital Ltda · CNPJ 50.088.310/0001-88</div></footer>
 
+<script src="../assets/wa.js"></script>
 <script>
-  var WA="5565999900005";
-  function wl(t){ return "https://wa.me/"+WA+"?text="+encodeURIComponent(t); }
   var msg="Olá! Quero acessar os cursos da Comenta Academy.";
-  ["waTop","waHero","waCta"].forEach(function(id){ var e=document.getElementById(id); if(e) e.href=wl(msg); });
+  ["waTop","waHero","waCta"].forEach(function(id){ var e=document.getElementById(id); if(e) e.href=waLink(msg); });
 </script>
 </body>
 </html>

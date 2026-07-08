@@ -405,11 +405,9 @@
   </div>
 </div></footer>
 
+<script src="assets/wa.js"></script>
 <script>
   document.getElementById('ano').textContent = new Date().getFullYear();
-  // Troque pelo número oficial da Comenta (só dígitos, com 55 e DDD).
-  var WA = "5565999900005";
-  function waLink(txt){ return "https://wa.me/" + WA + "?text=" + encodeURIComponent(txt); }
   document.getElementById('waBtn').href = waLink("Olá! Vim pelo site da Comenta e gostaria de uma proposta.");
   document.getElementById('leadForm').addEventListener('submit', function(e){
     e.preventDefault();
