@@ -10,10 +10,6 @@
             {{> byline}}
         </header>
 
-        {{#if @custom.mostrar_chip_demo}}{{#has tag="hash-demo"}}
-            <p class="demo-note">⚠️ <strong>Conteúdo de demonstração.</strong> Texto-modelo para ilustrar o layout do portal — não é uma notícia real. Substitua pelo conteúdo editorial no Ghost Admin.</p>
-        {{/has}}{{/if}}
-
         {{#if feature_image}}
             <figure class="article-hero">
                 <img src="{{img_url feature_image size="xl"}}" alt="{{title}}" />
@@ -24,6 +20,8 @@
         <div class="gh-content">
             {{content}}
         </div>
+
+        {{> leia-tambem}}
 
         <div class="article-share">
             <span>Compartilhar:</span>

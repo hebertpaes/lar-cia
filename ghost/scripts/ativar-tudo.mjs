@@ -64,12 +64,25 @@ async function currentSetting(key) {
   try { const s = await api("/settings/"); return s?.settings?.find((x) => x.key === key)?.value || ""; } catch { return ""; }
 }
 
+// IMPORTANTE: cada `url` aponta para uma TAG que existe no conteúdo (senão a
+// página abre vazia/404 e o menu "não funciona"). Os slugs reais são:
+// politica, cidades, policia, economia, agro, brasil-mundo, esportes,
+// internacional, cultura, saude, tecnologia, imoveis. Os rótulos podem ser
+// livres, mas o /tag/<slug>/ TEM de bater com um slug real.
 const NAV = [
-  { label: "Política", url: "/tag/politica/" }, { label: "Cidades", url: "/tag/cidades/" },
-  { label: "Polícia", url: "/tag/policia/" }, { label: "Economia", url: "/tag/economia/" },
-  { label: "Agro", url: "/tag/agro/" }, { label: "Brasil & Mundo", url: "/tag/brasil-mundo/" },
-  { label: "Esportes", url: "/tag/esportes/" }, { label: "Internacional", url: "/tag/internacional/" },
+  { label: "Início", url: "/" }, { label: "Política", url: "/tag/politica/" },
+  { label: "Brasil", url: "/tag/brasil-mundo/" }, { label: "Economia", url: "/tag/economia/" },
+  { label: "Mundo", url: "/tag/internacional/" }, { label: "Esporte", url: "/tag/esportes/" },
+  { label: "Cidades", url: "/tag/cidades/" }, { label: "Polícia", url: "/tag/policia/" },
+  { label: "Variedades", url: "/tag/cultura/" },
 ];
+// O Dia Político só recebe matérias de Política (ver publish.mjs). Um menu de
+// editorias cheio deixaria Brasil/Economia/Mundo/Esporte/etc. VAZIOS nesse
+// portal — o mesmo bug de "menu não funciona". Então ele usa um menu enxuto.
+const NAV_POLITICA = [
+  { label: "Início", url: "/" }, { label: "Política", url: "/tag/politica/" },
+];
+const MENU = /odiapolitico/i.test(URL_) ? NAV_POLITICA : NAV;
 const NAV2 = [
   { label: "SECOM-MT", url: "https://www.secom.mt.gov.br" }, { label: "ALMT", url: "https://www.al.mt.gov.br" },
   { label: "Agência Brasil", url: "https://agenciabrasil.ebc.com.br" },
@@ -123,30 +136,55 @@ async function main() {
     }
   }
 
+  // Junta o que a API recusar (403/401) pra listar no fim o que fazer à mão.
+  const pendencias = [];
+
   if (LOGO_FILE) {
-    if (!existsSync(LOGO_FILE)) throw new Error(`Logo não encontrado: ${LOGO_FILE}`);
-    const atual = await currentSetting("logo");
-    if (atual && !has("--logo-force")) {
-      console.log("• Logo: já existe (use --logo-force para trocar) — mantido");
-    } else if (dry) {
-      console.log("• Logo: subiria", LOGO_FILE);
-    } else {
-      console.log("• Logo: enviando", LOGO_FILE);
-      const url = await uploadImage(LOGO_FILE);
-      if (url) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings: [{ key: "logo", value: url }] }) }); console.log("  ✓ logo definido"); }
+    // Não-fatal: se a API recusar o upload (ex.: 403 do token), avisa e segue —
+    // o menu/Membros ainda são configurados; o logo se define à mão no painel.
+    try {
+      if (!existsSync(LOGO_FILE)) throw new Error(`Logo não encontrado: ${LOGO_FILE}`);
+      const atual = await currentSetting("logo");
+      if (atual && !has("--logo-force")) {
+        console.log("• Logo: já existe (use --logo-force para trocar) — mantido");
+      } else if (dry) {
+        console.log("• Logo: subiria", LOGO_FILE);
+      } else {
+        console.log("• Logo: enviando", LOGO_FILE);
+        const url = await uploadImage(LOGO_FILE);
+        if (url) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings: [{ key: "logo", value: url }] }) }); console.log("  ✓ logo definido"); }
+      }
+    } catch (e) {
+      console.log(`  ⚠️ Logo não enviado (${String(e.message).slice(0, 90)})`);
+      console.log("     Sem problema: defina o logo à mão em Design → Brand → Logo. Seguindo…");
+      pendencias.push("Logo: Design → Brand → Logo (suba o SVG)");
     }
   }
 
   const settings = [];
   if (!has("--no-portal")) settings.push({ key: "members_signup_access", value: "all" }, { key: "portal_button", value: false }, { key: "portal_name", value: true });
   if (!has("--no-comments")) settings.push({ key: "comments_enabled", value: "all" });
-  if (!has("--no-nav")) settings.push({ key: "navigation", value: JSON.stringify(NAV) }, { key: "secondary_navigation", value: JSON.stringify(NAV2) });
+  if (!has("--no-nav")) settings.push({ key: "navigation", value: JSON.stringify(MENU) }, { key: "secondary_navigation", value: JSON.stringify(NAV2) });
   if (settings.length) {
     console.log("• Configurações:", settings.map((s) => s.key).join(", "));
-    if (!dry) { await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings }) }); console.log("  ✓ salvo (Membros/Portal, comentários e menu)"); }
+    if (!dry) {
+      try {
+        await api("/settings/", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ settings }) });
+        console.log("  ✓ salvo (Membros/Portal, comentários e menu)");
+      } catch (e) {
+        console.log(`  ⚠️ Não gravei as configurações via API (${String(e.message).slice(0, 90)})`);
+        console.log("     Faça à mão: Settings → Navigation (menu) e Settings → Membership (Portal/assinaturas).");
+        if (!has("--no-nav")) pendencias.push("Menu: Settings → Navigation (as URLs certas estão no README/CLAUDE.md)");
+        if (!has("--no-portal")) pendencias.push("Assinaturas: Settings → Membership (ligar acesso de inscrição)");
+        if (!has("--no-comments")) pendencias.push("Comentários: Settings → Comments → All members");
+      }
+    }
   }
 
-  if (!has("--no-pages")) await ensurePages();
+  if (!has("--no-pages")) {
+    try { await ensurePages(); }
+    catch (e) { console.log(`  ⚠️ Páginas do rodapé não criadas (${String(e.message).slice(0, 90)}) — crie à mão se faltar.`); }
+  }
 
   if (CONTENT_JSON) {
     if (!existsSync(CONTENT_JSON)) throw new Error(`Conteúdo não encontrado: ${CONTENT_JSON}`);
@@ -159,6 +197,17 @@ async function main() {
     }
   }
 
-  console.log(`\n${dry ? "(dry-run — nada foi alterado)" : "Pronto! Recarregue o site."}`);
+  if (dry) { console.log("\n(dry-run — nada foi alterado)"); return; }
+  if (!pendencias.length) {
+    console.log("\n✅ Pronto! Tudo configurado via API. Recarregue o site.");
+  } else {
+    // Este Ghost bloqueia chave de integração de editar CONFIGURAÇÕES do site
+    // (403). O que dá pra automatizar (páginas) foi feito; o resto é no painel:
+    console.log("\n✅ Feito o que a API permite (páginas do rodapé criadas).");
+    console.log("👉 O Ghost não deixa a Admin API Key mexer nas CONFIGURAÇÕES do site, então");
+    console.log("   finalize estes itens à mão no painel (uma vez só):");
+    for (const p of pendencias) console.log("   • " + p);
+    console.log("   Depois recarregue o site (Cmd/Ctrl+Shift+R).");
+  }
 }
 main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });

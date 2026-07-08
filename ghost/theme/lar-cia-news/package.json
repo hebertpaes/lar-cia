@@ -1,7 +1,7 @@
 {
   "name": "lar-cia-news",
   "description": "Portal de notícias LAR & CIA — Mato Grosso (Cuiabá, Várzea Grande e região).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
@@ -33,10 +33,14 @@
         "default": "5",
         "description": "Quantos posts no slider da home (Featured ficam fixados)."
       },
-      "mostrar_chip_demo": {
-        "type": "boolean",
-        "default": false,
-        "description": "Exibe o selo DEMO em conteúdo de demonstração (tag #demo)."
+      "banner_casa": {
+        "type": "image",
+        "description": "Banner 'Anuncie aqui' da casa (sem anúncio pago). Vazio = usa o GIF do tema."
+      },
+      "banner_link": {
+        "type": "text",
+        "default": "",
+        "description": "Para onde o banner da casa leva no clique. Vazio = abre o WhatsApp da redação."
       },
       "whatsapp_redacao": {
         "type": "text",
@@ -52,11 +56,6 @@
         "type": "boolean",
         "default": true,
         "description": "Mostrar o chat flutuante (assistente/IA) estilo WhatsApp."
-      },
-      "chat_ia_url": {
-        "type": "text",
-        "default": "",
-        "description": "Webhook do seu backend de IA (POST message/history → reply). Vazio = FAQ."
       },
       "youtube_canal_id": {
         "type": "text",
@@ -81,22 +80,22 @@
       "copa_ativa": {
         "type": "boolean",
         "default": true,
-        "description": "Mostrar o bloco da Copa do Mundo (resultados) abaixo do player."
+        "description": "Mostrar o bloco de futebol (resultados + próximos + tabela) abaixo do player."
       },
       "copa_api": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4429",
-        "description": "API de resultados (JSON com 'events'). Padrão: TheSportsDB (Copa)."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=5762 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4725 https://www.thesportsdb.com/api/v1/json/123/eventspastleague.php?id=4351",
+        "description": "Resultados (JSON 'events'). Várias URLs por espaço (Mato-grossense, Copa do Brasil, Brasileirão)."
       },
       "copa_api_next": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=4429",
-        "description": "API de próximos jogos (JSON com 'events')."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=5762 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4725 https://www.thesportsdb.com/api/v1/json/123/eventsnextleague.php?id=4351",
+        "description": "Próximos jogos (JSON 'events'). Várias URLs por espaço."
       },
       "copa_tabela": {
         "type": "text",
-        "default": "https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4429&s=2026",
-        "description": "API da tabela/grupos (opcional). Vazio = oculta a tabela."
+        "default": "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4351&s=2026",
+        "description": "API da classificação (opcional). Padrão: tabela do Brasileirão. Vazio = oculta a tabela."
       },
       "whats_url": {
         "type": "text",

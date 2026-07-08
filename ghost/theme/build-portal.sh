@@ -82,6 +82,50 @@ if (c && c.email_contato) c.email_contato.default = email;
 fs.writeFileSync(file, JSON.stringify(j, null, 2) + "\n");
 ' "$OUT/package.json" "$SLUG" "$NOME" "$COR" "$EMAIL"
 
+# O Dia Político — pele "Fox News": faixa de editorias política (aba vermelha
+# "Início" + AO VIVO), home com editorias políticas e a folha de estilo Fox.
+if [ "$SLUG" = "odiapolitico" ]; then
+  node -e '
+    const fs = require("fs");
+    const out = process.argv[1];
+    // 1) Faixa de editorias no estilo Fox (aba vermelha "Início" + AO VIVO).
+    const nav = out + "/partials/main-nav.hbs";
+    let s = fs.readFileSync(nav, "utf8");
+    const strip = "{{!-- FALLBACK-NAV-START --}}\n" +
+      "                    <li class=\"nav-home\"><a href=\"{{@site.url}}/\">Início</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/politica/\">Política</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/congresso/\">Congresso</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/governo/\">Governo</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/brasil-mundo/\">Brasil</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/internacional/\">Mundo</a></li>\n" +
+      "                    <li><a href=\"{{@site.url}}/tag/colunas/\">Colunas</a></li>\n" +
+      "                    <li class=\"nav-live\"><a href=\"{{@site.url}}/#live\">AO VIVO</a></li>\n" +
+      "                    {{!-- FALLBACK-NAV-END --}}";
+    s = s.replace(/\{\{!-- FALLBACK-NAV-START --\}\}[\s\S]*?\{\{!-- FALLBACK-NAV-END --\}\}/, strip);
+    fs.writeFileSync(nav, s);
+    // 2) Home: troca as editorias gerais por editorias políticas.
+    const home = out + "/home.hbs";
+    let h = fs.readFileSync(home, "utf8");
+    const pol =
+      "    {{> section-block slug=\"congresso\"     titulo=\"Congresso\"            filter=\"tag:congresso+tag:-hash-ad\"}}\n" +
+      "    {{> section-block slug=\"governo\"       titulo=\"Governo\"              filter=\"tag:governo+tag:-hash-ad\"}}\n\n" +
+      "    {{> ad zone=\"inarticle\" filter=\"tag:hash-ad-inarticle\" limit=\"6\"}}\n\n" +
+      "    {{> section-block slug=\"brasil-mundo\"  titulo=\"Brasil &amp; Mundo\"    filter=\"tag:brasil-mundo+tag:-hash-ad\"}}\n" +
+      "    {{> section-block slug=\"internacional\" titulo=\"Mundo\"                filter=\"tag:internacional+tag:-hash-ad\"}}\n" +
+      "    {{> section-block slug=\"colunas\"       titulo=\"Colunas &amp; Opinião\" filter=\"tag:colunas+tag:-hash-ad\"}}\n";
+    h = h.replace(/(\{\{!-- ===== Demais editorias ===== --\}\}\n<div class="container sections">\n)[\s\S]*?(\n<\/div>)/, "$1" + pol + "$2");
+    fs.writeFileSync(home, h);
+  ' "$OUT"
+  # 3) Anexa a pele Fox ao CSS do tema (só nesta variação).
+  cat "$DIR/overrides/odiapolitico-fox.css" >> "$OUT/assets/css/screen.css"
+fi
+
+# Pacu News: identidade VERMELHO + BRANCO → o "quase-preto" do tema (barra do
+# menu e newsletter) vira vermelho só nesse portal.
+if [ "$SLUG" = "pacunews" ]; then
+  printf '\n/* Pacu News — identidade vermelho + branco */\n:root{ --nav-bg:#c11616; }\n[data-theme="dark"]{ --nav-bg:#8f1010; }\n' >> "$OUT/assets/css/screen.css"
+fi
+
 ( cd "$DIR" && zip -rq "$SLUG.zip" "$SLUG" -x "*.DS_Store" )
 echo "OK: $DIR/$SLUG.zip  (tema=$SLUG, cor=$COR)"
 echo "Suba esse .zip em Settings → Design → Change theme → Upload, e defina o Site title e a logo no painel."

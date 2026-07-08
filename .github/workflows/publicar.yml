@@ -20,7 +20,11 @@ on:
         type: boolean
         default: true
   schedule:
-    - cron: "0 11 * * *"   # 08:00 no horário de Cuiabá (UTC-3) — ajuste se quiser
+    # De hora em hora, todos os dias. Cada run publica só o que for NOTÍCIA NOVA
+    # real (o dedup por slug ignora repetidas), então o volume acompanha a
+    # notícia — não força número. Para gastar menos minutos de Actions, dá para
+    # limitar às horas ativas, ex.: cron "0 9-23 * * *".
+    - cron: "0 * * * *"
 
 permissions:
   contents: read
@@ -42,21 +46,41 @@ jobs:
       - name: Preparar config dos sites
         run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
 
-      - name: Coletar notícias do dia (RSS das assessorias)
-        run: node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json || echo "Coleta sem itens hoje."
+      # Obs.: a SECOM/estado de MT bloqueiam o IP da nuvem, então a coleta da
+      # SECOM roda LOCAL (ghost/scripts/publicar-secom.sh). Aqui pegamos as fontes
+      # com RSS que a nuvem alcança (federais: Agência Brasil/Câmara/Senado etc.).
+      - name: "Coletar notícias do dia (RSS: assessorias MT + fontes federais)"
+        run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 --verbose || echo "Coleta RSS encerrada (tempo/sem itens)."
 
-      - name: Coletar SECOM-MT (HTML de secom.mt.gov.br/noticias)
-        run: node ghost/automation/secom.mjs --out=ghost/import/secom-hoje.json --verbose || echo "SECOM sem itens hoje."
+      # REDATOR automático: só o material COLETADO (bruto, de fontes oficiais/CC —
+      # Agência Brasil é CC-BY, gov.br é reproduzível) passa pela IA, que reescreve
+      # original no padrão do editor e mantém o crédito da fonte. As secom-hoje e
+      # gerado-*.json já vêm prontas. --max limita custo/volume por run. Sem
+      # IA_API_KEY o passo é PULADO (publica o texto como veio).
+      - name: Redator IA (reescreve o coletado — título/subtítulo/corpo/resumo SEO)
+        env:
+          IA_API_KEY: ${{ secrets.IA_API_KEY }}
+          IA_API_URL: ${{ vars.IA_API_URL }}
+          IA_MODEL: ${{ vars.IA_MODEL }}
+        run: |
+          [ -f ghost/import/coletado-hoje.json ] && node ghost/automation/reescrever.mjs ghost/import/coletado-hoje.json --max=10 --verbose || true
 
       - name: Publicar nos portais (roteando por editoria)
         env:
           HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
           ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
           PACUNEWS_ADMIN_KEY: ${{ secrets.PACUNEWS_ADMIN_KEY }}
+          # Opcional: webhook de disparo no WhatsApp (LeTalk, WaSpeed, Zapier…).
+          WHATSAPP_WEBHOOK_URL: ${{ secrets.WHATSAPP_WEBHOOK_URL }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
         run: |
           DRY=""
           [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
-          for FILE in ghost/import/coletado-hoje.json ghost/import/secom-hoje.json; do
+          # Só o conteúdo DO DIA: o coletado (RSS, refeito a cada run) e, se existir,
+          # a reserva gerada HOJE (gerado-AAAA-MM-DD.json). Seeds antigos
+          # (secom-hoje.json, gerado de dias passados) NÃO voltam ao ar toda hora —
+          # foram publicados uma vez; o dedup por slug só evita repetir DEPOIS da 1ª.
+          for FILE in ghost/import/coletado-hoje.json "ghost/import/gerado-$(date -u +%F).json"; do
             [ -f "$FILE" ] || { echo "sem $FILE — pulando"; continue; }
             echo "== publicando $FILE $DRY =="
             node ghost/automation/publish.mjs "$FILE" $DRY

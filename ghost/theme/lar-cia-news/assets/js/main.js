@@ -10,28 +10,24 @@
   function setTheme(t) {
     document.documentElement.dataset.theme = t;
     try { localStorage.setItem("lcn_theme", t); } catch (e) {}
-    var ic = $("#themeToggle .theme-icon");
-    if (ic) ic.textContent = t === "dark" ? "☀️" : "🌙";
+    $$(".theme-icon").forEach(function (ic) { ic.textContent = t === "dark" ? "☀️" : "🌙"; });
+    $$(".nav-theme-txt").forEach(function (el) { el.textContent = t === "dark" ? "Modo claro" : "Modo escuro"; });
   }
   (function initTheme() {
     var saved = null;
     try { saved = localStorage.getItem("lcn_theme"); } catch (e) {}
     setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-    var btn = $("#themeToggle");
-    if (btn) btn.addEventListener("click", function () {
-      setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+    // Todos os botões de tema (o do cabeçalho E o de dentro do menu ☰) alternam.
+    $$(".theme-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+      });
     });
   })();
 
-  /* ---- Menu mobile ---- */
-  (function initNav() {
-    var burger = $("#navBurger"), nav = $("#mainNav");
-    if (!burger || !nav) return;
-    burger.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      burger.setAttribute("aria-expanded", String(open));
-    });
-  })();
+  /* ---- Menu mobile ----
+     O toggle do menu agora vive INLINE em partials/main-nav.hbs (roda mesmo se
+     este arquivo falhar). Mantido aqui só o comentário para não duplicar o bind. */
 
   /* ---- Busca (drawer) ---- */
   (function initSearch() {
@@ -174,10 +170,10 @@
     function local(e) { return [e.strVenue, tr(e.strCountry)].filter(Boolean).join(" · "); }
     function fase(e) {
       var r = e.strRound != null ? String(e.strRound).trim() : "";
-      var g = e.strGroup ? String(e.strGroup).trim() : "";
-      if (g) return "Grupo " + g.replace(/^group\s*/i, "");
-      if (!r || /world cup/i.test(r)) return "Copa do Mundo";
-      if (/^\d+$/.test(r)) return "Fase de grupos · Rodada " + r;
+      var lg = e.strLeague ? String(e.strLeague).trim() : "";
+      if (!r || /^0$/.test(r)) return lg;                 /* sem rodada: mostra a competição */
+      if (/^\d+$/.test(r)) return "Rodada " + r;          /* liga (Brasileirão): Rodada N */
+      var k = koRound(e); if (k) return k.l;              /* mata-mata (Copa do Brasil) em PT */
       return r;
     }
     function status(e) {
@@ -222,15 +218,15 @@
           var bd = r.strBadge ? '<img class="cbadge sm" src="' + esc(r.strBadge) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '';
           var pts = +r.intPoints || 0, pct = Math.round(pts / maxP * 100);
           var gd = parseInt(r.intGoalDifference, 10), sg = isNaN(gd) ? esc(r.intGoalDifference || 0) : ((gd > 0 ? "+" : "") + gd);
-          return '<tr class="' + (rank <= 2 ? "qz" : "") + '"><td class="r"><span class="cpos">' + rank + '</span></td>'
+          return '<tr class="' + (rank <= 4 ? "qz" : "") + '"><td class="r"><span class="cpos">' + rank + '</span></td>'
             + '<td class="t"><span class="cteam-row">' + bd + '<span class="cteam-nm">' + esc(tr(r.strTeam || r.name || "")) + '</span></span>'
             + '<span class="tbar"><i style="width:' + pct + '%"></i></span></td>'
             + '<td>' + esc(r.intPlayed || 0) + '</td><td>' + esc(r.intWin || 0) + '</td><td>' + esc(r.intDraw || 0)
             + '</td><td>' + esc(r.intLoss || 0) + '</td><td>' + sg + '</td><td class="p">' + pts + '</td></tr>';
         }).join("");
-        return '<table class="copa-table">' + cap + '<thead><tr><th>#</th><th class="t">Seleção</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>P</th></tr></thead><tbody>' + tb + '</tbody></table>';
+        return '<table class="copa-table">' + cap + '<thead><tr><th>#</th><th class="t">Time</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>P</th></tr></thead><tbody>' + tb + '</tbody></table>';
       }).join("");
-      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · grupos</h3><p class="copa-hint"><b class="qz-key"></b> zona de classificação (2 primeiros) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
+      return '<div class="copa-block"><h3 class="copa-block-title">📊 Classificação · Brasileirão</h3><p class="copa-hint"><b class="qz-key"></b> zona de Libertadores (G4) · a barra mostra o aproveitamento de pontos</p><div class="copa-tables">' + out + '</div></div>';
     }
 
     /* Chaveamento (mata-mata) — organiza os jogos de eliminatória em colunas
@@ -279,15 +275,34 @@
       var next = (got.next || []).slice().sort(function (a, b) { return String(a.dateEvent || "").localeCompare(String(b.dateEvent || "")); });
       if (!past.length && !next.length && !(got.table && got.table.length)) { fallback(); return; }
       var todos = past.concat(next);
-      body.innerHTML = (block('🔴 Resultados', past.slice(0, 8)) + block('📅 Próximos jogos', next.slice(0, 8)) + tabela(got.table) + bracket(todos)) || fbHtml;
+      body.innerHTML = (block('🔴 Resultados', past.slice(0, 9)) + block('📅 Próximos jogos', next.slice(0, 9)) + tabela(got.table) + bracket(todos)) || fbHtml;
     }
-    function grab(url, key, retry) {
-      if (!url) { got[key] = []; paint(); return; }
-      fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
-        .then(function (d) { got[key] = d.events || d.results || d.table || d.matches || []; paint(); })
-        .catch(function () { if (retry > 0) setTimeout(function () { grab(url, key, retry - 1); }, 4000); else { got[key] = got[key] || []; paint(); } });
+    function fetchEvents(url, retry) {
+      return fetch(url, { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(function (d) { return d.events || d.results || d.table || d.matches || []; })
+        .catch(function () {
+          if (retry > 0) return new Promise(function (res) { setTimeout(function () { res(fetchEvents(url, retry - 1)); }, 4000); });
+          return [];
+        });
     }
-    function loadAll() { grab(apiPast, "past", 2); grab(apiNext, "next", 2); grab(apiTab, "table", 1); }
+    /* past/next podem trazer VÁRIAS ligas (URLs separadas por espaço): junta e tira duplicados. */
+    function grabList(urlStr, key, retry) {
+      var urls = String(urlStr || "").trim().split(/\s+/).filter(Boolean);
+      if (!urls.length) { got[key] = []; paint(); return; }
+      Promise.all(urls.map(function (u) { return fetchEvents(u, retry); })).then(function (lists) {
+        var all = [], seen = {};
+        lists.forEach(function (evs) { (evs || []).forEach(function (e) {
+          var id = e.idEvent || (e.strHomeTeam + e.strAwayTeam + e.dateEvent);
+          if (seen[id]) return; seen[id] = 1; all.push(e);
+        }); });
+        got[key] = all; paint();
+      });
+    }
+    function grabTable(url, retry) {
+      if (!url) { got.table = []; paint(); return; }
+      fetchEvents(url, retry).then(function (rows) { got.table = rows || []; paint(); });
+    }
+    function loadAll() { grabList(apiPast, "past", 2); grabList(apiNext, "next", 2); grabTable(apiTab, 1); }
     loadAll();
     setInterval(loadAll, 60000);   /* atualiza sozinho a cada 60s */
   })();
@@ -416,5 +431,57 @@
     }
     if (closeBtn) closeBtn.addEventListener("click", close);
     form.addEventListener("submit", function (e) { e.preventDefault(); var v = input.value.trim(); if (!v) return; input.value = ""; handle(v); });
+  })();
+
+  /* ---- Enquete: voto honesto. Sem endpoint, registra o voto no aparelho
+     (localStorage) e agradece — SEM porcentagem falsa. Com data-endpoint, envia
+     o voto e mostra o resultado real devolvido {results:{opcao:contagem}}. ---- */
+  (function initEnquetes() {
+    var polls = $$(".enquete"); if (!polls.length) return;
+    polls.forEach(function (el) {
+      var q = $(".enquete-q", el);
+      var id = el.getAttribute("data-id") || (location.pathname + "|" + (q ? q.textContent : ""));
+      var key = "enquete:" + id;
+      var endpoint = el.getAttribute("data-endpoint");
+      var opts = $$(".enquete-opt", el);
+      var msg = $(".enquete-msg", el);
+      function render(tallies, mine) {
+        el.classList.add("voted");
+        var total = 0;
+        if (tallies) Object.keys(tallies).forEach(function (k) { total += (+tallies[k] || 0); });
+        opts.forEach(function (b) {
+          b.setAttribute("disabled", "");
+          var v = b.getAttribute("data-opt");
+          if (v === mine) b.classList.add("chosen");
+          if (tallies && total > 0) {
+            var pct = Math.round((+tallies[v] || 0) / total * 100);
+            var fill = document.createElement("span"); fill.className = "enquete-fill"; fill.style.width = pct + "%";
+            b.insertBefore(fill, b.firstChild);
+            var p = document.createElement("span"); p.className = "enquete-pct"; p.textContent = pct + "%";
+            b.appendChild(p);
+          }
+        });
+        if (msg) { msg.hidden = false; msg.textContent = (tallies && total > 0) ? "Obrigado! Resultado parcial acima." : "Voto registrado. Obrigado!"; }
+      }
+      function results(mine) {
+        if (!endpoint) { render(null, mine); return; }
+        fetch(endpoint + (endpoint.indexOf("?") > -1 ? "&" : "?") + "id=" + encodeURIComponent(id), { cache: "no-store" })
+          .then(function (r) { return r.json(); })
+          .then(function (d) { render(d.results || d.tallies || null, mine); })
+          .catch(function () { render(null, mine); });
+      }
+      function vote(v) {
+        try { localStorage.setItem(key, v); } catch (e) {}
+        if (endpoint) {
+          fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id, opt: v }) })
+            .then(function (r) { return r.json(); })
+            .then(function (d) { render(d.results || d.tallies || null, v); })
+            .catch(function () { render(null, v); });
+        } else { render(null, v); }
+      }
+      var mine = null; try { mine = localStorage.getItem(key); } catch (e) {}
+      if (mine) results(mine);
+      else opts.forEach(function (b) { b.addEventListener("click", function () { vote(b.getAttribute("data-opt")); }); });
+    });
   })();
 })();

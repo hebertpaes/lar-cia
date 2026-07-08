@@ -1,0 +1,66 @@
+name: Disparo WhatsApp (agendado — 6h)
+
+# Dispara um TEMPLATE aprovado (ex.: bom_dia) para os contatos com opt-in, todo
+# dia às 6h de Cuiabá, pela API OFICIAL da Meta (WhatsApp Business Cloud API).
+# Roda na nuvem — não precisa do seu Mac ligado.
+#
+# Cadastre os segredos (Settings → Secrets and variables → Actions):
+#   WA_TOKEN       = token permanente da sua WABA
+#   WA_PHONE_ID    = ID do número (phone number id)
+#   WA_TEMPLATE    = nome do template APROVADO na Meta (ex.: bom_dia)
+#   CONTACTS_JSON  = a lista de contatos opt-in, em JSON (mesmo formato do
+#                    ghost/whatsapp-crm/contacts.example.json)
+# e a Variable opcional WA_LANG (padrão pt_BR).
+#
+# Sem WA_TOKEN/CONTACTS_JSON o job NÃO dispara nada (sai limpo) — seguro por padrão.
+#
+# ⚠️ Só contatos com opt-in (a API não faz grupos). Para lista GRANDE, prefira
+#    agendar a campanha na sua plataforma (LeTalk): ela cuida de contatos, opt-out
+#    (LGPD), agendamento e entregabilidade melhor do que a CI.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Só simular (não envia)"
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 9 * * *"   # 06:00 no horário de Cuiabá (UTC-3)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: disparo-whatsapp
+  cancel-in-progress: false
+
+jobs:
+  disparar:
+    name: Disparo do dia
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Disparar (ou simular)
+        env:
+          WA_TOKEN: ${{ secrets.WA_TOKEN }}
+          WA_PHONE_ID: ${{ secrets.WA_PHONE_ID }}
+          WA_TEMPLATE: ${{ secrets.WA_TEMPLATE }}
+          WA_LANG: ${{ vars.WA_LANG }}
+          CONTACTS_JSON: ${{ secrets.CONTACTS_JSON }}
+        run: |
+          if [ -z "$WA_TOKEN" ] || [ -z "$CONTACTS_JSON" ]; then
+            echo "Sem WA_TOKEN/CONTACTS_JSON — nada configurado, não disparo (ok)."; exit 0
+          fi
+          printf '%s' "$CONTACTS_JSON" > ghost/whatsapp-crm/contacts.json
+          # No agendamento (schedule) dispara de VERDADE; no manual, simula por
+          # padrão (marque dry_run=false para enviar de verdade pelo botão).
+          DRY="--dry-run"
+          [ "${{ github.event.inputs.dry_run }}" = "false" ] && DRY=""
+          [ "${{ github.event_name }}" = "schedule" ] && DRY=""
+          echo "== disparo $DRY (evento: ${{ github.event_name }}) =="
+          node ghost/whatsapp-crm/broadcast.mjs $DRY

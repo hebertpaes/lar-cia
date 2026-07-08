@@ -1,0 +1,9 @@
+{{!-- Linha de autoria para Opinião/Artigo: foto redonda + nome + cargo/bio curto
+      + data. Usada no topo dos templates de coluna. --}}
+<div class="autor-linha">
+    {{#primary_author}}
+        {{#if profile_image}}<img class="autor-foto" src="{{img_url profile_image size="s"}}" alt="{{name}}" />{{else}}<span class="autor-foto autor-foto-vazia">{{name}}</span>{{/if}}
+        <span class="autor-meta"><b class="autor-nome">{{name}}</b>{{#if bio}}<span class="autor-cargo">{{bio}}</span>{{/if}}</span>
+    {{/primary_author}}
+    <time class="autor-data" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD/MM/YYYY · HH:mm"}}</time>
+</div>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Painel de comandos — Rede de portais MT</title>
+<style>
+  :root{ --bg:#0d1117; --panel:#161b22; --line:#242c37; --ink:#e6edf3; --soft:#9198a1; --acc:#4493f8; --ok:#3fb950; }
+  *{ box-sizing:border-box }
+  body{ margin:0; font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); }
+  header{ padding:28px 20px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#111826,#0d1117); }
+  .wrap{ max-width:900px; margin:0 auto; padding:0 20px; }
+  h1{ margin:0 0 4px; font-size:26px; }
+  header p{ margin:0; color:var(--soft); }
+  nav{ position:sticky; top:0; background:rgba(13,17,23,.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); z-index:2; }
+  nav .wrap{ display:flex; gap:6px; flex-wrap:wrap; padding:10px 20px; }
+  nav a{ color:var(--soft); text-decoration:none; font-size:13px; font-weight:600; padding:6px 10px; border-radius:6px; }
+  nav a:hover{ color:var(--ink); background:var(--panel); }
+  section{ padding:26px 0; border-bottom:1px solid var(--line); }
+  h2{ font-size:20px; margin:0 0 4px; }
+  .step{ color:var(--soft); font-size:13px; text-transform:uppercase; letter-spacing:.06em; font-weight:800; }
+  pre{ position:relative; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 44px 14px 14px; overflow:auto; margin:12px 0; }
+  code{ font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-size:13.5px; color:#d1d9e0; white-space:pre; }
+  .cmt{ color:#6a94c9; }
+  .copy{ position:absolute; top:8px; right:8px; background:#21262d; color:var(--soft); border:1px solid var(--line); border-radius:6px; font-size:11px; padding:4px 8px; cursor:pointer; }
+  .copy:hover{ color:var(--ink); }
+  .copy.ok{ color:var(--ok); border-color:var(--ok); }
+  .prompt{ background:#0f1a2b; border-left:3px solid var(--acc); }
+  .tag{ display:inline-block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--acc); }
+  .note{ color:var(--soft); font-size:14px; }
+  footer{ padding:26px 20px; color:var(--soft); font-size:13px; text-align:center; }
+  a.link{ color:var(--acc); }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>🛠️ Painel de comandos — Rede de portais MT</h1>
+  <p>Hoje MT · O Dia Político · Pacu News — infraestrutura, deploy e CDN. Copie e cole no seu Mac (via OpenClaw) ou na VM.</p>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#openclaw">OpenClaw</a>
+  <a href="#vm">VM / Ghost</a>
+  <a href="#deploy">Deploy CI</a>
+  <a href="#cdn">Cloudflare</a>
+  <a href="#auto">Automação</a>
+  <a href="#backup">Backup</a>
+  <a href="#azure">Azure (VM)</a>
+  <a href="#automacao-deploy">Ligar automação</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="openclaw">
+  <span class="step">No seu Mac</span>
+  <h2>1. OpenClaw — abrir e apontar para a VM</h2>
+  <p class="note">Rode o OpenClaw no Mac e conecte na VM por SSH. Substitua <code>IP_DA_VM</code> e <code>azureuser</code>.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># abrir sessão SSH na VM (guarde a chave em ~/.ssh)</span>
+ssh azureuser@IP_DA_VM</code></pre>
+  <p class="note"><span class="tag">Prompt p/ o OpenClaw</span> — cole como instrução:</p>
+  <pre class="prompt"><button class="copy">copiar</button><code>Conecte na VM azureuser@IP_DA_VM por SSH, entre em /opt/lar-cia/infra e
+rode "bash setup.sh". Depois me mostre a saída de "docker compose ps".</code></pre>
+</section>
+
+<section id="vm">
+  <span class="step">Na VM (uma vez)</span>
+  <h2>2. Subir os 3 portais (Ghost + MySQL + Caddy)</h2>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># enviar a pasta infra/ para a VM (do seu Mac, na raiz do repo)</span>
+scp -r infra azureuser@IP_DA_VM:/opt/lar-cia/infra
+
+<span class="cmt"># na VM: configurar segredos e subir</span>
+cd /opt/lar-cia/infra
+cp .env.example .env        <span class="cmt"># edite as senhas (nano .env)</span>
+bash setup.sh</code></pre>
+  <p class="note">A Caddy emite o HTTPS sozinha quando os DNS já apontam para o IP da VM. Depois, abra <code>https://&lt;dominio&gt;/ghost</code> em cada portal e suba o tema (.zip) em Design → Change theme.</p>
+</section>
+
+<section id="deploy">
+  <span class="step">GitHub</span>
+  <h2>3. Deploy automático (CI)</h2>
+  <p class="note">Cadastre os secrets em <b>Settings → Secrets and variables → Actions</b>: <code>VM_HOST</code>, <code>VM_USER</code>, <code>VM_SSH_KEY</code>. A cada push na <code>main</code> (ou manual) o workflow gera os .zip, envia para a VM e sobe a stack.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># gerar a chave de deploy (no Mac) e autorizar na VM</span>
+ssh-keygen -t ed25519 -f ~/.ssh/lar-cia-deploy -N ""
+ssh-copy-id -i ~/.ssh/lar-cia-deploy.pub azureuser@IP_DA_VM
+<span class="cmt"># o CONTEÚDO de ~/.ssh/lar-cia-deploy vai no secret VM_SSH_KEY</span>
+cat ~/.ssh/lar-cia-deploy</code></pre>
+</section>
+
+<section id="cdn">
+  <span class="step">Cloudflare</span>
+  <h2>4. CDN (carregamento rápido)</h2>
+  <p class="note">Adicione cada domínio no Cloudflare, troque os nameservers no registrador e ligue a nuvem laranja. Detalhes em <code>infra/CLOUDFLARE.md</code>. Ajustes: SSL <b>Full (strict)</b>, <b>Brotli</b>, <b>Auto Minify</b>, e nunca cachear <code>/ghost/*</code> nem <code>/members/*</code>.</p>
+</section>
+
+<section id="auto">
+  <span class="step">Notícias</span>
+  <h2>5. Automação (coleta + IA + publica)</h2>
+  <p class="note">Já roda de hora em hora no GitHub Actions. Disparo manual:</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># publicar agora (precisa dos secrets *_ADMIN_KEY no repositório)</span>
+gh workflow run publicar.yml -f dry_run=false</code></pre>
+</section>
+
+<section id="backup">
+  <span class="step">Operação</span>
+  <h2>6. Backup e manutenção</h2>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># backup dos bancos (na VM)</span>
+cd /opt/lar-cia/infra
+for d in hojemt odiapolitico pacunews; do
+  docker compose exec -T db mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" ghost_$d > backup_$d_$(date +%F).sql
+done
+
+<span class="cmt"># atualizar Ghost/MySQL/Caddy</span>
+docker compose pull && docker compose up -d</code></pre>
+</section>
+
+<section id="azure">
+  <span class="step">Azure — ciclo de vida da VM</span>
+  <h2>7. Novo deploy (VM nova) e desligar a VM atual</h2>
+  <p class="note"><b>Antes de desligar</b>, faça o backup (seção 6) e suba os 3 portais na VM nova. <b>deallocate</b> para a cobrança de compute e mantém o disco/dados; <b>delete</b> apaga tudo.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># entrar na conta certa</span>
+az login
+az account set --subscription de047b31-2275-439a-a162-5596f80161cb
+
+<span class="cmt"># --- NOVO DEPLOY: cria uma VM nova e abre as portas web ---</span>
+az group create -n lar-cia-rg -l brazilsouth
+az vm create -g lar-cia-rg -n lar-cia-vm --image Ubuntu2404 --size Standard_B2s \
+  --admin-username azureuser --generate-ssh-keys --public-ip-sku Standard
+az vm open-port -g lar-cia-rg -n lar-cia-vm --port 80,443
+az vm show -d -g lar-cia-rg -n lar-cia-vm --query publicIps -o tsv  <span class="cmt"># IP p/ o DNS</span>
+<span class="cmt"># depois: seção 2 (scp infra + bash setup.sh) na VM nova</span>
+
+<span class="cmt"># --- DESLIGAR A VM ATUAL (para a cobrança; mantém os dados) ---</span>
+az vm deallocate -g openclaw-vm_group -n openclaw-vm
+
+<span class="cmt"># (opcional) apagar de vez a VM antiga — CUIDADO, é irreversível:</span>
+<span class="cmt"># az group delete -n openclaw-vm_group --yes --no-wait</span></code></pre>
+  <p class="note"><span class="tag">Prompt p/ o OpenClaw</span></p>
+  <pre class="prompt"><button class="copy">copiar</button><code>Crie a VM nova (bloco acima), me passe o IP, e aponte os DNS. Depois suba a
+stack (seção 2) e confirme que os 3 sites abrem em https. Só então rode
+"az vm deallocate -g openclaw-vm_group -n openclaw-vm". Me mostre cada passo.</code></pre>
+</section>
+
+<section id="automacao-deploy">
+  <span class="step">Ligar a automação no novo deploy</span>
+  <h2>8. Apontar a automação para os sites novos</h2>
+  <p class="note">A automação (coleta RSS → IA → publica) já roda de hora em hora. Para ela publicar nos sites do novo deploy, cada Ghost precisa de uma <b>Custom Integration</b> e a chave vai nos <b>Secrets</b> do GitHub.</p>
+  <pre><button class="copy">copiar</button><code><span class="cmt"># em CADA site: /ghost → Settings → Integrations → Add custom integration</span>
+<span class="cmt"># copie a "Admin API Key" (formato id:secret) e cadastre nos Secrets do repo:</span>
+<span class="cmt">#   HOJEMT_ADMIN_KEY, ODIAPOLITICO_ADMIN_KEY, PACUNEWS_ADMIN_KEY</span>
+<span class="cmt"># (e opcional IA_API_KEY p/ o redator de IA). Depois:</span>
+gh workflow run publicar.yml -f dry_run=false</code></pre>
+  <p class="note">O jeito guiado (pergunta a chave e faz o resto) continua sendo <code>bash ghost/scripts/ativar.sh &lt;portal&gt; --completo</code>.</p>
+</section>
+
+</main>
+
+<footer>
+  Gerado para a rede de portais de MT · a página é servida pela Caddy em <b>openclaw.ai</b> (pasta <code>infra/site</code>).
+</footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click', function(){
+      var code = b.parentElement.querySelector('code');
+      var txt = code.innerText;
+      navigator.clipboard.writeText(txt).then(function(){
+        b.textContent='copiado ✓'; b.classList.add('ok');
+        setTimeout(function(){ b.textContent='copiar'; b.classList.remove('ok'); }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

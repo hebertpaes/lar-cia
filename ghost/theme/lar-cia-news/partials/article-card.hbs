@@ -6,14 +6,12 @@
         {{else}}
             <span class="card-media-fallback">{{@site.title}}</span>
         {{/if}}
-        {{#if @custom.mostrar_chip_demo}}{{#has tag="hash-demo"}}<span class="chip-demo">DEMO</span>{{/has}}{{/if}}
     </a>
     <div class="card-body">
         {{#primary_tag}}<a class="card-kicker" href="{{url}}">{{name}}</a>{{/primary_tag}}
         <h3 class="card-title"><a href="{{url}}">{{title}}</a></h3>
         <p class="card-excerpt">{{excerpt words="22"}}</p>
-        <div class="card-meta">
-            {{#if primary_author}}<span>{{primary_author.name}}</span> · {{/if}}<time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD/MM HH:mm"}}</time>
-        </div>
+        {{!-- Sem data nos cards (pedido editorial): mostra só o autor, quando houver. --}}
+        {{#if primary_author}}<div class="card-meta"><span>{{primary_author.name}}</span></div>{{/if}}
     </div>
 </article>

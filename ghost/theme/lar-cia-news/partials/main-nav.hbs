@@ -1,25 +1,60 @@
-{{!-- Menu de navegação: vem 100% do Ghost Admin (Settings → Navigation).
-      Mostra a navegação PRIMÁRIA e a SECUNDÁRIA, na ordem configurada.
-      Sem lista fixa: o que você configura no painel é o que aparece. --}}
-<nav class="main-nav" aria-label="Navegação">
+{{!-- Menu de editorias FIXO no tema — sempre aparece, INDEPENDENTE do painel.
+      (Antes vinha do Settings → Navigation via {{foreach navigation}}, mas quando
+      a navegação chegava vazia o menu sumia. Agora é cravado aqui.) Desktop: barra
+      horizontal. Mobile: dropdown moderno pelo ☰. O build-portal.sh troca esta
+      lista pela enxuta (só Início+Política) no O Dia Político. Para mudar os itens,
+      edite a lista abaixo. --}}
+<nav class="main-nav" aria-label="Editorias">
     <div class="container">
         <div class="nav-collapse" id="mainNav">
             <ul class="nav-list">
-                {{#foreach navigation}}
-                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
-                {{/foreach}}
-                {{#foreach secondary_navigation}}
-                    <li class="{{#if current}}active{{/if}}"><a href="{{url}}">{{label}}</a></li>
-                {{/foreach}}
+                {{!-- FALLBACK-NAV-START --}}
+                <li><a href="{{@site.url}}/">Início</a></li>
+                <li><a href="{{@site.url}}/tag/politica/">Política</a></li>
+                <li><a href="{{@site.url}}/tag/brasil-mundo/">Brasil</a></li>
+                <li><a href="{{@site.url}}/tag/economia/">Economia</a></li>
+                <li><a href="{{@site.url}}/tag/internacional/">Mundo</a></li>
+                <li><a href="{{@site.url}}/tag/esportes/">Esporte</a></li>
+                <li><a href="{{@site.url}}/tag/cidades/">Cidades</a></li>
+                <li><a href="{{@site.url}}/tag/policia/">Polícia</a></li>
+                <li><a href="{{@site.url}}/tag/cultura/">Variedades</a></li>
+                {{!-- FALLBACK-NAV-END --}}
             </ul>
 
             <div class="nav-extra">
                 <div class="nav-auth">
                     <a class="nav-login" href="#/portal/signin" data-portal="signin">Entrar</a>
                     <a class="btn-subscribe" href="#/portal/signup" data-portal="signup">Assinar grátis</a>
+                    <button class="theme-toggle nav-theme" type="button" aria-label="Alternar tema claro/escuro"><span class="theme-icon">🌙</span> <span class="nav-theme-txt">Modo escuro</span></button>
                 </div>
                 {{> social}}
             </div>
         </div>
     </div>
 </nav>
+<script>
+/* Toggle do menu mobile — autossuficiente (não depende do main.js). */
+(function () {
+    var burger = document.getElementById("navBurger");
+    var nav = document.getElementById("mainNav");
+    if (!burger || !nav) return;
+    function set(open) {
+        nav.classList.toggle("open", open);
+        burger.setAttribute("aria-expanded", String(open));
+        burger.innerHTML = open ? "✕" : "☰"; /* ✕ / ☰ */
+    }
+    burger.addEventListener("click", function (e) {
+        e.preventDefault();
+        set(!nav.classList.contains("open"));
+    });
+    nav.addEventListener("click", function (e) {
+        if (e.target && e.target.closest && e.target.closest("a")) set(false);
+    });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" || e.keyCode === 27) set(false);
+    });
+    window.addEventListener("resize", function () {
+        if (window.innerWidth >= 960) set(false);
+    });
+})();
+</script>

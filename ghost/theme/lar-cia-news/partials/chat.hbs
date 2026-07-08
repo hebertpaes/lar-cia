@@ -1,13 +1,9 @@
 {{!-- Chat flutuante estilo WhatsApp com assistente/IA.
       - chat_ativo: liga/desliga (Design).
-      - chat_ia_url: (opcional) webhook do SEU backend de IA. O widget envia
-        POST {message, history} e mostra a resposta {reply}. Sem URL, o assistente
-        responde com FAQ inteligente (editorias, anunciar, assinar, contato).
       - whatsapp_redacao: número para "Falar no WhatsApp". --}}
 {{#if @custom.chat_ativo}}
 <div class="chat-widget" id="chatWidget"
      data-wa="{{@custom.whatsapp_redacao}}"
-     data-ia="{{@custom.chat_ia_url}}"
      data-nome="{{@site.title}}"
      data-url="{{@site.url}}">
     <button class="chat-fab" id="chatFab" aria-label="Abrir chat" aria-expanded="false">

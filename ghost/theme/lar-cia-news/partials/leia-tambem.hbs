@@ -1,0 +1,12 @@
+{{!-- "Leia também" — links internos p/ matérias relacionadas (SEO: linkagem
+      interna dentro do corpo). Puxa 2 da mesma editoria; some se não houver. --}}
+{{#if primary_tag}}
+{{#get "posts" filter="id:-{{id}}+tag:{{primary_tag.slug}}+tag:-hash-ad" limit="2" order="published_at desc" as |leia|}}
+    {{#if leia}}
+    <aside class="leia-tambem" aria-label="Leia também">
+        <span class="leia-tag">Leia também</span>
+        <ul>{{#foreach leia}}<li><a href="{{url}}" rel="bookmark">{{title}}</a></li>{{/foreach}}</ul>
+    </aside>
+    {{/if}}
+{{/get}}
+{{/if}}

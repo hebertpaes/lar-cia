@@ -9,9 +9,14 @@
    ⚠️ Rode onde a internet é ABERTA: no runner do GitHub Actions (nuvem) ou na
    sua máquina. Este ambiente de desenvolvimento NÃO acessa .gov.br.
 
+   As matérias têm URL no padrão Liferay /w/<slug> (ex.: .../w/governo-de-mt-…).
+   Serve p/ QUALQUER portal do mt.gov.br (SECOM, SEFAZ, PJC…) via --base/--list.
+
    Uso:
      node ghost/automation/secom.mjs [--out=arq.json] [--max=12] [--all-dates]
-                                     [--date=YYYY-MM-DD] [--verbose]
+       [--date=YYYY-MM-DD] [--verbose]
+       [--base=https://www5.sefaz.mt.gov.br] [--list=<url da listagem>]
+       [--fonte="SEFAZ-MT"] [--editoria=economia] [--id=sefaz]
      node ghost/automation/publish.mjs <arq.json>
 
    Sem dependências externas (Node 18+). As funções de extração são exportadas
@@ -63,11 +68,11 @@ export function jsonLd(html) {
 }
 
 // extrai os campos de uma página de matéria
-export function parseArticle(html, url) {
+export function parseArticle(html, url, base = BASE) {
   const ld = jsonLd(html) || {};
   const title = meta(html, "og:title") || stripTags((html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1] || "") || stripTags((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || "");
   let image = meta(html, "og:image") || (typeof ld.image === "string" ? ld.image : (ld.image && (ld.image.url || (Array.isArray(ld.image) && ld.image[0]))) || "");
-  if (image && image.startsWith("/")) image = BASE + image;
+  if (image && image.startsWith("/")) image = base + image;
   const dateRaw = meta(html, "article:published_time") || ld.datePublished || meta(html, "og:updated_time") || ld.dateModified || "";
   const date = dateRaw ? new Date(dateRaw) : null;
   // corpo (na ordem): JSON-LD articleBody → parágrafos do HTML → og:description
@@ -99,7 +104,7 @@ export function parseArticle(html, url) {
 }
 
 // acha os links de matéria na página de listagem
-export function articleLinks(html, base = BASE) {
+export function articleLinks(html, base = BASE, listUrl = LIST) {
   const out = new Set();
   const hrefs = html.match(/href\s*=\s*["']([^"']+)["']/gi) || [];
   for (const h of hrefs) {
@@ -107,11 +112,11 @@ export function articleLinks(html, base = BASE) {
     if (!u) continue;
     if (u.startsWith("//")) u = "https:" + u;
     else if (u.startsWith("/")) u = base + u;
-    if (!u.startsWith(base)) continue;                    // só o próprio domínio
-    if (!/\/noticias\/|\/-\//.test(u)) continue;          // padrão de conteúdo/matéria
+    if (!u.startsWith(base)) continue;                       // só o próprio domínio
+    if (!/\/w\/|\/noticias\/|\/-\//.test(u)) continue;       // matéria: /w/<slug> (Liferay), /noticias/… ou /-/…
     if (/\.(css|js|png|jpe?g|gif|svg|ico|pdf)(\?|$)/i.test(u)) continue;
     if (/[?&]p_p_|paginador|pagination|#/.test(u)) continue; // paginação/âncoras
-    if (u.replace(/\/$/, "") === LIST) continue;          // a própria listagem
+    if (u.replace(/\/$/, "") === listUrl.replace(/\/$/, "")) continue; // a própria listagem
     out.add(u.split("#")[0]);
   }
   return [...out];
@@ -137,35 +142,41 @@ async function main() {
   const max = parseInt(opt("max", "12"), 10);
   const allDates = has("all-dates");
   const verbose = has("verbose");
-  const outPath = resolve(__dirname, opt("out", `../import/secom-${date}.json`));
+  // Portal-alvo (padrão: SECOM). Serve p/ qualquer portal Liferay do mt.gov.br.
+  const base = opt("base", BASE).replace(/\/$/, "");
+  const listUrl = opt("list", base + "/noticias");
+  const fonte = opt("fonte", FONTE_NOME);
+  const editoria = slugify(opt("editoria", "politica"));
+  const id = slugify(opt("id", (base.match(/https?:\/\/(?:www\d*\.)?([^./]+)/) || [])[1] || "fonte"));
+  const outArg = opt("out", null);
+  const outPath = outArg ? resolve(process.cwd(), outArg) : resolve(__dirname, `../import/${id}-${date}.json`);
 
-  console.log(`SECOM-MT: lendo ${LIST} …`);
-  const list = await fetchText(LIST);
-  if (!list) { console.error("Não consegui abrir a página de notícias (rede/bloqueio?). Rode onde a internet é aberta."); process.exit(2); }
+  console.log(`Lendo ${listUrl} …`);
+  const listHtml = await fetchText(listUrl);
+  if (!listHtml) { console.error("Não consegui abrir a listagem (rede/bloqueio?). Rode onde a internet é aberta."); process.exit(2); }
 
-  const links = articleLinks(list).slice(0, max * 2);
+  const links = articleLinks(listHtml, base, listUrl).slice(0, max * 2);
   if (verbose) console.log(`  ${links.length} links candidatos`);
-  if (!links.length) { console.error("Nenhum link de matéria encontrado — o HTML da listagem mudou. Me mande um trecho para ajustar."); process.exit(3); }
+  if (!links.length) { console.error("Nenhum link de matéria no HTML da listagem (pode ser renderização por JS). Me mande um trecho para ajustar."); process.exit(3); }
 
   const B = makeBuilder();
   const T_COL = B.tag("#coletado", "hash-coletado", "internal");
-  const T_SEC = B.tag("#secom-mt", "hash-secom-mt", "internal");
-  const T_POL = B.tag("Política", "politica", "public");
-  const T_GOV = B.tag("Governo de MT", "governo-mt", "public");
+  const T_FONTE = B.tag(`#${id}`, `hash-${id}`, "internal");
+  const T_ED = B.tag(editoria.charAt(0).toUpperCase() + editoria.slice(1), editoria, "public");
 
   let n = 0;
   for (const url of links) {
     if (n >= max) break;
     const page = await fetchText(url);
     if (!page) { if (verbose) console.log(`  ✗ ${url}`); continue; }
-    const a = parseArticle(page, url);
+    const a = parseArticle(page, url, base);
     if (!a.title) { if (verbose) console.log(`  · sem título: ${url}`); continue; }
     if (!allDates && a.date && a.date.toISOString().slice(0, 10) !== date) { if (verbose) console.log(`  · fora do dia: ${a.title}`); continue; }
     const added = B.add({
-      title: a.title, slug: `${slugify(a.title).slice(0, 70)}-secom`,
+      title: a.title, slug: `${slugify(a.title).slice(0, 70)}-${id}`,
       html: a.html, excerpt: a.excerpt, image: a.image,
-      fonteNome: FONTE_NOME, fonteUrl: a.url, when: a.date || Date.now(),
-      tagIds: [T_POL, T_GOV, T_COL, T_SEC],
+      fonteNome: fonte, fonteUrl: a.url, when: a.date || Date.now(),
+      tagIds: [T_ED, T_COL, T_FONTE],
     });
     if (added) { n++; if (verbose) console.log(`  ✓ ${a.title}${a.image ? " [img]" : ""}`); }
   }

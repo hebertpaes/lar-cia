@@ -67,23 +67,26 @@ export function parseFeed(xml) {
 }
 
 // ---------- rede ----------------------------------------------------------
-const FEED_PATHS = ["/feed", "/feed/", "/rss", "/rss.xml", "/feed.xml", "/RSS",
-  "/?format=feed&type=rss", "/noticias/feed", "/index.php/feed", "/category/noticias/feed"];
+const FEED_PATHS = ["/feed", "/rss", "/feed.xml", "/rss.xml",
+  "/noticias/feed", "/?format=feed&type=rss"];
 
-async function fetchText(url, ms = 12000) {
+// Retorna: o texto; null (host respondeu, mas esse caminho não serve — 404 etc.);
+// undefined (erro de rede/timeout: host provavelmente fora do ar).
+async function fetchText(url, ms = 7000) {
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), ms);
   try {
     const r = await fetch(url, { redirect: "follow", signal: ctl.signal, headers: { "User-Agent": "LarCiaBot/1.0 (+coletor de releases oficiais)" } });
     if (!r.ok) return null;
     return await r.text();
-  } catch { return null; } finally { clearTimeout(t); }
+  } catch { return undefined; } finally { clearTimeout(t); }
 }
 
 async function feedFor(src) {
   const tries = src.feed ? [src.feed] : FEED_PATHS.map((p) => src.url.replace(/\/$/, "") + p);
   for (const u of tries) {
     const xml = await fetchText(u);
+    if (xml === undefined) break;   // host fora do ar/timeout: não adianta tentar outros caminhos
     if (xml && /<(item|entry)\b/i.test(xml)) return { url: u, items: parseFeed(xml) };
   }
   return null;
@@ -124,7 +127,8 @@ function main() {
   const conc = parseInt(opt("conc", "6"), 10);
   const allDates = has("all-dates");
   const verbose = has("verbose");
-  const outPath = resolve(__dirname, opt("out", `../import/coletado-${date}.json`));
+  const outArg = opt("out", null);
+  const outPath = outArg ? resolve(process.cwd(), outArg) : resolve(__dirname, `../import/coletado-${date}.json`);
 
   const reg = JSON.parse(readFileSync(resolve(__dirname, "sources.mt.json"), "utf8"));
   let sources = reg.sources;
@@ -134,6 +138,7 @@ function main() {
   const T_COL = B.tag("#coletado", "hash-coletado", "internal");
   const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
   let ok = 0, vazio = 0, falhou = 0, materias = 0;
+  const fontesOk = [];
 
   async function worker(queue) {
     for (let s; (s = queue.shift()); ) {
@@ -141,7 +146,7 @@ function main() {
       if (!res) { falhou++; if (verbose) console.log(`  ✗ ${s.id} (sem RSS) ${s.url}`); continue; }
       const doDay = res.items.filter((it) => allDates || (it.date && it.date.toISOString().slice(0, 10) === date));
       if (!doDay.length) { vazio++; if (verbose) console.log(`  · ${s.id}: 0 do dia (${res.items.length} no feed)`); continue; }
-      ok++;
+      ok++; fontesOk.push(`${s.id}(${doDay.length})`);
       const tEd = B.tag(cap(s.editoria), s.editoria, "public");
       const tMun = B.tag(s.municipio, slugify(s.municipio), "public");
       const tFonte = B.tag(`#${s.id}`, `hash-${s.id}`, "internal");
@@ -163,6 +168,7 @@ function main() {
   Promise.all(Array.from({ length: Math.min(conc, queue.length) }, () => worker(queue))).then(() => {
     writeFileSync(outPath, JSON.stringify(B.done(), null, 2) + "\n", "utf8");
     console.log(`\nResumo: fontes com matéria=${ok} vazias=${vazio} sem-feed=${falhou} | matérias=${materias}`);
+    console.log(`Fontes que responderam: ${fontesOk.join(", ") || "(nenhuma)"}`);
     console.log(`Arquivo: ${outPath}`);
     if (!materias) console.log("Nenhuma matéria. Confirme as URLs/feeds das fontes (verificar:true) ou rode com --all-dates --verbose.");
   });

@@ -5,8 +5,16 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
 | **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
-| **O Dia Político** | odiapolitico.com.br | só **Política** | `#C20017` |
-| **Pacu News** | pacunews.com.br | todas | `#1466B8` |
+| **O Dia Político** | odiapolitico.com.br | só **Política** | **layout "Fox News" em PRETO + BRANCO** (`#111111`) |
+| **Pacu News** | pacunews.com.br | todas | `#D62828` (vermelho) |
+
+> **O Dia Político** usa o **layout/funções do foxnews.com** (cabeçalho cheio,
+> faixa de editorias com aba ativa "Início", manchetes serifadas, rodapé escuro),
+> mas com identidade **preto + branco** — sem azul-marinho nem vermelho. O visual
+> mora em `ghost/theme/overrides/odiapolitico-fox.css`, anexado ao `screen.css`
+> **só nessa variação** pelo `build-portal.sh` (build com cor `#111111`). A faixa e
+> as seções da home dela são políticas (Congresso, Governo, Brasil, Mundo, Colunas).
+> Semente de conteúdo real (cívico, com fonte): `ghost/import/odiapolitico-seed.json`.
 
 Logo da marca: `ghost/brand/hojemt-logo.svg` (cor) e `hojemt-logo-branco.svg`
 (fundo escuro), gerados por `ghost/brand/gen-logo.mjs`. O logo do site é definido
@@ -21,8 +29,8 @@ no Ghost (Design → Brand → Logo) ou pelo `LOGO_FILE` do `ativar-tudo.mjs`.
 ```bash
 cd ghost/theme
 bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
-bash build-portal.sh odiapolitico "O Dia Político" "#C20017"
-bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
+bash build-portal.sh odiapolitico "O Dia Político" "#111111"   # layout Fox, preto+branco
+bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 ```
 
 ## Regras de trabalho
@@ -38,7 +46,7 @@ bash build-portal.sh pacunews     "Pacu News"      "#1466B8"
 - `ghost/theme/build-portal.sh` — gera as variações.
 - `ghost/banners/` — GIFs "Anuncie" por marca (o build embute em `assets/img/anuncie.gif`).
 - `ghost/import/` — geradores + JSON de conteúdo (`generate-noticias-300.mjs` → `noticias-300.json`; `generate-secom-*` etc.).
-- `ghost/automation/` — `collect.mjs` (coleta assessorias oficiais via RSS), `secom.mjs` (coletor dedicado da SECOM-MT lendo o HTML de `/noticias` — pega foto real via og:image), `publish.mjs` (publica roteando por editoria), `import.mjs`, `sources.mt.json`.
+- `ghost/automation/` — `collect.mjs` (coleta assessorias oficiais via RSS), `secom.mjs` (coletor da SECOM lendo o HTML; a lista é JS, então use `secom-headless.mjs` com Playwright), `reescrever.mjs` (editor de IA: reescreve cada matéria — título ≤76, subtítulo ≤55, corpo, resumo SEO 139–149 — via endpoint compatível com OpenAI; `IA_API_KEY`), `publish.mjs` (publica roteando por editoria), `import.mjs`, `sources.mt.json`.
 - `ghost/scripts/` — `ativar-tudo.mjs` (liga Membros/Portal, menu, comentários, sobe tema e importa) e helpers.
 - `ghost/whatsapp-crm/` — CRM + disparo (Cloud API oficial) + QR opcional + webhook `/chat`.
 
