@@ -87,6 +87,7 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./site:/srv/openclaw:ro
+      - ./comenta:/srv/comenta:ro
       - caddy-data:/data
       - caddy-config:/config
     depends_on:

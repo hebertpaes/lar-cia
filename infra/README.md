@@ -22,6 +22,7 @@ Aponte cada domínio para o **IP público da VM**:
 | A | `odiapolitico.com.br` (e `www`) | IP da VM |
 | A | `pacunews.com.br` (e `www`) | IP da VM |
 | A | `openclaw.ai` | IP da VM |
+| A | `comenta.com.br` (e `www`) | IP da VM |
 
 > Se usar Cloudflare (recomendado), veja `CLOUDFLARE.md`. Durante a 1ª emissão
 > do certificado, deixe o proxy do Cloudflare em **DNS only (cinza)**; depois

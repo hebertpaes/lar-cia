@@ -22,3 +22,10 @@ openclaw.ai {
 	file_server
 	encode zstd gzip
 }
+
+# Comenta — site da agência digital (estático), servido de ./comenta
+comenta.com.br, www.comenta.com.br {
+	root * /srv/comenta
+	file_server
+	encode zstd gzip
+}
