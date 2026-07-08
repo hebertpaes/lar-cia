@@ -473,6 +473,14 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
    vindo em conteúdo importado — não aparece no site. */
 .gh-content .media-nota, .media-nota { display: none !important; }
 
+/* "Leia também" — linkagem interna dentro do artigo (SEO). */
+.leia-tambem { margin: 1.8em 0; padding: 14px 16px; border-left: 4px solid var(--urgent); background: var(--bg-soft); border-radius: 0 8px 8px 0; }
+.leia-tag { display: block; font-family: var(--font-ui); font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--urgent); margin-bottom: 6px; }
+.leia-tambem ul { list-style: none; margin: 0; padding: 0; }
+.leia-tambem li { padding: 4px 0; }
+.leia-tambem a { font-family: var(--font-head); font-weight: 700; font-size: 17px; color: var(--ink); }
+.leia-tambem a:hover { color: var(--urgent); text-decoration: underline; }
+
 /* Larguras do editor Koenig (imagens/cards largos e full-bleed) */
 .gh-content .kg-width-wide { position: relative; width: 85vw; min-width: 100%; margin-left: 50%; transform: translateX(-50%); }
 .gh-content .kg-width-full { position: relative; width: 100vw; margin-left: 50%; transform: translateX(-50%); }
