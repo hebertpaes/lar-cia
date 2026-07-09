@@ -82,6 +82,14 @@ if (c && c.email_contato) c.email_contato.default = email;
 fs.writeFileSync(file, JSON.stringify(j, null, 2) + "\n");
 ' "$OUT/package.json" "$SLUG" "$NOME" "$COR" "$EMAIL"
 
+# Player AO VIVO vira o LEGISLATIVO (ALMT, Câmara, Senado, Câmara de Cuiabá) em
+# TODOS os portais. Se o portal tiver um canal geral (youtube_canal_id), ele entra
+# como 1ª aba "AO VIVO"; senão, começa na ALMT.
+node -e '
+  const fs = require("fs"); const home = process.argv[1] + "/home.hbs";
+  fs.writeFileSync(home, fs.readFileSync(home, "utf8").replace(/\{\{\s*>\s*live\s*\}\}/g, "{{> live-legislativo}}"));
+' "$OUT"
+
 # O Dia Político — pele "Fox News": faixa de editorias política (aba vermelha
 # "Início" + AO VIVO), home com editorias políticas e a folha de estilo Fox.
 if [ "$SLUG" = "odiapolitico" ]; then
@@ -114,8 +122,6 @@ if [ "$SLUG" = "odiapolitico" ]; then
       "    {{> section-block slug=\"internacional\" titulo=\"Mundo\"                filter=\"tag:internacional+tag:-hash-ad\"}}\n" +
       "    {{> section-block slug=\"colunas\"       titulo=\"Colunas &amp; Opinião\" filter=\"tag:colunas+tag:-hash-ad\"}}\n";
     h = h.replace(/(\{\{!-- ===== Demais editorias ===== --\}\}\n<div class="container sections">\n)[\s\S]*?(\n<\/div>)/, "$1" + pol + "$2");
-    // 3) Player AO VIVO vira o LEGISLATIVO (ALMT, Câmara, Senado, Câmara de Cuiabá).
-    h = h.replace("{{> live}}", "{{> live-legislativo}}");
     fs.writeFileSync(home, h);
   ' "$OUT"
   # 3) Anexa a pele Fox ao CSS do tema (só nesta variação).
