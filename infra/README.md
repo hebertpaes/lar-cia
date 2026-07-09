@@ -8,6 +8,19 @@ serve o site de comandos em `openclaw.ai` (pasta `site/`).
 > na VM (direto por SSH, ou pedindo ao OpenClaw no seu Mac). O CI (opcional)
 > automatiza o deploy depois.
 
+## 0) Jeito mais rápido — 1 comando, sem secrets
+O repo é público, então a VM pode se auto-configurar. Por SSH na VM, cole:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hebertpaes/lar-cia/main/infra/bootstrap-vm.sh | bash
+```
+
+Isso instala o Docker, clona o projeto em `/opt/lar-cia`, gera o `.env` (senha do
+MySQL aleatória) e sobe tudo. **Não precisa dos secrets `VM_*`** (aqueles só
+servem para o deploy automático via GitHub Actions). Depois é só apontar os DNS
+(passo 2). O `comenta.com.br` (estático) sobe na hora; os portais Ghost pedem o
+setup em `/ghost`.
+
 ## 1) Provisionar a VM (uma vez)
 1. Na VM (Ubuntu 22.04+), abra as portas **80** e **443** no *Network Security
    Group* do Azure (HTTP/HTTPS).
