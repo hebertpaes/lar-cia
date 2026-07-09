@@ -22,8 +22,10 @@
     <section class="section-block">
         <div class="section-head"><h2 class="section-title"><a href="{{@site.url}}/">Últimas notícias</a></h2></div>
         <div class="section-grid">
-            {{#get "posts" filter="featured:false+tag:-hash-ad" limit="8" order="published_at desc" as |recent|}}
-                {{#foreach recent}}{{> article-card size="compact"}}{{/foreach}}
+            {{!-- Mesma ordem da capa (fixadas primeiro, depois recentes) e pula as 5
+                  primeiras que já saem no slider (slides_home=5) → sem repetição. --}}
+            {{#get "posts" filter="tag:-hash-ad" limit="13" order="featured desc, published_at desc" as |recent|}}
+                {{#foreach recent from="6"}}{{> article-card size="compact"}}{{/foreach}}
             {{/get}}
         </div>
     </section>

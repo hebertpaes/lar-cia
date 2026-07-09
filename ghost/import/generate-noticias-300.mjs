@@ -241,7 +241,7 @@ EDS.forEach((ed) => {
     addPost({
       title, slug: seed, html: body, feature_image: photo(seed),
       feature_image_caption: credito(ed.scope, i),
-      custom_excerpt: title + ".", featured: count < 6, tagIds,
+      custom_excerpt: title + ".", featured: false, tagIds,
     });
     count++;
   }

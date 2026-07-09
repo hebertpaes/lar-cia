@@ -1,9 +1,10 @@
-{{!-- Slider principal: mostra os posts FIXADOS (Featured). "Fixe" no Ghost a
-      matéria que deve aparecer aqui. Sem fixados, mostra as mais recentes.
-      O slider usa só os fixados e "Últimas" usa os não-fixados → sem repetição.
-      Quantidade: Design → slides_home (3 a 10). --}}
+{{!-- Slider principal (CAPA): matérias mais recentes, com as FIXADAS (Featured)
+      no topo. Assim a capa acompanha a automação — a notícia real mais nova (com
+      a foto real da fonte) sobe sozinha — e o editor ainda pode "Fixar" no Ghost
+      uma manchete para prendê-la no topo. Quantidade: Design → slides_home (5).
+      "Últimas" (home.hbs) pula as que já saem aqui, então não há repetição. --}}
 <section class="hero-slider" data-autoplay="5000" aria-label="Destaques">
-    {{#get "posts" filter="featured:true+tag:-hash-ad" limit=@custom.slides_home order="published_at desc" as |slides|}}
+    {{#get "posts" filter="tag:-hash-ad" limit=@custom.slides_home order="featured desc, published_at desc" as |slides|}}
         {{#if slides}}
             <div class="slider-track">{{#foreach slides}}{{> slide}}{{/foreach}}</div>
             <button class="slider-arrow prev" type="button" aria-label="Anterior">‹</button>
@@ -12,16 +13,6 @@
                 <button class="slider-pause" type="button" aria-label="Pausar ou retomar">⏸</button>
                 <div class="slider-dots">{{#foreach slides}}<button class="slider-dot{{#if @first}} active{{/if}}" type="button" data-go="{{@index}}" aria-label="Slide {{@number}}"></button>{{/foreach}}</div>
             </div>
-        {{else}}
-            {{#get "posts" filter="tag:-hash-ad" limit=@custom.slides_home order="published_at desc" as |slides|}}
-                <div class="slider-track">{{#foreach slides}}{{> slide}}{{/foreach}}</div>
-                <button class="slider-arrow prev" type="button" aria-label="Anterior">‹</button>
-                <button class="slider-arrow next" type="button" aria-label="Próximo">›</button>
-                <div class="slider-controls">
-                    <button class="slider-pause" type="button" aria-label="Pausar ou retomar">⏸</button>
-                    <div class="slider-dots">{{#foreach slides}}<button class="slider-dot{{#if @first}} active{{/if}}" type="button" data-go="{{@index}}" aria-label="Slide {{@number}}"></button>{{/foreach}}</div>
-                </div>
-            {{/get}}
         {{/if}}
     {{/get}}
 </section>
