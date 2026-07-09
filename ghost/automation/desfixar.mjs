@@ -40,7 +40,7 @@ const dias = Number.isNaN(diasParsed) ? 2 : diasParsed;
 const cfgPath = resolve(__dirname, "sites.config.json");
 let cfg;
 try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); }
-catch { console.error(`Crie ${cfgPath} a partir de sites.config.example.json.`); process.exit(1); }
+catch (e) { console.error(`Erro ao carregar ${cfgPath}: ${e.message}\nCrie-o a partir de sites.config.example.json e confira se o JSON é válido.`); process.exit(1); }
 
 function jwt(key) {
   const [id, secret] = key.split(":");
@@ -54,13 +54,13 @@ function jwt(key) {
 
 const limite = Date.now() - dias * 24 * 60 * 60 * 1000;
 
-async function listarFixados(site, key) {
+async function listarFixados(site, token) {
   const out = [];
   let page = 1, pages = 1;
   do {
     const url = `${site.url}/ghost/api/admin/posts/?limit=100&page=${page}` +
       `&filter=${encodeURIComponent("featured:true")}`;
-    const r = await fetch(url, { headers: { Authorization: `Ghost ${jwt(key)}` } });
+    const r = await fetch(url, { headers: { Authorization: `Ghost ${token}` } });
     if (!r.ok) throw new Error(`listar HTTP ${r.status} ${(await r.text()).slice(0, 160)}`);
     const j = await r.json();
     out.push(...(j.posts || []));
@@ -70,10 +70,10 @@ async function listarFixados(site, key) {
   return out;
 }
 
-async function desfixar(site, post, key) {
+async function desfixar(site, post, token) {
   const r = await fetch(`${site.url}/ghost/api/admin/posts/${post.id}/`, {
     method: "PUT",
-    headers: { Authorization: `Ghost ${jwt(key)}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Ghost ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({ posts: [{ featured: false, updated_at: post.updated_at }] }),
   });
   if (!r.ok) throw new Error(`desfixar HTTP ${r.status} ${(await r.text()).slice(0, 160)}`);
@@ -88,10 +88,11 @@ for (const site of cfg.sites) {
   site.url = String(site.url).replace(/\/$/, ""); // normaliza: sem barra final (evita //ghost/api)
   const key = process.env[site.keyEnv];
   if (!key || !key.includes(":")) { console.log(`• ${site.name}: sem ${site.keyEnv} válida — pulando.`); continue; }
+  const token = jwt(key);   // 1 token por site (vale 5 min) — evita recomputar HMAC por requisição
 
   console.log(`\n== ${site.name} (${site.url}) ==`);
   let fixados;
-  try { fixados = await listarFixados(site, key); }
+  try { fixados = await listarFixados(site, token); }
   catch (e) { console.log(`  ✗ não listei: ${e.message}`); err++; continue; }
 
   const alvos = fixados.filter((p) => todos || (Date.parse(p.published_at || p.updated_at) < limite));
@@ -99,7 +100,7 @@ for (const site of cfg.sites) {
   for (const p of alvos) {
     ach++;
     if (!apply) { console.log(`  [dry] desfixar: ${p.title}`); continue; }
-    try { await desfixar(site, p, key); console.log(`  ✓ desfixada: ${p.title}`); feito++; }
+    try { await desfixar(site, p, token); console.log(`  ✓ desfixada: ${p.title}`); feito++; }
     catch (e) { console.log(`  ✗ ${p.title}: ${e.message}`); err++; }
   }
 }
