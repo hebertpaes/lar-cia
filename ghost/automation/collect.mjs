@@ -68,8 +68,10 @@ export function parseFeed(xml) {
 }
 
 // ---------- rede ----------------------------------------------------------
-const FEED_PATHS = ["/feed", "/rss", "/feed.xml", "/rss.xml",
-  "/noticias/feed", "/?format=feed&type=rss"];
+// Prefere feeds de NOTÍCIAS (SECOM) ao feed geral, que costuma misturar o diário
+// oficial (avisos de licitação/contratação, decretos, portarias…).
+const FEED_PATHS = ["/noticias/feed", "/noticias/rss", "/categoria/noticias/feed",
+  "/secom/feed", "/feed", "/rss", "/feed.xml", "/rss.xml", "/?format=feed&type=rss"];
 
 // Retorna: o texto; null (host respondeu, mas esse caminho não serve — 404 etc.);
 // undefined (erro de rede/timeout: host provavelmente fora do ar).
