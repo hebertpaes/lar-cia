@@ -25,6 +25,7 @@ import crypto from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { avaliar } from "./filtro.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -114,6 +115,20 @@ async function notifyWhatsApp(site, post, ed) {
 
 const accepts = (site, ed) => site.editorias === "*" || (Array.isArray(site.editorias) && site.editorias.includes(ed));
 
+// --- Filtro de qualidade (portão final) -------------------------------------
+// Fora atos administrativos (decreto/portaria/edital…) e matérias com menos de
+// FILTRO_MIN_PALAVRAS palavras (padrão 100) — mesmo depois da reescrita por IA.
+const MIN_PUB = parseInt(process.env.FILTRO_MIN_PALAVRAS || "100", 10);
+const bloqueados = new Map();
+for (const p of data.posts.filter((p) => p.type === "post")) {
+  const v = avaliar({ title: p.title, corpo: htmlOf(p) }, { min: MIN_PUB });
+  if (!v.ok) bloqueados.set(p.id, v.motivo);
+}
+if (bloqueados.size) {
+  console.log(`\nFiltro de qualidade: ${bloqueados.size} matéria(s) NÃO serão publicadas (administrativa ou < ${MIN_PUB} palavras):`);
+  for (const p of data.posts) if (bloqueados.has(p.id)) console.log(`  ⊘ ${bloqueados.get(p.id)}: ${p.title}`);
+}
+
 let pub = 0, skip = 0, dup = 0, err = 0;
 for (const site of cfg.sites) {
   if (only && site.name !== only) continue;
@@ -125,6 +140,7 @@ for (const site of cfg.sites) {
   }
   console.log(`\n== ${site.name} (${site.url}) — editorias: ${JSON.stringify(site.editorias)} ==`);
   for (const post of data.posts.filter((p) => p.type === "post")) {
+    if (bloqueados.has(post.id)) continue;   // já listada no filtro de qualidade
     const ed = editoriaOf(post);
     if (!accepts(site, ed)) { skip++; continue; }
     if (dryRun) { console.log(`  [dry-run] publicaria [${ed}] ${post.title}`); pub++; continue; }
@@ -136,4 +152,4 @@ for (const site of cfg.sites) {
     } catch (e) { console.log(`  ✗ ${post.slug}: ${e.message}`); err++; }
   }
 }
-console.log(`\nResumo: publicados=${pub} duplicados=${dup} fora-da-editoria=${skip} erros=${err}${dryRun ? " (dry-run)" : ""}`);
+console.log(`\nResumo: publicados=${pub} duplicados=${dup} fora-da-editoria=${skip} filtradas=${bloqueados.size} erros=${err}${dryRun ? " (dry-run)" : ""}`);

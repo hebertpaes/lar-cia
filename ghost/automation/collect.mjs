@@ -19,6 +19,7 @@
 import { writeFileSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { avaliar } from "./filtro.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -125,6 +126,10 @@ function main() {
   const only = opt("only", null);
   const maxPer = parseInt(opt("max", "4"), 10);
   const conc = parseInt(opt("conc", "6"), 10);
+  // Mínimo de palavras na COLETA (baixo: a reescrita por IA amplia releases curtos;
+  // o corte "duro" de 100 palavras é garantido na publicação). O filtro de conteúdo
+  // administrativo (decreto/portaria/edital…) roda independente do tamanho.
+  const minColeta = parseInt(opt("min", "50"), 10);
   const allDates = has("all-dates");
   const verbose = has("verbose");
   const outArg = opt("out", null);
@@ -137,7 +142,7 @@ function main() {
   const B = makeBuilder();
   const T_COL = B.tag("#coletado", "hash-coletado", "internal");
   const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
-  let ok = 0, vazio = 0, falhou = 0, materias = 0;
+  let ok = 0, vazio = 0, falhou = 0, materias = 0, filtrados = 0;
   const fontesOk = [];
 
   async function worker(queue) {
@@ -152,6 +157,9 @@ function main() {
       const tFonte = B.tag(`#${s.id}`, `hash-${s.id}`, "internal");
       for (const it of doDay.slice(0, maxPer)) {
         const body = it.html && /<\w+/.test(it.html) ? it.html : `<p>${esc(it.summary || it.title)}</p>`;
+        // Filtro de qualidade: descarta ato administrativo e matéria curta demais.
+        const verdict = avaliar({ title: it.title, corpo: body, resumo: it.summary }, { min: minColeta });
+        if (!verdict.ok) { filtrados++; if (verbose) console.log(`  ⊘ ${s.id}: ${verdict.motivo} — ${it.title.slice(0, 60)}`); continue; }
         const added = B.add({
           title: it.title, slug: `${slugify(it.title).slice(0, 70)}-${slugify(s.municipio)}`,
           html: body, excerpt: it.summary || null, image: it.image,
@@ -167,7 +175,7 @@ function main() {
   console.log(`Coletando ${sources.length} fontes — dia ${allDates ? "(todas as datas)" : date} …`);
   Promise.all(Array.from({ length: Math.min(conc, queue.length) }, () => worker(queue))).then(() => {
     writeFileSync(outPath, JSON.stringify(B.done(), null, 2) + "\n", "utf8");
-    console.log(`\nResumo: fontes com matéria=${ok} vazias=${vazio} sem-feed=${falhou} | matérias=${materias}`);
+    console.log(`\nResumo: fontes com matéria=${ok} vazias=${vazio} sem-feed=${falhou} | matérias=${materias} descartadas=${filtrados}`);
     console.log(`Fontes que responderam: ${fontesOk.join(", ") || "(nenhuma)"}`);
     console.log(`Arquivo: ${outPath}`);
     if (!materias) console.log("Nenhuma matéria. Confirme as URLs/feeds das fontes (verificar:true) ou rode com --all-dates --verbose.");

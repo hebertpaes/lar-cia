@@ -88,6 +88,21 @@ node ghost/automation/collect.mjs --all-dates          # ignora o filtro de data
 O coletor isola falhas: fonte sem RSS é apenas reportada (nunca derruba a rodada).
 Testar o parser sem rede: `node ghost/automation/test-collect.mjs`.
 
+## Filtro de qualidade (`filtro.mjs`)
+Só entra **notícia de interesse público**. O filtro descarta automaticamente:
+- **Atos administrativos / diário oficial:** decreto, portaria, edital, licitação,
+  pregão, nomeação/exoneração, extrato de contrato, resolução, errata, "Lei nº…",
+  títulos do tipo "1969/2026 - Santa Terezinha" ou "2023 - Campos de Júlio" etc.
+- **Matérias curtas:** abaixo do mínimo de palavras (padrão **100** na publicação).
+
+Roda em **dois pontos**: na **coleta** (mínimo baixo, `--min=50`, pois a reescrita
+por IA amplia releases curtos) e na **publicação** (corte duro de **100 palavras**
+no texto já reescrito, ajustável com `FILTRO_MIN_PALAVRAS`). Conferir um arquivo
+já coletado, sem publicar:
+```bash
+node ghost/automation/filtro.mjs ghost/import/coletado-AAAA-MM-DD.json --min=100
+```
+
 ## Publicar o que foi coletado
 - **Vários portais, roteando por editoria** (recomendado):
   ```bash
