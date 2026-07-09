@@ -52,21 +52,17 @@ jobs:
       - name: "Coletar notícias do dia (RSS: assessorias MT + fontes federais)"
         run: timeout 240 node ghost/automation/collect.mjs --out=ghost/import/coletado-hoje.json --conc=12 --verbose || echo "Coleta RSS encerrada (tempo/sem itens)."
 
-      # REDATOR automático: só o material COLETADO (bruto, de fontes oficiais/CC —
-      # Agência Brasil é CC-BY, gov.br é reproduzível) passa pela IA, que reescreve
-      # original no padrão do editor e mantém o crédito da fonte. As secom-hoje e
-      # gerado-*.json já vêm prontas. --max limita custo/volume por run. Sem
-      # IA_API_KEY o passo é PULADO (publica o texto como veio).
-      - name: Redator IA (reescreve o coletado — título/subtítulo/corpo/resumo SEO)
+      # REDATOR automático POR PORTAL: cada portal reescreve a MESMA notícia com a
+      # sua VOZ (--persona) e recebe o texto único — assim Hoje MT, Pacu News e O
+      # Dia Político não ficam clones (evita conteúdo duplicado, ruim de SEO). Só o
+      # COLETADO (bruto, de fontes oficiais/CC) passa pela IA; a reserva gerada já
+      # vem pronta e é publicada como está. --max limita custo por portal. Sem
+      # IA_API_KEY, a reescrita é pulada (copia o original) e os portais ficam iguais.
+      - name: Reescrever com a voz de cada portal e publicar (roteando por editoria)
         env:
           IA_API_KEY: ${{ secrets.IA_API_KEY }}
           IA_API_URL: ${{ vars.IA_API_URL }}
           IA_MODEL: ${{ vars.IA_MODEL }}
-        run: |
-          [ -f ghost/import/coletado-hoje.json ] && node ghost/automation/reescrever.mjs ghost/import/coletado-hoje.json --max=10 --verbose || true
-
-      - name: Publicar nos portais (roteando por editoria)
-        env:
           HOJEMT_ADMIN_KEY: ${{ secrets.HOJEMT_ADMIN_KEY }}
           ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
           PACUNEWS_ADMIN_KEY: ${{ secrets.PACUNEWS_ADMIN_KEY }}
@@ -76,14 +72,22 @@ jobs:
         run: |
           DRY=""
           [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
-          # Só o conteúdo DO DIA: o coletado (RSS, refeito a cada run) e, se existir,
-          # a reserva gerada HOJE (gerado-AAAA-MM-DD.json). Seeds antigos
-          # (secom-hoje.json, gerado de dias passados) NÃO voltam ao ar toda hora —
-          # foram publicados uma vez; o dedup por slug só evita repetir DEPOIS da 1ª.
-          for FILE in ghost/import/coletado-hoje.json "ghost/import/gerado-$(date -u +%F).json"; do
-            [ -f "$FILE" ] || { echo "sem $FILE — pulando"; continue; }
-            echo "== publicando $FILE $DRY =="
-            node ghost/automation/publish.mjs "$FILE" $DRY
+          RESERVA="ghost/import/gerado-$(date -u +%F).json"
+          for P in hojemt pacunews odiapolitico; do
+            echo "==================  PORTAL: $P  =================="
+            if [ -f ghost/import/coletado-hoje.json ]; then
+              # Reescreve com a voz do portal; se a IA falhar, cai no original.
+              node ghost/automation/reescrever.mjs ghost/import/coletado-hoje.json \
+                --persona=$P --max=10 --verbose --out=ghost/import/coletado-$P.json \
+                || cp ghost/import/coletado-hoje.json ghost/import/coletado-$P.json
+              echo "-- publicando coletado ($P) $DRY --"
+              node ghost/automation/publish.mjs ghost/import/coletado-$P.json --only=$P $DRY
+            fi
+            # Reserva do dia (já pronta) — publicada como está, roteando por editoria.
+            if [ -f "$RESERVA" ]; then
+              echo "-- publicando reserva ($P) $DRY --"
+              node ghost/automation/publish.mjs "$RESERVA" --only=$P $DRY
+            fi
           done
 
       - name: Guardar o que foi coletado (artefato)

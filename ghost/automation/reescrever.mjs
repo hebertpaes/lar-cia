@@ -40,6 +40,19 @@ const URL_ = process.env.IA_API_URL ||
   (PROVIDER === "anthropic" ? "https://api.anthropic.com/v1/messages" : "https://api.openai.com/v1/chat/completions");
 const MODEL = process.env.IA_MODEL || (PROVIDER === "anthropic" ? "claude-3-5-haiku-latest" : "gpt-4o-mini");
 
+/* Voz editorial POR PORTAL (--persona=hojemt|pacunews|odiapolitico ou IA_PERSONA).
+   Faz cada portal reescrever a MESMA notícia com texto próprio — evita portais
+   clones e conteúdo duplicado (ruim de SEO). Sem persona, usa a voz padrão. */
+const PERSONAS = {
+  hojemt: "IDENTIDADE DO VEÍCULO — Hoje MT: jornalismo regional informativo, direto e confiável, foco no dia a dia de Mato Grosso. Produza uma versão ÚNICA para este veículo.",
+  pacunews: "IDENTIDADE DO VEÍCULO — Pacu News: linguagem popular, ágil e acessível ao grande público; títulos diretos, sem sensacionalismo nem clickbait. Produza uma versão ÚNICA para este veículo.",
+  odiapolitico: "IDENTIDADE DO VEÍCULO — O Dia Político: escreva para um público QUALIFICADO — clientes, gestores e agentes públicos com relevância política e intelectual, e leitores de economia, finanças e negócios. Tom analítico e intelectual, conectando política a economia e negócios. NÃO use tom burocrático nem 'institucional' de release; produza uma versão ÚNICA para este veículo.",
+};
+const PERSONA_ARG = (process.argv.find((a) => a.startsWith("--persona=")) || "").split("=")[1] || "";
+const PERSONA_KEY = (process.env.IA_PERSONA || PERSONA_ARG).toLowerCase();
+const PERSONA = PERSONAS[PERSONA_KEY] || "";
+const SYSTEM = PERSONA ? `${EDITORIAL}\n\n${PERSONA}` : EDITORIAL;
+
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const clamp = (s, n) => { s = String(s || "").trim(); return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "").trim() : s; };
@@ -65,7 +78,7 @@ async function reescreverUm(titulo, texto) {
     const r = await fetch(URL_, {
       method: "POST",
       headers: { "content-type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 2000, system: EDITORIAL, messages: [{ role: "user", content: userMsg }] }),
+      body: JSON.stringify({ model: MODEL, max_tokens: 2000, system: SYSTEM, messages: [{ role: "user", content: userMsg }] }),
     });
     if (!r.ok) throw new Error(`HTTP ${r.status} ${(await r.text()).slice(0, 160)}`);
     out = (await r.json())?.content?.[0]?.text || "";
@@ -73,7 +86,7 @@ async function reescreverUm(titulo, texto) {
     const r = await fetch(URL_, {
       method: "POST",
       headers: { "content-type": "application/json", Authorization: `Bearer ${KEY}` },
-      body: JSON.stringify({ model: MODEL, temperature: 0.7, response_format: { type: "json_object" }, messages: [{ role: "system", content: EDITORIAL }, { role: "user", content: userMsg }] }),
+      body: JSON.stringify({ model: MODEL, temperature: 0.7, response_format: { type: "json_object" }, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: userMsg }] }),
     });
     if (!r.ok) throw new Error(`HTTP ${r.status} ${(await r.text()).slice(0, 160)}`);
     out = (await r.json())?.choices?.[0]?.message?.content || "";
@@ -99,9 +112,15 @@ async function main() {
   const inPath = resolve(process.cwd(), file);
   const outPath = resolve(process.cwd(), opt("out", file));
 
-  if (!KEY) { console.log("IA_API_KEY não definido — passo de reescrita PULADO (mantendo os textos originais)."); return; }
+  if (PERSONA) console.log(`Voz editorial: ${PERSONA_KEY}`);
+  else if (PERSONA_KEY) console.log(`(persona "${PERSONA_KEY}" desconhecida — usando voz padrão)`);
 
   const j = JSON.parse(readFileSync(inPath, "utf8"));
+  if (!KEY) {
+    console.log("IA_API_KEY não definido — reescrita PULADA (copiando o original para a saída).");
+    writeFileSync(outPath, JSON.stringify(j, null, 2) + "\n");
+    return;
+  }
   const posts = j?.db?.[0]?.data?.posts || [];
   if (!posts.length) { console.log("Nada a reescrever (0 posts)."); writeFileSync(outPath, JSON.stringify(j, null, 2) + "\n"); return; }
 
