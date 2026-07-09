@@ -40,11 +40,16 @@ const ADMIN = new RegExp(
     "homologac\\w*", "adjudicac\\w*", "nomeac\\w*", "exonerac\\w*", "designac\\w* de servidor",
     "ata de registro de preco\\w*", "diario oficial", "errata", "retificac\\w*",
     "resolucao n\\w*", "balancete", "prestacao de contas",
+    // compras / contratações públicas (diário oficial, não é notícia da SECOM):
+    "contratac\\w* direta", "aviso de contratac\\w*", "aviso de dispensa",
+    "chamada publica", "cotac\\w* de preco\\w*",
+    "termo de referencia", "processo administrativo", "dispensa n\\w*",
+    "ratificac\\w*", "extrato de", "aviso de pregao", "aviso de chamada",
   ].join("|") + ")",
 );
 
-// Título que começa por um ato ("Decreto…", "Portaria…", "Edital…").
-const TITULO_ATO = /^(decreto|portaria|resolucao|instrucao normativa|edital|edit)\b/;
+// Título que começa por um ato ("Decreto…", "Aviso de…", "Extrato de…").
+const TITULO_ATO = /^(decreto|portaria|resolucao|instrucao normativa|edital|aviso de|extrato de)\b/;
 // Título "Lei" seguido de número logo em seguida (ato), mas não "Lei que protege…".
 const TITULO_LEI = /^lei\b[^0-9]{0,15}\d/;
 // Título que é só um número + cidade: "1969/2026 - Santa Terezinha", "2023 - Campos de Julio".
