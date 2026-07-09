@@ -68,10 +68,11 @@ export function parseFeed(xml) {
 }
 
 // ---------- rede ----------------------------------------------------------
-// Prefere feeds de NOTÍCIAS (SECOM) ao feed geral, que costuma misturar o diário
-// oficial (avisos de licitação/contratação, decretos, portarias…).
-const FEED_PATHS = ["/noticias/feed", "/noticias/rss", "/categoria/noticias/feed",
-  "/secom/feed", "/feed", "/rss", "/feed.xml", "/rss.xml", "/?format=feed&type=rss"];
+// Feeds "raiz" mais comuns. Um timeout num destes indica host fora do ar → aborta a fonte.
+const FEED_PATHS = ["/feed", "/rss", "/feed.xml", "/rss.xml", "/?format=feed&type=rss"];
+// Feed de NOTÍCIAS (SECOM), tentado ANTES como preferência (evita o diário oficial do
+// feed geral). É um probe curto e OPCIONAL: se falhar (404/timeout), cai no fluxo raiz.
+const NEWS_PATHS = ["/noticias/feed"];
 
 // Retorna: o texto; null (host respondeu, mas esse caminho não serve — 404 etc.);
 // undefined (erro de rede/timeout: host provavelmente fora do ar).
@@ -86,11 +87,22 @@ async function fetchText(url, ms = 7000) {
 }
 
 async function feedFor(src) {
-  const tries = src.feed ? [src.feed] : FEED_PATHS.map((p) => src.url.replace(/\/$/, "") + p);
-  for (const u of tries) {
-    const xml = await fetchText(u);
-    if (xml === undefined) break;   // host fora do ar/timeout: não adianta tentar outros caminhos
-    if (xml && /<(item|entry)\b/i.test(xml)) return { url: u, items: parseFeed(xml) };
+  if (src.feed) {
+    const xml = await fetchText(src.feed);
+    return xml && /<(item|entry)\b/i.test(xml) ? { url: src.feed, items: parseFeed(xml) } : null;
+  }
+  const base = src.url.replace(/\/$/, "");
+  // 1) Preferência por NOTÍCIAS: probe curto e OPCIONAL — falha aqui (404/timeout) NÃO
+  //    aborta a fonte; apenas cai no fluxo raiz abaixo.
+  for (const p of NEWS_PATHS) {
+    const xml = await fetchText(base + p, 3500);
+    if (xml && /<(item|entry)\b/i.test(xml)) return { url: base + p, items: parseFeed(xml) };
+  }
+  // 2) Feeds raiz: aqui um timeout indica host provavelmente fora do ar → aborta a fonte.
+  for (const p of FEED_PATHS) {
+    const xml = await fetchText(base + p);
+    if (xml === undefined) break;
+    if (xml && /<(item|entry)\b/i.test(xml)) return { url: base + p, items: parseFeed(xml) };
   }
   return null;
 }
