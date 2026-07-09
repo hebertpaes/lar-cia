@@ -136,6 +136,26 @@ HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/desfixar.mjs --only=hojemt --
 Depois, a capa passa a exibir a notícia real mais recente. Para prender uma
 manchete no topo, basta **Fixar** (Featured) o post no Ghost.
 
+### Voz própria por portal (`--persona`)
+Para os portais **não ficarem clones** (conteúdo duplicado é ruim de SEO), a
+reescrita roda **uma vez por portal**, cada um com a sua voz:
+- **hojemt** — jornalismo regional informativo e direto.
+- **pacunews** — linguagem popular, ágil, para o grande público.
+- **odiapolitico** — análise para público qualificado (gestores/agentes públicos
+  com relevância política e intelectual, e leitores de economia, finanças e
+  negócios); tom analítico, não "institucional".
+
+O workflow `publicar.yml` já faz isso: coleta uma vez e, para cada portal,
+`reescrever --persona=<portal> --out=coletado-<portal>.json` → `publish --only=<portal>`.
+Manual:
+```bash
+IA_API_KEY='...' node ghost/automation/reescrever.mjs ghost/import/coletado-hoje.json \
+  --persona=pacunews --out=ghost/import/coletado-pacunews.json
+PACUNEWS_ADMIN_KEY='id:secret' node ghost/automation/publish.mjs \
+  ghost/import/coletado-pacunews.json --only=pacunews
+```
+Sem `IA_API_KEY`, a reescrita é pulada (copia o original) e os portais ficam iguais.
+
 ## Publicar o que foi coletado
 - **Vários portais, roteando por editoria** (recomendado):
   ```bash
