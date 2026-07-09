@@ -22,8 +22,11 @@
     <section class="section-block">
         <div class="section-head"><h2 class="section-title"><a href="{{@site.url}}/">Últimas notícias</a></h2></div>
         <div class="section-grid">
-            {{#get "posts" filter="featured:false+tag:-hash-ad" limit="8" order="published_at desc" as |recent|}}
-                {{#foreach recent}}{{> article-card size="compact"}}{{/foreach}}
+            {{!-- Mesma ordem da capa; pula as que já saem no slider (as primeiras
+                  slides_home, seja qual for o valor 3–10) comparando a posição com
+                  {{#match}} → sem repetição nem buraco, sem depender de `from`. --}}
+            {{#get "posts" filter="tag:-hash-ad" limit="13" order="featured desc, published_at desc" as |recent|}}
+                {{#foreach recent}}{{#match @number ">" @custom.slides_home}}{{> article-card size="compact"}}{{/match}}{{/foreach}}
             {{/get}}
         </div>
     </section>

@@ -121,6 +121,21 @@ HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/limpar.mjs --only=hojemt
 HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/limpar.mjs --only=hojemt --apply
 ```
 
+### Capa (destaques) — `desfixar.mjs`
+A capa (slider) mostra as matérias **mais recentes**, com as **fixadas (Featured)**
+no topo. Assim a notícia real mais nova — com a **foto real da fonte** — sobe
+sozinha. Se o seed demo antigo ficou **fixado**, ele prende a capa; o `desfixar.mjs`
+tira o Featured das fixadas antigas (**`--dry-run` por padrão**, alvo fixadas com
+mais de 2 dias):
+```bash
+# Simular:
+HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/desfixar.mjs --only=hojemt
+# Desfixar de verdade:
+HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/desfixar.mjs --only=hojemt --apply
+```
+Depois, a capa passa a exibir a notícia real mais recente. Para prender uma
+manchete no topo, basta **Fixar** (Featured) o post no Ghost.
+
 ## Publicar o que foi coletado
 - **Vários portais, roteando por editoria** (recomendado):
   ```bash
