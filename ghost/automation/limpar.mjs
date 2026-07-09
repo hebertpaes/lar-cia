@@ -39,8 +39,10 @@ const apply = has("apply");             // sem isso, é dry-run
 const toDraft = has("draft");           // despublica em vez de apagar
 const incluirCurtas = has("curtas");    // também remove < min palavras
 const only = opt("only", null);
-const min = parseInt(opt("min", process.env.FILTRO_MIN_PALAVRAS || "100"), 10);
-const maxPer = parseInt(opt("max", "0"), 10); // 0 = sem limite
+const minParsed = parseInt(opt("min", process.env.FILTRO_MIN_PALAVRAS || "100"), 10);
+const min = Number.isNaN(minParsed) ? 100 : minParsed;
+const maxParsed = parseInt(opt("max", "0"), 10);
+const maxPer = Number.isNaN(maxParsed) ? 0 : maxParsed; // 0 = sem limite
 
 const cfgPath = resolve(__dirname, "sites.config.json");
 let cfg;
@@ -51,7 +53,7 @@ function jwt(key) {
   const [id, secret] = key.split(":");
   const b64 = (b) => Buffer.from(b).toString("base64").replace(/=+$/g, "").replace(/\+/g, "-").replace(/\//g, "_");
   const head = b64(JSON.stringify({ alg: "HS256", typ: "JWT", kid: id }));
-  const now = Math.floor(Date.now() / 1000);
+  const now = Math.floor(Date.now() / 1000) - 10;   // -10s: tolera clock drift (evita 401)
   const pay = b64(JSON.stringify({ iat: now, exp: now + 300, aud: "/admin/" }));
   const sig = crypto.createHmac("sha256", Buffer.from(secret, "hex")).update(`${head}.${pay}`).digest();
   return `${head}.${pay}.${b64(sig)}`;
@@ -107,6 +109,7 @@ let totalAch = 0, totalFeito = 0, totalErr = 0;
 for (const site of cfg.sites) {
   if (only && site.name !== only) continue;
   if (site.name === "local" && !only) continue; // não mexe no local sem pedir
+  site.url = String(site.url).replace(/\/$/, ""); // normaliza: sem barra final (evita //ghost/api)
   const key = process.env[site.keyEnv];
   if (!key || !key.includes(":")) { console.log(`• ${site.name}: sem ${site.keyEnv} válida — pulando.`); continue; }
 
