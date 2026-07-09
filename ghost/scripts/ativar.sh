@@ -25,7 +25,7 @@ cd "$(cd "$(dirname "$0")/../.." && pwd)"
 # 2) portal -> domínio, nome e cor
 PORTAL="${1:-}"
 case "$PORTAL" in
-  hojemt)        DOM="hojemt.com.br";        NOME="Hoje MT";        COR="#0B857E" ;;
+  hojemt)        DOM="hojemt.com.br";        NOME="Hoje MT";        COR="#0F9D58" ;;
   odiapolitico)  DOM="odiapolitico.com.br";  NOME="O Dia Político"; COR="#111111" ;;
   pacunews)      DOM="pacunews.com.br";      NOME="Pacu News";      COR="#D62828" ;;
   *) echo "Uso: bash ghost/scripts/ativar.sh <hojemt|odiapolitico|pacunews> [--dry-run] [--completo]"; exit 1 ;;

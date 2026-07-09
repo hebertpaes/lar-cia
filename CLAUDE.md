@@ -4,7 +4,7 @@ Rede de **portais de notícias no Ghost (MT)**. Hoje são **3 portais**:
 
 | Portal | Domínio | Editorias | Cor |
 |---|---|---|---|
-| **Hoje MT** | hojemt.com.br | todas | `#0B857E` (teal) |
+| **Hoje MT** | hojemt.com.br | todas | `#0F9D58` (verde da logo) |
 | **O Dia Político** | odiapolitico.com.br | só **Política** | **layout "Fox News" em PRETO + BRANCO** (`#111111`) |
 | **Pacu News** | pacunews.com.br | todas | `#D62828` (vermelho) |
 
@@ -28,7 +28,7 @@ no Ghost (Design → Brand → Logo) ou pelo `LOGO_FILE` do `ativar-tudo.mjs`.
 
 ```bash
 cd ghost/theme
-bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
+bash build-portal.sh hojemt       "Hoje MT"        "#0F9D58"
 bash build-portal.sh odiapolitico "O Dia Político" "#111111"   # layout Fox, preto+branco
 bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 ```
