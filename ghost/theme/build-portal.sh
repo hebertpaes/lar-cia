@@ -114,6 +114,8 @@ if [ "$SLUG" = "odiapolitico" ]; then
       "    {{> section-block slug=\"internacional\" titulo=\"Mundo\"                filter=\"tag:internacional+tag:-hash-ad\"}}\n" +
       "    {{> section-block slug=\"colunas\"       titulo=\"Colunas &amp; Opinião\" filter=\"tag:colunas+tag:-hash-ad\"}}\n";
     h = h.replace(/(\{\{!-- ===== Demais editorias ===== --\}\}\n<div class="container sections">\n)[\s\S]*?(\n<\/div>)/, "$1" + pol + "$2");
+    // 3) Player AO VIVO vira o LEGISLATIVO (ALMT, Câmara, Senado, Câmara de Cuiabá).
+    h = h.replace("{{> live}}", "{{> live-legislativo}}");
     fs.writeFileSync(home, h);
   ' "$OUT"
   # 3) Anexa a pele Fox ao CSS do tema (só nesta variação).

@@ -1,0 +1,37 @@
+{{!-- AO VIVO · Legislativo (exclusivo do O Dia Político — injetado pelo
+      build-portal.sh no lugar de {{> live}}). Seletor entre os canais OFICIAIS
+      no YouTube: ALMT, Câmara dos Deputados, Senado e Câmara de Cuiabá. Embute a
+      transmissão AO VIVO ATUAL do canal escolhido; fora de sessão o YouTube mostra
+      a programação recente do canal. O JS troca o canal sem recarregar a página. --}}
+<aside class="live-box live-leg" aria-label="Sessões legislativas ao vivo">
+    <h2 class="rail-title rail-live"><span class="live-dot"></span> AO VIVO · Legislativo</h2>
+    <div class="leg-tabs" role="tablist" aria-label="Casas legislativas">
+        <button class="leg-tab active" type="button" data-ch="UCIxlLEYzjWPLb_CXpc-e74w">ALMT</button>
+        <button class="leg-tab" type="button" data-ch="UC-ZkSRh-7UEuwXJQ9UMCFJA">Câmara</button>
+        <button class="leg-tab" type="button" data-ch="UCLgti7NuK0RuW9wty-fxPjQ">Senado</button>
+        <button class="leg-tab" type="button" data-ch="UCNCoIaMma_H-aFP6rRNb56w">Câmara Cuiabá</button>
+    </div>
+    <div class="live-embed">
+        <iframe id="legFrame" src="https://www.youtube.com/embed/live_stream?channel=UCIxlLEYzjWPLb_CXpc-e74w&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin={{@site.url}}"
+            title="Sessão legislativa ao vivo" loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <a class="live-yt-fallback" id="legLink" href="https://www.youtube.com/channel/UCIxlLEYzjWPLb_CXpc-e74w/live" target="_blank" rel="noopener">Não carregou? Assista no YouTube ↗</a>
+</aside>
+<script>
+(function () {
+    var frame = document.getElementById('legFrame'), link = document.getElementById('legLink');
+    if (!frame) return;
+    var tabs = document.querySelectorAll('.leg-tab');
+    tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+            tabs.forEach(function (x) { x.classList.remove('active'); });
+            t.classList.add('active');
+            var ch = t.getAttribute('data-ch');
+            frame.src = 'https://www.youtube.com/embed/live_stream?channel=' + ch + '&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3';
+            link.href = 'https://www.youtube.com/channel/' + ch + '/live';
+        });
+    });
+})();
+</script>

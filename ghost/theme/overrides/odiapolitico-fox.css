@@ -134,3 +134,11 @@
   .main-nav .nav-collapse.open .nav-extra .nav-login,
   .main-nav .nav-collapse.open .nav-extra .nav-theme { color: var(--fox-ink); }
 }
+
+/* Player AO VIVO · Legislativo — seletor de canais (ALMT / Câmara / Senado / Cuiabá) */
+.live-leg .leg-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.live-leg .leg-tab { appearance: none; border: 1px solid var(--fox-strip-line); background: var(--fox-strip); color: var(--fox-ink); font: inherit; font-weight: 800; font-size: 12.5px; letter-spacing: .01em; padding: 6px 11px; border-radius: 999px; cursor: pointer; line-height: 1; }
+.live-leg .leg-tab:hover { border-color: #bdbdbd; }
+.live-leg .leg-tab.active { background: #111111; color: #fff; border-color: #111111; }
+:root[data-theme="dark"] .live-leg .leg-tab { background: #1a1d22; border-color: #2a2f37; color: #e8eaed; }
+:root[data-theme="dark"] .live-leg .leg-tab.active { background: #fff; color: #111; border-color: #fff; }
