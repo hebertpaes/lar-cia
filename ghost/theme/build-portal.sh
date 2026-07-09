@@ -87,7 +87,7 @@ fs.writeFileSync(file, JSON.stringify(j, null, 2) + "\n");
 # como 1ª aba "AO VIVO"; senão, começa na ALMT.
 node -e '
   const fs = require("fs"); const home = process.argv[1] + "/home.hbs";
-  fs.writeFileSync(home, fs.readFileSync(home, "utf8").replace("{{> live}}", "{{> live-legislativo}}"));
+  fs.writeFileSync(home, fs.readFileSync(home, "utf8").replace(/\{\{\s*>\s*live\s*\}\}/g, "{{> live-legislativo}}"));
 ' "$OUT"
 
 # O Dia Político — pele "Fox News": faixa de editorias política (aba vermelha
