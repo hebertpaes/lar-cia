@@ -35,7 +35,7 @@ jobs:
       - name: Gerar os .zip dos 3 portais
         run: |
           cd ghost/theme
-          bash build-portal.sh hojemt       "Hoje MT"        "#0B857E"
+          bash build-portal.sh hojemt       "Hoje MT"        "#0F9D58"
           bash build-portal.sh odiapolitico "O Dia Político" "#111111"
           bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 
