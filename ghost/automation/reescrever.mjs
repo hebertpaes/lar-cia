@@ -49,7 +49,7 @@ const PERSONAS = {
   odiapolitico: "IDENTIDADE DO VEÍCULO — O Dia Político: escreva para um público QUALIFICADO — clientes, gestores e agentes públicos com relevância política e intelectual, e leitores de economia, finanças e negócios. Tom analítico e intelectual, conectando política a economia e negócios. NÃO use tom burocrático nem 'institucional' de release; produza uma versão ÚNICA para este veículo.",
 };
 const PERSONA_ARG = (process.argv.find((a) => a.startsWith("--persona=")) || "").split("=")[1] || "";
-const PERSONA_KEY = (process.env.IA_PERSONA || PERSONA_ARG).toLowerCase();
+const PERSONA_KEY = (PERSONA_ARG || process.env.IA_PERSONA || "").toLowerCase();  // CLI vence o env
 const PERSONA = PERSONAS[PERSONA_KEY] || "";
 const SYSTEM = PERSONA ? `${EDITORIAL}\n\n${PERSONA}` : EDITORIAL;
 
