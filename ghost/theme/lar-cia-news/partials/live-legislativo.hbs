@@ -29,8 +29,8 @@
             tabs.forEach(function (x) { x.classList.remove('active'); });
             t.classList.add('active');
             var ch = t.getAttribute('data-ch');
-            frame.src = 'https://www.youtube.com/embed/live_stream?channel=' + ch + '&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3';
-            link.href = 'https://www.youtube.com/channel/' + ch + '/live';
+            frame.src = 'https://www.youtube.com/embed/live_stream?channel=' + ch + '&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=' + encodeURIComponent('{{@site.url}}');
+            if (link) { link.href = 'https://www.youtube.com/channel/' + ch + '/live'; }
         });
     });
 })();
