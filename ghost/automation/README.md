@@ -103,6 +103,19 @@ já coletado, sem publicar:
 node ghost/automation/filtro.mjs ghost/import/coletado-AAAA-MM-DD.json --min=100
 ```
 
+### Limpar o que já foi publicado (`limpar.mjs`)
+O filtro é **preventivo** (barra o novo). Para remover o administrativo que **já
+está no ar**, use o `limpar.mjs`: ele varre os posts publicados de cada portal
+pela Admin API e aplica o mesmo filtro. **Padrão = `--dry-run`** (só lista) e mira
+**só administrativo** — matéria curta só entra com `--curtas` (para não apagar as
+**curtinhas** editoriais). Use `--draft` para despublicar em vez de apagar.
+```bash
+# Simular (não altera nada):
+HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/limpar.mjs --only=hojemt
+# Remover de verdade:
+HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/limpar.mjs --only=hojemt --apply
+```
+
 ## Publicar o que foi coletado
 - **Vários portais, roteando por editoria** (recomendado):
   ```bash
