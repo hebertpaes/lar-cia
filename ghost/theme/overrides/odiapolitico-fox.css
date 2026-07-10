@@ -32,6 +32,9 @@
 /* Logo embutida (par claro/branca): no cabeçalho preto usa SEMPRE a branca */
 .brand-logo.logo-light { display: none; }
 .brand-logo.logo-dark  { display: inline-block; }
+/* Sobre o preto do portal a logo ganha presença com um brilho suave (claro e
+   escuro; no dark o realce da base, com maior especificidade, assume). */
+.brand-logo, .footer-logo { filter: drop-shadow(0 1px 9px rgba(255,255,255,.16)); }
 .search-drawer { background: var(--fox-navy-2); border-top: 1px solid rgba(255,255,255,.12); }
 .search-form input { background: #fff; border-color: transparent; color: #111111; }
 
