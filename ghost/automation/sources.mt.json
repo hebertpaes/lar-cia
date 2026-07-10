@@ -1,7 +1,7 @@
 {
   "_comment": "Assessorias oficiais de MT. 'editoria' roteia a publicação (politica=O Dia Político). 'feed' (opcional) força a URL do RSS. 'verificar':true = domínio derivado por padrão, confirme antes de produção. Edite à vontade.",
-  "gerado_em": "2026-06-30T23:01:15.084Z",
-  "total": 288,
+  "gerado_em": "2026-07-10T23:34:42.589Z",
+  "total": 289,
   "sources": [
     {
       "id": "agencia-brasil",
@@ -65,6 +65,16 @@
       "url": "https://www.al.mt.gov.br",
       "editoria": "politica",
       "verificar": false
+    },
+    {
+      "id": "amm",
+      "nome": "AMM (Associação Mato-grossense dos Municípios)",
+      "nivel": "estadual",
+      "poder": "associativo",
+      "municipio": "Mato Grosso",
+      "url": "https://www.amm.org.br/Noticias",
+      "editoria": "cidades",
+      "verificar": true
     },
     {
       "id": "pref-acorizal",
