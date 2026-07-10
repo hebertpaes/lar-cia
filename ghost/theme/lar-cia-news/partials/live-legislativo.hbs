@@ -1,17 +1,39 @@
-{{!-- AO VIVO — sessões legislativas (nos três portais). Seletor entre os canais
-      OFICIAIS no YouTube: ALMT, Câmara dos Deputados, Senado e Câmara de Cuiabá.
-      Carrega o embed SEM autoplay → o YouTube exibe a PRÉVIA/thumbnail da sessão
-      (com o ▶); o leitor clica para assistir. Assim não fica preto por autoplay.
-      Se o portal tiver um canal geral (Design → youtube_canal_id), ele entra como
-      1ª aba "AO VIVO". Troca de canal sem recarregar a página. --}}
-<aside class="live-box live-leg" aria-label="Sessões ao vivo">
-    <h2 class="rail-title rail-live"><span class="live-dot"></span> AO VIVO</h2>
-    <div class="leg-tabs" role="tablist" aria-label="Canais ao vivo">
-        {{#if @custom.youtube_canal_id}}<button class="leg-tab active" type="button" data-ch="{{@custom.youtube_canal_id}}" data-sched="">AO VIVO</button>{{/if}}
-        <button class="leg-tab{{#unless @custom.youtube_canal_id}} active{{/unless}}" type="button" data-ch="UCIxlLEYzjWPLb_CXpc-e74w" data-sched="Sessões em geral de terça a quinta">ALMT</button>
-        <button class="leg-tab" type="button" data-ch="UC-ZkSRh-7UEuwXJQ9UMCFJA" data-sched="Sessões em geral de terça a quinta">Câmara</button>
-        <button class="leg-tab" type="button" data-ch="UCLgti7NuK0RuW9wty-fxPjQ" data-sched="Sessões em geral de terça a quinta">Senado</button>
-        <button class="leg-tab" type="button" data-ch="UCNCoIaMma_H-aFP6rRNb56w" data-sched="Sessões em geral às terças e quartas">Câmara Cuiabá</button>
+{{!-- <Portal> TV — espaço de vídeo AO VIVO com as sessões legislativas de Mato
+      Grosso e do Congresso. O título usa o nome do portal ({{@site.title}} TV):
+      "Hoje MT TV", "O Dia Político TV", "Pacu News TV". Um dropdown (<select>)
+      lista as Casas: Assembleia + Congresso e as câmaras municipais de MT
+      (Cuiabá, Várzea Grande, Rondonópolis, Sorriso, Tangará da Serra, Lucas do
+      Rio Verde, Cáceres, Querência…). Todos os canais são OFICIAIS no YouTube.
+      Carrega o embed SEM autoplay → o YouTube mostra a PRÓPRIA prévia/thumbnail
+      (com o ▶) e nunca fica preto. Se o portal tiver canal geral
+      (Design → youtube_canal_id), ele entra como a 1ª opção. Trocar de Casa não
+      recarrega a página. Para incluir mais câmaras, basta acrescentar <option>
+      value="UC…do canal oficial" data-sched="…">Cidade</option>. --}}
+<aside class="live-box live-leg live-tv" aria-label="{{@site.title}} TV">
+    <h2 class="rail-title rail-live"><span class="live-dot"></span> {{@site.title}} TV</h2>
+    <div class="leg-select-wrap">
+        <select class="leg-select" id="legSelect" aria-label="Escolha a Casa legislativa para assistir ao vivo">
+            {{#if @custom.youtube_canal_id}}
+            <optgroup label="Este portal">
+                <option value="{{@custom.youtube_canal_id}}" data-sched="Ao vivo do {{@site.title}}" selected>{{@site.title}} — ao vivo</option>
+            </optgroup>
+            {{/if}}
+            <optgroup label="Assembleia e Congresso">
+                <option value="UCIxlLEYzjWPLb_CXpc-e74w" data-sched="Assembleia de MT — sessões de terça a quinta"{{#unless @custom.youtube_canal_id}} selected{{/unless}}>ALMT — Assembleia de MT</option>
+                <option value="UC-ZkSRh-7UEuwXJQ9UMCFJA" data-sched="Câmara dos Deputados — sessões de terça a quinta">Câmara dos Deputados</option>
+                <option value="UCLgti7NuK0RuW9wty-fxPjQ" data-sched="Senado Federal — sessões de terça a quinta">Senado Federal</option>
+            </optgroup>
+            <optgroup label="Câmaras municipais de MT">
+                <option value="UCNCoIaMma_H-aFP6rRNb56w" data-sched="Câmara de Cuiabá — sessões às terças e quartas">Cuiabá</option>
+                <option value="UC6aDZEfHfNBXfOK_5ZhwFTA" data-sched="Câmara de Várzea Grande — sessões às terças">Várzea Grande</option>
+                <option value="UCGerGLU9mZWw6q2hM9iu-tw" data-sched="Câmara de Rondonópolis — veja a agenda no canal">Rondonópolis</option>
+                <option value="UCxB83MjthQzTscHkE4vX1mA" data-sched="Câmara de Sorriso — veja a agenda no canal">Sorriso</option>
+                <option value="UCydHX6nOBN62VrZzDYPZ5Kw" data-sched="Câmara de Tangará da Serra — veja a agenda no canal">Tangará da Serra</option>
+                <option value="UCAnCP9FRRZybkqSm2XzoPmQ" data-sched="Câmara de Lucas do Rio Verde — veja a agenda no canal">Lucas do Rio Verde</option>
+                <option value="UCw9vSmFGcRNP15JOqFAeE6g" data-sched="Câmara de Cáceres — sessões às segundas">Cáceres</option>
+                <option value="UCsZggNZb4HL1SClG-lM5WzA" data-sched="Câmara de Querência — veja a agenda no canal">Querência</option>
+            </optgroup>
+        </select>
     </div>
     <div class="live-embed live-stage" id="legStage">
         <iframe class="live-frame" src="https://www.youtube.com/embed/live_stream?channel={{#if @custom.youtube_canal_id}}{{@custom.youtube_canal_id}}{{else}}UCIxlLEYzjWPLb_CXpc-e74w{{/if}}&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3&amp;enablejsapi=1&amp;origin={{@site.url}}"
@@ -19,33 +41,29 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-    <p class="live-sched" id="legSched">{{#unless @custom.youtube_canal_id}}Sessões em geral de terça a quinta{{/unless}}</p>
+    <p class="live-sched" id="legSched">{{#if @custom.youtube_canal_id}}Ao vivo do {{@site.title}}{{else}}Assembleia de MT — sessões de terça a quinta{{/if}}</p>
     <a class="live-yt-fallback" id="legLink" href="https://www.youtube.com/channel/{{#if @custom.youtube_canal_id}}{{@custom.youtube_canal_id}}{{else}}UCIxlLEYzjWPLb_CXpc-e74w{{/if}}/live" target="_blank" rel="noopener">Ver a agenda de sessões no YouTube ↗</a>
 </aside>
 <script>
 (function () {
     var frame = document.querySelector('#legStage .live-frame');
+    var sel = document.getElementById('legSelect');
     var sched = document.getElementById('legSched'), link = document.getElementById('legLink');
-    if (!frame) return;
-    var tabs = document.querySelectorAll('.leg-tab');
+    if (!frame || !sel) return;
     var origin = '{{@site.url}}';
     function embedSrc(ch) {
         return 'https://www.youtube.com/embed/live_stream?channel=' + encodeURIComponent(ch) +
             '&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&enablejsapi=1&origin=' + encodeURIComponent(origin);
     }
-    tabs.forEach(function (t) {
-        t.addEventListener('click', function () {
-            if (t.classList.contains('active')) return;   // já é o canal atual: não recarrega
-            tabs.forEach(function (x) { x.classList.remove('active'); });
-            t.classList.add('active');
-            var ch = t.getAttribute('data-ch');
-            var src = embedSrc(ch);
-            // location.replace() troca o vídeo sem empilhar histórico (o "Voltar" sai da página).
-            if (frame.contentWindow) { frame.contentWindow.location.replace(src); }
-            else { frame.src = src; }
-            if (sched) sched.textContent = t.getAttribute('data-sched') || '';
-            if (link) link.href = 'https://www.youtube.com/channel/' + encodeURIComponent(ch) + '/live';
-        });
+    sel.addEventListener('change', function () {
+        var opt = sel.options[sel.selectedIndex];
+        if (!opt) return;
+        var ch = opt.value, src = embedSrc(ch);
+        // location.replace() troca o vídeo sem empilhar histórico (o "Voltar" sai da página).
+        if (frame.contentWindow) { frame.contentWindow.location.replace(src); }
+        else { frame.src = src; }
+        if (sched) sched.textContent = opt.getAttribute('data-sched') || '';
+        if (link) link.href = 'https://www.youtube.com/channel/' + encodeURIComponent(ch) + '/live';
     });
 })();
 </script>

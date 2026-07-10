@@ -277,14 +277,14 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .live-yt-fallback { display: block; text-align: center; margin-top: 6px; font-family: var(--font-ui); font-size: 11.5px; color: var(--ink-soft); }
 .live-yt-fallback:hover { color: var(--urgent); }
 
-/* AO VIVO — seletor de canais (legislativo/geral). Aba ativa usa a cor do portal. */
-.live-leg .leg-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
-.live-leg .leg-tab { appearance: none; border: 1px solid #dcdcdc; background: #f0f0f0; color: #1a1a1a; font-family: var(--font-ui); font-weight: 800; font-size: 12px; letter-spacing: .01em; padding: 6px 10px; border-radius: 999px; cursor: pointer; line-height: 1; }
-.live-leg .leg-tab:hover { border-color: #bdbdbd; }
-.live-leg .leg-tab:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-.live-leg .leg-tab.active { background: var(--urgent); color: #fff; border-color: var(--urgent); }
-[data-theme="dark"] .live-leg .leg-tab { background: #1a1d22; border-color: #2a2f37; color: #e8eaed; }
-[data-theme="dark"] .live-leg .leg-tab.active { background: var(--urgent); color: #fff; border-color: var(--urgent); }
+/* <Portal> TV — dropdown das Casas legislativas (ALMT/Congresso + câmaras de MT). */
+.live-tv .leg-select-wrap { position: relative; margin: 0 0 10px; }
+.live-tv .leg-select { width: 100%; appearance: none; -webkit-appearance: none; box-sizing: border-box; border: 1px solid #dcdcdc; background: #f0f0f0; color: #1a1a1a; font-family: var(--font-ui); font-weight: 800; font-size: 13px; letter-spacing: .01em; padding: 10px 34px 10px 12px; border-radius: 10px; cursor: pointer; }
+.live-tv .leg-select-wrap::after { content: "▾"; position: absolute; right: 13px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--urgent); font-size: 12px; }
+.live-tv .leg-select:hover { border-color: #bdbdbd; }
+.live-tv .leg-select:focus-visible { outline: 2px solid var(--urgent); outline-offset: 2px; }
+[data-theme="dark"] .live-tv .leg-select { background: #1a1d22; border-color: #2a2f37; color: #e8eaed; }
+[data-theme="dark"] .live-tv .leg-select-wrap::after { color: #cdd2da; }
 
 /* AO VIVO legislativo — carrega o embed SEM autoplay, então o YouTube mostra a
    PRÉVIA/thumbnail da sessão (com o ▶) e nunca fica preto por autoplay. */
