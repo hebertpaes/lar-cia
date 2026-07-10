@@ -28,34 +28,37 @@
     var stage = document.getElementById('legStage'), link = document.getElementById('legLink');
     if (!stage) return;
     var tabs = document.querySelectorAll('.leg-tab');
-    var origin = encodeURIComponent('{{@site.url}}');
-    function embedHTML(ch) {
-        return '<iframe class="live-frame" src="https://www.youtube.com/embed/live_stream?channel=' + ch +
-            '&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=' + origin +
-            '" title="Transmissão ao vivo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    var origin = '{{@site.url}}';
+    function liveUrl(ch) { return 'https://www.youtube.com/channel/' + encodeURIComponent(ch) + '/live'; }
+    // Carrega o vídeo só no clique — via DOM (sem innerHTML), com o canal codificado.
+    function loadEmbed(ch) {
+        var f = document.createElement('iframe');
+        f.className = 'live-frame';
+        f.src = 'https://www.youtube.com/embed/live_stream?channel=' + encodeURIComponent(ch) +
+            '&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=' + encodeURIComponent(origin);
+        f.title = 'Transmissão ao vivo';
+        f.loading = 'lazy';
+        f.allowFullscreen = true;
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        stage.textContent = '';
+        stage.appendChild(f);
     }
-    function posterHTML(ch, name, sched) {
-        return '<a class="live-poster" data-ch="' + ch + '" href="https://www.youtube.com/channel/' + ch + '/live" target="_blank" rel="noopener">' +
-            '<span class="live-badge"><span class="live-dot"></span> AO VIVO</span>' +
-            '<span class="live-poster-name"></span>' +
-            '<span class="live-play">▶</span>' +
-            '<span class="live-cta"></span></a>';
-    }
-    function bindPoster() {
-        var p = stage.querySelector('.live-poster');
-        if (!p) return;
-        p.addEventListener('click', function (e) {
-            e.preventDefault();
-            stage.innerHTML = embedHTML(p.getAttribute('data-ch'));
-        });
-    }
+    function span(cls, text) { var s = document.createElement('span'); s.className = cls; if (text != null) s.textContent = text; return s; }
     function showChannel(ch, name, sched) {
-        stage.innerHTML = posterHTML(ch);
-        var p = stage.querySelector('.live-poster');
-        p.querySelector('.live-poster-name').textContent = name;
-        p.querySelector('.live-cta').textContent = 'Assistir · ' + sched;
-        bindPoster();
-        if (link) link.href = 'https://www.youtube.com/channel/' + ch + '/live';
+        var a = document.createElement('a');
+        a.className = 'live-poster';
+        a.href = liveUrl(ch); a.target = '_blank'; a.rel = 'noopener';
+        a.setAttribute('data-ch', ch);
+        var badge = span('live-badge'); badge.appendChild(span('live-dot')); badge.appendChild(document.createTextNode(' AO VIVO'));
+        a.appendChild(badge);
+        a.appendChild(span('live-poster-name', name));
+        a.appendChild(span('live-play', '▶'));
+        a.appendChild(span('live-cta', 'Assistir · ' + sched));
+        a.addEventListener('click', function (e) { e.preventDefault(); loadEmbed(ch); });
+        stage.textContent = '';
+        stage.appendChild(a);
+        if (link) link.href = liveUrl(ch);
     }
     tabs.forEach(function (t) {
         t.addEventListener('click', function () {
@@ -64,6 +67,8 @@
             showChannel(t.getAttribute('data-ch'), t.getAttribute('data-name') || t.textContent, t.getAttribute('data-sched') || '');
         });
     });
-    bindPoster(); // liga o poster inicial (renderizado no HTML)
+    // Poster inicial já vem no HTML (Handlebars, com escape): só liga o clique.
+    var init = stage.querySelector('.live-poster');
+    if (init) init.addEventListener('click', function (e) { e.preventDefault(); loadEmbed(init.getAttribute('data-ch')); });
 })();
 </script>
