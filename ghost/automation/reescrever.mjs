@@ -22,6 +22,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { linkExternos } from "./collect.mjs";
 
 const EDITORIAL =
   "Você é um escritor, editor, redator e jornalista profissional. Sua missão é " +
@@ -133,7 +134,7 @@ async function main() {
       p.title = e.titulo;
       p.custom_excerpt = e.resumo || p.custom_excerpt || null;
       const deck = e.subtitulo ? `<p class="post-deck"><strong>${esc(e.subtitulo)}</strong></p>` : "";
-      p.mobiledoc = mobiledocFromHtml(deck + e.corpo_html);
+      p.mobiledoc = mobiledocFromHtml(linkExternos(deck + e.corpo_html));
       ok++; if (verbose) console.log(`  ✓ ${e.titulo}  (sub ${e.subtitulo.length}c · resumo ${(e.resumo || "").length}c)`);
     } catch (err) { fail++; if (verbose) console.log(`  ✗ mantido original: ${p.title.slice(0, 50)} — ${err.message}`); }
   }
