@@ -36,13 +36,14 @@ const stripTags = (s) => decode(String(s == null ? "" : s)).replace(/<[^>]+>/g, 
 const pick = (xml, tag) => { const m = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i")); return m ? m[1] : ""; };
 const attr = (frag, tag, at) => { const m = frag.match(new RegExp(`<${tag}\\b[^>]*\\b${at}\\s*=\\s*["']([^"']+)["'][^>]*>`, "i")); return m ? m[1] : ""; };
 // Mantém o leitor NO PORTAL: todo link externo (http/https) do corpo da matéria
-// abre em NOVA ABA (target=_blank) com rel=noopener nofollow — nunca navega para
-// fora na mesma aba. Links internos/relativos ficam como estão.
+// abre em NOVA ABA. FORÇA target=_blank + rel=noopener nofollow (removendo target/rel
+// existentes — mesmo target="_self") para nunca sair do portal na mesma aba. Cobre
+// href com ou sem aspas. Links internos/relativos ficam como estão.
 export const linkExternos = (html) => String(html == null ? "" : html).replace(/<a\b([^>]*)>/gi, (m, a) => {
-  if (!/href\s*=\s*["']https?:\/\//i.test(a)) return m;
-  if (!/\btarget\s*=/i.test(a)) a += ' target="_blank"';
-  if (!/\brel\s*=/i.test(a)) a += ' rel="noopener nofollow"';
-  return "<a" + a + ">";
+  if (!/href\s*=\s*(["']?)https?:\/\//i.test(a)) return m;
+  a = a.replace(/\s+target\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+       .replace(/\s+rel\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  return '<a' + a + ' target="_blank" rel="noopener nofollow">';
 });
 
 // ---------- parser RSS/Atom (exportado p/ teste) --------------------------
