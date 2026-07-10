@@ -139,6 +139,3 @@
    Aqui só o ajuste do escuro: o accent do O Dia Político é preto (#111), que
    sumiria na aba ativa no dark; então a aba ativa fica com fundo branco. */
 :root[data-theme="dark"] .live-leg .leg-tab.active { background: #fff; color: #111; border-color: #fff; }
-/* O accent do O Dia Político é preto (#111) e sumiria no botão ▶ sobre o poster
-   escuro; deixa o play branco com o triângulo preto. */
-.live-poster .live-play { background: #fff; color: #111; }

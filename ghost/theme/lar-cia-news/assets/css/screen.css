@@ -286,16 +286,11 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 [data-theme="dark"] .live-leg .leg-tab { background: #1a1d22; border-color: #2a2f37; color: #e8eaed; }
 [data-theme="dark"] .live-leg .leg-tab.active { background: var(--urgent); color: #fff; border-color: var(--urgent); }
 
-/* Poster do AO VIVO — miniatura SEMPRE visível (não fica preta fora de sessão);
-   clica para carregar a transmissão. */
-.live-poster { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; text-decoration: none; text-align: center; padding: 16px; color: #fff; cursor: pointer; background: radial-gradient(130% 100% at 50% 0%, #1b2b4d 0%, #0b1220 72%); }
-.live-poster:hover { background: radial-gradient(130% 100% at 50% 0%, #21356e 0%, #0b1220 72%); }
-.live-poster .live-badge { position: static; display: inline-flex; align-items: center; gap: 6px; background: #D62828; color: #fff; font-family: var(--font-ui); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; padding: 3px 9px; border-radius: 99px; }
-.live-poster .live-badge .live-dot { background: #fff; box-shadow: none; animation: none; width: 7px; height: 7px; }
-.live-poster-name { font-family: var(--font-ui); font-weight: 900; font-size: clamp(16px, 3.8vw, 21px); letter-spacing: -.01em; line-height: 1.15; max-width: 92%; }
-.live-poster .live-play { position: static; inset: auto; margin: 2px 0; width: 50px; height: 50px; }
-.live-poster .live-cta { position: static; inset: auto; left: auto; right: auto; bottom: auto; padding: 0; background: none; color: #c7d2ea; font-weight: 600; font-size: 12px; text-transform: none; }
+/* AO VIVO legislativo — carrega o embed SEM autoplay, então o YouTube mostra a
+   PRÉVIA/thumbnail da sessão (com o ▶) e nunca fica preto por autoplay. */
 .live-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.live-sched { margin: 6px 0 0; font-family: var(--font-ui); font-size: 12px; color: var(--ink-soft); }
+.live-sched:empty { display: none; }
 
 /* ---- Popup (lightbox) do vídeo ---- */
 .yt-modal { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.85); display: grid; place-items: center; padding: 22px; }
