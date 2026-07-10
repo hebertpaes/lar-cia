@@ -636,8 +636,9 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
   .header-actions .btn-subscribe { display: none; }
   /* Header mobile: ☰ à esquerda, logo CENTRALIZADA, busca à direita. */
   .brand { margin: 0 auto; }
-  .ticker { display: none; }
-  .topbar-inner { justify-content: space-between; }
+  /* Mobile: MANTÉM a faixa de últimas rolando; esconde o relógio p/ dar espaço. */
+  .ticker { display: block; }
+  .topbar-clock { display: none; }
   /* Publicidade no mobile = banner QUADRADO responsivo: ocupa a LARGURA TODA
      (maior), altura = largura. Anúncio real (imagem quadrada) preenche; casa idem. */
   .ad-video .ad-banner { aspect-ratio: 1 / 1; width: 100%; max-width: none; }
