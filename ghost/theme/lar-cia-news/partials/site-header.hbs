@@ -4,7 +4,8 @@
 
         <a class="brand" href="{{@site.url}}" aria-label="{{@site.title}} — início">
             {{#if @site.logo}}
-                <img class="brand-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+                <img class="brand-logo logo-light" src="{{@site.logo}}" alt="{{@site.title}}" />
+                <img class="brand-logo logo-dark" src="{{#if @custom.logo_dark}}{{@custom.logo_dark}}{{else}}{{@site.logo}}{{/if}}" alt="{{@site.title}}" />
             {{else}}
                 <span class="brand-mark">{{@site.title}}</span>
             {{/if}}

@@ -2,7 +2,8 @@
     <div class="container footer-grid">
         <div class="footer-brand">
             {{#if @site.logo}}
-                <img class="footer-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+                <img class="footer-logo logo-light" src="{{@site.logo}}" alt="{{@site.title}}" />
+                <img class="footer-logo logo-dark" src="{{#if @custom.logo_dark}}{{@custom.logo_dark}}{{else}}{{@site.logo}}{{/if}}" alt="{{@site.title}}" />
             {{else}}
                 <span class="brand-mark">{{@site.title}}</span>
             {{/if}}
