@@ -35,6 +35,15 @@ const decode = (s) => String(s == null ? "" : s)
 const stripTags = (s) => decode(String(s == null ? "" : s)).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 const pick = (xml, tag) => { const m = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i")); return m ? m[1] : ""; };
 const attr = (frag, tag, at) => { const m = frag.match(new RegExp(`<${tag}\\b[^>]*\\b${at}\\s*=\\s*["']([^"']+)["'][^>]*>`, "i")); return m ? m[1] : ""; };
+// Mantém o leitor NO PORTAL: todo link externo (http/https) do corpo da matéria
+// abre em NOVA ABA (target=_blank) com rel=noopener nofollow — nunca navega para
+// fora na mesma aba. Links internos/relativos ficam como estão.
+export const linkExternos = (html) => String(html == null ? "" : html).replace(/<a\b([^>]*)>/gi, (m, a) => {
+  if (!/href\s*=\s*["']https?:\/\//i.test(a)) return m;
+  if (!/\btarget\s*=/i.test(a)) a += ' target="_blank"';
+  if (!/\brel\s*=/i.test(a)) a += ' rel="noopener nofollow"';
+  return "<a" + a + ">";
+});
 
 // ---------- parser RSS/Atom (exportado p/ teste) --------------------------
 export function parseFeed(xml) {
@@ -176,7 +185,7 @@ function main() {
         if (!verdict.ok) { filtrados++; if (verbose) console.log(`  ⊘ ${s.id}: ${verdict.motivo} — ${it.title.slice(0, 60)}`); continue; }
         const added = B.add({
           title: it.title, slug: `${slugify(it.title).slice(0, 70)}-${slugify(s.municipio)}`,
-          html: body, excerpt: it.summary || null, image: it.image,
+          html: linkExternos(body), excerpt: it.summary || null, image: it.image,
           fonteNome: s.nome, fonteUrl: it.link || s.url, when: it.date || Date.now(),
           tagIds: [tEd, tMun, T_COL, tFonte],
         });

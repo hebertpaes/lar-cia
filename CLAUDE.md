@@ -40,6 +40,11 @@ bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 3. Ao mexer no JS: `node --check assets/js/main.js`.
 4. Não commitar as pastas de variação nem os `.zip` (já ignoradas).
 5. **Nada de placeholder/instrução no front** (produção). Comentários só no código.
+6. **Manter o leitor no portal:** navegação interna sempre na mesma aba (links do
+   próprio site). Todo link **externo** (fonte, YouTube, redes) abre em **nova aba**
+   (`target="_blank" rel="noopener"`) — **nunca** navegar para fora na mesma aba.
+   Vale especialmente para o **Hoje MT**. Na automação, `collect.mjs`/`reescrever.mjs`
+   já forçam isso no corpo das matérias (`linkExternos`).
 
 ## Pastas
 - `ghost/theme/lar-cia-news/` — tema (Handlebars/CSS/JS). Conteúdo demo em `content/noticias.json`.
