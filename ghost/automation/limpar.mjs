@@ -28,7 +28,7 @@ import crypto from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { ehAdministrativo, avaliar } from "./filtro.mjs";
+import { avaliar } from "./filtro.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -60,13 +60,14 @@ function jwt(key) {
 }
 
 // Decide se um post publicado deve sair. Retorna motivo ou null.
+// Usa o avaliar SEM a camada de relevância (relevancia:false): limpar só mira
+// administrativo/diário oficial (e curtas, se pedido) — nunca apaga por "baixa
+// relevância". O avaliar já poupa notícias de APURAÇÃO sobre licitação/edital.
 function motivoRemover(post) {
   const html = post.html || "";
-  if (ehAdministrativo(post.title, html)) return "administrativo";
-  if (incluirCurtas) {
-    const v = avaliar({ title: post.title, corpo: html }, { min });
-    if (!v.ok && v.motivo.startsWith("curta")) return v.motivo;
-  }
+  const v = avaliar({ title: post.title, corpo: html }, { min, relevancia: false });
+  if (v.motivo === "administrativo") return "administrativo";
+  if (incluirCurtas && !v.ok && v.motivo.startsWith("curta")) return v.motivo;
   return null;
 }
 
