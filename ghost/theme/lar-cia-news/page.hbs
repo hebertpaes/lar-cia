@@ -8,7 +8,7 @@
             {{#if custom_excerpt}}<p class="article-sub">{{custom_excerpt}}</p>{{/if}}
         </header>
         {{#if feature_image}}
-            <figure class="article-hero"><img src="{{img_url feature_image size="xl"}}" alt="{{title}}" /></figure>
+            <figure class="article-hero"><img src="{{img_url feature_image size="xl"}}" alt="{{title}}" loading="lazy" onerror="this.closest('.article-hero').remove()" /></figure>
         {{/if}}
     {{/if}}
     <div class="gh-content">
