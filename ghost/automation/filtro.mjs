@@ -60,6 +60,9 @@ const ADMIN = new RegExp(
     "chamada publica", "cotac\\w* de preco\\w*",
     "termo de referencia", "processo administrativo", "dispensa n\\w*",
     "ratificac\\w*", "extrato de", "aviso de pregao", "aviso de chamada",
+    // Diário/Jornal Oficial dos Municípios (AMM, diariomunicipal.org): a "gazeta"
+    // oficial é só ato administrativo — nunca é notícia da redação/Secom.
+    "jornal oficial", "diario eletronico", "publicac\\w* lega\\w*", "atos oficiais",
   ].join("|") + ")",
 );
 
