@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-/* CONSERTO RETROATIVO DAS IMAGENS já publicadas. Varre os posts publicados de
-   cada portal e RE-HOSPEDA no Ghost as imagens EXTERNAS — a foto de CAPA
-   (feature_image) E as imagens do CORPO (<img> no HTML) — que quebram na home
-   (hotlink/404/mixed-content). Baixa e sobe pro /content/images e atualiza o post.
+/* CONSERTO RETROATIVO DO CORPO das matérias já publicadas. Varre os posts de
+   cada portal e, no HTML do corpo + na capa:
+     • RE-HOSPEDA no Ghost as imagens EXTERNAS — capa (feature_image) e <img> do
+       corpo — que quebram na home (hotlink/404/mixed-content);
+     • REMOVE os LINKS EXTERNOS do corpo (âncoras pra fonte/agenciabrasil/gov…),
+       mantendo o texto — pra não mandar o leitor pra fora do portal.
+   Baixa/sobe pro /content/images e atualiza o post.
 
    Roda na SUA máquina (o sandbox não alcança os portais nem as fontes).
    Lê portais/chaves do mesmo sites.config.json do publish.mjs
@@ -22,7 +25,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { jwt, ehInterna, reHostUrl, reHostHtml, imagensExternas } from "./imagens.mjs";
+import { jwt, ehInterna, reHostUrl, reHostHtml, imagensExternas, semLinksExternosSite } from "./imagens.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -62,7 +65,7 @@ async function main() {
   try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); }
   catch { console.error(`Crie ${cfgPath} a partir de sites.config.example.json.`); process.exit(1); }
 
-  let capas = 0, corpos = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
+  let capas = 0, corpos = 0, links = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
   for (const site of cfg.sites) {
     if (only && site.name !== only) continue;
     const key = process.env[site.keyEnv];
@@ -78,11 +81,12 @@ async function main() {
       if (n++ >= max) break;
       const capaExterna = p.feature_image && !ehInterna(site.url, p.feature_image);
       const imgsCorpo = imagensExternas(site.url, p.html || "");
-      if (!capaExterna && imgsCorpo.length === 0) continue;   // nada a re-hospedar
+      const linksExt = semLinksExternosSite(site.url, p.html || "").removidos;   // conta sem rede
+      if (!capaExterna && imgsCorpo.length === 0 && linksExt === 0) continue;    // nada a fazer
       if (!APPLY) {
-        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · ${imgsCorpo.length} img(s) externas no corpo`);
+        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · ${imgsCorpo.length} img(s) e ${linksExt} link(s) externo(s) no corpo`);
         if (capaExterna) capas++;
-        corpos += imgsCorpo.length;
+        corpos += imgsCorpo.length; links += linksExt;
         continue;
       }
       try {
@@ -92,10 +96,13 @@ async function main() {
           if (nova) { patch.feature_image = nova; capas++; }
           else if (NULLS) { patch.feature_image = null; nulls++; }
         }
+        let html = p.html || "", mudouHtml = false;
         if (imgsCorpo.length) {
-          const r = await reHostHtml(site.url, p.html || "", key, cache);
-          if (r.trocadas > 0) { patch.html = r.html; corpos += r.trocadas; }
+          const r = await reHostHtml(site.url, html, key, cache);
+          if (r.trocadas > 0) { html = r.html; corpos += r.trocadas; mudouHtml = true; }
         }
+        { const r = semLinksExternosSite(site.url, html); if (r.removidos > 0) { html = r.html; links += r.removidos; mudouHtml = true; } }
+        if (mudouHtml) patch.html = html;
         if (Object.keys(patch).length === 0) { skip++; continue; }
         await atualizar(site, p, patch, key);
         console.log(`  ✓ ${p.slug}${patch.feature_image !== undefined ? " · capa" : ""}${patch.html ? " · corpo" : ""}`);
@@ -103,7 +110,7 @@ async function main() {
       } catch (e) { console.log(`  ✗ ${p.slug}: ${e.message}`); err++; }
     }
   }
-  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
+  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} links-externos-removidos=${links} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
 }
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);

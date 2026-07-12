@@ -75,6 +75,21 @@ export async function reHostUrl(siteUrl, src, key, cache) {
   return out;
 }
 
+/* Remove as <a> EXTERNAS (host != site) do HTML, preservando o conteúdo interno
+   (desembrulha a âncora). Links relativos/internos e do mesmo host ficam. Puro
+   (sem rede). Devolve { html, removidos }. */
+export function semLinksExternosSite(siteUrl, html) {
+  if (!html) return { html: html || "", removidos: 0 };
+  let removidos = 0;
+  const out = html.replace(/<a\b[^>]*?\bhref\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)[^>]*>([\s\S]*?)<\/a>/gi, (m, href, inner) => {
+    const h = href.replace(/^["']|["']$/g, "");
+    if (!/^https?:\/\//i.test(h)) return m;   // relativo/interno → mantém
+    if (ehInterna(siteUrl, h)) return m;       // mesmo host → mantém
+    removidos++; return inner;                 // externa → desembrulha
+  });
+  return { html: out, removidos };
+}
+
 /* Lista as URLs de <img src> EXTERNAS de um HTML (sem baixar nada). */
 export function imagensExternas(siteUrl, html) {
   const out = new Set();

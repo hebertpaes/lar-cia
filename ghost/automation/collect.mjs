@@ -35,16 +35,13 @@ const decode = (s) => String(s == null ? "" : s)
 const stripTags = (s) => decode(String(s == null ? "" : s)).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 const pick = (xml, tag) => { const m = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i")); return m ? m[1] : ""; };
 const attr = (frag, tag, at) => { const m = frag.match(new RegExp(`<${tag}\\b[^>]*\\b${at}\\s*=\\s*["']([^"']+)["'][^>]*>`, "i")); return m ? m[1] : ""; };
-// Mantém o leitor NO PORTAL: todo link externo (http/https) do corpo da matéria
-// abre em NOVA ABA. FORÇA target=_blank + rel=noopener nofollow (removendo target/rel
-// existentes — mesmo target="_self") para nunca sair do portal na mesma aba. Cobre
-// href com ou sem aspas. Links internos/relativos ficam como estão.
-export const linkExternos = (html) => String(html == null ? "" : html).replace(/<a\b([^>]*)>/gi, (m, a) => {
-  if (!/href\s*=\s*(["']?)https?:\/\//i.test(a)) return m;
-  a = a.replace(/\s+target\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "")
-       .replace(/\s+rel\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "");
-  return '<a' + a + ' target="_blank" rel="noopener nofollow">';
-});
+// Mantém o leitor NO PORTAL: link externo (http/https) NÃO fica no corpo da
+// matéria — o leitor não é mandado pra fonte (agenciabrasil, gov, etc.). REMOVE
+// a âncora externa preservando o TEXTO/conteúdo interno (desembrulha o <a>); o
+// que estava dentro (inclusive <img>) continua. Links internos/relativos ficam.
+export const semLinksExternos = (html) => String(html == null ? "" : html)
+  .replace(/<a\b[^>]*?\bhref\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)[^>]*>([\s\S]*?)<\/a>/gi,
+    (m, href, inner) => (/^["']?https?:\/\//i.test(href) ? inner : m));
 
 // ---------- parser RSS/Atom (exportado p/ teste) --------------------------
 export function parseFeed(xml) {
@@ -132,7 +129,7 @@ export function makeBuilder() {
       id, title, slug, type: "post", status: "published", visibility: "public",
       mobiledoc: JSON.stringify({ version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]] }),
       feature_image: image || null,
-      feature_image_caption: `Fonte: <a href="${esc(fonteUrl)}" target="_blank" rel="noopener">${esc(fonteNome)}</a>`,
+      feature_image_caption: `Fonte: ${esc(fonteNome)}`,
       custom_excerpt: excerpt || null, created_at: at, updated_at: at, published_at: at,
     });
     tagIds.forEach((tid, i) => posts_tags.push({ tag_id: tid, post_id: id, sort_order: i }));
@@ -186,7 +183,7 @@ function main() {
         if (!verdict.ok) { filtrados++; if (verbose) console.log(`  ⊘ ${s.id}: ${verdict.motivo} — ${it.title.slice(0, 60)}`); continue; }
         const added = B.add({
           title: it.title, slug: `${slugify(it.title).slice(0, 70)}-${slugify(s.municipio)}`,
-          html: linkExternos(body), excerpt: it.summary || null, image: it.image,
+          html: semLinksExternos(body), excerpt: it.summary || null, image: it.image,
           fonteNome: s.nome, fonteUrl: it.link || s.url, when: it.date || Date.now(),
           tagIds: [tEd, tMun, T_COL, tFonte],
         });
