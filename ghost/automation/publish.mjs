@@ -21,11 +21,11 @@
      # Publicar nos portais de produção:
      HOJEMT_ADMIN_KEY='..' ODIAPOLITICO_ADMIN_KEY='..' node ghost/automation/publish.mjs ghost/import/secom-import.json
 */
-import crypto from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { avaliar } from "./filtro.mjs";
+import { jwt, reHostUrl, reHostHtml } from "./imagens.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -54,75 +54,12 @@ const htmlOf = (post) => {
   try { return JSON.parse(post.mobiledoc).cards[0][1].html; } catch { return ""; }
 };
 
-function jwt(key) {
-  const [id, secret] = key.split(":");
-  const b64 = (b) => Buffer.from(b).toString("base64").replace(/=+$/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-  const head = b64(JSON.stringify({ alg: "HS256", typ: "JWT", kid: id }));
-  const now = Math.floor(Date.now() / 1000);
-  const pay = b64(JSON.stringify({ iat: now, exp: now + 300, aud: "/admin/" }));
-  const sig = crypto.createHmac("sha256", Buffer.from(secret, "hex")).update(`${head}.${pay}`).digest();
-  return `${head}.${pay}.${b64(sig)}`;
-}
-
-// --- Re-hospedagem de imagens ----------------------------------------------
-// A foto da matéria (feature_image) vem como URL EXTERNA da fonte (gov, portais).
-// Na home isso quebra muito (hotlink/Referer, http em site https, 404). Aqui a
-// gente BAIXA a imagem e SOBE pro Ghost (endpoint de imagens), trocando por uma
-// URL interna /content/images/… — que carrega sempre. Falhou? mantém a original
-// (o tema tem placeholder). Desliga com REHOST_IMAGES=0.
+// --- Re-hospedagem de imagens (foto de capa + imagens do corpo) -------------
+// Baixa a imagem externa da fonte e sobe pro Ghost (/content/images), evitando
+// quebra por hotlink/http/404 na home. Vale pra feature_image E pras <img> do
+// corpo. Desliga com REHOST_IMAGES=0. (jwt/reHost moram em imagens.mjs)
 const REHOST = process.env.REHOST_IMAGES !== "0";
-const imgCache = new Map();   // `${site.url}\n${src}` -> url interna | null
-
-function ehInterna(site, url) {
-  if (!url) return false;
-  if (/^\/content\/images\//.test(url)) return true;
-  try { return new URL(url).host === new URL(site.url).host; } catch { return false; }
-}
-async function baixarImagem(src) {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 20000);
-  try {
-    let referer = ""; try { referer = new URL(src).origin + "/"; } catch {}
-    const r = await fetch(src, {
-      redirect: "follow", signal: ctrl.signal,
-      headers: { "user-agent": "Mozilla/5.0 (compatible; LarCiaBot/1.0)",
-        accept: "image/avif,image/webp,image/*,*/*;q=0.8", ...(referer ? { referer } : {}) },
-    });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const ct = (r.headers.get("content-type") || "").split(";")[0].trim();
-    if (!/^image\//.test(ct)) throw new Error(`tipo ${ct || "?"}`);
-    const buf = Buffer.from(await r.arrayBuffer());
-    if (buf.length < 512) throw new Error("muito pequena");
-    return { buf, ct };
-  } finally { clearTimeout(t); }
-}
-function nomeArquivo(src, ct) {
-  let base = "imagem";
-  try { base = (new URL(src).pathname.split("/").pop() || "imagem").replace(/[^\w.\-]+/g, "-").slice(-80); } catch {}
-  if (!/\.[a-z0-9]{2,5}$/i.test(base)) {
-    base += "." + ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif", "image/avif": "avif" }[ct] || "jpg");
-  }
-  return base;
-}
-async function reHost(site, src, key) {
-  if (!REHOST || !src || ehInterna(site, src)) return src || null;
-  const ck = `${site.url}\n${src}`;
-  if (imgCache.has(ck)) return imgCache.get(ck);
-  let out = null;
-  try {
-    const { buf, ct } = await baixarImagem(src);
-    const form = new FormData();
-    form.append("file", new Blob([buf], { type: ct }), nomeArquivo(src, ct));
-    form.append("purpose", "image");
-    const r = await fetch(`${site.url}/ghost/api/admin/images/upload/`, {
-      method: "POST", headers: { Authorization: `Ghost ${jwt(key)}` }, body: form,
-    });
-    if (!r.ok) throw new Error(`upload HTTP ${r.status}`);
-    out = (await r.json())?.images?.[0]?.url || null;
-  } catch (e) { console.log(`    · imagem não re-hospedada (${e.message}) — usa a original`); }
-  imgCache.set(ck, out);
-  return out;
-}
+const imgCache = new Map();
 
 async function exists(site, slug, key) {
   const r = await fetch(`${site.url}/ghost/api/admin/posts/slug/${encodeURIComponent(slug)}/?fields=id`,
@@ -134,10 +71,14 @@ async function publish(site, post, key) {
   // Ghost limita custom_excerpt a 300 caracteres → trunca com segurança (sem a
   // IA, o resumo cru da coleta pode passar disso e derrubar o post com HTTP 422).
   const excerpt = post.custom_excerpt ? String(post.custom_excerpt).trim().slice(0, 296) : null;
-  // Re-hospeda a foto no Ghost; se falhar, mantém a URL original.
-  const feature = post.feature_image ? (await reHost(site, post.feature_image, key)) || post.feature_image : null;
+  // Re-hospeda a foto de capa E as imagens do corpo; se falhar, mantém o original.
+  let html = htmlOf(post), feature = post.feature_image || null;
+  if (REHOST) {
+    if (feature) feature = (await reHostUrl(site.url, feature, key, imgCache)) || feature;
+    html = (await reHostHtml(site.url, html, key, imgCache)).html;
+  }
   const body = { posts: [{
-    title: post.title, slug: post.slug, html: htmlOf(post),
+    title: post.title, slug: post.slug, html,
     custom_excerpt: excerpt, feature_image: feature,
     feature_image_caption: post.feature_image_caption || null,
     status: draftMode ? "draft" : "published", published_at: draftMode ? undefined : (post.published_at || undefined),
