@@ -40,7 +40,7 @@ jobs:
           bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 
       - name: Enviar infra/ e temas para a VM (rsync via SSH)
-        uses: burnett01/rsync-deployments@7.0.2
+        uses: burnett01/rsync-deployments@9.0.0
         with:
           switches: -avzr --delete --exclude='.env'
           path: infra/
@@ -50,7 +50,7 @@ jobs:
           remote_key: ${{ secrets.VM_SSH_KEY }}
 
       - name: Copiar os .zip dos temas para a VM
-        uses: burnett01/rsync-deployments@7.0.2
+        uses: burnett01/rsync-deployments@9.0.0
         with:
           switches: -avz
           path: ghost/theme/hojemt.zip ghost/theme/odiapolitico.zip ghost/theme/pacunews.zip
