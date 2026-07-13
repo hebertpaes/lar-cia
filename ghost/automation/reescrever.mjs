@@ -22,6 +22,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { limparCorpo } from "./collect.mjs";
 
 const EDITORIAL =
@@ -72,7 +73,7 @@ const INSTRUCAO =
   "Regras: titulo ≤76 caracteres; subtitulo ≤55; resumo entre 139 e 149; " +
   "corpo_html com parágrafos <p>…</p> (jornalismo profissional, texto único).";
 
-async function reescreverUm(titulo, texto) {
+export async function reescreverUm(titulo, texto) {
   const userMsg = `${INSTRUCAO}\n\nTÍTULO ORIGINAL: ${titulo}\nTEXTO ORIGINAL:\n${texto}`;
   let out = "";
   if (PROVIDER === "anthropic") {
@@ -142,4 +143,6 @@ async function main() {
   console.log(`Reescritas: ${ok} · falhas (mantidas originais): ${fail} · arquivo: ${outPath}`);
 }
 
-main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });
+// Só executa quando chamado direto (permite importar reescreverUm em outros tools).
+const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });

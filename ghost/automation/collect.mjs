@@ -47,8 +47,12 @@ export const semLinksExternos = (html) => String(html == null ? "" : html)
 // a fonte (agenciabrasil etc.) embute no meio/fim da matéria — não é conteúdo e
 // leva o leitor pra fora. Só casa quando há título com a frase-gatilho SEGUIDO de
 // uma <ul>/<ol> (evita apagar prosa que só cite "relacionado").
+const REL_GATILHO = "not[ií]cias?\\s+relacionad|mat[eé]rias?\\s+relacionad|conte[uú]dos?\\s+relacionad|leia\\s+(?:tamb[eé]m|mais)|veja\\s+(?:tamb[eé]m|mais)|saiba\\s+mais";
 export const semRelacionadas = (html) => String(html == null ? "" : html)
-  .replace(/<(h[1-6]|p)\b[^>]*>(?:(?!<\/\1>)[\s\S])*?(?:not[ií]cias?\s+relacionad|mat[eé]rias?\s+relacionad|conte[uú]dos?\s+relacionad|leia\s+(?:tamb[eé]m|mais)|veja\s+(?:tamb[eé]m|mais)|saiba\s+mais)(?:(?!<\/\1>)[\s\S])*?<\/\1>\s*<(ul|ol)\b[\s\S]*?<\/\2>/gi, "");
+  // título "…relacionadas / leia também…" + LISTA (ul/ol) logo em seguida
+  .replace(new RegExp(`<(h[1-6]|p)\\b[^>]*>(?:(?!</\\1>)[\\s\\S])*?(?:${REL_GATILHO})(?:(?!</\\1>)[\\s\\S])*?</\\1>\\s*(?:<br\\s*/?>\\s*)*<(ul|ol)\\b[\\s\\S]*?</\\2>`, "gi"), "")
+  // variante sem <ul>: título + parágrafos que são só links
+  .replace(new RegExp(`<(h[1-6]|p)\\b[^>]*>(?:(?!</\\1>)[\\s\\S])*?(?:${REL_GATILHO})(?:(?!</\\1>)[\\s\\S])*?</\\1>\\s*(?:<p\\b[^>]*>\\s*<a\\b[\\s\\S]*?</a>\\s*</p>\\s*){1,6}`, "gi"), "");
 
 // Remove RODAPÉS de crédito que a fonte (agenciabrasil/EBC) põe no fim: "Edição:
 // …", "Com informações de/da …", "Reportagem:/Texto:/Fonte: …", "Colaborou …",
