@@ -316,6 +316,17 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.18; margin: 0; fo
 .video-list { list-style: none; margin: 0; padding: 0; }
 .video-list li { border-bottom: 1px solid var(--line); }
 .video-list a { display: flex; gap: 10px; align-items: center; padding: 9px 0; }
+
+/* Cobertura AO VIVO (live-blog) dentro da matéria — feed de notas em tempo real. */
+.live-cobertura { margin: 18px 0; border-left: 3px solid var(--urgent); padding: 4px 0 4px 14px; }
+.live-cobertura-flag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--urgent); margin: 0 0 12px; }
+.live-cobertura-flag.encerrada { color: var(--ink-soft); text-transform: none; font-weight: 700; letter-spacing: 0; }
+.live-updates { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.live-update { position: relative; padding-left: 16px; font-family: var(--font-ui); font-size: 15px; line-height: 1.5; }
+.live-update::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--urgent); }
+.live-update time { font-weight: 800; color: var(--urgent); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.live-update-ts { margin-left: 6px; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; }
+.live-update-ts:hover { color: var(--urgent); }
 .video-thumb { position: relative; flex: none; width: 76px; height: 48px; border-radius: 5px; overflow: hidden; background: var(--bg-soft); }
 .video-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .video-play { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 14px; background: rgba(0,0,0,.32); }

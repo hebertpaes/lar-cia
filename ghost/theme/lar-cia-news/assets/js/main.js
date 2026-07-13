@@ -485,3 +485,14 @@
     });
   })();
 })();
+
+/* Cobertura AO VIVO (live-blog): enquanto estiver no ar (data-live="1"), recarrega
+   a página a cada minuto para o leitor ver as novas notas em tempo real. Pausa se
+   a aba está oculta (não gasta à toa). Some quando a cobertura é encerrada. */
+(function () {
+  if (!document.querySelector('.live-cobertura[data-live="1"]')) return;
+  setTimeout(function tick() {
+    if (document.hidden) { setTimeout(tick, 5000); return; }
+    location.reload();
+  }, 60000);
+})();
