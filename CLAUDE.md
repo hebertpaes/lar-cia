@@ -42,10 +42,12 @@ bash build-portal.sh pacunews     "Pacu News"      "#D62828"
 5. **Nada de placeholder/instrução no front** (produção). Comentários só no código.
 6. **Manter o leitor no portal:** navegação interna sempre na mesma aba (links do
    próprio site). O **corpo** das matérias **não leva link externo** (para a
-   fonte/agenciabrasil/gov) — `collect.mjs`/`reescrever.mjs` **removem** a âncora
-   externa e mantêm o texto (`semLinksExternos`); a fonte vira **crédito em texto**
-   na legenda da foto (sem link de saída). O `rehospedar.mjs` limpa isso também
-   nos posts já publicados. Links de **UI do tema** (redes, compartilhar, AO VIVO
+   fonte/agenciabrasil/gov) nem blocos de **"Notícias relacionadas / Leia também"**
+   que a fonte embute — `collect.mjs`/`reescrever.mjs` limpam o corpo (`limparCorpo`
+   = `semRelacionadas` + `semLinksExternos`): tiram o bloco de relacionadas e
+   desembrulham a âncora externa (mantendo o texto). A fonte vira **crédito em
+   texto** na legenda da foto (sem link de saída). O `rehospedar.mjs` limpa isso
+   também nos posts já publicados. Links de **UI do tema** (redes, compartilhar, AO VIVO
    no YouTube) seguem em **nova aba** (`target="_blank" rel="noopener"`) — nunca
    navegar para fora na mesma aba. Vale especialmente para o **Hoje MT**.
 

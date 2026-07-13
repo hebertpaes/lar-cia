@@ -26,6 +26,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { jwt, ehInterna, reHostUrl, reHostHtml, imagensExternas, semLinksExternosSite } from "./imagens.mjs";
+import { semRelacionadas } from "./collect.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -65,7 +66,7 @@ async function main() {
   try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); }
   catch { console.error(`Crie ${cfgPath} a partir de sites.config.example.json.`); process.exit(1); }
 
-  let capas = 0, corpos = 0, links = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
+  let capas = 0, corpos = 0, links = 0, rel = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
   for (const site of cfg.sites) {
     if (only && site.name !== only) continue;
     const key = process.env[site.keyEnv];
@@ -79,14 +80,16 @@ async function main() {
     let n = 0;
     for (const p of posts) {
       if (n++ >= max) break;
+      const html0 = p.html || "";
       const capaExterna = p.feature_image && !ehInterna(site.url, p.feature_image);
-      const imgsCorpo = imagensExternas(site.url, p.html || "");
-      const linksExt = semLinksExternosSite(site.url, p.html || "").removidos;   // conta sem rede
-      if (!capaExterna && imgsCorpo.length === 0 && linksExt === 0) continue;    // nada a fazer
+      const imgsCorpo = imagensExternas(site.url, html0);
+      const linksExt = semLinksExternosSite(site.url, html0).removidos;   // conta sem rede
+      const temRel = semRelacionadas(html0) !== html0;                    // bloco "relacionadas"?
+      if (!capaExterna && imgsCorpo.length === 0 && linksExt === 0 && !temRel) continue;   // nada a fazer
       if (!APPLY) {
-        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · ${imgsCorpo.length} img(s) e ${linksExt} link(s) externo(s) no corpo`);
+        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · corpo: ${imgsCorpo.length} img, ${linksExt} link, ${temRel ? "1 bloco relacionadas" : "0 bloco"}`);
         if (capaExterna) capas++;
-        corpos += imgsCorpo.length; links += linksExt;
+        corpos += imgsCorpo.length; links += linksExt; if (temRel) rel++;
         continue;
       }
       try {
@@ -96,11 +99,12 @@ async function main() {
           if (nova) { patch.feature_image = nova; capas++; }
           else if (NULLS) { patch.feature_image = null; nulls++; }
         }
-        let html = p.html || "", mudouHtml = false;
+        let html = html0, mudouHtml = false;
         if (imgsCorpo.length) {
           const r = await reHostHtml(site.url, html, key, cache);
           if (r.trocadas > 0) { html = r.html; corpos += r.trocadas; mudouHtml = true; }
         }
+        { const h = semRelacionadas(html); if (h !== html) { html = h; rel++; mudouHtml = true; } }
         { const r = semLinksExternosSite(site.url, html); if (r.removidos > 0) { html = r.html; links += r.removidos; mudouHtml = true; } }
         if (mudouHtml) patch.html = html;
         if (Object.keys(patch).length === 0) { skip++; continue; }
@@ -110,7 +114,7 @@ async function main() {
       } catch (e) { console.log(`  ✗ ${p.slug}: ${e.message}`); err++; }
     }
   }
-  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} links-externos-removidos=${links} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
+  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} links-externos-removidos=${links} blocos-relacionadas=${rel} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
 }
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);

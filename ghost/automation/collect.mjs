@@ -43,6 +43,17 @@ export const semLinksExternos = (html) => String(html == null ? "" : html)
   .replace(/<a\b[^>]*?\bhref\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)[^>]*>([\s\S]*?)<\/a>/gi,
     (m, href, inner) => (/^["']?https?:\/\//i.test(href) ? inner : m));
 
+// Remove os blocos de "Notícias relacionadas / Leia também" (TÍTULO + LISTA) que
+// a fonte (agenciabrasil etc.) embute no meio/fim da matéria — não é conteúdo e
+// leva o leitor pra fora. Só casa quando há título com a frase-gatilho SEGUIDO de
+// uma <ul>/<ol> (evita apagar prosa que só cite "relacionado").
+export const semRelacionadas = (html) => String(html == null ? "" : html)
+  .replace(/<(h[1-6]|p)\b[^>]*>(?:(?!<\/\1>)[\s\S])*?(?:not[ií]cias?\s+relacionad|mat[eé]rias?\s+relacionad|conte[uú]dos?\s+relacionad|leia\s+(?:tamb[eé]m|mais)|veja\s+(?:tamb[eé]m|mais)|saiba\s+mais)(?:(?!<\/\1>)[\s\S])*?<\/\1>\s*<(ul|ol)\b[\s\S]*?<\/\2>/gi, "");
+
+// Limpeza do CORPO da matéria: tira os blocos de "relacionadas" e remove os links
+// externos (mantendo o texto). É o que collect/reescrever aplicam no corpo.
+export const limparCorpo = (html) => semLinksExternos(semRelacionadas(html));
+
 // ---------- parser RSS/Atom (exportado p/ teste) --------------------------
 export function parseFeed(xml) {
   const items = [];
@@ -183,7 +194,7 @@ function main() {
         if (!verdict.ok) { filtrados++; if (verbose) console.log(`  ⊘ ${s.id}: ${verdict.motivo} — ${it.title.slice(0, 60)}`); continue; }
         const added = B.add({
           title: it.title, slug: `${slugify(it.title).slice(0, 70)}-${slugify(s.municipio)}`,
-          html: semLinksExternos(body), excerpt: it.summary || null, image: it.image,
+          html: limparCorpo(body), excerpt: it.summary || null, image: it.image,
           fonteNome: s.nome, fonteUrl: it.link || s.url, when: it.date || Date.now(),
           tagIds: [tEd, tMun, T_COL, tFonte],
         });
