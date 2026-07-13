@@ -33,7 +33,7 @@ const only = opt("only", null), slugAlvo = opt("slug", null);
 const max = parseInt(opt("max", "30"), 10) || 30;
 const IA = !SEM_IA && !!process.env.IA_API_KEY;
 
-const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const stripTags = (s) => String(s || "").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/\s+/g, " ").trim();
 const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const clamp = (s, n) => { s = String(s || "").trim(); return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "").trim() : s; };
 const mobiledoc = (html) => JSON.stringify({ version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]] });
@@ -60,13 +60,18 @@ async function listar(site, key) {
   return out;
 }
 
-// Precisa de conserto? (sem IA, só olha problemas mecânicos + SEO)
+// Resumo/meta poluído com sobra de MARKUP/CSS (ex.: classes Tailwind que vazaram:
+// `*:first-child]:mt-0 [&>*:last-child]:mb-0 space-y-2">`). Sinal de que precisa refazer.
+const resumoRuim = (e) => !e || e.length < 120
+  || /[<>{}[\]]|"\s*>|class=|:mt-|:mb-|space-y|first-child|last-child|:last-|:first-/.test(e);
+
+// Precisa de conserto? (sem IA, olha problemas mecânicos, SEO e resumo poluído)
 function temProblema(site, p) {
   const h = p.html || "";
   return semRelacionadas(h) !== h || semRodape(h) !== h
     || semLinksExternosSite(site, h).removidos > 0 || imagensExternas(site, h).length > 0
     || (p.feature_image && !ehInterna(site, p.feature_image))
-    || !p.custom_excerpt || p.custom_excerpt.length < 120 || p.title.length > 76;
+    || resumoRuim(p.custom_excerpt) || p.title.length > 76;
 }
 
 async function reeditarPost(siteUrl, key, p, cache) {
@@ -90,7 +95,7 @@ async function reeditarPost(siteUrl, key, p, cache) {
     } catch (e) { console.log(`    · IA não reeditou (${e.message}) — mantém limpeza`); }
   }
   if (title.length > 76) title = clamp(title, 76);
-  if (!excerpt || excerpt.length < 120) excerpt = clamp(stripTags(html), 149);
+  if (resumoRuim(excerpt)) excerpt = clamp(stripTags(html), 149);
   return { title, excerpt: clamp(excerpt, 149), html, feature };
 }
 

@@ -40,7 +40,7 @@ const slug = (s) => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,
   .replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "");
 const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
   .replace(/\s+/g, " ").trim();
-const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/gi, " ")
+const stripTags = (s) => String(s || "").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/&nbsp;/gi, " ")
   .replace(/&amp;/gi, "&").replace(/\s+/g, " ").trim();
 const hostOf = (u) => { try { return new URL(u).host.replace(/^www\./, ""); } catch { return ""; } };
 

@@ -34,7 +34,7 @@ const MIN_SCORE_PADRAO = parseInt(process.env.FILTRO_MIN_SCORE || "2", 10);
 const RELEVANCIA_ON = process.env.FILTRO_RELEVANCIA !== "0";
 
 // Texto puro, sem tags, sem acento e minúsculo — simplifica os padrões.
-const semTags = (s) => String(s == null ? "" : s).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const semTags = (s) => String(s == null ? "" : s).replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/\s+/g, " ").trim();
 const normal = (s) => semTags(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
 export const contaPalavras = (s) => {

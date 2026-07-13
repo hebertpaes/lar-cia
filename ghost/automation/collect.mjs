@@ -32,7 +32,7 @@ const decode = (s) => String(s == null ? "" : s)
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
   .replace(/&#0?39;|&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n))
   .replace(/&amp;/g, "&");
-const stripTags = (s) => decode(String(s == null ? "" : s)).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const stripTags = (s) => decode(String(s == null ? "" : s)).replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/\s+/g, " ").trim();
 const pick = (xml, tag) => { const m = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i")); return m ? m[1] : ""; };
 const attr = (frag, tag, at) => { const m = frag.match(new RegExp(`<${tag}\\b[^>]*\\b${at}\\s*=\\s*["']([^"']+)["'][^>]*>`, "i")); return m ? m[1] : ""; };
 // Mantém o leitor NO PORTAL: link externo (http/https) NÃO fica no corpo da
@@ -77,7 +77,7 @@ export function parseFeed(xml) {
     if (isAtom) {
       link = attr(b, "link", "href") || "";
     } else {
-      link = stripTags(pick(b, "link")) || attr(b, "link", "href") || pick(b, "guid").replace(/<[^>]+>/g, "").trim();
+      link = stripTags(pick(b, "link")) || attr(b, "link", "href") || pick(b, "guid").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, "").trim();
     }
     const dateRaw = pick(b, "pubDate") || pick(b, "published") || pick(b, "updated") || pick(b, "dc:date") || pick(b, "date");
     const descRaw = pick(b, "content:encoded") || pick(b, "description") || pick(b, "summary") || pick(b, "content");

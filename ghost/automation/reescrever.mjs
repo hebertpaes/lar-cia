@@ -55,7 +55,7 @@ const PERSONA_KEY = (PERSONA_ARG || process.env.IA_PERSONA || "").toLowerCase();
 const PERSONA = PERSONAS[PERSONA_KEY] || "";
 const SYSTEM = PERSONA ? `${EDITORIAL}\n\n${PERSONA}` : EDITORIAL;
 
-const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const stripTags = (s) => String(s || "").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/\s+/g, " ").trim();
 const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const clamp = (s, n) => { s = String(s || "").trim(); return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "").trim() : s; };
 
