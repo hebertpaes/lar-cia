@@ -1,0 +1,53 @@
+name: Coluna semanal (O Dia Político)
+
+# Toda semana, escreve UMA coluna de análise política a partir das manchetes de
+# política da semana (do próprio portal) e cria um RASCUNHO no O Dia Político
+# para o editor revisar e publicar. Roda NA NUVEM.
+#
+# Segredos (GitHub → Settings → Secrets and variables → Actions):
+#   ODIAPOLITICO_ADMIN_KEY = id:secret (Admin API Key do O Dia Político)
+#   IA_API_KEY             = chave da IA (a coluna é escrita pela IA)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Só mostrar a coluna (não cria o rascunho)"
+        type: boolean
+        default: true
+  schedule:
+    # Segunda-feira, 10:00 UTC (~7h BRT) — rascunho pronto para a semana.
+    - cron: "0 10 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coluna
+  cancel-in-progress: false
+
+jobs:
+  coluna:
+    name: Escrever a coluna da semana
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preparar config dos sites
+        run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
+
+      - name: Gerar a coluna (rascunho no O Dia Político)
+        env:
+          ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
+          IA_API_KEY: ${{ secrets.IA_API_KEY }}
+          IA_API_URL: ${{ vars.IA_API_URL }}
+          IA_MODEL: ${{ vars.IA_MODEL }}
+        run: |
+          if [ -z "$IA_API_KEY" ] || [ -z "$ODIAPOLITICO_ADMIN_KEY" ]; then
+            echo "Faltam segredos (IA_API_KEY e/ou ODIAPOLITICO_ADMIN_KEY) — nada a fazer."; exit 0; fi
+          APPLY="--apply"
+          [ "${{ github.event.inputs.dry_run }}" = "true" ] && APPLY=""
+          node ghost/automation/coluna.mjs $APPLY || echo "Coluna não gerada (pauta fraca ou IA indisponível)."
