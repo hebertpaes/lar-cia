@@ -4,7 +4,9 @@
      • RE-HOSPEDA no Ghost as imagens EXTERNAS — capa (feature_image) e <img> do
        corpo — que quebram na home (hotlink/404/mixed-content);
      • REMOVE os LINKS EXTERNOS do corpo (âncoras pra fonte/agenciabrasil/gov…),
-       mantendo o texto — pra não mandar o leitor pra fora do portal.
+       mantendo o texto — pra não mandar o leitor pra fora do portal;
+     • REMOVE blocos de "Notícias relacionadas / Leia também" e rodapés de crédito
+       ("Edição: …", "Com informações de …") que a fonte embute.
    Baixa/sobe pro /content/images e atualiza o post.
 
    Roda na SUA máquina (o sandbox não alcança os portais nem as fontes).
@@ -26,7 +28,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { jwt, ehInterna, reHostUrl, reHostHtml, imagensExternas, semLinksExternosSite } from "./imagens.mjs";
-import { semRelacionadas } from "./collect.mjs";
+import { semRelacionadas, semRodape } from "./collect.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -66,7 +68,7 @@ async function main() {
   try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); }
   catch { console.error(`Crie ${cfgPath} a partir de sites.config.example.json.`); process.exit(1); }
 
-  let capas = 0, corpos = 0, links = 0, rel = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
+  let capas = 0, corpos = 0, links = 0, rel = 0, rod = 0, nulls = 0, postsOk = 0, skip = 0, err = 0;
   for (const site of cfg.sites) {
     if (only && site.name !== only) continue;
     const key = process.env[site.keyEnv];
@@ -85,11 +87,12 @@ async function main() {
       const imgsCorpo = imagensExternas(site.url, html0);
       const linksExt = semLinksExternosSite(site.url, html0).removidos;   // conta sem rede
       const temRel = semRelacionadas(html0) !== html0;                    // bloco "relacionadas"?
-      if (!capaExterna && imgsCorpo.length === 0 && linksExt === 0 && !temRel) continue;   // nada a fazer
+      const temRod = semRodape(html0) !== html0;                          // rodapé de crédito?
+      if (!capaExterna && imgsCorpo.length === 0 && linksExt === 0 && !temRel && !temRod) continue;   // nada a fazer
       if (!APPLY) {
-        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · corpo: ${imgsCorpo.length} img, ${linksExt} link, ${temRel ? "1 bloco relacionadas" : "0 bloco"}`);
+        console.log(`  [dry] ${p.slug}: capa ${capaExterna ? "EXTERNA" : "ok"} · corpo: ${imgsCorpo.length} img, ${linksExt} link, ${temRel ? "relacionadas" : "—"}, ${temRod ? "rodapé" : "—"}`);
         if (capaExterna) capas++;
-        corpos += imgsCorpo.length; links += linksExt; if (temRel) rel++;
+        corpos += imgsCorpo.length; links += linksExt; if (temRel) rel++; if (temRod) rod++;
         continue;
       }
       try {
@@ -105,6 +108,7 @@ async function main() {
           if (r.trocadas > 0) { html = r.html; corpos += r.trocadas; mudouHtml = true; }
         }
         { const h = semRelacionadas(html); if (h !== html) { html = h; rel++; mudouHtml = true; } }
+        { const h = semRodape(html); if (h !== html) { html = h; rod++; mudouHtml = true; } }
         { const r = semLinksExternosSite(site.url, html); if (r.removidos > 0) { html = r.html; links += r.removidos; mudouHtml = true; } }
         if (mudouHtml) patch.html = html;
         if (Object.keys(patch).length === 0) { skip++; continue; }
@@ -114,7 +118,7 @@ async function main() {
       } catch (e) { console.log(`  ✗ ${p.slug}: ${e.message}`); err++; }
     }
   }
-  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} links-externos-removidos=${links} blocos-relacionadas=${rel} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
+  console.log(`\nResumo: capas=${capas} imagens-corpo=${corpos} links-externos-removidos=${links} blocos-relacionadas=${rel} rodapes=${rod} zeradas=${nulls} posts-atualizados=${postsOk} pulados=${skip} erros=${err}${APPLY ? "" : " (dry-run — use --apply)"}`);
 }
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);

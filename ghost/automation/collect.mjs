@@ -50,9 +50,16 @@ export const semLinksExternos = (html) => String(html == null ? "" : html)
 export const semRelacionadas = (html) => String(html == null ? "" : html)
   .replace(/<(h[1-6]|p)\b[^>]*>(?:(?!<\/\1>)[\s\S])*?(?:not[ií]cias?\s+relacionad|mat[eé]rias?\s+relacionad|conte[uú]dos?\s+relacionad|leia\s+(?:tamb[eé]m|mais)|veja\s+(?:tamb[eé]m|mais)|saiba\s+mais)(?:(?!<\/\1>)[\s\S])*?<\/\1>\s*<(ul|ol)\b[\s\S]*?<\/\2>/gi, "");
 
-// Limpeza do CORPO da matéria: tira os blocos de "relacionadas" e remove os links
-// externos (mantendo o texto). É o que collect/reescrever aplicam no corpo.
-export const limparCorpo = (html) => semLinksExternos(semRelacionadas(html));
+// Remove RODAPÉS de crédito que a fonte (agenciabrasil/EBC) põe no fim: "Edição:
+// …", "Com informações de/da …", "Reportagem:/Texto:/Fonte: …", "Colaborou …",
+// "Assessoria de Imprensa/Comunicação …", "*Estagiário sob supervisão …". Só casa
+// o PARÁGRAFO que COMEÇA com o gatilho (evita apagar prosa) e curto (≤200 chars).
+export const semRodape = (html) => String(html == null ? "" : html)
+  .replace(/<p\b[^>]*>(?:\s*<(?:strong|em|b|i|span)\b[^>]*>)*\s*(?:edi[çc][ãa]o\s*:|com\s+informa[çc][õo]es|com\s+colabora[çc][ãa]o|colabora[çc][ãa]o\s*:|colaborou\b|reportagem\s*:|texto\s*:|fonte\s*:|assessoria\s+de\s+(?:imprensa|comunica[çc][ãa]o)|\*\s*(?:estagi|sob\s+supervis))(?:(?!<\/p>)[\s\S]){0,200}<\/p>\s*/gi, "");
+
+// Limpeza do CORPO da matéria: tira blocos de "relacionadas", rodapés de crédito
+// e remove os links externos (mantendo o texto). collect/reescrever aplicam isso.
+export const limparCorpo = (html) => semLinksExternos(semRodape(semRelacionadas(html)));
 
 // ---------- parser RSS/Atom (exportado p/ teste) --------------------------
 export function parseFeed(xml) {
