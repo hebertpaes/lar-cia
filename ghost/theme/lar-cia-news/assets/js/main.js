@@ -496,3 +496,19 @@
     location.reload();
   }, 60000);
 })();
+
+/* Tempo de leitura dinâmico na linha de autoria: "lendo" ENQUANTO o leitor rola a
+   página; "lido" quando PARA de rolar e fica estático. Volta a "lendo" ao rolar
+   de novo. Começa em "lendo" (o leitor acabou de abrir p/ ler). */
+(function () {
+  var el = document.querySelector(".rt-state");
+  if (!el) return;
+  var lendo = el.getAttribute("data-lendo") || "lendo";
+  var lido = el.getAttribute("data-lido") || "lido";
+  var t = null;
+  window.addEventListener("scroll", function () {
+    if (el.textContent !== lendo) el.textContent = lendo;
+    clearTimeout(t);
+    t = setTimeout(function () { el.textContent = lido; }, 900);
+  }, { passive: true });
+})();
