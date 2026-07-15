@@ -33,6 +33,10 @@
         "default": "5",
         "description": "Quantos posts no slider da home (Featured ficam fixados)."
       },
+      "logo_dark": {
+        "type": "image",
+        "description": "Logo para o modo escuro (fundo escuro/cabeçalho preto). Vazio = usa a logo normal."
+      },
       "banner_casa": {
         "type": "image",
         "description": "Banner 'Anuncie aqui' da casa (sem anúncio pago). Vazio = usa o GIF do tema."
@@ -96,10 +100,6 @@
         "type": "text",
         "default": "https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4351&s=2026",
         "description": "API da classificação (opcional). Padrão: tabela do Brasileirão. Vazio = oculta a tabela."
-      },
-      "whats_url": {
-        "type": "text",
-        "description": "Link do WhatsApp (ex.: https://wa.me/5565999900005)."
       },
       "face_url": {
         "type": "text",

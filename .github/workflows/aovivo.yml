@@ -1,0 +1,72 @@
+name: AO VIVO — resumo + cortes (automático)
+
+# Depois das sessões legislativas, para CADA casa (ALMT, Câmara, Senado, Câmara
+# de Cuiabá) pega a última transmissão ENCERRADA no YouTube e publica no O Dia
+# Político: 1 RESUMO da sessão + os CORTES (trechos) na aba de vídeos. Roda NA
+# NUVEM. O dedup por slug garante que só sessão NOVA é publicada (re-rodar é
+# seguro; sessão já publicada é ignorada).
+#
+# Segredos (GitHub → Settings → Secrets and variables → Actions):
+#   YOUTUBE_API_KEY         = chave da YouTube Data API v3 (obrigatória)
+#   ODIAPOLITICO_ADMIN_KEY  = id:secret (Admin API Key do O Dia Político)
+#   IA_API_KEY              = (opcional) lapida o resumo a partir da descrição
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Só simular (não publica)"
+        type: boolean
+        default: true
+  schedule:
+    # Terça a sexta, no fim da tarde/noite (UTC) — depois das sessões.
+    - cron: "0 21,23 * * 2-5"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aovivo
+  cancel-in-progress: false
+
+jobs:
+  aovivo:
+    name: Resumo + cortes das sessões
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preparar config dos sites
+        run: cp ghost/automation/sites.config.example.json ghost/automation/sites.config.json
+
+      - name: Gerar e publicar (resumo + cortes) por casa
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          IA_API_KEY: ${{ secrets.IA_API_KEY }}
+          IA_API_URL: ${{ vars.IA_API_URL }}
+          IA_MODEL: ${{ vars.IA_MODEL }}
+          ODIAPOLITICO_ADMIN_KEY: ${{ secrets.ODIAPOLITICO_ADMIN_KEY }}
+        run: |
+          if [ -z "$YOUTUBE_API_KEY" ]; then echo "Sem YOUTUBE_API_KEY — nada a fazer."; exit 0; fi
+          DRY=""
+          [ "${{ github.event.inputs.dry_run }}" = "true" ] && DRY="--dry-run"
+          for CASA in almt camara senado cuiaba; do
+            echo "==================  CASA: $CASA  =================="
+            OUT="ghost/import/aovivo-$CASA-$(date -u +%F).json"
+            if node ghost/automation/aovivo-resumo.mjs --casa=$CASA --out="$OUT"; then
+              node ghost/automation/publish.mjs "$OUT" --only=odiapolitico $DRY
+            else
+              echo "-- $CASA: sem sessão encerrada nova (ou API indisponível) --"
+            fi
+          done
+
+      - name: Guardar os JSONs gerados (artefato)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aovivo
+          path: ghost/import/aovivo-*.json
+          if-no-files-found: ignore

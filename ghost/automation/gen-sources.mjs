@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /* Gera ghost/automation/sources.mt.json — registro das ASSESSORIAS oficiais de
    Mato Grosso que o coletor (collect.mjs) vai varrer:
-     - Estaduais: SECOM-MT (Executivo) e ALMT (Assembleia Legislativa)
-     - 142 PREFEITURAS  (padrão de domínio: <municipio>.mt.gov.br)
-     - 142 CÂMARAS       (padrão de domínio: <municipio>.mt.leg.br)
+     - Federais: Agência Brasil, Agência Câmara, Agência Senado e gov.br/SECOM
+     - Estaduais: SECOM-MT (Executivo), ALMT (Assembleia) e AMM (Associação dos Municípios)
+     - 141 PREFEITURAS  (padrão de domínio: <municipio>.mt.gov.br)
+     - 141 CÂMARAS       (padrão de domínio: <municipio>.mt.leg.br)
 
    IMPORTANTE: os domínios das prefeituras/câmaras seguem um PADRÃO, mas há
    exceções. Por isso cada entrada gerada vem com "verificar": true. Rode o
@@ -54,6 +55,29 @@ const MUNICIPIOS = [
 
 const sources = [];
 
+// ---- Federais (feeds RSS conhecidos) -------------------------------------
+sources.push({
+  id: "agencia-brasil", nome: "Agência Brasil (EBC)", nivel: "federal", poder: "executivo",
+  municipio: "Brasil", url: "https://agenciabrasil.ebc.com.br",
+  feed: "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml",
+  editoria: "brasil-mundo", verificar: false,
+});
+sources.push({
+  id: "agencia-camara", nome: "Agência Câmara de Notícias", nivel: "federal", poder: "legislativo",
+  municipio: "Brasil", url: "https://www.camara.leg.br",
+  feed: "https://www.camara.leg.br/noticias/rss/todas", editoria: "politica", verificar: false,
+});
+sources.push({
+  id: "agencia-senado", nome: "Agência Senado", nivel: "federal", poder: "legislativo",
+  municipio: "Brasil", url: "https://www12.senado.leg.br/noticias",
+  feed: "https://www12.senado.leg.br/noticias/feed", editoria: "politica", verificar: false,
+});
+sources.push({
+  id: "gov-br-secom", nome: "gov.br — Notícias (Secretaria de Comunicação/PR)", nivel: "federal",
+  poder: "executivo", municipio: "Brasil",
+  url: "https://www.gov.br/secom/pt-br/assuntos/noticias", editoria: "brasil-mundo", verificar: true,
+});
+
 // ---- Estaduais (grafia/domínio conhecidos) -------------------------------
 sources.push({
   id: "secom-mt", nome: "SECOM-MT (Governo de Mato Grosso)", nivel: "estadual",
@@ -64,6 +88,11 @@ sources.push({
   id: "almt", nome: "Assembleia Legislativa de MT (ALMT)", nivel: "estadual",
   poder: "legislativo", municipio: "Mato Grosso", url: "https://www.al.mt.gov.br",
   editoria: "politica", verificar: false,
+});
+sources.push({
+  id: "amm", nome: "AMM (Associação Mato-grossense dos Municípios)", nivel: "estadual",
+  poder: "associativo", municipio: "Mato Grosso", url: "https://www.amm.org.br/Noticias",
+  editoria: "cidades", verificar: true,
 });
 
 // ---- Prefeituras e Câmaras (padrão de domínio — VERIFICAR) ----------------
@@ -86,4 +115,4 @@ const out = {
   sources,
 };
 writeFileSync(outPath, JSON.stringify(out, null, 2) + "\n", "utf8");
-console.log(`OK: ${outPath} — fontes=${sources.length} (estaduais=2, prefeituras=${MUNICIPIOS.length}, câmaras=${MUNICIPIOS.length})`);
+console.log(`OK: ${outPath} — fontes=${sources.length} (federais=4, estaduais/AMM=3, prefeituras=${MUNICIPIOS.length}, câmaras=${MUNICIPIOS.length})`);

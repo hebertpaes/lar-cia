@@ -32,6 +32,9 @@
 /* Logo embutida (par claro/branca): no cabeçalho preto usa SEMPRE a branca */
 .brand-logo.logo-light { display: none; }
 .brand-logo.logo-dark  { display: inline-block; }
+/* Sobre o preto do portal a logo ganha presença com um brilho suave (claro e
+   escuro; no dark o realce da base, com maior especificidade, assume). */
+.brand-logo, .footer-logo { filter: drop-shadow(0 1px 9px rgba(255,255,255,.16)); }
 .search-drawer { background: var(--fox-navy-2); border-top: 1px solid rgba(255,255,255,.12); }
 .search-form input { background: #fff; border-color: transparent; color: #111111; }
 
@@ -135,10 +138,7 @@
   .main-nav .nav-collapse.open .nav-extra .nav-theme { color: var(--fox-ink); }
 }
 
-/* Player AO VIVO — os estilos do seletor moram no screen.css (todos os portais).
-   Aqui só o ajuste do escuro: o accent do O Dia Político é preto (#111), que
-   sumiria na aba ativa no dark; então a aba ativa fica com fundo branco. */
-:root[data-theme="dark"] .live-leg .leg-tab.active { background: #fff; color: #111; border-color: #fff; }
-/* O accent do O Dia Político é preto (#111) e sumiria no botão ▶ sobre o poster
-   escuro; deixa o play branco com o triângulo preto. */
-.live-poster .live-play { background: #fff; color: #111; }
+/* O Dia Político TV — o dropdown mora no screen.css (todos os portais). Aqui só
+   o ajuste do escuro: o accent do portal é preto (#111) e a seta ▾ sumiria no
+   dropdown escuro; deixa a seta clara (a base já cobre, reforço a especificidade). */
+:root[data-theme="dark"] .live-tv .leg-select-wrap::after { color: #cdd2da; }

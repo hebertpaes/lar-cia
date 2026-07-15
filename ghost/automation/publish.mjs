@@ -21,11 +21,11 @@
      # Publicar nos portais de produção:
      HOJEMT_ADMIN_KEY='..' ODIAPOLITICO_ADMIN_KEY='..' node ghost/automation/publish.mjs ghost/import/secom-import.json
 */
-import crypto from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { avaliar } from "./filtro.mjs";
+import { jwt, reHostUrl, reHostHtml } from "./imagens.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -54,15 +54,12 @@ const htmlOf = (post) => {
   try { return JSON.parse(post.mobiledoc).cards[0][1].html; } catch { return ""; }
 };
 
-function jwt(key) {
-  const [id, secret] = key.split(":");
-  const b64 = (b) => Buffer.from(b).toString("base64").replace(/=+$/g, "").replace(/\+/g, "-").replace(/\//g, "_");
-  const head = b64(JSON.stringify({ alg: "HS256", typ: "JWT", kid: id }));
-  const now = Math.floor(Date.now() / 1000);
-  const pay = b64(JSON.stringify({ iat: now, exp: now + 300, aud: "/admin/" }));
-  const sig = crypto.createHmac("sha256", Buffer.from(secret, "hex")).update(`${head}.${pay}`).digest();
-  return `${head}.${pay}.${b64(sig)}`;
-}
+// --- Re-hospedagem de imagens (foto de capa + imagens do corpo) -------------
+// Baixa a imagem externa da fonte e sobe pro Ghost (/content/images), evitando
+// quebra por hotlink/http/404 na home. Vale pra feature_image E pras <img> do
+// corpo. Desliga com REHOST_IMAGES=0. (jwt/reHost moram em imagens.mjs)
+const REHOST = process.env.REHOST_IMAGES !== "0";
+const imgCache = new Map();
 
 async function exists(site, slug, key) {
   const r = await fetch(`${site.url}/ghost/api/admin/posts/slug/${encodeURIComponent(slug)}/?fields=id`,
@@ -74,9 +71,15 @@ async function publish(site, post, key) {
   // Ghost limita custom_excerpt a 300 caracteres → trunca com segurança (sem a
   // IA, o resumo cru da coleta pode passar disso e derrubar o post com HTTP 422).
   const excerpt = post.custom_excerpt ? String(post.custom_excerpt).trim().slice(0, 296) : null;
+  // Re-hospeda a foto de capa E as imagens do corpo; se falhar, mantém o original.
+  let html = htmlOf(post), feature = post.feature_image || null;
+  if (REHOST) {
+    if (feature) feature = (await reHostUrl(site.url, feature, key, imgCache)) || feature;
+    html = (await reHostHtml(site.url, html, key, imgCache)).html;
+  }
   const body = { posts: [{
-    title: post.title, slug: post.slug, html: htmlOf(post),
-    custom_excerpt: excerpt, feature_image: post.feature_image || null,
+    title: post.title, slug: post.slug, html,
+    custom_excerpt: excerpt, feature_image: feature,
     feature_image_caption: post.feature_image_caption || null,
     status: draftMode ? "draft" : "published", published_at: draftMode ? undefined : (post.published_at || undefined),
     tags: tagsOf(post.id).filter((t) => t.visibility === "public").map((t) => ({ name: t.name })),

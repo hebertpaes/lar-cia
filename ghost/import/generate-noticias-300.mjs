@@ -21,7 +21,11 @@ const slugify = (s) => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]
   .replace(/['’"]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const mobiledoc = (html) => JSON.stringify({ version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]] });
-const photo = (seed) => `https://picsum.photos/seed/${seed}/1200/675`;
+const PH = ["/assets/img/ph-1.svg", "/assets/img/ph-2.svg", "/assets/img/ph-3.svg", "/assets/img/ph-4.svg"];
+// Placeholder do PRÓPRIO tema (self-hosted) — não depende de serviço externo tipo
+// picsum, que quebra na home. Se faltar no tema, o onerror cai no placeholder da
+// marca. Rotaciona por seed p/ dar variedade.
+const photo = (seed) => PH[[...String(seed)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % PH.length];
 const pick = (arr, i) => arr[i % arr.length];
 
 const BASE = Date.UTC(2026, 5, 30, 20, 0, 0);

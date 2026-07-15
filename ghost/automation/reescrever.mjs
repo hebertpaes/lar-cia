@@ -22,7 +22,8 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { linkExternos } from "./collect.mjs";
+import { fileURLToPath } from "node:url";
+import { limparCorpo } from "./collect.mjs";
 
 const EDITORIAL =
   "Você é um escritor, editor, redator e jornalista profissional. Sua missão é " +
@@ -54,7 +55,7 @@ const PERSONA_KEY = (PERSONA_ARG || process.env.IA_PERSONA || "").toLowerCase();
 const PERSONA = PERSONAS[PERSONA_KEY] || "";
 const SYSTEM = PERSONA ? `${EDITORIAL}\n\n${PERSONA}` : EDITORIAL;
 
-const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const stripTags = (s) => String(s || "").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ").replace(/\s+/g, " ").trim();
 const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const clamp = (s, n) => { s = String(s || "").trim(); return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "").trim() : s; };
 
@@ -72,7 +73,7 @@ const INSTRUCAO =
   "Regras: titulo ≤76 caracteres; subtitulo ≤55; resumo entre 139 e 149; " +
   "corpo_html com parágrafos <p>…</p> (jornalismo profissional, texto único).";
 
-async function reescreverUm(titulo, texto) {
+export async function reescreverUm(titulo, texto) {
   const userMsg = `${INSTRUCAO}\n\nTÍTULO ORIGINAL: ${titulo}\nTEXTO ORIGINAL:\n${texto}`;
   let out = "";
   if (PROVIDER === "anthropic") {
@@ -134,7 +135,7 @@ async function main() {
       p.title = e.titulo;
       p.custom_excerpt = e.resumo || p.custom_excerpt || null;
       const deck = e.subtitulo ? `<p class="post-deck"><strong>${esc(e.subtitulo)}</strong></p>` : "";
-      p.mobiledoc = mobiledocFromHtml(linkExternos(deck + e.corpo_html));
+      p.mobiledoc = mobiledocFromHtml(limparCorpo(deck + e.corpo_html));
       ok++; if (verbose) console.log(`  ✓ ${e.titulo}  (sub ${e.subtitulo.length}c · resumo ${(e.resumo || "").length}c)`);
     } catch (err) { fail++; if (verbose) console.log(`  ✗ mantido original: ${p.title.slice(0, 50)} — ${err.message}`); }
   }
@@ -142,4 +143,6 @@ async function main() {
   console.log(`Reescritas: ${ok} · falhas (mantidas originais): ${fail} · arquivo: ${outPath}`);
 }
 
-main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });
+// Só executa quando chamado direto (permite importar reescreverUm em outros tools).
+const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) main().catch((e) => { console.error("Falhou:", e.message); process.exit(1); });

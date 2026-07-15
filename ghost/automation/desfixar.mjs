@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-/* DESFIXAR matérias antigas da CAPA (slider de destaques).
-   O slider mostra as FIXADAS (Featured) no topo. Se o seed demo antigo ficou
+/* DESFIXAR matérias da CAPA (slider de destaques).
+   O slider mostra as FIXADAS (Featured) no topo. Se um seed/manchete ficou
    fixado, ele "prende" a capa. Este script tira o Featured das matérias fixadas
-   mais velhas que N dias (padrão 2) — deixando a capa voltar a mostrar a notícia
-   real mais recente (com a foto real da fonte).
+   — deixando a capa voltar a mostrar a notícia real mais recente (com a foto real
+   da fonte) e o conteúdo descer no fluxo cronológico até o fim da rolagem/páginas.
+   Por padrão só mexe nas fixadas mais velhas que N dias (padrão 2); com --tudo,
+   desfixa TODAS (ignora a idade).
 
    SEGURANÇA:
      • Padrão = --dry-run: só LISTA o que desfixaria (não altera nada).
-     • Só mexe em FIXADAS antigas (> --dias). Um destaque recente é preservado.
+     • Sem --tudo, só mexe em FIXADAS antigas (> --dias). Destaque recente preservado.
      • Não apaga nada — apenas troca featured:true → featured:false.
 
    As chaves vêm de variáveis de ambiente (como no publish.mjs), NUNCA do repo.
@@ -18,8 +20,10 @@
        node ghost/automation/desfixar.mjs
      # Desfixar de verdade só num portal, fixadas com mais de 2 dias:
      HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/desfixar.mjs --only=hojemt --apply
-     # Desfixar TODAS as fixadas (ignora a idade):
-     HOJEMT_ADMIN_KEY='id:secret' node ghost/automation/desfixar.mjs --apply --todos
+     # Desfixar TODAS as fixadas dos 3 portais (ignora a idade) — "destave tudo":
+     HOJEMT_ADMIN_KEY='..' PACUNEWS_ADMIN_KEY='..' ODIAPOLITICO_ADMIN_KEY='..' \
+       node ghost/automation/desfixar.mjs --apply --tudo
+     # Jeito fácil (wrapper, pergunta a chave): bash ghost/scripts/desfixar.sh hojemt --tudo
 */
 import crypto from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -32,7 +36,7 @@ const has = (k) => args.includes(`--${k}`);
 const opt = (k, d) => { const a = args.find((x) => x.startsWith(`--${k}=`)); return a ? a.split("=").slice(1).join("=") : d; };
 
 const apply = has("apply");        // sem isso, é dry-run
-const todos = has("todos");        // ignora a idade (desfixa todas)
+const todos = has("todos") || has("tudo");  // ignora a idade (desfixa TODAS as fixadas)
 const only = opt("only", null);
 const diasParsed = parseInt(opt("dias", "2"), 10);
 const dias = Number.isNaN(diasParsed) ? 2 : diasParsed;

@@ -58,10 +58,11 @@ if [ -f "$DIR/../brand/$SLUG-logo.svg" ]; then
     const fs = require("fs");
     const out = process.argv[1];
     const span = "<span class=\"brand-mark\">{{@site.title}}</span>";
-    // duas imagens: colorida (light) e branca (dark) — o CSS troca conforme o tema
+    // duas imagens: colorida (light) e branca (dark) — o CSS troca conforme o tema.
+    // No dark, uma logo enviada no painel (@custom.logo_dark) vence a SVG embutida.
     const pair = (base) =>
       `<img class="${base} logo-light" src="{{asset "img/logo.svg"}}" alt="{{@site.title}}" />` +
-      `<img class="${base} logo-dark" src="{{asset "img/logo-branco.svg"}}" alt="{{@site.title}}" />`;
+      `<img class="${base} logo-dark" src="{{#if @custom.logo_dark}}{{@custom.logo_dark}}{{else}}{{asset "img/logo-branco.svg"}}{{/if}}" alt="{{@site.title}}" />`;
     for (const [file, base] of [["partials/site-header.hbs", "brand-logo"], ["partials/site-footer.hbs", "footer-logo"]]) {
       const p = out + "/" + file;
       fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace(span, pair(base)));

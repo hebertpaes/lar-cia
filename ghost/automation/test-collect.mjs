@@ -64,7 +64,7 @@ B.add({ title: "Teste", slug: "teste-cuiaba", html: "<p>oi</p>", excerpt: "oi",
   when: Date.now(), tagIds: [tEd, tMun, tCol] });
 const out = B.done().db[0].data;
 const p = out.posts[0];
-ok(/^Fonte: <a href="https:\/\/www\.cuiaba\.mt\.gov\.br\/n\/1"/.test(p.feature_image_caption), "builder: fonte na legenda da imagem");
+ok(p.feature_image_caption === "Fonte: Prefeitura de Cuiabá", "builder: fonte (texto, sem link externo) na legenda");
 ok(p.feature_image === "https://x/y.jpg", "builder: feature_image setado");
 const firstTagOfPost = out.posts_tags.filter((x) => x.post_id === p.id).sort((a, b) => a.sort_order - b.sort_order)[0].tag_id;
 ok(firstTagOfPost === tEd, "builder: editoria é a 1ª tag (roteamento por editoria)");

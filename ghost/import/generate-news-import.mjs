@@ -26,7 +26,11 @@ const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").
 const mobiledoc = (html) => JSON.stringify({
   version: "0.3.1", atoms: [], markups: [], sections: [[10, 0]], cards: [["html", { html }]],
 });
-const photo = (seed) => `https://picsum.photos/seed/${seed}/1200/675`;
+const PH = ["/assets/img/ph-1.svg", "/assets/img/ph-2.svg", "/assets/img/ph-3.svg", "/assets/img/ph-4.svg"];
+// Placeholder do PRÓPRIO tema (self-hosted) — não depende de serviço externo tipo
+// picsum, que quebra na home. Se faltar no tema, o onerror cai no placeholder da
+// marca. Rotaciona por seed p/ dar variedade.
+const photo = (seed) => PH[[...String(seed)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % PH.length];
 const banner = (w, h, text) => `https://placehold.co/${w}x${h}/C20017/ffffff?text=${encodeURIComponent(text)}`;
 
 // Datas determinísticas (primeiro item = mais recente → vira manchete).

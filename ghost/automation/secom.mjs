@@ -40,7 +40,7 @@ const decodeEntities = (s) => String(s == null ? "" : s)
   .replace(/&quot;/g, '"').replace(/&apos;|&#39;/g, "'")
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
   .replace(/&amp;/g, "&");
-const stripTags = (s) => decodeEntities(String(s == null ? "" : s).replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+const stripTags = (s) => decodeEntities(String(s == null ? "" : s).replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ").replace(/<(?:[^>"']|"[^"]*"|'[^']*')*>/g, " ")).replace(/\s+/g, " ").trim();
 
 // pega <meta property|name="X" content="Y"> (em qualquer ordem dos atributos)
 export function meta(html, key) {
